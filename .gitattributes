@@ -1,2 +1,8 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Ignorar TextMesh Pro para las estadísticas de lenguaje
+Assets/TextMesh?Pro/** linguist-generated
+
+# Si tienes otros plugins pesados, agrégalos igual:
+Assets/Plugins/** linguist-generated
+
+# Opcional: Si quieres ignorar todos los shaders del proyecto en las estadisticas
+*.shader linguist-generated
