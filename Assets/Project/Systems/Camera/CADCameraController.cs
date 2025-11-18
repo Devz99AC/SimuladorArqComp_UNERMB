@@ -4,26 +4,25 @@ using UnityEngine.InputSystem;
 public class CADCameraController : MonoBehaviour
 {
     [Header("Configuración Inicial")]
-    public Transform targetInicial; // La Motherboard o el centro de la mesa
+    public Transform targetInicial; // La Motherboard
 
     [Header("Sensibilidad")]
     public float rotateSpeed = 5f;
     public float panSpeed = 0.01f;
     public float zoomStep = 2f;
-    public float smoothing = 5f; // Un poco más suave para transiciones elegantes
+    public float smoothing = 5f; 
 
     [Header("Límites")]
     public Vector2 zoomLimits = new Vector2(2f, 50f);
     public Vector2 verticalAngleLimit = new Vector2(5f, 89f);
 
     [Header("Automatización")]
-    public float idleTimeBeforeReset = 10f; // Segundos sin tocar nada para volver al inicio
-    public float wideShotDistance = 15f;    // Distancia de la vista general
+    public float idleTimeBeforeReset = 10f; // Segundos de inactividad para resetear
+    public float wideShotDistance = 15f;    // Distancia de la vista "Home"
 
     // --- ESTADO INTERNO ---
     private SimulationControls _controls;
     
-    // Pivote y posiciones objetivo
     private Vector3 _targetPivotPosition; 
     private Vector3 _currentPivotPosition;
 
@@ -35,9 +34,8 @@ public class CADCameraController : MonoBehaviour
     private float _targetDistance;
     private float _currentDistance;
 
-    // Variables para el Timer de Inactividad
     private float _lastInputTime;
-    private Vector3 _initialPivotPos; // Para recordar dónde es el "Home"
+    private Vector3 _initialPivotPos; 
 
     private void Awake()
     {
@@ -46,21 +44,18 @@ public class CADCameraController : MonoBehaviour
 
     private void Start()
     {
-        // 1. Configurar posición inicial
         if (targetInicial != null) 
             _targetPivotPosition = targetInicial.position;
         else 
             _targetPivotPosition = Vector3.zero;
 
-        // Guardamos esta posición como el "Home"
         _initialPivotPos = _targetPivotPosition;
 
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
-        _targetDistance = wideShotDistance; // Empezamos lejos
+        _targetDistance = wideShotDistance; 
 
-        // Inicializar suavizado
         _currentPivotPosition = _targetPivotPosition;
         _currentYaw = _targetYaw;
         _currentPitch = _targetPitch;
@@ -83,7 +78,8 @@ public class CADCameraController : MonoBehaviour
     {
         bool receivedInput = false;
 
-        // 0. RESET MANUAL (Barra Espaciadora)
+        // --- 0. RESET MANUAL (Barra Espaciadora) ---
+        // Verifica que hayas creado la acción "ResetView" en el Input Map
         if (_controls.Player.ResetView.WasPressedThisFrame())
         {
             GoToWideView();
@@ -129,39 +125,51 @@ public class CADCameraController : MonoBehaviour
         return receivedInput;
     }
 
-    // --- LÓGICA DE INACTIVIDAD ---
+    // --- LÓGICA DE RETORNO ---
     private void CheckIdle(bool hasInput)
     {
         if (hasInput)
         {
-            _lastInputTime = Time.time; // Resetear reloj
+            _lastInputTime = Time.time; 
         }
         else
         {
-            // Si ha pasado el tiempo límite, volvemos a casa
             if (Time.time - _lastInputTime > idleTimeBeforeReset)
             {
                 GoToWideView();
-                _lastInputTime = Time.time; // Para que no lo llame cada frame
+                _lastInputTime = Time.time; 
             }
         }
     }
 
-    // --- MÉTODOS PÚBLICOS DE NAVEGACIÓN ---
+    // --- MÉTODOS PÚBLICOS ---
 
-    // 1. Volver al escritorio completo
     public void GoToWideView()
     {
-        _targetPivotPosition = _initialPivotPos; // Centro de la mesa
-        _targetDistance = wideShotDistance;      // Lejos
+        _targetPivotPosition = _initialPivotPos; 
+        _targetDistance = wideShotDistance;      
+        
+        // Reseteamos rotación a una vista isométrica agradable (45, 45)
+        // Opcional: Si prefieres mantener la rotación actual, comenta estas 2 líneas
+        _targetPitch = 45f; 
+        _targetYaw = 45f;
     }
 
-    // 2. Enfocar para trabajar (Modo Ensamble)
-    public void FocusForAssembly(Transform destination)
+    public void SetTopDownView(Transform target, float height)
     {
-        _targetPivotPosition = destination.position;
-        _targetDistance = 5f; // Distancia cercana para trabajar (ajusta este valor)
-        _lastInputTime = Time.time; // Evitar que el idle salte mientras trabajas
+        _targetPivotPosition = target.position;
+        _targetPitch = 89f; // Casi cenital
+        _targetYaw = 0f; 
+        _targetDistance = height;
+        _lastInputTime = Time.time;
+    }
+
+    // Esta función se mantiene por compatibilidad con el InteractionManager anterior
+    public void FocusOnObject(Transform newTarget)
+    {
+         _targetPivotPosition = newTarget.position;
+         if (_targetDistance > 10f) _targetDistance = 8f;
+         _lastInputTime = Time.time;
     }
 
     private void ApplyMovement()
@@ -177,23 +185,5 @@ public class CADCameraController : MonoBehaviour
 
         transform.position = finalPosition;
         transform.rotation = rotation;
-    }
-
-    public void SetTopDownView(Transform target, float height)
-    {
-        // 1. Centrar el pivote en la Motherboard
-        _targetPivotPosition = target.position;
-        
-        // 2. Forzar la rotación a mirar hacia abajo (89 grados es casi perpendicular)
-        _targetPitch = 89f; 
-        
-        // 3. Alinear la rotación horizontal (Opcional: 0 para que quede recta)
-        _targetYaw = 0f; 
-
-        // 4. Ajustar la altura (Zoom) para ver toda la placa
-        _targetDistance = height;
-        
-        // Reiniciar el timer de inactividad para que no se mueva sola mientras trabajas
-        _lastInputTime = Time.time;
     }
 }
