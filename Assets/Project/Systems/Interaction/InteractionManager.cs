@@ -1,27 +1,38 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class InteractionManager : MonoBehaviour
 {
-    [Header("Configuración")]
-    public LayerMask interactableLayer; // Recuerda asignar el Layer "Interactable" aquí
-    public float dragHeight = 0.5f;     // Altura a la que flota la pieza al arrastrar
+    [Header("Configuración de Raycast")]
+    public LayerMask interactableLayer;
 
-    // Referencias
+    [Header("Configuración de Arrastre")]
+    [Tooltip("Altura a la que flota la pieza al arrastrarla")]
+    public float dragHeight = 1.5f;
+
+    [Header("Límites de la Mesa (La Jaula)")]
+    [Tooltip("Distancia máxima desde el centro que la pieza puede alejarse")]
+    public float tableLimitSize = 4f; 
+    [Tooltip("Si el rayo golpea más lejos que esto, lo ignoramos (Freno de horizonte)")]
+    public float maxRayDistance = 30f;
+
+    [Header("Configuración de Cámara")]
+    public Transform assemblyZone; // Arrastra aquí tu Motherboard
+    public float topDownHeight = 12f;
+
+    // Referencias internas
     private SimulationControls _controls;
     private Camera _cam;
-    private CADCameraController _camController; // <--- AHORA USAMOS EL NUEVO SCRIPT CAD
+    private CADCameraController _camController;
     
-    // Estado del Drag & Drop
-    private PCPart _currentPart; 
-    private Plane _dragPlane; 
+    private PCPart _currentPart;
+    private Plane _dragPlane;
 
     private void Awake()
     {
         _controls = new SimulationControls();
         _cam = Camera.main;
-        
-        // Buscamos el nuevo script de cámara estilo CAD
         if (_cam != null)
             _camController = _cam.GetComponent<CADCameraController>();
     }
@@ -58,33 +69,32 @@ public class InteractionManager : MonoBehaviour
         // Lanzamos Raycast
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
         {
-            // Buscamos el script PCPart (usando InParent por seguridad)
+            // Buscamos el script PCPart en el objeto o sus padres
             PCPart part = hit.collider.GetComponentInParent<PCPart>();
             
             if (part != null)
             {
-                // 1. ORDEN A LA CÁMARA: "Cambia tu pivote a esta pieza"
-                if (_camController != null) 
+                // 1. Activar Modo Ingeniero (Top-Down)
+                if (_camController != null && assemblyZone != null && !part.IsInstalled) 
                 {
-                    _camController.FocusOnObject(part.transform);
+                    _camController.SetTopDownView(assemblyZone, topDownHeight);
                 }
 
-                // 2. LOGICA DE ARRASTRE
+                // 2. Iniciar Arrastre
                 if (!part.IsInstalled)
                 {
                     _currentPart = part;
-                    // Creamos plano matemático en la posición del impacto
+                    // Plano horizontal en el punto de impacto
                     _dragPlane = new Plane(Vector3.up, hit.point);
                 }
             }
         }
         else
         {
-            // SI HACEMOS CLIC EN EL VACÍO:
-            // Volvemos a enfocar el objetivo inicial (la Motherboard) para no perdernos
-            if (_camController != null && _camController.targetInicial != null) 
+            // Clic en el vacío: Volver a vista panorámica
+            if (_camController != null) 
             {
-                _camController.FocusOnObject(_camController.targetInicial);
+                _camController.GoToWideView();
             }
         }
     }
@@ -93,8 +103,22 @@ public class InteractionManager : MonoBehaviour
     {
         if (_currentPart != null)
         {
-            _currentPart.TryToSnap(); 
-            _currentPart = null;      
+            _currentPart.TryToSnap(); // Intentar conectar
+            _currentPart = null;      // Soltar
+
+            // Volver a vista panorámica tras 1 segundo
+            StartCoroutine(ReturnToWideViewAfterDelay(1.0f));
+        }
+    }
+
+    private IEnumerator ReturnToWideViewAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Solo volvemos si no ha agarrado otra pieza
+        if (_currentPart == null && _camController != null)
+        {
+            _camController.GoToWideView();
         }
     }
 
@@ -105,12 +129,49 @@ public class InteractionManager : MonoBehaviour
 
         if (_dragPlane.Raycast(ray, out float distance))
         {
-            // Mover la pieza a donde apunta el mouse en el plano invisible
-            Vector3 targetPos = ray.GetPoint(distance);
-            // Le sumamos un poquito de altura para que no atraviese la mesa al arrastrar
-            targetPos.y += dragHeight; 
+            // FRENO DE HORIZONTE: Si está muy lejos, no movemos nada
+            if (distance > maxRayDistance) return;
+
+            Vector3 worldPos = ray.GetPoint(distance);
+
+            // JAULA (CLAMPING): Restringir posición a los límites de la mesa
+            if (assemblyZone != null)
+            {
+                float centerX = assemblyZone.position.x;
+                float centerZ = assemblyZone.position.z;
+
+                // La pieza no puede salir del cuadrado definido por tableLimitSize
+                worldPos.x = Mathf.Clamp(worldPos.x, centerX - tableLimitSize, centerX + tableLimitSize);
+                worldPos.z = Mathf.Clamp(worldPos.z, centerZ - tableLimitSize, centerZ + tableLimitSize);
+                
+                // Mantener altura fija
+                worldPos.y = assemblyZone.position.y + dragHeight;
+            }
+
+            _currentPart.transform.position = worldPos;
+        }
+    }
+
+    // --- VISUALIZACIÓN (GIZMOS) ---
+    // Esto dibuja la jaula amarilla en la escena para que puedas calibrar el tamaño
+    private void OnDrawGizmos()
+    {
+        if (assemblyZone != null)
+        {
+            // Color amarillo semitransparente para el borde
+            Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.8f);
+
+            Vector3 center = assemblyZone.position;
+            center.y += dragHeight; // Dibujarlo a la altura de arrastre
+
+            // El tamaño total es el doble del radio (tableLimitSize * 2)
+            Vector3 size = new Vector3(tableLimitSize * 2, 0.1f, tableLimitSize * 2);
+
+            Gizmos.DrawWireCube(center, size);
             
-            _currentPart.transform.position = targetPos;
+            // Relleno tenue
+            Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.1f);
+            Gizmos.DrawCube(center, size);
         }
     }
 }
