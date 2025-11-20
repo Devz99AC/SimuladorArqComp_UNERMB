@@ -95,7 +95,7 @@ public class MainMenuManager : MonoBehaviour
     public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton); // NUEVO
     public void CloseCredits() => CloseModal(creditsPanel); // NUEVO
 
-    // --- LOGICA DE AUDIO/VIDEO (Igual que antes) ---
+    // --- LOGICA DE AUDIO/VIDEO 
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(); } }
 

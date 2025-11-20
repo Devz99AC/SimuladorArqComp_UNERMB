@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/MainMenu.unity
     guid: 06b128ba77ad3d34cab8d2e633b38b6b
   - enabled: 1
+    path: Assets/Project/Scenes/ModeSelection.unity
+    guid: d3740b69496a2d247a736eb6bde6dc76
+  - enabled: 1
+    path: Assets/Project/Scenes/TheoryModule.unity
+    guid: 790b7fb4795d0494d83a65215ae87a03
+  - enabled: 1
     path: Assets/Project/Scenes/AssemblyLab.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
