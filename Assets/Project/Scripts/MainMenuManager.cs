@@ -1,49 +1,132 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cargar escenas
+using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [Header("Configuración de Escenas")]
-    [Tooltip("Nombre exacto de la escena del simulador (debe estar en Build Settings)")]
-    public string simulationSceneName = "MainSimulation"; 
+    [Header("Escenas")]
+    public string simulationSceneName = "MainSimulation";
 
-    [Tooltip("Nombre de la escena teórica (Opcional por ahora)")]
-    public string theorySceneName = "TheoryModule";
+    [Header("Paneles")]
+    public GameObject mainPanel;    // El panel de botones principales
+    public GameObject optionsPanel; // La ventana de opciones
 
-    // --- FUNCIÓN PARA EL BOTÓN 'INICIAR' ---
-    public void StartSimulation()
+    [Header("Navegación (Teclado/Mando)")]
+    public GameObject firstOptionButton; 
+    public GameObject firstMainButton;   
+
+    [Header("Audio")]
+    public AudioMixer mainMixer;
+    public Image[] volumeBars; 
+    private int currentVolumeLevel = 3; 
+
+    [Header("Video")]
+    public TextMeshProUGUI screenModeText; 
+    private bool isFullscreen = true;
+
+    // Variable interna para el bloqueo de clics
+    private CanvasGroup _mainCanvasGroup;
+
+    private void Start()
     {
-        Debug.Log($"🚀 Iniciando Simulación: Cargando escena '{simulationSceneName}'...");
+        // Buscamos el CanvasGroup en el panel principal para poder bloquearlo
+        if (mainPanel != null)
+            _mainCanvasGroup = mainPanel.GetComponent<CanvasGroup>();
+
+        // Estado Inicial: Menú activo, Opciones cerrado
+        if (_mainCanvasGroup != null) _mainCanvasGroup.interactable = true;
+        optionsPanel.SetActive(false);
         
-        // Carga la escena. Asegúrate de haberla añadido en File > Build Settings
-        SceneManager.LoadScene(simulationSceneName);
+        // Cargar valores visuales
+        isFullscreen = Screen.fullScreen;
+        UpdateScreenUI();
+        UpdateVolumeUI();
     }
 
-    // --- FUNCIÓN PARA EL BOTÓN 'OPCIONES' ---
-    public void OpenOptions()
+    // --- NAVEGACIÓN (MODO VENTANA SUPERPUESTA) ---
+
+    public void OpenOptions() 
+    { 
+        // 1. NO apagamos el mainPanel, solo lo bloqueamos para que no se pueda clicar
+        if (_mainCanvasGroup != null) 
+        {
+            _mainCanvasGroup.interactable = false; // Se ve, pero no se toca
+            _mainCanvasGroup.blocksRaycasts = false; // El mouse lo atraviesa
+        }
+
+        // 2. Abrimos la ventana de opciones encima
+        optionsPanel.SetActive(true); 
+
+        // 3. Mover foco del teclado
+        if (firstOptionButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstOptionButton);
+        }
+    }
+
+    public void CloseOptions() 
+    { 
+        // 1. Cerramos opciones
+        optionsPanel.SetActive(false); 
+
+        // 2. Reactivamos el menú principal
+        if (_mainCanvasGroup != null) 
+        {
+            _mainCanvasGroup.interactable = true; // Ya se puede tocar
+            _mainCanvasGroup.blocksRaycasts = true;
+        }
+
+        // 3. Devolver foco
+        if (firstMainButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstMainButton);
+        }
+    }
+
+    // --- EL RESTO DEL CÓDIGO SIGUE IGUAL ---
+    
+    public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(); } }
+    public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(); } }
+
+    private void UpdateVolume()
     {
-        Debug.Log("⚙️ Abriendo Opciones... (Aquí activarías el panel de opciones)");
-        // Ejemplo: optionsPanel.SetActive(true);
+        float volumeDb = -80f;
+        if (currentVolumeLevel == 1) volumeDb = -20f;
+        if (currentVolumeLevel == 2) volumeDb = -10f;
+        if (currentVolumeLevel == 3) volumeDb = 0f;
+        if(mainMixer != null) mainMixer.SetFloat("MasterVolume", volumeDb);
+        UpdateVolumeUI();
     }
 
-    // --- FUNCIÓN PARA EL BOTÓN 'CRÉDITOS' ---
-    public void OpenCredits()
+    private void UpdateVolumeUI()
     {
-        Debug.Log("👥 Abriendo Créditos... (Aquí activarías el panel de créditos)");
-        // Ejemplo: creditsPanel.SetActive(true);
+        Color activeColor = new Color(1f, 0.27f, 0f, 1f);
+        Color inactiveColor = new Color(0.8f, 0.8f, 0.8f, 1f);
+        for (int i = 0; i < volumeBars.Length; i++)
+        {
+            if (i < currentVolumeLevel) volumeBars[i].color = activeColor;
+            else volumeBars[i].color = inactiveColor;
+        }
     }
 
-    // --- FUNCIÓN PARA EL BOTÓN 'SALIR' ---
-    public void QuitApp()
+    public void ToggleScreenMode()
     {
-        Debug.Log("👋 Saliendo de la aplicación...");
-
-        // Cierra la app construida (Windows/Mac/WebGL)
-        Application.Quit();
-
-        // Esto es solo para que funcione el botón de salir dentro del Editor de Unity
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        isFullscreen = !isFullscreen;
+        Screen.fullScreen = isFullscreen;
+        UpdateScreenUI();
     }
+
+    private void UpdateScreenUI()
+    {
+        if (screenModeText != null)
+            screenModeText.text = isFullscreen ? "PANTALLA COMPLETA" : "MODO VENTANA";
+    }
+
+    public void StartSimulation() { SceneManager.LoadScene(simulationSceneName); }
+    public void QuitApp() { Application.Quit(); }
 }
