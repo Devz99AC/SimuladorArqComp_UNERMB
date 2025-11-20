@@ -11,11 +11,13 @@ public class MainMenuManager : MonoBehaviour
     public string simulationSceneName = "MainSimulation";
 
     [Header("Paneles")]
-    public GameObject mainPanel;    // El panel de botones principales
-    public GameObject optionsPanel; // La ventana de opciones
+    public GameObject mainPanel;    
+    public GameObject optionsPanel; 
+    public GameObject creditsPanel; // NUEVO: Referencia al panel de créditos
 
-    [Header("Navegación (Teclado/Mando)")]
+    [Header("Navegación (Foco Inicial)")]
     public GameObject firstOptionButton; 
+    public GameObject firstCreditButton; // NUEVO: Botón donde aterriza el foco en créditos (la X)
     public GameObject firstMainButton;   
 
     [Header("Audio")]
@@ -27,60 +29,57 @@ public class MainMenuManager : MonoBehaviour
     public TextMeshProUGUI screenModeText; 
     private bool isFullscreen = true;
 
-    // Variable interna para el bloqueo de clics
     private CanvasGroup _mainCanvasGroup;
 
     private void Start()
     {
-        // Buscamos el CanvasGroup en el panel principal para poder bloquearlo
-        if (mainPanel != null)
-            _mainCanvasGroup = mainPanel.GetComponent<CanvasGroup>();
+        if (mainPanel != null) _mainCanvasGroup = mainPanel.GetComponent<CanvasGroup>();
 
-        // Estado Inicial: Menú activo, Opciones cerrado
+        // Estado Inicial: Solo menú visible
         if (_mainCanvasGroup != null) _mainCanvasGroup.interactable = true;
         optionsPanel.SetActive(false);
+        if (creditsPanel != null) creditsPanel.SetActive(false); // Asegurar cerrado
         
-        // Cargar valores visuales
         isFullscreen = Screen.fullScreen;
         UpdateScreenUI();
         UpdateVolumeUI();
     }
 
-    // --- NAVEGACIÓN (MODO VENTANA SUPERPUESTA) ---
+    // --- SISTEMA DE VENTANAS MODALES ---
 
-    public void OpenOptions() 
-    { 
-        // 1. NO apagamos el mainPanel, solo lo bloqueamos para que no se pueda clicar
+    private void OpenModal(GameObject panelToOpen, GameObject focusButton)
+    {
+        // 1. Bloquear menú principal
         if (_mainCanvasGroup != null) 
         {
-            _mainCanvasGroup.interactable = false; // Se ve, pero no se toca
-            _mainCanvasGroup.blocksRaycasts = false; // El mouse lo atraviesa
+            _mainCanvasGroup.interactable = false; 
+            _mainCanvasGroup.blocksRaycasts = false; 
         }
 
-        // 2. Abrimos la ventana de opciones encima
-        optionsPanel.SetActive(true); 
+        // 2. Abrir panel
+        panelToOpen.SetActive(true); 
 
-        // 3. Mover foco del teclado
-        if (firstOptionButton != null)
+        // 3. Mover foco
+        if (focusButton != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstOptionButton);
+            EventSystem.current.SetSelectedGameObject(focusButton);
         }
     }
 
-    public void CloseOptions() 
-    { 
-        // 1. Cerramos opciones
-        optionsPanel.SetActive(false); 
+    private void CloseModal(GameObject panelToClose)
+    {
+        // 1. Cerrar panel
+        panelToClose.SetActive(false); 
 
-        // 2. Reactivamos el menú principal
+        // 2. Desbloquear menú principal
         if (_mainCanvasGroup != null) 
         {
-            _mainCanvasGroup.interactable = true; // Ya se puede tocar
+            _mainCanvasGroup.interactable = true; 
             _mainCanvasGroup.blocksRaycasts = true;
         }
 
-        // 3. Devolver foco
+        // 3. Devolver foco al inicio
         if (firstMainButton != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -88,8 +87,15 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    // --- EL RESTO DEL CÓDIGO SIGUE IGUAL ---
-    
+    // --- FUNCIONES PÚBLICAS PARA BOTONES ---
+
+    public void OpenOptions() => OpenModal(optionsPanel, firstOptionButton);
+    public void CloseOptions() => CloseModal(optionsPanel);
+
+    public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton); // NUEVO
+    public void CloseCredits() => CloseModal(creditsPanel); // NUEVO
+
+    // --- LOGICA DE AUDIO/VIDEO (Igual que antes) ---
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(); } }
 
