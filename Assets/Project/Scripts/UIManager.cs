@@ -1,22 +1,33 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement;
+using UnityEngine.UI; 
+using UnityEngine.Audio; 
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    [Header("Panel de Inspección")]
-    public GameObject infoPanel;
+    [Header("Paneles Principales")]
+    public GameObject infoPanel;       
+    public GameObject victoryPanel;    
+    public GameObject pausePanel;      
+    public GameObject instructionsPanel; 
+
+    [Header("Elementos Ficha Técnica")]
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
 
-    [Header("Panel de Victoria")]
-    public GameObject victoryPanel;
+    [Header("Configuración General")]
+    public AudioMixer mainMixer; 
+    public string selectorSceneName = "ModeSelection"; 
 
-    [Header("Navegación")]
-    [Tooltip("El número de la escena del Menú Principal en la lista de Build Settings (usualmente 0)")]
-    public int menuSceneIndex = 0; 
+    [Header("Referencias UI Audio/Video")]
+    public Image[] volumeBars;          
+    public TextMeshProUGUI screenModeText; 
+    
+    private int currentVolumeLevel = 3; 
+    private bool isFullscreen = true;   
 
     private void Awake()
     {
@@ -26,13 +37,72 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        CloseInfoPanel();
-        if (victoryPanel != null) victoryPanel.SetActive(false);
+        CloseAllPanels();
+        if (instructionsPanel) instructionsPanel.SetActive(true);
+
+        // --- CARGAR DATOS GUARDADOS ---
+        LoadSettings();
     }
 
-    // --- FUNCIONES DE INSPECCIÓN ---
+    private void LoadSettings()
+    {
+        // 1. Cargar Volumen
+        currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
+        UpdateVolume(false); 
+
+        // 2. Cargar Pantalla
+        int fullscreenInt = PlayerPrefs.GetInt("Fullscreen", 1);
+        isFullscreen = (fullscreenInt == 1);
+        
+        // Aplicar
+        Screen.fullScreen = isFullscreen;
+        UpdateScreenUI();
+        UpdateVolumeUI();
+    }
+
+    private void SaveSettings()
+    {
+        PlayerPrefs.SetInt("VolumeLevel", currentVolumeLevel);
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    // --- LÓGICA DE NAVEGACIÓN ---
+    private void CloseAllPanels()
+    {
+        if (infoPanel) infoPanel.SetActive(false);
+        if (victoryPanel) victoryPanel.SetActive(false);
+        if (pausePanel) pausePanel.SetActive(false);
+    }
+
+    public void ReturnToSelector() => SceneManager.LoadScene(selectorSceneName);
+
+    public void OpenPauseMenu()
+    {
+        CloseAllPanels(); 
+        if (instructionsPanel) instructionsPanel.SetActive(false); 
+        if (pausePanel) pausePanel.SetActive(true);
+    }
+
+    public void ClosePauseMenu() => pausePanel.SetActive(false);
+
+    public void ToggleInstructions()
+    {
+        if (instructionsPanel != null)
+        {
+            bool isActive = instructionsPanel.activeSelf;
+            if (!isActive) 
+            {
+                if (infoPanel) infoPanel.SetActive(false);
+                if (pausePanel) pausePanel.SetActive(false);
+            }
+            instructionsPanel.SetActive(!isActive);
+        }
+    }
+
     public void ShowPartInfo(string title, string desc)
     {
+        if (pausePanel != null && pausePanel.activeSelf) return;
         if (infoPanel != null)
         {
             titleText.text = title;
@@ -41,32 +111,57 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CloseInfoPanel()
-    {
-        if (infoPanel != null) infoPanel.SetActive(false);
-    }
-
-    // --- FUNCIONES DE VICTORIA Y NAVEGACIÓN ---
+    public void CloseInfoPanel() => infoPanel.SetActive(false);
 
     public void ShowVictory()
     {
-        if (victoryPanel != null) 
+        CloseAllPanels();
+        if (instructionsPanel) instructionsPanel.SetActive(false);
+        if (victoryPanel != null) victoryPanel.SetActive(true);
+    }
+
+    // --- LOGICA DE AUDIO ---
+    public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
+    public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
+
+    private void UpdateVolume(bool save)
+    {
+        float volumeDb = -80f;
+        if (currentVolumeLevel == 1) volumeDb = -20f;
+        if (currentVolumeLevel == 2) volumeDb = -10f;
+        if (currentVolumeLevel == 3) volumeDb = 0f;
+
+        if(mainMixer) mainMixer.SetFloat("MasterVolume", volumeDb);
+        UpdateVolumeUI();
+
+        if (save) SaveSettings();
+    }
+
+    private void UpdateVolumeUI()
+    {
+        if (volumeBars == null || volumeBars.Length == 0) return;
+        Color activeColor = new Color(1f, 0.27f, 0f, 1f); 
+        Color inactiveColor = new Color(0.8f, 0.8f, 0.8f, 1f); 
+
+        for (int i = 0; i < volumeBars.Length; i++)
         {
-            victoryPanel.SetActive(true);
-            CloseInfoPanel(); 
+            if (i < currentVolumeLevel) volumeBars[i].color = activeColor;
+            else volumeBars[i].color = inactiveColor;
         }
     }
 
-    // Esta es la función que usarás en el botón "Regresar"
-    public void ReturnToMenu()
+    // --- LOGICA VIDEO ---
+    public void ToggleScreenMode()
     {
-        // Carga la escena que hayas configurado en el inspector
-        SceneManager.LoadScene(menuSceneIndex);
+        isFullscreen = !isFullscreen;
+        Screen.fullScreen = isFullscreen;
+        UpdateScreenUI();
+        SaveSettings();
     }
 
-    // (Opcional) Dejo esta por si quieres añadir un botón de "Reintentar" separado
-    public void RestartSimulation()
+    private void UpdateScreenUI()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (screenModeText != null)
+            screenModeText.text = isFullscreen ? "PANTALLA COMPLETA" : "MODO VENTANA";
     }
 }

@@ -11,13 +11,13 @@ public class MainMenuManager : MonoBehaviour
     public string simulationSceneName = "MainSimulation";
 
     [Header("Paneles")]
-    public GameObject mainPanel;    
-    public GameObject optionsPanel; 
-    public GameObject creditsPanel; // NUEVO: Referencia al panel de créditos
+    public GameObject mainPanel;
+    public GameObject optionsPanel;
+    public GameObject creditsPanel;
 
     [Header("Navegación (Foco Inicial)")]
     public GameObject firstOptionButton; 
-    public GameObject firstCreditButton; // NUEVO: Botón donde aterriza el foco en créditos (la X)
+    public GameObject firstCreditButton; 
     public GameObject firstMainButton;   
 
     [Header("Audio")]
@@ -35,31 +35,51 @@ public class MainMenuManager : MonoBehaviour
     {
         if (mainPanel != null) _mainCanvasGroup = mainPanel.GetComponent<CanvasGroup>();
 
-        // Estado Inicial: Solo menú visible
+        // Estado Inicial
         if (_mainCanvasGroup != null) _mainCanvasGroup.interactable = true;
         optionsPanel.SetActive(false);
-        if (creditsPanel != null) creditsPanel.SetActive(false); // Asegurar cerrado
+        if (creditsPanel != null) creditsPanel.SetActive(false);
         
-        isFullscreen = Screen.fullScreen;
+        // --- CARGAR DATOS GUARDADOS (PERSISTENCIA) ---
+        LoadSettings();
+    }
+
+    // --- SISTEMA DE GUARDADO Y CARGA ---
+
+    private void LoadSettings()
+    {
+        // 1. Cargar Volumen (Por defecto 3 si no existe)
+        currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
+        UpdateVolume(false); // false = No guardar otra vez, solo aplicar
+
+        // 2. Cargar Pantalla (Por defecto 1/True)
+        // PlayerPrefs no guarda bools, usamos 1 y 0
+        int fullscreenInt = PlayerPrefs.GetInt("Fullscreen", 1);
+        isFullscreen = (fullscreenInt == 1);
+        
+        // Aplicar cambios visuales y de hardware
+        Screen.fullScreen = isFullscreen;
         UpdateScreenUI();
         UpdateVolumeUI();
     }
 
-    // --- SISTEMA DE VENTANAS MODALES ---
+    private void SaveSettings()
+    {
+        PlayerPrefs.SetInt("VolumeLevel", currentVolumeLevel);
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save(); // Escribir en disco
+    }
+
+    // --- EL RESTO DEL CÓDIGO CON PEQUEÑOS CAMBIOS ---
 
     private void OpenModal(GameObject panelToOpen, GameObject focusButton)
     {
-        // 1. Bloquear menú principal
         if (_mainCanvasGroup != null) 
         {
             _mainCanvasGroup.interactable = false; 
             _mainCanvasGroup.blocksRaycasts = false; 
         }
-
-        // 2. Abrir panel
         panelToOpen.SetActive(true); 
-
-        // 3. Mover foco
         if (focusButton != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -69,17 +89,12 @@ public class MainMenuManager : MonoBehaviour
 
     private void CloseModal(GameObject panelToClose)
     {
-        // 1. Cerrar panel
         panelToClose.SetActive(false); 
-
-        // 2. Desbloquear menú principal
         if (_mainCanvasGroup != null) 
         {
             _mainCanvasGroup.interactable = true; 
             _mainCanvasGroup.blocksRaycasts = true;
         }
-
-        // 3. Devolver foco al inicio
         if (firstMainButton != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
@@ -87,26 +102,26 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    // --- FUNCIONES PÚBLICAS PARA BOTONES ---
-
     public void OpenOptions() => OpenModal(optionsPanel, firstOptionButton);
     public void CloseOptions() => CloseModal(optionsPanel);
+    public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton);
+    public void CloseCredits() => CloseModal(creditsPanel);
 
-    public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton); // NUEVO
-    public void CloseCredits() => CloseModal(creditsPanel); // NUEVO
+    // --- LOGICA DE AUDIO ---
+    public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
+    public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
 
-    // --- LOGICA DE AUDIO/VIDEO 
-    public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(); } }
-    public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(); } }
-
-    private void UpdateVolume()
+    private void UpdateVolume(bool save)
     {
         float volumeDb = -80f;
         if (currentVolumeLevel == 1) volumeDb = -20f;
         if (currentVolumeLevel == 2) volumeDb = -10f;
         if (currentVolumeLevel == 3) volumeDb = 0f;
+        
         if(mainMixer != null) mainMixer.SetFloat("MasterVolume", volumeDb);
         UpdateVolumeUI();
+
+        if (save) SaveSettings(); // Guardar cada vez que cambiamos
     }
 
     private void UpdateVolumeUI()
@@ -120,11 +135,13 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    // --- LOGICA VIDEO ---
     public void ToggleScreenMode()
     {
         isFullscreen = !isFullscreen;
         Screen.fullScreen = isFullscreen;
         UpdateScreenUI();
+        SaveSettings(); // Guardar cambio
     }
 
     private void UpdateScreenUI()

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems; // ✅ NECESARIO PARA EL BLOQUEO
 
 public class CADCameraController : MonoBehaviour
 {
-    [Header("Configuración Inicial")]
-    public Transform targetInicial; // La Motherboard
+    [Header("Objetivos")]
+    public Transform targetInicial;
 
     [Header("Sensibilidad")]
     public float rotateSpeed = 5f;
@@ -17,38 +18,22 @@ public class CADCameraController : MonoBehaviour
     public Vector2 verticalAngleLimit = new Vector2(5f, 89f);
 
     [Header("Automatización")]
-    public float idleTimeBeforeReset = 10f; // Segundos de inactividad para resetear
-    public float wideShotDistance = 15f;    // Distancia de la vista "Home"
+    public float idleTimeBeforeReset = 10f;
+    public float wideShotDistance = 15f;    
 
-    // --- ESTADO INTERNO ---
     private SimulationControls _controls;
-    
     private Vector3 _targetPivotPosition; 
     private Vector3 _currentPivotPosition;
-
-    private float _targetYaw;
-    private float _targetPitch;
-    private float _currentYaw;
-    private float _currentPitch;
-
-    private float _targetDistance;
-    private float _currentDistance;
-
+    private float _targetYaw, _targetPitch, _currentYaw, _currentPitch;
+    private float _targetDistance, _currentDistance;
     private float _lastInputTime;
     private Vector3 _initialPivotPos; 
 
-    private void Awake()
-    {
-        _controls = new SimulationControls();
-    }
+    private void Awake() => _controls = new SimulationControls();
 
     private void Start()
     {
-        if (targetInicial != null) 
-            _targetPivotPosition = targetInicial.position;
-        else 
-            _targetPivotPosition = Vector3.zero;
-
+        if (targetInicial != null) _targetPivotPosition = targetInicial.position;
         _initialPivotPos = _targetPivotPosition;
 
         Vector3 angles = transform.eulerAngles;
@@ -74,19 +59,27 @@ public class CADCameraController : MonoBehaviour
         ApplyMovement();
     }
 
+    // --- AQUÍ ESTÁ LA MODIFICACIÓN CLAVE ---
     private bool HandleInput()
     {
         bool receivedInput = false;
 
-        // --- 0. RESET MANUAL (Barra Espaciadora) ---
-        // Verifica que hayas creado la acción "ResetView" en el Input Map
+        // 🛑 1. FRENO DE SEGURIDAD DE UI
+        // Si el mouse está tocando UI, la cámara NO debe moverse.
+        // (Retornamos false para que tampoco resetee el timer de inactividad)
+        if (EventSystem.current.IsPointerOverGameObject()) 
+        {
+            return false; 
+        }
+
+        // ... Código normal de cámara ...
+
         if (_controls.Player.ResetView.WasPressedThisFrame())
         {
             GoToWideView();
             receivedInput = true;
         }
 
-        // 1. PANEO
         if (_controls.Player.Pan.IsPressed())
         {
             Vector2 delta = _controls.Player.Pan.ReadValue<Vector2>();
@@ -99,7 +92,6 @@ public class CADCameraController : MonoBehaviour
             }
         }
 
-        // 2. ORBITA
         if (_controls.Player.Inspect.IsPressed())
         {
             Vector2 delta = _controls.Player.Delta.ReadValue<Vector2>();
@@ -112,7 +104,6 @@ public class CADCameraController : MonoBehaviour
             }
         }
 
-        // 3. ZOOM
         Vector2 scroll = _controls.Player.Zoom.ReadValue<Vector2>();
         if (Mathf.Abs(scroll.y) > 0.1f)
         {
@@ -125,46 +116,30 @@ public class CADCameraController : MonoBehaviour
         return receivedInput;
     }
 
-    // --- LÓGICA DE RETORNO ---
     private void CheckIdle(bool hasInput)
     {
-        if (hasInput)
-        {
-            _lastInputTime = Time.time; 
-        }
-        else
-        {
-            if (Time.time - _lastInputTime > idleTimeBeforeReset)
-            {
-                GoToWideView();
-                _lastInputTime = Time.time; 
-            }
-        }
+        if (hasInput) _lastInputTime = Time.time; 
+        else if (Time.time - _lastInputTime > idleTimeBeforeReset) GoToWideView();
     }
-
-    // --- MÉTODOS PÚBLICOS ---
 
     public void GoToWideView()
     {
         _targetPivotPosition = _initialPivotPos; 
         _targetDistance = wideShotDistance;      
-        
-        // Reseteamos rotación a una vista isométrica agradable (45, 45)
-        // Opcional: Si prefieres mantener la rotación actual, comenta estas 2 líneas
         _targetPitch = 45f; 
         _targetYaw = 45f;
+        _lastInputTime = Time.time;
     }
 
     public void SetTopDownView(Transform target, float height)
     {
         _targetPivotPosition = target.position;
-        _targetPitch = 89f; // Casi cenital
+        _targetPitch = 89f; 
         _targetYaw = 0f; 
         _targetDistance = height;
         _lastInputTime = Time.time;
     }
 
-    // Esta función se mantiene por compatibilidad con el InteractionManager anterior
     public void FocusOnObject(Transform newTarget)
     {
          _targetPivotPosition = newTarget.position;
