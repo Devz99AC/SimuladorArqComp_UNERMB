@@ -11,9 +11,9 @@ public class ModeSelectionManager : MonoBehaviour
     public string simulationScene = "MainSimulation";
 
     [Tooltip("Nombre exacto de la escena del Módulo Teórico")]
-    public string theoryScene = "TheoryModule"; // Crearemos esta escena después
+    public string theoryScene = "TheoryModule";
 
-    // --- FUNCIONES DE NAVEGACIÓN ---
+
 
     public void GoToSimulation()
     {
@@ -24,7 +24,7 @@ public class ModeSelectionManager : MonoBehaviour
     public void GoToTheory()
     {
         Debug.Log($"📚 Cargando Teoría: {theoryScene}...");
-        // Verificamos si la escena existe antes de cargar para evitar errores
+
         if (Application.CanStreamedLevelBeLoaded(theoryScene))
         {
             SceneManager.LoadScene(theoryScene);

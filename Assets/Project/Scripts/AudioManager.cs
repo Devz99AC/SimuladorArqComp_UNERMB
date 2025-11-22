@@ -47,10 +47,10 @@ public class AudioManager : MonoBehaviour
         
         AudioSource source = go.AddComponent<AudioSource>();
         
-        // Auto-find mixer group if missing
+
         if (outputMixerGroup == null)
         {
-            AudioMixer mixer = Resources.Load<AudioMixer>("MainMixer"); // Try to load by name if possible, or just warn
+            AudioMixer mixer = Resources.Load<AudioMixer>("MainMixer");
             if (mixer != null)
             {
                 var groups = mixer.FindMatchingGroups("Master");
@@ -87,14 +87,14 @@ public class AudioManager : MonoBehaviour
             source.clip = clip;
             source.Play();
             
-            // Desactivar automáticamente después de reproducir
+            // Desactivar al terminar
             StartCoroutine(DisableSourceDelayed(source, clip.length));
         }
     }
 
     private AudioSource GetAvailableSource()
     {
-        // Buscar uno inactivo en el pool
+        // Buscar inactivo
         foreach (var source in _pool)
         {
             if (!source.gameObject.activeInHierarchy)
@@ -103,20 +103,19 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        // Si no hay disponibles y no hemos llegado al límite, crear uno nuevo
+        // Crear nuevo si es necesario
         if (_pool.Count < maxPoolSize)
         {
             return CreateNewSource();
         }
 
-        // Si el pool está lleno, podríamos robar el más antiguo o simplemente no reproducir (aquí optamos por no reproducir para evitar cortes bruscos)
         Debug.LogWarning("AudioManager: Audio pool exhausted.");
         return null;
     }
 
     private System.Collections.IEnumerator DisableSourceDelayed(AudioSource source, float delay)
     {
-        yield return new WaitForSeconds(delay + 0.1f); // Pequeño buffer
+        yield return new WaitForSeconds(delay + 0.1f);
         if (source != null)
         {
             source.Stop();
@@ -125,7 +124,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Método para asignar el mixer dinámicamente si es necesario (útil si el prefab se instancia antes de cargar el mixer)
+    // Asignar mixer dinámicamente
     public void SetMixerGroup(AudioMixerGroup group)
     {
         outputMixerGroup = group;
@@ -142,7 +141,7 @@ public class AudioManager : MonoBehaviour
 
     private void ValidateConfiguration()
     {
-        // 1. Validar Mixer Group
+
         if (outputMixerGroup == null)
         {
             Debug.LogError("❌ [AudioManager] CRITICAL: No Output Mixer Group assigned! \n" +
@@ -150,9 +149,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            // 2. Validar Parámetro Expuesto (Solo si tenemos mixer)
-            // Intentamos obtener el valor. Si falla o tira warning, es indicativo.
-            // Nota: GetFloat devuelve false si el parámetro no existe.
+
             if (outputMixerGroup.audioMixer.GetFloat("MasterVolume", out float val))
             {
                 Debug.Log($"✅ [AudioManager] Configuration OK. MasterVolume is exposed (Current: {val}dB).");

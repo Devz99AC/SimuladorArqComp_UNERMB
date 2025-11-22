@@ -39,22 +39,17 @@ public class UIManager : MonoBehaviour
     {
         CloseAllPanels();
         if (instructionsPanel) instructionsPanel.SetActive(true);
-
-        // --- CARGAR DATOS GUARDADOS ---
         LoadSettings();
     }
 
     private void LoadSettings()
     {
-        // 1. Cargar Volumen
         currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
         UpdateVolume(false); 
 
-        // 2. Cargar Pantalla
         int fullscreenInt = PlayerPrefs.GetInt("Fullscreen", 1);
         isFullscreen = (fullscreenInt == 1);
         
-        // Aplicar
         Screen.fullScreen = isFullscreen;
         UpdateScreenUI();
         UpdateVolumeUI();
@@ -67,7 +62,6 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // --- LÓGICA DE NAVEGACIÓN ---
     private void CloseAllPanels()
     {
         if (infoPanel) infoPanel.SetActive(false);
@@ -120,7 +114,6 @@ public class UIManager : MonoBehaviour
         if (victoryPanel != null) victoryPanel.SetActive(true);
     }
 
-    // --- LOGICA DE AUDIO ---
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
 
@@ -158,7 +151,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // --- LOGICA VIDEO ---
     public void ToggleScreenMode()
     {
         isFullscreen = !isFullscreen;

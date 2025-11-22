@@ -15,7 +15,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject optionsPanel;
     public GameObject creditsPanel;
 
-    [Header("Navegación (Foco Inicial)")]
+    [Header("Navegación")]
     public GameObject firstOptionButton; 
     public GameObject firstCreditButton; 
     public GameObject firstMainButton;   
@@ -112,7 +112,7 @@ public class MainMenuManager : MonoBehaviour
         if(mainMixer != null) mainMixer.SetFloat("MasterVolume", volumeDb);
         UpdateVolumeUI();
 
-        if (save) SaveSettings(); // Guardar cada vez que cambiamos
+        if (save) SaveSettings();
     }
 
     private void UpdateVolumeUI()
@@ -126,13 +126,13 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    // --- LOGICA VIDEO ---
+
     public void ToggleScreenMode()
     {
         isFullscreen = !isFullscreen;
         Screen.fullScreen = isFullscreen;
         UpdateScreenUI();
-        SaveSettings(); // Guardar cambio
+        SaveSettings();
     }
 
     private void UpdateScreenUI()

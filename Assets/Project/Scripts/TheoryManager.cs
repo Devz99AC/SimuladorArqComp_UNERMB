@@ -8,21 +8,18 @@ public class TheoryManager : MonoBehaviour
     [Header("Datos")]
     public TheoryTopicSO[] topics; 
     private int currentIndex = 0;
+    public string backSceneName = "ModeSelection";
 
     [Header("Referencias UI")]
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI bodyText;
     public Image contentImage;
     
-    // --- NUEVA VARIABLE: EL CONTENEDOR QUE SE ROMPE ---
-    public RectTransform contentBody; // Arrastra aquí el objeto "ContentBody"
+    public RectTransform contentBody; 
 
     [Header("Botones Navegación")]
     public Button prevButton; 
     public Button nextButton; 
-
-    [Header("Navegación de Escena")]
-    public string backSceneName = "ModeSelection";
 
     private void Start()
     {
@@ -37,7 +34,7 @@ public class TheoryManager : MonoBehaviour
         currentIndex = index;
         TheoryTopicSO data = topics[currentIndex];
 
-        // 1. Llenar UI
+        // Llenar UI
         if (titleText != null) titleText.text = data.title;
         
         if (bodyText != null) 
@@ -59,11 +56,10 @@ public class TheoryManager : MonoBehaviour
             }
         }
 
-        // 2. Actualizar Botones
+        // Actualizar Botones
         UpdateNavigationButtons();
 
-        // --- 3. EL TRUCO MAGICO: FORZAR RECALCULO ---
-        // Esto obliga a Unity a acomodar todo YA, sin esperar al siguiente frame.
+        // Forzar reconstrucción del layout
         if (contentBody != null)
         {
             LayoutRebuilder.ForceRebuildLayoutImmediate(contentBody);
