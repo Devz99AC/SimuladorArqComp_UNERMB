@@ -35,29 +35,23 @@ public class MainMenuManager : MonoBehaviour
     {
         if (mainPanel != null) _mainCanvasGroup = mainPanel.GetComponent<CanvasGroup>();
 
-        // Estado Inicial
         if (_mainCanvasGroup != null) _mainCanvasGroup.interactable = true;
         optionsPanel.SetActive(false);
         if (creditsPanel != null) creditsPanel.SetActive(false);
         
-        // --- CARGAR DATOS GUARDADOS (PERSISTENCIA) ---
         LoadSettings();
     }
 
-    // --- SISTEMA DE GUARDADO Y CARGA ---
 
     private void LoadSettings()
     {
-        // 1. Cargar Volumen (Por defecto 3 si no existe)
-        currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
-        UpdateVolume(false); // false = No guardar otra vez, solo aplicar
 
-        // 2. Cargar Pantalla (Por defecto 1/True)
-        // PlayerPrefs no guarda bools, usamos 1 y 0
+        currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
+        UpdateVolume(false);
+
         int fullscreenInt = PlayerPrefs.GetInt("Fullscreen", 1);
         isFullscreen = (fullscreenInt == 1);
         
-        // Aplicar cambios visuales y de hardware
         Screen.fullScreen = isFullscreen;
         UpdateScreenUI();
         UpdateVolumeUI();
@@ -67,10 +61,8 @@ public class MainMenuManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("VolumeLevel", currentVolumeLevel);
         PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
-        PlayerPrefs.Save(); // Escribir en disco
+        PlayerPrefs.Save(); 
     }
-
-    // --- EL RESTO DEL CÓDIGO CON PEQUEÑOS CAMBIOS ---
 
     private void OpenModal(GameObject panelToOpen, GameObject focusButton)
     {
@@ -107,7 +99,6 @@ public class MainMenuManager : MonoBehaviour
     public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton);
     public void CloseCredits() => CloseModal(creditsPanel);
 
-    // --- LOGICA DE AUDIO ---
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
 

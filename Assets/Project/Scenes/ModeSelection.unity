@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 721302606}
   - component: {fileID: 721302609}
   - component: {fileID: 721302610}
+  - component: {fileID: 721302611}
   m_Layer: 5
   m_Name: Btn_Simulacion
   m_TagString: Untagged
@@ -676,6 +677,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992748a35e628214b8552298900e75af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &721302611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721302604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6500a3953acf64a9ac3d3636ee099d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  clickSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 1
 --- !u!1 &815791855
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,6 +707,7 @@ GameObject:
   - component: {fileID: 815791857}
   - component: {fileID: 815791860}
   - component: {fileID: 815791861}
+  - component: {fileID: 815791862}
   m_Layer: 5
   m_Name: Btn_Teoria
   m_TagString: Untagged
@@ -843,6 +861,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992748a35e628214b8552298900e75af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &815791862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815791855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6500a3953acf64a9ac3d3636ee099d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  clickSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 1
 --- !u!1 &1056720754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1557,7 @@ GameObject:
   - component: {fileID: 1907022711}
   - component: {fileID: 1907022714}
   - component: {fileID: 1907022715}
+  - component: {fileID: 1907022716}
   m_Layer: 5
   m_Name: Btn_Regresar
   m_TagString: Untagged
@@ -1676,6 +1711,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992748a35e628214b8552298900e75af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1907022716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907022709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6500a3953acf64a9ac3d3636ee099d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  clickSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  hoverVolume: 0.5
+  clickVolume: 1
 --- !u!1 &2014311519
 GameObject:
   m_ObjectHideFlags: 0

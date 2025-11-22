@@ -131,7 +131,15 @@ public class UIManager : MonoBehaviour
         if (currentVolumeLevel == 2) volumeDb = -10f;
         if (currentVolumeLevel == 3) volumeDb = 0f;
 
-        if(mainMixer) mainMixer.SetFloat("MasterVolume", volumeDb);
+        if (mainMixer != null)
+        {
+            mainMixer.SetFloat("MasterVolume", volumeDb);
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ [UIManager] MainMixer is missing! Volume changes will not apply.");
+        }
+        
         UpdateVolumeUI();
 
         if (save) SaveSettings();

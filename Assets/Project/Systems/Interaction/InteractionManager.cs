@@ -97,6 +97,10 @@ public class InteractionManager : MonoBehaviour
                 {
                     _currentPart = part;
                     _dragPlane = new Plane(Vector3.up, hit.point);
+                    
+                    // --- NUEVO: OUTLINE AL ARRASTRAR ---
+                    var highlighter = _currentPart.GetComponent<ObjectHighlighter>();
+                    if (highlighter != null) highlighter.EnableHighlight();
                 }
             }
         }
@@ -114,6 +118,10 @@ public class InteractionManager : MonoBehaviour
     {
         if (_currentPart != null)
         {
+            // --- NUEVO: QUITAR OUTLINE AL SOLTAR ---
+            var highlighter = _currentPart.GetComponent<ObjectHighlighter>();
+            if (highlighter != null) highlighter.DisableHighlight();
+
             _currentPart.TryToSnap(); 
             _currentPart = null;      
 
@@ -135,9 +143,20 @@ public class InteractionManager : MonoBehaviour
         {
             PCPart part = hit.collider.GetComponentInParent<PCPart>();
             
-            if (part != null && UIManager.Instance != null)
+            if (part != null)
             {
-                UIManager.Instance.ShowPartInfo(part.title, part.description);
+                // --- NUEVO: OUTLINE MOMENTANEO AL INSPECCIONAR ---
+                var highlighter = part.GetComponent<ObjectHighlighter>();
+                if (highlighter != null) 
+                {
+                    highlighter.EnableHighlight();
+                    StartCoroutine(DisableHighlightDelay(highlighter, 2.0f));
+                }
+
+                if (UIManager.Instance != null)
+                {
+                    UIManager.Instance.ShowPartInfo(part.title, part.description);
+                }
             }
         }
     }
@@ -145,6 +164,12 @@ public class InteractionManager : MonoBehaviour
     private void OnToggleInstructions(InputAction.CallbackContext ctx)
     {
         if (UIManager.Instance != null) UIManager.Instance.ToggleInstructions();
+    }
+
+    private IEnumerator DisableHighlightDelay(ObjectHighlighter highlighter, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (highlighter != null) highlighter.DisableHighlight();
     }
 
     private IEnumerator ReturnToWideViewAfterDelay(float delay)
