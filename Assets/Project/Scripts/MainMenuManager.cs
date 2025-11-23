@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MainMenuManager : MonoBehaviour
 {
     [Header("Escenas")]
-    public string simulationSceneName = "MainSimulation";
+    public string simulationSceneName = "ModeSelection";
 
     [Header("Paneles")]
     public GameObject mainPanel;
@@ -20,14 +20,29 @@ public class MainMenuManager : MonoBehaviour
     public GameObject firstCreditButton; 
     public GameObject firstMainButton;   
 
-    [Header("Audio")]
+    [Header("Estilo Visual")]
+    public Color iconsColor = Color.white; 
+
+    [Header("Audio - Lógica")]
     public AudioMixer mainMixer;
     public Image[] volumeBars; 
     private int currentVolumeLevel = 3; 
 
-    [Header("Video")]
+    [Header("Audio - Iconos")]
+    public Image audioIconImage;      
+    public Sprite iconSoundOff;  // Nivel 0 (Mute)
+    public Sprite iconSoundLow;  // Nivel 1 (Nuevo)
+    public Sprite iconSoundMed;  // Nivel 2 (Nuevo)
+    public Sprite iconSoundHigh; // Nivel 3 (Antes era iconSoundOn)
+
+    [Header("Video - Lógica")]
     public TextMeshProUGUI screenModeText; 
     private bool isFullscreen = true;
+
+    [Header("Video - Iconos")]
+    public Image screenIconImage;     
+    public Sprite iconFullscreen;     
+    public Sprite iconWindowed;       
 
     private CanvasGroup _mainCanvasGroup;
 
@@ -42,10 +57,8 @@ public class MainMenuManager : MonoBehaviour
         LoadSettings();
     }
 
-
     private void LoadSettings()
     {
-
         currentVolumeLevel = PlayerPrefs.GetInt("VolumeLevel", 3);
         UpdateVolume(false);
 
@@ -64,34 +77,19 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.Save(); 
     }
 
-    private void OpenModal(GameObject panelToOpen, GameObject focusButton)
+    // --- VENTANAS MODALES ---
+    private void OpenModal(GameObject panel, GameObject focus)
     {
-        if (_mainCanvasGroup != null) 
-        {
-            _mainCanvasGroup.interactable = false; 
-            _mainCanvasGroup.blocksRaycasts = false; 
-        }
-        panelToOpen.SetActive(true); 
-        if (focusButton != null)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(focusButton);
-        }
+        if (_mainCanvasGroup) { _mainCanvasGroup.interactable = false; _mainCanvasGroup.blocksRaycasts = false; }
+        panel.SetActive(true);
+        if (focus) { EventSystem.current.SetSelectedGameObject(null); EventSystem.current.SetSelectedGameObject(focus); }
     }
 
-    private void CloseModal(GameObject panelToClose)
+    private void CloseModal(GameObject panel)
     {
-        panelToClose.SetActive(false); 
-        if (_mainCanvasGroup != null) 
-        {
-            _mainCanvasGroup.interactable = true; 
-            _mainCanvasGroup.blocksRaycasts = true;
-        }
-        if (firstMainButton != null)
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(firstMainButton);
-        }
+        panel.SetActive(false);
+        if (_mainCanvasGroup) { _mainCanvasGroup.interactable = true; _mainCanvasGroup.blocksRaycasts = true; }
+        if (firstMainButton) { EventSystem.current.SetSelectedGameObject(null); EventSystem.current.SetSelectedGameObject(firstMainButton); }
     }
 
     public void OpenOptions() => OpenModal(optionsPanel, firstOptionButton);
@@ -99,34 +97,45 @@ public class MainMenuManager : MonoBehaviour
     public void OpenCredits() => OpenModal(creditsPanel, firstCreditButton);
     public void CloseCredits() => CloseModal(creditsPanel);
 
+    // --- AUDIO ---
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
 
     private void UpdateVolume(bool save)
     {
-        float volumeDb = -80f;
-        if (currentVolumeLevel == 1) volumeDb = -20f;
-        if (currentVolumeLevel == 2) volumeDb = -10f;
-        if (currentVolumeLevel == 3) volumeDb = 0f;
+        float db = -80f;
+        if (currentVolumeLevel == 1) db = -20f;
+        if (currentVolumeLevel == 2) db = -10f;
+        if (currentVolumeLevel == 3) db = 0f;
         
-        if(mainMixer != null) mainMixer.SetFloat("MasterVolume", volumeDb);
+        if(mainMixer != null) mainMixer.SetFloat("MasterVolume", db);
         UpdateVolumeUI();
-
         if (save) SaveSettings();
     }
 
     private void UpdateVolumeUI()
     {
-        Color activeColor = new Color(1f, 0.27f, 0f, 1f);
-        Color inactiveColor = new Color(0.8f, 0.8f, 0.8f, 1f);
-        for (int i = 0; i < volumeBars.Length; i++)
+        // 1. Actualizar Barras (Opcional si solo usas el icono)
+        Color active = new Color(1f, 0.27f, 0f, 1f);
+        Color inactive = new Color(0.8f, 0.8f, 0.8f, 1f);
+        for (int i = 0; i < volumeBars.Length; i++) volumeBars[i].color = (i < currentVolumeLevel) ? active : inactive;
+
+        // 2. Actualizar Icono según Nivel (0, 1, 2, 3)
+        if (audioIconImage != null)
         {
-            if (i < currentVolumeLevel) volumeBars[i].color = activeColor;
-            else volumeBars[i].color = inactiveColor;
+            audioIconImage.color = iconsColor;
+
+            switch (currentVolumeLevel)
+            {
+                case 0: audioIconImage.sprite = iconSoundOff; break;
+                case 1: audioIconImage.sprite = iconSoundLow; break;
+                case 2: audioIconImage.sprite = iconSoundMed; break;
+                case 3: audioIconImage.sprite = iconSoundHigh; break;
+            }
         }
     }
 
-
+    // --- VIDEO ---
     public void ToggleScreenMode()
     {
         isFullscreen = !isFullscreen;
@@ -139,6 +148,13 @@ public class MainMenuManager : MonoBehaviour
     {
         if (screenModeText != null)
             screenModeText.text = isFullscreen ? "PANTALLA COMPLETA" : "MODO VENTANA";
+
+        if (screenIconImage != null)
+        {
+            screenIconImage.color = iconsColor;
+            if (isFullscreen) screenIconImage.sprite = iconFullscreen;
+            else screenIconImage.sprite = iconWindowed;
+        }
     }
 
     public void StartSimulation() { SceneManager.LoadScene(simulationSceneName); }
