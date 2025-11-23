@@ -22,9 +22,22 @@ public class UIManager : MonoBehaviour
     public AudioMixer mainMixer; 
     public string selectorSceneName = "ModeSelection"; 
 
-    [Header("Referencias UI Audio/Video")]
+    [Header("Estilo Visual")]
+    public Color iconsColor = Color.white; // Color para los iconos
+
+    [Header("Referencias UI Audio")]
     public Image[] volumeBars;          
+    public Image audioIconImage;        // Imagen central bocina
+    public Sprite iconSoundOff;         // Nivel 0
+    public Sprite iconSoundLow;         // Nivel 1
+    public Sprite iconSoundMed;         // Nivel 2
+    public Sprite iconSoundHigh;        // Nivel 3
+
+    [Header("Referencias UI Video")]
     public TextMeshProUGUI screenModeText; 
+    public Image screenIconImage;       // Imagen central pantalla
+    public Sprite iconFullscreen;       
+    public Sprite iconWindowed;         
     
     private int currentVolumeLevel = 3; 
     private bool isFullscreen = true;   
@@ -62,6 +75,7 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    // --- NAVEGACIÓN ---
     private void CloseAllPanels()
     {
         if (infoPanel) infoPanel.SetActive(false);
@@ -114,6 +128,7 @@ public class UIManager : MonoBehaviour
         if (victoryPanel != null) victoryPanel.SetActive(true);
     }
 
+    // --- LÓGICA AUDIO (IGUAL AL MENÚ PRINCIPAL) ---
     public void IncreaseVolume() { if (currentVolumeLevel < 3) { currentVolumeLevel++; UpdateVolume(true); } }
     public void DecreaseVolume() { if (currentVolumeLevel > 0) { currentVolumeLevel--; UpdateVolume(true); } }
 
@@ -124,14 +139,8 @@ public class UIManager : MonoBehaviour
         if (currentVolumeLevel == 2) volumeDb = -10f;
         if (currentVolumeLevel == 3) volumeDb = 0f;
 
-        if (mainMixer != null)
-        {
-            mainMixer.SetFloat("MasterVolume", volumeDb);
-        }
-        else
-        {
-            Debug.LogWarning("⚠️ [UIManager] MainMixer is missing! Volume changes will not apply.");
-        }
+        if (mainMixer != null) mainMixer.SetFloat("MasterVolume", volumeDb);
+        else Debug.LogWarning("⚠️ [UIManager] MainMixer is missing!");
         
         UpdateVolumeUI();
 
@@ -140,17 +149,31 @@ public class UIManager : MonoBehaviour
 
     private void UpdateVolumeUI()
     {
-        if (volumeBars == null || volumeBars.Length == 0) return;
-        Color activeColor = new Color(1f, 0.27f, 0f, 1f); 
-        Color inactiveColor = new Color(0.8f, 0.8f, 0.8f, 1f); 
-
-        for (int i = 0; i < volumeBars.Length; i++)
+        // 1. Barras
+        if (volumeBars != null && volumeBars.Length > 0)
         {
-            if (i < currentVolumeLevel) volumeBars[i].color = activeColor;
-            else volumeBars[i].color = inactiveColor;
+            Color activeColor = new Color(1f, 0.27f, 0f, 1f); 
+            Color inactiveColor = new Color(0.8f, 0.8f, 0.8f, 1f); 
+            for (int i = 0; i < volumeBars.Length; i++)
+                volumeBars[i].color = (i < currentVolumeLevel) ? activeColor : inactiveColor;
+        }
+
+        // 2. Icono Dinámico
+        if (audioIconImage != null)
+        {
+            audioIconImage.color = iconsColor; // Aplicar color
+
+            switch (currentVolumeLevel)
+            {
+                case 0: audioIconImage.sprite = iconSoundOff; break;
+                case 1: audioIconImage.sprite = iconSoundLow; break;
+                case 2: audioIconImage.sprite = iconSoundMed; break;
+                case 3: audioIconImage.sprite = iconSoundHigh; break;
+            }
         }
     }
 
+    // --- LÓGICA VIDEO (IGUAL AL MENÚ PRINCIPAL) ---
     public void ToggleScreenMode()
     {
         isFullscreen = !isFullscreen;
@@ -163,5 +186,12 @@ public class UIManager : MonoBehaviour
     {
         if (screenModeText != null)
             screenModeText.text = isFullscreen ? "PANTALLA COMPLETA" : "MODO VENTANA";
+
+        if (screenIconImage != null)
+        {
+            screenIconImage.color = iconsColor; // Aplicar color
+            if (isFullscreen) screenIconImage.sprite = iconFullscreen;
+            else screenIconImage.sprite = iconWindowed;
+        }
     }
 }
