@@ -587,20 +587,6 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "b0a9c6eef03947858da855d178487301"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "79d2e76054ec43f987f08a1fdaa567e8"
-                },
-                "m_SlotId": 3
-            },
-            "m_InputSlot": {
-                "m_Node": {
                     "m_Id": "e6abceb319f44613b148a1c5c7dad7ba"
                 },
                 "m_SlotId": 0
@@ -910,6 +896,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "7150db4750b547a7830cbdd4b1bb91db"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "e6abceb319f44613b148a1c5c7dad7ba"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "b0a9c6eef03947858da855d178487301"
                 },
                 "m_SlotId": 0
             }
@@ -2576,8 +2576,8 @@
     "m_ObjectId": "3479588ec45942d1b0b9f17ff60cdede",
     "m_Title": "Light Color",
     "m_Position": {
-        "x": 527.0,
-        "y": -180.00003051757813
+        "x": 527.0000610351563,
+        "y": -180.0
     }
 }
 
@@ -2654,8 +2654,8 @@
     "m_ObjectId": "369420b342f14845ab260111218af44f",
     "m_Title": "Specular",
     "m_Position": {
-        "x": -1134.9998779296875,
-        "y": 1161.0001220703125
+        "x": -1135.000244140625,
+        "y": 1161.0
     }
 }
 
@@ -3467,7 +3467,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.5,
+    "m_Value": 0.30000001192092898,
     "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.009999999776482582,
@@ -4393,8 +4393,8 @@
     "m_ObjectId": "8d1c6c2b47db4bb49da20312fa152f06",
     "m_Title": "Light",
     "m_Position": {
-        "x": -1379.0,
-        "y": 68.00003051757813
+        "x": -1379.000244140625,
+        "y": 68.00004577636719
     }
 }
 
@@ -5952,7 +5952,7 @@
     "m_ObjectId": "d4b110c5707647bcaac0943077d01078",
     "m_Title": "Texture",
     "m_Position": {
-        "x": 854.0,
+        "x": 854.0000610351563,
         "y": 599.0
     }
 }
@@ -6334,7 +6334,7 @@
     "m_Title": "Rim Light",
     "m_Position": {
         "x": -1387.0,
-        "y": -973.0
+        "y": -973.0000610351563
     }
 }
 
@@ -6496,10 +6496,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -125.99995422363281,
-            "y": -589.0,
+            "x": -114.00000762939453,
+            "y": -587.0,
             "width": 208.00003051757813,
-            "height": 302.0000305175781
+            "height": 301.9999694824219
         }
     },
     "m_Slots": [
@@ -6873,8 +6873,8 @@
     "m_ObjectId": "f4735faee6b94ef3a7e41ca5c10d5faf",
     "m_Title": "Cel Shading",
     "m_Position": {
-        "x": -969.9998779296875,
-        "y": 68.00003051757813
+        "x": -970.000244140625,
+        "y": 68.00004577636719
     }
 }
 
@@ -7045,8 +7045,8 @@
     "m_ObjectId": "fb61ffb3339241c18a471fd7712ca3d5",
     "m_Title": "AdditionalLights",
     "m_Position": {
-        "x": 1359.0,
-        "y": 1911.0
+        "x": 1359.0001220703125,
+        "y": 1911.000244140625
     }
 }
 
