@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 04_Entrada-Proceso-Salida
+  m_EditorClassIdentifier: 
+  title: Entrada-Proceso-Salida
+  contentText: "Es el flujo b\xE1sico de funcionamiento. Los datos ingresan por perif\xE9ricos
+    (Entrada), el CPU los transforma (Proceso) y la informaci\xF3n resultante se
+    muestra al usuario (Salida)."
+  topicImage: {fileID: 0}

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 11_Componentes Externos (Entrada y Salida)
+  m_EditorClassIdentifier: 
+  title: Componentes Externos
+  contentText: "Dispositivos que permiten la interacci\xF3n humano-m\xE1quina.\n\nEntrada:
+    Teclado, Mouse, Micr\xF3fono.\n\nSalida: Monitor, Impresora, Cornetas."
+  topicImage: {fileID: 0}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 17_Ensamblaje de una Computadora
+  m_EditorClassIdentifier: 
+  title: Ensamblaje
+  contentText: "Proceso secuencial de integraci\xF3n:                                                                                                                                                                                                        
+    1. Instalar CPU y RAM en placa.                                                         
+    \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2. Fijar placa al case. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t3.
+    Instalar Fuente. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t4. Conectar
+    almacenamiento. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t5. Gesti\xF3n
+    de cables."
+  topicImage: {fileID: 0}

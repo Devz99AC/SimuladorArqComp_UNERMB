@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 03_Types
+  m_EditorClassIdentifier: 
+  title: Tipos de Computadora
+  contentText: "Supercomputadoras: C\xE1lculo cient\xEDfico complejo.\n\nMainframes:
+    Servidores para grandes empresas.\n\nComputadoras Personales (PC): Uso dom\xE9stico
+    y de oficina."
+  topicImage: {fileID: 0}
