@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: 17_Ensamblaje de una Computadora
   m_EditorClassIdentifier: 
   title: Ensamblaje
-  contentText: "Proceso secuencial de integraci\xF3n:                                                                                                                                                                                                        
-    1. Instalar CPU y RAM en placa.                                                         
-    \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t2. Fijar placa al case. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t3.
-    Instalar Fuente. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t4. Conectar
-    almacenamiento. \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t5. Gesti\xF3n
-    de cables."
+  contentText: "Proceso secuencial de integraci\xF3n: \n1. Instalar CPU y RAM en
+    placa. \n2. Fijar placa al case. \n3. Instalar Fuente. \n4. Conectar almacenamiento.
+    \n5. Gesti\xF3n de cables."
   topicImage: {fileID: 0}
