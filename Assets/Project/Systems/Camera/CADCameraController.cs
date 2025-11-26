@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems; // ✅ NECESARIO PARA EL BLOQUEO
+using UnityEngine.EventSystems; 
 
 public class CADCameraController : MonoBehaviour
 {
@@ -13,9 +13,24 @@ public class CADCameraController : MonoBehaviour
     public float zoomStep = 2f;
     public float smoothing = 5f; 
 
-    [Header("Límites")]
-    public Vector2 zoomLimits = new Vector2(2f, 50f);
+    [Header("Límites Verticales (Cuello)")]
     public Vector2 verticalAngleLimit = new Vector2(5f, 89f);
+
+    [Header("Límites Horizontales (Giro)")]
+    public bool limitHorizontalRotation = true;
+    public Vector2 horizontalAngleLimit = new Vector2(-45f, 45f);
+
+    [Header("Límites de Zoom")]
+    public Vector2 zoomLimits = new Vector2(2f, 50f);
+
+    [Header("Límites de Paneo (La Caja 3D)")] // --- ACTUALIZADO ---
+    public bool enablePanLimits = true;
+    [Tooltip("Ancho: Izquierda / Derecha")]
+    public Vector2 panLimitX = new Vector2(-5f, 5f);
+    [Tooltip("Altura: Suelo / Techo (Evita ir bajo la mesa)")]
+    public Vector2 panLimitY = new Vector2(0f, 3f); // <--- NUEVO
+    [Tooltip("Profundidad: Atrás / Fondo")]
+    public Vector2 panLimitZ = new Vector2(-5f, 5f);
 
     [Header("Automatización")]
     public float idleTimeBeforeReset = 10f;
@@ -34,12 +49,17 @@ public class CADCameraController : MonoBehaviour
     private void Start()
     {
         if (targetInicial != null) _targetPivotPosition = targetInicial.position;
+        else _targetPivotPosition = Vector3.zero;
+
         _initialPivotPos = _targetPivotPosition;
 
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
         _targetDistance = wideShotDistance; 
+
+        if (limitHorizontalRotation)
+            _targetYaw = Mathf.Clamp(_targetYaw, horizontalAngleLimit.x, horizontalAngleLimit.y);
 
         _currentPivotPosition = _targetPivotPosition;
         _currentYaw = _targetYaw;
@@ -59,20 +79,11 @@ public class CADCameraController : MonoBehaviour
         ApplyMovement();
     }
 
-    // --- AQUÍ ESTÁ LA MODIFICACIÓN CLAVE ---
     private bool HandleInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return false;
+
         bool receivedInput = false;
-
-        // 🛑 1. FRENO DE SEGURIDAD DE UI
-        // Si el mouse está tocando UI, la cámara NO debe moverse.
-        // (Retornamos false para que tampoco resetee el timer de inactividad)
-        if (EventSystem.current.IsPointerOverGameObject()) 
-        {
-            return false; 
-        }
-
-        // ... Código normal de cámara ...
 
         if (_controls.Player.ResetView.WasPressedThisFrame())
         {
@@ -80,6 +91,7 @@ public class CADCameraController : MonoBehaviour
             receivedInput = true;
         }
 
+        // 1. PANEO (Con límite Y agregado)
         if (_controls.Player.Pan.IsPressed())
         {
             Vector2 delta = _controls.Player.Pan.ReadValue<Vector2>();
@@ -87,11 +99,25 @@ public class CADCameraController : MonoBehaviour
             {
                 Vector3 right = transform.right * -delta.x * panSpeed;
                 Vector3 up = transform.up * -delta.y * panSpeed;
+                
                 _targetPivotPosition += right + up;
+
+                if (enablePanLimits)
+                {
+                    // Clamp X (Lados)
+                    _targetPivotPosition.x = Mathf.Clamp(_targetPivotPosition.x, panLimitX.x, panLimitX.y);
+                    
+                    // Clamp Y (Altura) - ESTO EVITA IR AL INFINITO
+                    _targetPivotPosition.y = Mathf.Clamp(_targetPivotPosition.y, panLimitY.x, panLimitY.y);
+                    
+                    // Clamp Z (Profundidad)
+                    _targetPivotPosition.z = Mathf.Clamp(_targetPivotPosition.z, panLimitZ.x, panLimitZ.y);
+                }
                 receivedInput = true;
             }
         }
 
+        // 2. ÓRBITA
         if (_controls.Player.Inspect.IsPressed())
         {
             Vector2 delta = _controls.Player.Delta.ReadValue<Vector2>();
@@ -99,11 +125,19 @@ public class CADCameraController : MonoBehaviour
             {
                 _targetYaw += delta.x * rotateSpeed * 0.1f;
                 _targetPitch -= delta.y * rotateSpeed * 0.1f;
+                
                 _targetPitch = Mathf.Clamp(_targetPitch, verticalAngleLimit.x, verticalAngleLimit.y);
+
+                if (limitHorizontalRotation)
+                {
+                    _targetYaw = Mathf.Clamp(_targetYaw, horizontalAngleLimit.x, horizontalAngleLimit.y);
+                }
+
                 receivedInput = true;
             }
         }
 
+        // 3. ZOOM
         Vector2 scroll = _controls.Player.Zoom.ReadValue<Vector2>();
         if (Mathf.Abs(scroll.y) > 0.1f)
         {
@@ -127,7 +161,12 @@ public class CADCameraController : MonoBehaviour
         _targetPivotPosition = _initialPivotPos; 
         _targetDistance = wideShotDistance;      
         _targetPitch = 45f; 
-        _targetYaw = 45f;
+        
+        if (limitHorizontalRotation)
+            _targetYaw = (horizontalAngleLimit.x + horizontalAngleLimit.y) / 2;
+        else
+            _targetYaw = 45f;
+
         _lastInputTime = Time.time;
     }
 
@@ -135,7 +174,12 @@ public class CADCameraController : MonoBehaviour
     {
         _targetPivotPosition = target.position;
         _targetPitch = 89f; 
-        _targetYaw = 0f; 
+        
+        if (limitHorizontalRotation)
+            _targetYaw = (horizontalAngleLimit.x + horizontalAngleLimit.y) / 2;
+        else
+            _targetYaw = 0f;
+
         _targetDistance = height;
         _lastInputTime = Time.time;
     }
@@ -160,5 +204,27 @@ public class CADCameraController : MonoBehaviour
 
         transform.position = finalPosition;
         transform.rotation = rotation;
+    }
+
+    // GIZMOS ACTUALIZADOS: AHORA VES LA CAJA 3D
+    private void OnDrawGizmosSelected()
+    {
+        if (enablePanLimits)
+        {
+            Gizmos.color = Color.cyan;
+            
+            float sizeX = panLimitX.y - panLimitX.x;
+            float sizeY = panLimitY.y - panLimitY.x; // Altura
+            float sizeZ = panLimitZ.y - panLimitZ.x;
+            
+            float centerX = (panLimitX.x + panLimitX.y) / 2;
+            float centerY = (panLimitY.x + panLimitY.y) / 2; // Centro Y
+            float centerZ = (panLimitZ.x + panLimitZ.y) / 2;
+
+            Vector3 center = new Vector3(centerX, centerY, centerZ);
+            Vector3 size = new Vector3(sizeX, sizeY, sizeZ);
+
+            Gizmos.DrawWireCube(center, size);
+        }
     }
 }
