@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 09_Recursos del Sistema
   m_EditorClassIdentifier: 
   title: Recursos del Sistema
-  contentText: "Canales de comunicaci\xF3n l\xF3gicos que permiten al hardware hablar
-    con el software sin conflictos. Incluyen las IRQ (Solicitudes de Interrupci\xF3n),
-    direcciones de memoria y canales DMA (Acceso Directo a Memoria)."
-  topicImage: {fileID: 0}
+  contentText: "Los recursos del sistema son los componentes f\xEDsicos y l\xF3gicos
+    de un ordenador que se utilizan para ejecutar programas. Incluyen la CPU (unidad
+    central de procesamiento), la memoria RAM, el almacenamiento en disco, los dispositivos
+    de entrada/salida y la red. El sistema operativo es el encargado de gestionar
+    y asignar estos recursos de manera eficiente para que las diferentes aplicaciones
+    puedan funcionar correctamente. "
+  topicImage: {fileID: 21300000, guid: 1c21b0d298dd0eb40b5cb9e67fef3a51, type: 3}

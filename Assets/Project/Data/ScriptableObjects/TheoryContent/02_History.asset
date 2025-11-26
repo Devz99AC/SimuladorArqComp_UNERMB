@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: 02_History
   m_EditorClassIdentifier: 
   title: Historia de las Computadoras
-  contentText: "Evoluci\xF3n tecnol\xF3gica desde los primeros instrumentos de c\xE1lculo
-    (\xC1baco, Pascalina) hasta la electr\xF3nica moderna. Se divide en 5 generaciones
-    marcadas por cambios tecnol\xF3gicos: tubos de vac\xEDo, transistores, circuitos
-    integrados, microprocesadores e inteligencia artificial."
-  topicImage: {fileID: 0}
+  contentText: "La era moderna de las computadoras comenz\xF3 con la creaci\xF3n
+    de m\xE1quinas como la ENIAC (1946) y el EDSAC (1949), que marcaron el inicio
+    de la primera generaci\xF3n utilizando tubos de vac\xEDo. La segunda generaci\xF3n
+    lleg\xF3 con los transistores en los a\xF1os 50, que redujeron el tama\xF1o y
+    el consumo de energ\xEDa. La tercera generaci\xF3n se caracteriz\xF3 por los
+    circuitos integrados en los 60, mientras que la llegada del microprocesador y
+    las computadoras personales en los 70 revolucionaron el mercado masivo. Finalmente,
+    la revoluci\xF3n digital impuls\xF3 el desarrollo de Internet, las computadoras
+    port\xE1tiles y la inteligencia artificial. "
+  topicImage: {fileID: 21300000, guid: f8d55899949ab8e49a2a0dfb7bad4b92, type: 3}

@@ -13,7 +13,17 @@ MonoBehaviour:
   m_Name: "16_Preparaci\xF3n e Instalaci\xF3n de la Tarjeta Madre"
   m_EditorClassIdentifier: 
   title: "Preparaci\xF3n e Instalaci\xF3n de la Tarjeta Madre"
-  contentText: "Paso cr\xEDtico donde se instalan los separadores (standoffs) en
-    el case para evitar cortocircuitos y se coloca la placa base alineada con el
-    panel trasero (I/O Shield)."
+  contentText: "Para la preparaci\xF3n e instalaci\xF3n de la tarjeta madre, primero
+    prepara el gabinete, luego instala el protector del panel de I/O y los separadores
+    en las posiciones correctas. Despu\xE9s, preinstala la CPU y la memoria RAM en
+    la tarjeta madre antes de colocarla en el gabinete, aline\xE1ndola con los separadores
+    e instalando los tornillos. Finalmente, conecta la fuente de alimentaci\xF3n,
+    los componentes internos y cierra la carcasa.\n\nPreparaci\xF3n de la tarjeta
+    madre y el gabinete\r\nAbre el gabinete de tu computadora y retira los paneles
+    laterales.\r\nInstala el protector del panel de I/O (el marco con los recortes
+    para los puertos traseros) en el gabinete, encaj\xE1ndolo a presi\xF3n desde
+    adentro.\r\nColoca los separadores (standoffs) en el gabinete, asegur\xE1ndote
+    de que coincidan con los agujeros de la tarjeta madre. A veces, algunos ya vienen
+    preinstalados.\r\nImportante: Despeja el gabinete de cualquier componente que
+    pueda estorbar y aseg\xFArate de trabajar en una superficie que no sea conductora. "
   topicImage: {fileID: 0}

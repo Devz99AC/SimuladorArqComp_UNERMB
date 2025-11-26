@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 05_Componentes Internos de un Computador
   m_EditorClassIdentifier: 
   title: Componentes Internos de un Computador
-  contentText: "Conjunto de elementos f\xEDsicos ubicados dentro del gabinete (case)
-    que hacen posible el funcionamiento del sistema. Incluye la placa base, procesador,
-    memoria RAM, fuentes de poder y discos."
-  topicImage: {fileID: 0}
+  contentText: "Las partes internas principales de una computadora incluyen la placa
+    madre (o placa base), que conecta todos los componentes; el procesador (CPU),
+    que ejecuta las instrucciones; la memoria RAM, que almacena temporalmente los
+    datos; el disco duro (o SSD), que almacena la informaci\xF3n de forma permanente;
+    la tarjeta de video, que procesa gr\xE1ficos; y la fuente de poder, que suministra
+    energ\xEDa el\xE9ctrica. "
+  topicImage: {fileID: 21300000, guid: 4cf310e6a35e52d4694dcd586b5f027e, type: 3}

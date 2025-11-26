@@ -13,7 +13,21 @@ MonoBehaviour:
   m_Name: "19_Verificaci\xF3n de Componentes y Unidades"
   m_EditorClassIdentifier: 
   title: "Verificaci\xF3n de Componentes y Unidades"
-  contentText: "Proceso de validaci\xF3n post-ensamblaje. Se revisan temperaturas,
-    velocidades de ventiladores y que el sistema operativo detecte correctamente
-    la cantidad de RAM y discos instalados."
+  contentText: "Es un proceso que eval\xFAa si cada parte de un sistema (software
+    o hardware) funciona correctamente, ya sea individualmente (pruebas unitarias)
+    o como parte de un conjunto (pruebas de integraci\xF3n o de sistema). Este proceso
+    puede incluir la revisi\xF3n de hardware, software, componentes electr\xF3nicos
+    o software, asegurando que cumplen su funci\xF3n, son compatibles y operan seg\xFAn
+    lo esperado. \n\nUnidad de sistema: Se refiere a la carcasa principal que contiene
+    componentes clave como la placa base, el procesador (CPU), la memoria RAM y las
+    unidades de almacenamiento.\n\r\nVerificaci\xF3n: Se puede realizar de forma
+    manual o autom\xE1tica para confirmar que los componentes f\xEDsicos del equipo
+    funcionan correctamente.\n\r\nC\xF3mo hacerlo:\n\r\nUsar el S\xEDmbolo del Sistema:
+    En Windows, escribir msinfo32 en la ventana de ejecutar (Windows + R) abre el
+    \"Resumen del sistema\" con informaci\xF3n detallada del hardware.\n\r\nHerramientas:
+    El sistema operativo, como Windows con la aplicaci\xF3n \"Comprobaci\xF3n de
+    estado del PC\", puede tener herramientas integradas para verificar el estado
+    y actualizar el sistema.\n\r\nBeneficios: Asegura la compatibilidad de los componentes,
+    ayuda a generar informes autom\xE1ticos y puede verificar el funcionamiento correcto
+    de dispositivos b\xE1sicos. "
   topicImage: {fileID: 0}

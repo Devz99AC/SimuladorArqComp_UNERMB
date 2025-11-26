@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 12_Hardware para Multimedia
   m_EditorClassIdentifier: 
   title: Hardware para Multimedia
-  contentText: "Componentes especializados en el procesamiento de audio y video.
-    Incluye Tarjetas de Video dedicadas (GPU) para gr\xE1ficos 3D y Tarjetas de Sonido
-    para audio de alta fidelidad."
-  topicImage: {fileID: 0}
+  contentText: "El hardware para multimedia incluye componentes como la tarjeta de
+    sonido, tarjeta gr\xE1fica, tarjeta de video y monitores, que se encargan del
+    audio y video, junto con dispositivos de entrada y salida como c\xE1maras web,
+    micr\xF3fonos, altavoces, auriculares, teclados y ratones para interactuar con
+    el contenido multimedia. Tambi\xE9n requiere almacenamiento adecuado, como discos
+    duros o SSD, y un procesador potente para manejar el procesamiento de datos. "
+  topicImage: {fileID: 21300000, guid: c661b874bf1409c4a8d7267d5639927d, type: 3}

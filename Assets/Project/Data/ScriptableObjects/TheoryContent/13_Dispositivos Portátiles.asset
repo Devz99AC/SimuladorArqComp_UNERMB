@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: "13_Dispositivos Port\xE1tiles"
   m_EditorClassIdentifier: 
   title: "Dispositivos Port\xE1tiles"
-  contentText: "Computadoras dise\xF1adas para ser transportables. Integran pantalla,
-    teclado, bater\xEDa y componentes miniaturizados en un solo chasis (Laptops,
-    Tablets, Ultrabooks)."
-  topicImage: {fileID: 0}
+  contentText: "Los dispositivos port\xE1tiles son aparatos electr\xF3nicos que se
+    pueden transportar f\xE1cilmente, como tel\xE9fonos inteligentes, tabletas y
+    computadoras port\xE1tiles. Se caracterizan por su tama\xF1o compacto, peso ligero
+    y, a menudo, por su funcionamiento aut\xF3nomo gracias a las bater\xEDas. Tambi\xE9n
+    incluyen dispositivos de tecnolog\xEDa \"ponible\" como relojes inteligentes,
+    que se llevan en el cuerpo. "
+  topicImage: {fileID: 21300000, guid: 8388bde83595eb44787950b6659f74bd, type: 3}

@@ -13,7 +13,21 @@ MonoBehaviour:
   m_Name: 15_Normas de Seguridad y Herramientas
   m_EditorClassIdentifier: 
   title: Normas de Seguridad y Herramientas
-  contentText: "Protocolos para evitar da\xF1os al equipo y al usuario.\n\nHerramientas:
-    Destornilladores, precintos.\n\nSeguridad: Uso de pulsera antiest\xE1tica para
-    evitar quemar circuitos por electricidad est\xE1tica corporal."
+  contentText: "Normas de seguridad\r\nDesconectar la energ\xEDa: Apaga completamente
+    el equipo y descon\xE9ctalo de la toma de corriente antes de abrirlo o manipular
+    cualquier componente.\r\nProtecci\xF3n antiest\xE1tica: Usa una pulsera antiest\xE1tica
+    para descargar la electricidad est\xE1tica del cuerpo y evitar da\xF1ar los componentes
+    electr\xF3nicos\nManipulaci\xF3n de componentes: No fuerces ninguna pieza al
+    desconectarla o instalarla. Toma fotos o haz diagramas antes de desmontar para
+    recordar c\xF3mo va todo.\nLimpieza segura: Limpia componentes con movimientos
+    suaves. Det\xE9n los ventiladores al limpiar con aire comprimido para evitar
+    que giren libremente.\n\nHerramientas de mantenimiento\r\nDestornilladores: Un
+    kit de destornilladores de precisi\xF3n es fundamental para abrir el gabinete
+    y retirar componentes.\r\nAire comprimido: Ideal para soplar el polvo de las
+    ranuras, disipadores y otras \xE1reas sin tocarlas f\xEDsicamente.\r\nPulseras
+    antiest\xE1ticas: Esenciales para proteger el hardware de descargas electrost\xE1ticas.\r\nBrochas
+    y pinceles: Sirven para limpiar el polvo acumulado en los componentes sin riesgo
+    de rayarlos.\r\nAlcohol isoprop\xEDlico: Se utiliza para limpiar pasta t\xE9rmica
+    vieja, componentes y \xE1reas con suciedad incrustada. Debe usarse con pa\xF1os
+    o hisopos de algod\xF3n.\r\n"
   topicImage: {fileID: 0}

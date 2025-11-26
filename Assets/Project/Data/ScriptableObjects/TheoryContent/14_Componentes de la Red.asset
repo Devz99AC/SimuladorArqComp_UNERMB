@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: 14_Componentes de la Red
   m_EditorClassIdentifier: 
   title: Componentes de la Red
-  contentText: Hardware que permite conectar el computador a otros equipos o a Internet.
-    Incluye Tarjetas de Interfaz de Red (NIC), cables Ethernet (RJ45) y adaptadores
-    Wi-Fi.
+  contentText: "Los componentes principales de una red son\n\nNodos: Son cualquier
+    punto de conexi\xF3n en la red que puede enviar, recibir o almacenar datos.\n\r\nServidores:
+    Computadoras que proporcionan recursos y servicios a otros dispositivos en la
+    red.\n\r\nMedios de transmisi\xF3n: Los canales f\xEDsicos o inal\xE1mbricos
+    por los que viajan los datos.\n\r\nAl\xE1mbricos: Cable de par trenzado, cable
+    coaxial, fibra \xF3ptica.\n\r\nInal\xE1mbricos: Infrarrojos, radiofrecuencia,
+    microondas.\n\r\nDispositivos de red: Equipos que controlan el flujo del tr\xE1fico
+    de datos.\n\r\nRouters: Conectan diferentes redes y determinan la mejor ruta
+    para los datos.\r\n\r\nPuntos de acceso: Permiten la conexi\xF3n de dispositivos
+    inal\xE1mbricos a la red.\r\n\r\nTarjetas de red (NICs): Adaptadores que permiten
+    a una computadora o dispositivo conectarse a la red, ya sea por cable o de forma
+    inal\xE1mbrica.\r\n"
   topicImage: {fileID: 0}

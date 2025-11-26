@@ -13,7 +13,22 @@ MonoBehaviour:
   m_Name: "18_Configuraci\xF3n del Hardware (Booteo)"
   m_EditorClassIdentifier: 
   title: "Configuraci\xF3n del Hardware (Booteo)"
-  contentText: Primer encendido. Se accede al BIOS/UEFI para configurar el orden
-    de arranque (Boot Order), frecuencia del reloj y verificar que todos los componentes
-    sean reconocidos.
+  contentText: "La configuraci\xF3n del hardware para el arranque se realiza accediendo
+    al men\xFA de la BIOS o UEFI del sistema, que se encuentra presionando una tecla
+    espec\xEDfica (como F2, F10, Supr o F1) al encender el equipo. Dentro de este
+    men\xFA, se debe buscar la secci\xF3n \"Boot\" o \"Arranque\" para modificar
+    el orden de prioridad de los dispositivos, como disco duro, unidad USB o DVD,
+    y guardar los cambios. \n\nPasos para configurar el hardware de arranque\r\nReinicia
+    tu equipo: Enciende o reinicia la computadora.\r\nAccede al men\xFA de BIOS/UEFI:
+    Inmediatamente despu\xE9s de encender, presiona repetidamente la tecla indicada
+    en la pantalla para entrar a la configuraci\xF3n. Las teclas m\xE1s comunes son
+    F2, F10, Supr o F1, aunque puede variar seg\xFAn el fabricante.\r\nLocaliza la
+    configuraci\xF3n de arranque: Dentro de la interfaz, busca una secci\xF3n llamada
+    \"Boot\", \"Arranque\" o \"Boot Order\".\r\nModifica el orden de arranque: Usa
+    las teclas de navegaci\xF3n (a menudo F5 o F6) para mover el dispositivo deseado
+    (por ejemplo, una unidad USB) al principio de la lista de prioridades.\r\nGuarda
+    los cambios y sal: Busca la opci\xF3n para guardar los cambios y salir. Usualmente
+    se hace con la tecla F10 y luego confirmando la acci\xF3n.\r\nReinicia el equipo:
+    La computadora se reiniciar\xE1 autom\xE1ticamente intentando arrancar desde
+    el nuevo dispositivo en primer lugar. \r\n"
   topicImage: {fileID: 0}

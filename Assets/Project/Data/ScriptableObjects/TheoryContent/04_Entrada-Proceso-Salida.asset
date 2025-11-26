@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: 04_Entrada-Proceso-Salida
   m_EditorClassIdentifier: 
   title: Entrada-Proceso-Salida
-  contentText: "Es el flujo b\xE1sico de funcionamiento. Los datos ingresan por perif\xE9ricos
-    (Entrada), el CPU los transforma (Proceso) y la informaci\xF3n resultante se
-    muestra al usuario (Salida)."
-  topicImage: {fileID: 0}
+  contentText: "La entrada, el proceso y la salida es un modelo fundamental en sistemas
+    y computaci\xF3n que describe el flujo de un proceso en tres etapas: entrada
+    (los datos o recursos iniciales), proceso (la transformaci\xF3n de esos datos)
+    y salida (el resultado final). Por ejemplo, al hacer una suma, la entrada son
+    los n\xFAmeros, el proceso es la suma y la salida es el resultado. Este modelo
+    se aplica desde sistemas inform\xE1ticos hasta flujos de trabajo en diversas
+    industrias. "
+  topicImage: {fileID: 21300000, guid: 9f982cbeef5d37d428a851a36953dd03, type: 3}

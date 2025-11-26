@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: 03_Types
   m_EditorClassIdentifier: 
   title: Tipos de Computadora
-  contentText: "Supercomputadoras: C\xE1lculo cient\xEDfico complejo.\n\nMainframes:
-    Servidores para grandes empresas.\n\nComputadoras Personales (PC): Uso dom\xE9stico
-    y de oficina."
-  topicImage: {fileID: 0}
+  contentText: "Las computadoras se pueden clasificar principalmente seg\xFAn su
+    forma de procesamiento (anal\xF3gicas, digitales e h\xEDbridas) o por su tama\xF1o
+    y capacidad (supercomputadoras, mainframes, minicomputadoras, microcomputadoras).
+    Dentro de las microcomputadoras, existen tipos como computadoras de escritorio,
+    port\xE1tiles, tabletas y tel\xE9fonos inteligentes. "
+  topicImage: {fileID: 21300000, guid: 6623d5eb3b32ce94ba86d0ea579d2425, type: 3}

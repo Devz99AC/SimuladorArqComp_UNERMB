@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 08_Componentes de la Tarjeta Madre
   m_EditorClassIdentifier: 
   title: Componentes de la Tarjeta Madre
-  contentText: "Placa de circuito impreso principal que interconecta todos los componentes.
-    Contiene el Socket (para el CPU), ranuras DIMM (para RAM), Chipset (controlador
-    de tr\xE1fico), BIOS y conectores traseros."
-  topicImage: {fileID: 0}
+  contentText: "Los componentes clave de una tarjeta madre incluyen el z\xF3calo
+    del CPU, las ranuras de RAM, el chipset (que controla el flujo de datos), las
+    ranuras de expansi\xF3n como PCIe, los conectores de alimentaci\xF3n y de almacenamiento
+    (SATA), y los puertos de E/S externos. Tambi\xE9n se encuentran el BIOS/UEFI
+    para la configuraci\xF3n del sistema y la bater\xEDa CMOS para almacenar los
+    ajustes cuando el equipo est\xE1 apagado. "
+  topicImage: {fileID: 21300000, guid: c78988f5e85fbcc498f86ccafc75695c, type: 3}

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 11_Componentes Externos (Entrada y Salida)
   m_EditorClassIdentifier: 
   title: Componentes Externos
-  contentText: "Dispositivos que permiten la interacci\xF3n humano-m\xE1quina.\n\nEntrada:
-    Teclado, Mouse, Micr\xF3fono.\n\nSalida: Monitor, Impresora, Cornetas."
-  topicImage: {fileID: 0}
+  contentText: "Las partes externas principales de una computadora, tambi\xE9n llamadas
+    perif\xE9ricos, incluyen el monitor (para ver la informaci\xF3n), el teclado
+    y el rat\xF3n (para introducir datos y comandos), y la torre o gabinete (la caja
+    que contiene los componentes internos). Otros componentes externos comunes son
+    las bocinas, micr\xF3fonos, impresoras, esc\xE1neres y c\xE1maras web. "
+  topicImage: {fileID: 21300000, guid: fea7e3f66e4b65f4b926d58f62566a03, type: 3}

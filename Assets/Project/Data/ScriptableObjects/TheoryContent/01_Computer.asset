@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: 01_Computer
   m_EditorClassIdentifier: 
   title: El Computador
-  contentText: "Es una m\xE1quina electr\xF3nica digital programable encargada de
-    recibir, procesar y almacenar datos para convertirlos en informaci\xF3n \xFAtil.
-    Funciona mediante la combinaci\xF3n de Hardware (partes f\xEDsicas) y Software
-    (instrucciones l\xF3gicas)."
-  topicImage: {fileID: 0}
+  contentText: "Un computador es una m\xE1quina electr\xF3nica capaz de procesar
+    datos para convertirlos en informaci\xF3n \xFAtil, siguiendo las instrucciones
+    de un programa (software). Se compone de componentes f\xEDsicos (hardware) y
+    la parte l\xF3gica e intangible (software). Acepta datos de entrada, los procesa
+    y produce datos de salida, siendo vers\xE1til y capaz de realizar m\xFAltiples
+    tareas, desde c\xE1lculos matem\xE1ticos hasta navegar por internet. "
+  topicImage: {fileID: 21300000, guid: af00372a9d377b6409f283f173b260ef, type: 3}

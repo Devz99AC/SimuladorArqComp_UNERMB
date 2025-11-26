@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: 17_Ensamblaje de una Computadora
   m_EditorClassIdentifier: 
   title: Ensamblaje
-  contentText: "Proceso secuencial de integraci\xF3n: \n1. Instalar CPU y RAM en
-    placa. \n2. Fijar placa al case. \n3. Instalar Fuente. \n4. Conectar almacenamiento.
-    \n5. Gesti\xF3n de cables."
-  topicImage: {fileID: 0}
+  contentText: "El ensamblaje de computadoras es el proceso de unir todos los componentes
+    de hardware para construir una PC personalizada desde cero. Implica seleccionar
+    y conectar piezas como el procesador, la memoria RAM, el almacenamiento, la tarjeta
+    madre y la fuente de poder en un gabinete, seguido de la instalaci\xF3n del sistema
+    operativo. Este proceso permite ahorrar costos y adaptar el equipo a necesidades
+    espec\xEDficas.  "
+  topicImage: {fileID: 21300000, guid: c293a6e5023114f4492d5a5962e04e71, type: 3}

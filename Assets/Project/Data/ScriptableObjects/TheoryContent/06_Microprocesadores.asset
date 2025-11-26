@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: 06_Microprocesadores
   m_EditorClassIdentifier: 
   title: Microprocesadores
-  contentText: "Conocido como CPU (Unidad Central de Procesamiento), es el \"cerebro\"
-    del computador. Es un chip de silicio que ejecuta las instrucciones de los programas
-    y coordina a los dem\xE1s componentes."
-  topicImage: {fileID: 0}
+  contentText: "Un microprocesador es un chip integrado que act\xFAa como la \"unidad
+    central de procesamiento\" (CPU) de un dispositivo, ejecutando instrucciones
+    y gestionando operaciones l\xF3gicas y aritm\xE9ticas. Su funci\xF3n principal
+    es procesar datos en lenguaje binario y es el \"cerebro\" de computadoras, tel\xE9fonos
+    inteligentes y otros aparatos electr\xF3nicos. Se compone de unidades l\xF3gicas,
+    aritm\xE9ticas y de control en un \xFAnico circuito, y su evoluci\xF3n comenz\xF3
+    con el Intel 4004 en 1971. "
+  topicImage: {fileID: 21300000, guid: 6cb46419da4ffff47b276b69db547f63, type: 3}

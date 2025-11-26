@@ -13,7 +13,17 @@ MonoBehaviour:
   m_Name: 10_Dispositivos de Almacenamiento
   m_EditorClassIdentifier: 
   title: Dispositivos de Almacenamiento
-  contentText: "Hardware encargado de guardar datos de forma permanente.\n\nHDD (Disco
-    Duro): Mec\xE1nico, platos magn\xE9ticos, m\xE1s lento.\n\nSSD (Estado S\xF3lido):
-    Chips de memoria flash, alta velocidad."
+  contentText: "Los dispositivos de almacenamiento son componentes de hardware que
+    permiten guardar y recuperar informaci\xF3n digital, como documentos, fotos y
+    videos. Los tipos m\xE1s comunes incluyen discos duros (HDD) y unidades de estado
+    s\xF3lido (SSD), tanto internos como externos, unidades flash USB, tarjetas de
+    memoria (SD, microSD), y dispositivos \xF3pticos como CD/DVD/Blu-ray, aunque
+    su uso es cada vez menor. \n\r\nDiscos duros (HDD y SSD): Son unidades de almacenamiento
+    principales o externas. Los SSD son m\xE1s r\xE1pidos y duraderos que los HDD.\n\r\nUnidades
+    flash USB: Tambi\xE9n conocidos como \"pendrives\", son peque\xF1os, port\xE1tiles
+    y muy comunes para transferir archivos.\r\nTarjetas de memoria: Se utilizan principalmente
+    en c\xE1maras, tel\xE9fonos m\xF3viles y otros dispositivos electr\xF3nicos para
+    a\xF1adir o ampliar el espacio de almacenamiento.\r\n\r\nDispositivos de almacenamiento
+    en la nube: No son dispositivos f\xEDsicos, sino servicios que almacenan datos
+    en servidores remotos y se accede a ellos a trav\xE9s de internet. \r\n"
   topicImage: {fileID: 0}
