@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 15_Normas de Seguridad
+  m_EditorClassIdentifier: 
+  title: 'Normas de Seguridad '
+  contentText: "Normas de seguridad\n\r\nDesconectar la energ\xEDa: Apaga completamente
+    el equipo y descon\xE9ctalo de la toma de corriente antes de abrirlo o manipular
+    cualquier componente.\n\r\nProtecci\xF3n antiest\xE1tica: Usa una pulsera antiest\xE1tica
+    para descargar la electricidad est\xE1tica del cuerpo y evitar da\xF1ar los componentes
+    electr\xF3nicos.\n\nManipulaci\xF3n de componentes: No fuerces ninguna pieza
+    al desconectarla o instalarla. Toma fotos o haz diagramas antes de desmontar
+    para recordar c\xF3mo va todo.\n\nLimpieza segura: Limpia componentes con movimientos
+    suaves. Det\xE9n los ventiladores al limpiar con aire comprimido para evitar
+    que giren libremente.\n"
+  topicImage: {fileID: 0}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: 16_Herramientas
+  m_EditorClassIdentifier: 
+  title: ' Herramientas de Mantenimiento'
+  contentText: "Herramientas de mantenimiento\n\r\nDestornilladores: Un kit de destornilladores
+    de precisi\xF3n es fundamental para abrir el gabinete y retirar componentes.\n\r\nAire
+    comprimido: Ideal para soplar el polvo de las ranuras, disipadores y otras \xE1reas
+    sin tocarlas f\xEDsicamente.\n\r\nPulseras antiest\xE1ticas: Esenciales para
+    proteger el hardware de descargas electrost\xE1ticas.\n\r\nBrochas y pinceles:
+    Sirven para limpiar el polvo acumulado en los componentes sin riesgo de rayarlos.\n\r\nAlcohol
+    isoprop\xEDlico: Se utiliza para limpiar pasta t\xE9rmica vieja, componentes
+    y \xE1reas con suciedad incrustada. Debe usarse con pa\xF1os o hisopos de algod\xF3n.\r\n"
+  topicImage: {fileID: 0}

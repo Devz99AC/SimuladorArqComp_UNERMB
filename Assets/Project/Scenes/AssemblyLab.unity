@@ -3103,7 +3103,7 @@ MonoBehaviour:
   panSpeed: 0.02
   zoomStep: 2
   smoothing: 10
-  verticalAngleLimit: {x: 5, y: 30}
+  verticalAngleLimit: {x: 5, y: 90}
   limitHorizontalRotation: 1
   horizontalAngleLimit: {x: -30, y: 30}
   zoomLimits: {x: 1, y: 5}
@@ -3111,8 +3111,8 @@ MonoBehaviour:
   panLimitX: {x: -10, y: 5}
   panLimitY: {x: 4, y: 10}
   panLimitZ: {x: -5, y: 5}
-  idleTimeBeforeReset: 10
-  wideShotDistance: 5
+  idleTimeBeforeReset: 5
+  wideShotDistance: 3
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

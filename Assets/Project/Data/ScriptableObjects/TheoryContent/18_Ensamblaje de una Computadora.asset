@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
-  m_Name: 17_Ensamblaje de una Computadora
+  m_Name: 18_Ensamblaje de una Computadora
   m_EditorClassIdentifier: 
   title: Ensamblaje
   contentText: "El ensamblaje de computadoras es el proceso de unir todos los componentes

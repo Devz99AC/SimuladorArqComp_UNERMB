@@ -13,21 +13,20 @@ MonoBehaviour:
   m_Name: 07_Tipos de Microprocesadores
   m_EditorClassIdentifier: 
   title: Tipos de Microprocesadores
-  contentText: "- Microprocesadores de uso general: Dise\xF1ados para tareas variadas
+  contentText: "Microprocesadores de uso general: Dise\xF1ados para tareas variadas
     y comunes en computadoras personales. Pueden ser de gama baja (Celeron, Athlon),
-    media (Core i3/i5, Ryzen 3/5) o alta (Core i7/i9, Ryzen 7/9).\r\n- Unidades de
+    media (Core i3/i5, Ryzen 3/5) o alta (Core i7/i9, Ryzen 7/9).\n\r\nUnidades de
     procesamiento de gr\xE1ficos (GPU): Optimizados para procesar y renderizar gr\xE1ficos
-    e im\xE1genes, vitales para juegos, dise\xF1o y miner\xEDa de criptomonedas.\r\n-
-    Procesadores de se\xF1ales digitales (DSP): Especializados en el procesamiento
-    de se\xF1ales digitales, como las de audio y video.\r\n- Microcontroladores:
-    Computadoras de un solo chip que contienen un procesador, memoria y perif\xE9ricos
-    de entrada/salida. Se usan en electrodom\xE9sticos, autom\xF3viles y otros sistemas
-    integrados.\r\n- Circuitos integrados para aplicaciones espec\xEDficas (ASIC):
-    Chips dise\xF1ados para una funci\xF3n muy concreta y con un rendimiento optimizado
-    para esa tarea espec\xEDfica. Las GPU y DSP son tipos de ASIC.\r\n- Procesadores
-    de red: Dise\xF1ados para manejar tareas relacionadas con el procesamiento de
-    paquetes de datos en redes de telecomunicaciones y dispositivos como enrutadores.\r\n-
-    Coprocesadores: Componentes auxiliares que se conectan a la CPU principal para
-    realizar tareas espec\xEDficas y complejas, como c\xE1lculos matem\xE1ticos en
-    punto flotante (FPU). \r\n"
+    e im\xE1genes, vitales para juegos, dise\xF1o y miner\xEDa de criptomonedas.\n\nProcesadores
+    de se\xF1ales digitales (DSP): Especializados en el procesamiento de se\xF1ales
+    digitales, como las de audio y video.\n\r\nMicrocontroladores: Computadoras de
+    un solo chip que contienen un procesador, memoria y perif\xE9ricos de entrada/salida.
+    Se usan en electrodom\xE9sticos, autom\xF3viles y otros sistemas integrados.\n\r\nCircuitos
+    integrados para aplicaciones espec\xEDficas (ASIC): Chips dise\xF1ados para una
+    funci\xF3n muy concreta y con un rendimiento optimizado para esa tarea espec\xEDfica.
+    Las GPU y DSP son tipos de ASIC.\n\r\nProcesadores de red: Dise\xF1ados para
+    manejar tareas relacionadas con el procesamiento de paquetes de datos en redes
+    de telecomunicaciones y dispositivos como enrutadores.\n\r\nCoprocesadores: Componentes
+    auxiliares que se conectan a la CPU principal para realizar tareas espec\xEDficas
+    y complejas, como c\xE1lculos matem\xE1ticos en punto flotante (FPU). \r\n"
   topicImage: {fileID: 0}
