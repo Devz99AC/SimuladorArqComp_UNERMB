@@ -95,5 +95,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60e35c9a74afa004bbdd6a7408114403, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2052084059959550207}
   m_SourcePrefab: {fileID: 100100000, guid: 60e35c9a74afa004bbdd6a7408114403, type: 3}
+--- !u!1 &2431665571593990727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 60e35c9a74afa004bbdd6a7408114403, type: 3}
+  m_PrefabInstance: {fileID: 3278175388842659606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2052084059959550207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431665571593990727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDraggable: 1
+  partName: "Fuente de Alimentaci\xF3n (PSU)"
+  connectionType: {fileID: 11400000, guid: d547e3b23345dd141a77405b8afb183d, type: 2}
+  title: "Fuente de Alimentaci\xF3n (PSU)"
+  description: "Es el componente encargado de convertir la corriente alterna (AC)
+    de tu toma de pared en corriente continua (DC) de bajo voltaje que los componentes
+    del PC pueden usar.\n\nSuministra energ\xEDa estable a trav\xE9s de diferentes
+    cables (24 pines para la placa, 8 pines para CPU, cables SATA, etc.). Una mala
+    fuente puede quemar todo el equipo."

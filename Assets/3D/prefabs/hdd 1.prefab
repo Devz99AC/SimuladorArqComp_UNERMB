@@ -91,5 +91,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fa370be0c00fd940adca638cc79c7db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5222530060009441934}
   m_SourcePrefab: {fileID: 100100000, guid: 2fa370be0c00fd940adca638cc79c7db, type: 3}
+--- !u!1 &4546255777037013426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2fa370be0c00fd940adca638cc79c7db, type: 3}
+  m_PrefabInstance: {fileID: 3735421822164200675}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5222530060009441934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546255777037013426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDraggable: 1
+  partName: "Disco Duro Mec\xE1nico (HDD)"
+  connectionType: {fileID: 11400000, guid: a158ff0b9d489124bb4da487b8315c1e, type: 2}
+  title: "Disco Duro Mec\xE1nico (HDD)"
+  description: "Dispositivo de almacenamiento de datos no vol\xE1til. Utiliza platos
+    magn\xE9ticos giratorios y cabezales de lectura/escritura para guardar informaci\xF3n
+    a largo plazo (S.O., fotos, documentos).\n\nOfrece gran capacidad a bajo costo,
+    pero es m\xE1s lento y fr\xE1gil que un SSD debido a sus partes m\xF3viles."

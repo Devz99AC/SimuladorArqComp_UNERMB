@@ -330,8 +330,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: LABORATORIO DE ENSAMBLAJE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
-  m_sharedMaterial: {fileID: -1897500414673514765, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -936,8 +936,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "VOLVER AL MEN\xDA"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
-  m_sharedMaterial: {fileID: -1897500414673514765, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1984,8 +1984,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "M\xD3DULO TE\xD3RICO"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
-  m_sharedMaterial: {fileID: -1897500414673514765, guid: f2e6537b0b0ab9146a7a058f1a5515fa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -1,177 +1,205 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections; 
-using UnityEngine.EventSystems; // NECESARIO para el bloqueo de UI
+using System.Collections;
+using UnityEngine.EventSystems; // Necesario para bloquear UI
 
 public class InteractionManager : MonoBehaviour
 {
     [Header("Configuración de Raycast")]
-    public LayerMask interactableLayer; 
+    public LayerMask interactableLayer;
+
+    [Header("Configuración Visual (Colores)")]
+    [Tooltip("Material Naranja Transparente (Hover/Inspección)")]
+    public Material hoverMaterial; 
+    [Tooltip("Material Verde Transparente (Arrastre)")]
+    public Material dragMaterial;  
 
     [Header("Configuración de Arrastre")]
-    public float dragHeight = 1.5f; 
+    public float dragHeight = 1.5f;
     
     [Header("Límites de la Mesa")]
-    public float tableLimitSize = 4f; 
+    public float tableLimitSize = 4f;
     public float maxRayDistance = 30f;
 
     [Header("Configuración de Cámara")]
-    public Transform assemblyZone; 
-    public float topDownHeight = 12f; 
+    public Transform assemblyZone;
+    public float topDownHeight = 12f;
 
     // Referencias internas
     private SimulationControls _controls;
     private Camera _cam;
     private CADCameraController _camController;
-    
-    private PCPart _currentPart; 
-    private Plane _dragPlane; 
+
+    private PCPart _currentPart;
+    private Plane _dragPlane;
+
+    // Estado del Highlight
+    private ObjectHighlighter _currentHighlighter;
 
     private void Awake()
     {
         _controls = new SimulationControls();
         _cam = Camera.main;
-        
         if (_cam != null)
             _camController = _cam.GetComponent<CADCameraController>();
     }
-    
-    private void OnEnable() 
-    { 
-        _controls.Enable(); 
-        _controls.Player.Select.performed += OnClick; 
-        _controls.Player.Select.canceled += OnRelease; 
-        _controls.Player.Inspect.performed += OnInspect;
-        _controls.Player.ToggleInstructions.performed += OnToggleInstructions;
-    }
-    
-    private void OnDisable() 
-    { 
-        _controls.Player.Select.performed -= OnClick; 
-        _controls.Player.Select.canceled -= OnRelease; 
-        _controls.Player.Inspect.performed -= OnInspect;
-        _controls.Player.ToggleInstructions.performed -= OnToggleInstructions;
-        _controls.Disable(); 
-    }
+
+    private void OnEnable() => _controls.Enable();
+    private void OnDisable() => _controls.Disable();
 
     private void Update()
     {
-        if (_currentPart != null) 
-        {
-            MovePart();
-        }
+        // 1. Manejo del Highlight (Hover constante)
+        HandleHover();
+
+        // 2. Inputs de Mouse
+        if (_controls.Player.Select.WasPressedThisFrame()) HandleLeftClick();
+        if (_controls.Player.Select.WasReleasedThisFrame()) HandleRelease();
+        if (_controls.Player.Inspect.WasPressedThisFrame()) HandleRightClick();
+
+        // 3. Movimiento de pieza
+        if (_currentPart != null) MovePart();
     }
 
-    // --- 1. ARRASTRE Y CÁMARA (CLIC IZQUIERDO) ---
-    private void OnClick(InputAction.CallbackContext ctx)
+    // --- LÓGICA VISUAL (HIGHLIGHT) ---
+    private void HandleHover()
     {
-        // BLOQUEO UI: Si tocamos un botón, no hacemos nada
-        if (EventSystem.current.IsPointerOverGameObject()) return;
+        // Si estamos arrastrando, el objeto ya está verde, no calculamos hover
+        if (_currentPart != null) return;
+
+        // Si tocamos UI, limpiamos todo
+        if (EventSystem.current.IsPointerOverGameObject()) 
+        {
+            ClearHighlight();
+            return;
+        }
 
         Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
         if (_cam == null) return;
-
         Ray ray = _cam.ScreenPointToRay(mousePos);
-
+        
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
         {
-            PCPart part = hit.collider.GetComponentInParent<PCPart>();
-            
-            if (part != null)
-            {
-                // A. LOGICA DE CÁMARA:
-                // Si la pieza NO está instalada (está en la mesa), ponemos vista Top-Down para ayudar
-                if (_camController != null && assemblyZone != null && !part.IsInstalled) 
-                {
-                    _camController.SetTopDownView(assemblyZone, topDownHeight);
-                }
-                // Si ya está instalada (o es la Motherboard fija), podríamos simplemente enfocarla
-                else if (_camController != null)
-                {
-                    _camController.FocusOnObject(part.transform);
-                }
+            // Buscamos el componente visual en el objeto o sus padres
+            ObjectHighlighter highlighter = hit.collider.GetComponentInParent<ObjectHighlighter>();
 
-                // B. LOGICA DE ARRASTRE:
-                // Solo arrastramos si NO está instalada Y si ES ARRASTRABLE
-                if (!part.IsInstalled && part.isDraggable)
+            if (highlighter != null)
+            {
+                // Si es un objeto nuevo, cambiamos el brillo
+                if (_currentHighlighter != highlighter)
                 {
-                    _currentPart = part;
-                    _dragPlane = new Plane(Vector3.up, hit.point);
-                    
-                    // --- NUEVO: OUTLINE AL ARRASTRAR ---
-                    var highlighter = _currentPart.GetComponent<ObjectHighlighter>();
-                    if (highlighter != null) highlighter.EnableHighlight();
+                    ClearHighlight(); // Apagar anterior
+                    _currentHighlighter = highlighter;
+                    _currentHighlighter.SetHighlight(hoverMaterial); // Encender nuevo (Naranja)
                 }
+            }
+            else
+            {
+                ClearHighlight();
             }
         }
         else
         {
-            // Clic en el vacío: Volver a vista panorámica
-            if (_camController != null) 
-            {
-                _camController.GoToWideView();
-            }
+            ClearHighlight();
         }
     }
 
-    private void OnRelease(InputAction.CallbackContext ctx)
+    private void ClearHighlight()
     {
-        if (_currentPart != null)
+        if (_currentHighlighter != null)
         {
-            // --- NUEVO: QUITAR OUTLINE AL SOLTAR ---
-            var highlighter = _currentPart.GetComponent<ObjectHighlighter>();
-            if (highlighter != null) highlighter.DisableHighlight();
-
-            _currentPart.TryToSnap(); 
-            _currentPart = null;      
-
-            StartCoroutine(ReturnToWideViewAfterDelay(1.0f));
+            _currentHighlighter.RemoveHighlight();
+            _currentHighlighter = null;
         }
     }
 
-    // --- 2. INSPECCIÓN UI (CLIC DERECHO) ---
-    private void OnInspect(InputAction.CallbackContext ctx)
+    // --- LÓGICA DE INTERACCIÓN ---
+
+    private void HandleLeftClick()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        if (_currentPart != null) return; // No inspeccionar si estamos arrastrando
 
         Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
-        if (_cam == null) return;
         Ray ray = _cam.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
         {
             PCPart part = hit.collider.GetComponentInParent<PCPart>();
-            
+
             if (part != null)
             {
-                // --- NUEVO: OUTLINE MOMENTANEO AL INSPECCIONAR ---
-                var highlighter = part.GetComponent<ObjectHighlighter>();
-                if (highlighter != null) 
-                {
-                    highlighter.EnableHighlight();
-                    StartCoroutine(DisableHighlightDelay(highlighter, 2.0f));
-                }
+                // A. Cámara
+                if (_camController != null && assemblyZone != null && !part.IsInstalled)
+                    _camController.SetTopDownView(assemblyZone, topDownHeight);
+                else if (_camController != null)
+                    _camController.FocusOnObject(part.transform);
 
-                if (UIManager.Instance != null)
+                // B. Arrastre
+                if (!part.IsInstalled && part.isDraggable)
                 {
-                    UIManager.Instance.ShowPartInfo(part.title, part.description);
+                    _currentPart = part;
+                    _dragPlane = new Plane(Vector3.up, hit.point);
+
+                    // FEEDBACK VISUAL: CAMBIAR A VERDE
+                    ObjectHighlighter hl = part.GetComponent<ObjectHighlighter>();
+                    if (hl != null)
+                    {
+                        ClearHighlight(); // Limpiar hover naranja
+                        _currentHighlighter = hl;
+                        // Usamos material VERDE porque lo tenemos agarrado
+                        _currentHighlighter.SetHighlight(dragMaterial != null ? dragMaterial : hoverMaterial); 
+                    }
+                }
+            }
+        }
+        else if (_camController != null) 
+        {
+            _camController.GoToWideView();
+        }
+    }
+
+    private void HandleRelease()
+    {
+        if (_currentPart != null)
+        {
+            _currentPart.TryToSnap();
+            
+            // Apagamos el brillo verde al soltar
+            ClearHighlight(); 
+            
+            _currentPart = null;
+            StartCoroutine(ReturnToWideViewAfterDelay(1.0f));
+        }
+    }
+
+    private void HandleRightClick()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (_currentPart != null) return;
+
+        Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
+        Ray ray = _cam.ScreenPointToRay(mousePos);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
+        {
+            PCPart part = hit.collider.GetComponentInParent<PCPart>();
+            if (part != null && UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowPartInfo(part.title, part.description);
+                
+                // Opcional: Mantener el highlight naranja mientras lees la ficha
+                ObjectHighlighter hl = part.GetComponent<ObjectHighlighter>();
+                if (hl != null) 
+                {
+                    ClearHighlight();
+                    _currentHighlighter = hl;
+                    hl.SetHighlight(hoverMaterial);
                 }
             }
         }
     }
 
-    private void OnToggleInstructions(InputAction.CallbackContext ctx)
-    {
-        if (UIManager.Instance != null) UIManager.Instance.ToggleInstructions();
-    }
-
-    private IEnumerator DisableHighlightDelay(ObjectHighlighter highlighter, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (highlighter != null) highlighter.DisableHighlight();
-    }
-
+    // Corrutina para volver a la vista panorámica
     private IEnumerator ReturnToWideViewAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -186,24 +214,21 @@ public class InteractionManager : MonoBehaviour
         if (_dragPlane.Raycast(ray, out float distance))
         {
             if (distance > maxRayDistance) return;
-
             Vector3 worldPos = ray.GetPoint(distance);
 
             if (assemblyZone != null)
             {
                 float centerX = assemblyZone.position.x;
                 float centerZ = assemblyZone.position.z;
-
                 worldPos.x = Mathf.Clamp(worldPos.x, centerX - tableLimitSize, centerX + tableLimitSize);
                 worldPos.z = Mathf.Clamp(worldPos.z, centerZ - tableLimitSize, centerZ + tableLimitSize);
-                
                 worldPos.y = assemblyZone.position.y + dragHeight;
             }
-
             _currentPart.transform.position = worldPos;
         }
     }
 
+    // Dibujar límites en el editor
     private void OnDrawGizmos()
     {
         if (assemblyZone != null)

@@ -3,49 +3,60 @@ using System.Collections.Generic;
 
 public class ObjectHighlighter : MonoBehaviour
 {
-    [Header("Configuración de Outline")]
-    [Tooltip("Material que se usará para el borde/outline")]
-    public Material outlineMaterial;
-
+    // Cache de renderers y materiales
+    private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
     private Renderer[] _renderers;
-    private bool _isHighlighted = false;
+    private bool _isActive = false;
 
     private void Awake()
     {
         _renderers = GetComponentsInChildren<Renderer>();
     }
 
-    public void EnableHighlight()
+    public void SetHighlight(Material highlightMat)
     {
-        if (_isHighlighted || outlineMaterial == null) return;
+        if (highlightMat == null) return;
+        if (_isActive) RemoveHighlight(); // Limpiar si ya había uno
 
         foreach (var renderer in _renderers)
         {
-            List<Material> materials = new List<Material>(renderer.sharedMaterials);
-            materials.Add(outlineMaterial);
-            renderer.materials = materials.ToArray();
+            // 1. Si es la primera vez, guardamos los materiales originales
+            if (!_originalMaterials.ContainsKey(renderer))
+            {
+                _originalMaterials.Add(renderer, renderer.sharedMaterials);
+            }
+
+            // 2. Preparamos el nuevo array (Originales + 1 hueco para el Outline)
+            Material[] originals = _originalMaterials[renderer];
+            Material[] newMats = new Material[originals.Length + 1];
+
+            // 3. Copiamos los originales
+            for (int i = 0; i < originals.Length; i++)
+            {
+                newMats[i] = originals[i];
+            }
+
+            // 4. Ponemos el Material Fresnel al final
+            newMats[newMats.Length - 1] = highlightMat;
+
+            // 5. Aplicamos
+            renderer.materials = newMats;
         }
-        _isHighlighted = true;
+        _isActive = true;
     }
 
-    public void DisableHighlight()
+    public void RemoveHighlight()
     {
-        if (!_isHighlighted || outlineMaterial == null) return;
+        if (!_isActive) return;
 
         foreach (var renderer in _renderers)
         {
-            List<Material> materials = new List<Material>(renderer.sharedMaterials);
-            materials.RemoveAll(m => m.name.StartsWith(outlineMaterial.name)); // Remover por nombre para evitar problemas de instancia
-            
-            // Fallback por si el nombre cambió (instancia)
-            if (materials.Count > renderer.sharedMaterials.Length - 1) 
+            if (_originalMaterials.ContainsKey(renderer))
             {
-                 // Si no se borró por nombre, borramos el último (asumiendo que fue el que agregamos)
-                 materials.RemoveAt(materials.Count - 1);
+                // Restauramos los originales
+                renderer.materials = _originalMaterials[renderer];
             }
-            
-            renderer.materials = materials.ToArray();
         }
-        _isHighlighted = false;
+        _isActive = false;
     }
 }

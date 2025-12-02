@@ -139,5 +139,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66d515a1d9665774584f9489b8251e43, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1943671090426890916}
   m_SourcePrefab: {fileID: 100100000, guid: 66d515a1d9665774584f9489b8251e43, type: 3}
+--- !u!1 &5518775080462509161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 66d515a1d9665774584f9489b8251e43, type: 3}
+  m_PrefabInstance: {fileID: 4636395771899664696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1943671090426890916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518775080462509161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDraggable: 1
+  partName: Tarjeta de Video / GPU
+  connectionType: {fileID: 0}
+  title: Tarjeta de Video / GPU
+  description: "Es un coprocesador especializado en el procesamiento de gr\xE1ficos
+    y operaciones de coma flotante. Su funci\xF3n principal es calcular y renderizar
+    im\xE1genes, videos y entornos 3D para enviarlos al monitor. Alivia la carga
+    de la CPU principal.\n\nPuede ser \"Integrada\" (dentro del procesador) o \"Dedicada\"
+    (una tarjeta aparte conectada al puerto PCIe)."

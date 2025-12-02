@@ -71,5 +71,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 909492f78cadb4a4ea0de7f3ccce8c0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5052575635431554145}
   m_SourcePrefab: {fileID: 100100000, guid: 909492f78cadb4a4ea0de7f3ccce8c0f, type: 3}
+--- !u!1 &3291739942070822381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 909492f78cadb4a4ea0de7f3ccce8c0f, type: 3}
+  m_PrefabInstance: {fileID: 2409414636145580220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5052575635431554145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3291739942070822381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDraggable: 1
+  partName: Memoria de Acceso Aleatorio (RAM)
+  connectionType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
+  title: Memoria de Acceso Aleatorio (RAM)
+  description: "Es la memoria de \"corto plazo\" del computador. Almacena temporalmente
+    los datos y programas que la CPU est\xE1 usando activamente en ese momento. Es
+    una memoria vol\xE1til, lo que significa que cuando apagas el computador, la
+    informaci\xF3n almacenada en ella se borra.\n\nA mayor cantidad de RAM, m\xE1s
+    aplicaciones podr\xE1s tener abiertas simult\xE1neamente sin que el equipo se
+    ralentice."
