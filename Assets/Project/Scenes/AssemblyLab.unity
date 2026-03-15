@@ -4914,6 +4914,180 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.21819824, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: 10}
   m_UseGraphicAlpha: 0
+--- !u!1001 &1083110018
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3162109839326452832}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12747
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12747
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.12747
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.876
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.605
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.655
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.23094596
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.016987441
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.97019726
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.071363784
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -8.414
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 206.779
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7978477704449705422, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -7978477704449705422, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -7915464571568188435, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -7915464571568188435, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -7915464571568188435, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -7502586264278275170, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5809662239631440004, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -5809662239631440004, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -5595748886515273215, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5000913781787098957, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4672569664079388281, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 475ef28e74a9a8042b0e7dd473815fe9, type: 2}
+    - target: {fileID: -4321688260825515358, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -4321688260825515358, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -4321688260825515358, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -1526509560930016547, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: -572711189340772035, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 475ef28e74a9a8042b0e7dd473815fe9, type: 2}
+    - target: {fileID: 919132149155446097, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_Name
+      value: robotperosinosirvemalamia (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757885606654378731, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846502913203823693, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: 5846502913203823693, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: 6829706142130535642, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 475ef28e74a9a8042b0e7dd473815fe9, type: 2}
+    - target: {fileID: 7780376576696660359, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 475ef28e74a9a8042b0e7dd473815fe9, type: 2}
+    - target: {fileID: 8207320497634980902, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3e5d2f1d6d980634ba9ee101a1ef6c3a, type: 2}
+    - target: {fileID: 8449996119470504636, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+--- !u!4 &1083110019 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+  m_PrefabInstance: {fileID: 1083110018}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1088733519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13883,6 +14057,7 @@ Transform:
   m_Children:
   - {fileID: 3261297533279819866}
   - {fileID: 1414872129}
+  - {fileID: 1083110019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3168977315019301043
@@ -14666,7 +14841,10 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: Conector para discos duros y SSDs
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
+    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
+    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
+    binarios (tus archivos y programas)."
 --- !u!64 &3973271510350436380
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18676,7 +18854,7 @@ GameObject:
   - component: {fileID: 7049265981756689169}
   - component: {fileID: 7049265981756689170}
   m_Layer: 3
-  m_Name: 24 pin connector.001
+  m_Name: 8 pin connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19035,10 +19213,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDraggable: 0
-  partName: Conector ATX 24 Pines
+  partName: 'Conector de Potencia CPU '
   connectionType: {fileID: 0}
-  title: Conector ATX 24 Pines
-  description: "Entrada principal de energ\xEDa"
+  title: 'Conector de Potencia CPU '
+  description: "Z\xF3calo situado generalmente cerca del procesador, dise\xF1ado
+    para recibir energ\xEDa exclusiva para la CPU\n\nAlimenta los reguladores de
+    voltaje (VRM) que rodean al procesador, garantizando un suministro el\xE9ctrico
+    estable y limpio, separado del resto de la placa."
 --- !u!64 &7049265981756689169
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19413,7 +19594,10 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: Conector para discos duros y SSDs
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
+    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
+    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
+    binarios (tus archivos y programas)."
 --- !u!64 &7211126910624854249
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20999,7 +21183,10 @@ MonoBehaviour:
   partName: Conector ATX 24 Pines
   connectionType: {fileID: 0}
   title: Conector ATX 24 Pines
-  description: "Entrada principal de energ\xEDa"
+  description: "Es el puerto de entrada de energ\xEDa m\xE1s grande de la placa base.\n\nRecibe
+    el mazo de cables principal de la fuente de poder. Distribuye voltajes de +3.3V,
+    +5V y +12V a todos los componentes integrados, como el Chipset, la memoria RAM
+    y las ranuras PCIe."
 --- !u!64 &8420542575990803711
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21639,7 +21826,10 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: Conector para discos duros y SSDs
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
+    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
+    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
+    binarios (tus archivos y programas)."
 --- !u!64 &8913203959929714848
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21825,7 +22015,10 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: Conector para discos duros y SSDs
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
+    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
+    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
+    binarios (tus archivos y programas)."
 --- !u!64 &8951242316210173825
 MeshCollider:
   m_ObjectHideFlags: 0

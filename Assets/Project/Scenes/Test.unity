@@ -493,6 +493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: robotperosinosirvemalamia (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4757885606654378731, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -548,40 +552,52 @@ PrefabInstance:
     m_TransformParent: {fileID: 1868223067}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1274655
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1274655
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1274655
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.292156
+      value: 6.0094
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.2681525
+      value: -3.61
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9678279
+      value: -3.2216
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.23094596
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.016987441
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.97019726
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.071363784
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -8.414
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 206.779
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1982,6 +1998,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: robotperosinosirvemalamia (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4757885606654378731, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2147,6 +2167,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_Name
       value: robotperosinosirvemalamia
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4757885606654378731, guid: 3926b9f8faeb6544681f964ea4c40f3d, type: 3}
       propertyPath: m_IsActive
