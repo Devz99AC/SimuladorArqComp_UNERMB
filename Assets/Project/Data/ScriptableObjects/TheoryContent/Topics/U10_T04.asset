@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U10_T04
+  m_EditorClassIdentifier: 
+  title: "Detecci\u00F3n de problemas de conexi\u00F3n de red"
+  summary: "Diagn\u00F3stico por capas de los fallos de red, del cable a la resoluci\u00F3n de nombres."
+  contentText: "## Diagn\u00F3stico por capas\nLos problemas de red se resuelven yendo **de abajo hacia arriba**: primero lo f\u00EDsico, luego lo l\u00F3gico y por \u00FAltimo los servicios.\n\n## Capa 1: f\u00EDsica\n- El **LED del conector RJ-45** debe estar encendido. Apagado significa que no hay enlace: el fallo est\u00E1 en el cable, el puerto o el otro extremo.\n- Probar con **otro cable** y en **otro puerto del switch**.\n- Revisar el ponchado con un **probador de cables**.\n- En Wi-Fi: comprobar que la tarjeta est\u00E1 activa (muchos port\u00E1tiles tienen un interruptor f\u00EDsico o una combinaci\u00F3n con Fn) y verificar la intensidad de la se\u00F1al.\n\n## Capa 2 y 3: configuraci\u00F3n\n1. **Ver la configuraci\u00F3n**: `ipconfig /all` en Windows, `ip addr` en GNU/Linux.\n2. Una direcci\u00F3n **169.254.x.x** (APIPA) significa que el equipo **no obtuvo IP del DHCP**: el problema est\u00E1 entre el equipo y el servidor DHCP.\n3. **Renovar la direcci\u00F3n**: `ipconfig /release` seguido de `ipconfig /renew`; `sudo dhclient -r` y `sudo dhclient` en GNU/Linux.\n4. Verificar que la **puerta de enlace** es correcta y est\u00E1 en la misma subred.\n\n## Prueba de conectividad progresiva\nSe hace `ping` en este orden, y el primer paso que falla se\u00F1ala d\u00F3nde est\u00E1 el problema:\n\n1. `ping 127.0.0.1` \u2014 la pila TCP/IP local. Si falla, el problema es del sistema.\n2. `ping <IP propia>` \u2014 la tarjeta de red.\n3. `ping <puerta de enlace>` \u2014 la red local hasta el router.\n4. `ping 8.8.8.8` \u2014 conectividad con internet por direcci\u00F3n IP.\n5. `ping google.com` \u2014 resoluci\u00F3n de nombres.\n\n> Si el paso 4 funciona y el 5 no, el problema es exclusivamente de **DNS**. La red est\u00E1 bien; lo que falla es la traducci\u00F3n de nombres a direcciones.\n\n## Herramientas adicionales\n- `tracert` (Windows) o `traceroute` (GNU/Linux): muestra el camino hasta el destino y d\u00F3nde se corta.\n- `nslookup` o `dig`: consulta directa a los servidores DNS.\n- `netstat -ano` o `ss -tulpn`: conexiones abiertas y puertos en escucha.\n- `arp -a`: tabla de direcciones f\u00EDsicas de la red local.\n\n## Causas frecuentes\n: Sin IP (APIPA) | Cable, puerto del switch o servidor DHCP ca\u00EDdo.\n: Con IP pero sin internet | Puerta de enlace mal configurada o problema del router.\n: Todo responde por IP pero no por nombre | DNS mal configurado. Probar con 8.8.8.8 o 1.1.1.1.\n: Solo falla un programa | Cortafuegos o antivirus bloqueando ese puerto.\n: Red intermitente | Cable defectuoso, interferencia en Wi-Fi o duplicidad de direcciones IP.\n: Nadie tiene red | El problema no est\u00E1 en el equipo: switch, router o proveedor.\n\n## Restablecer la pila de red en Windows\nCuando la configuraci\u00F3n qued\u00F3 inconsistente:\n`netsh winsock reset`, `netsh int ip reset`, `ipconfig /flushdns`, y reiniciar."
+  topicImage: {fileID: 0}
+  imageCaption: ""

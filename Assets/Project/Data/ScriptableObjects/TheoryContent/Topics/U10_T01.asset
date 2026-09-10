@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U10_T01
+  m_EditorClassIdentifier: 
+  title: "Detecci\u00F3n de fallas y problemas del hardware"
+  summary: "M\u00E9todo de diagn\u00F3stico por descarte, s\u00EDntomas m\u00E1s frecuentes y c\u00F3mo localizar el componente responsable."
+  contentText: "## El m\u00E9todo antes que la herramienta\nDiagnosticar no es probar piezas al azar. Es un procedimiento ordenado:\n\n1. **Recoger informaci\u00F3n**: qu\u00E9 hac\u00EDa el equipo cuando fall\u00F3, desde cu\u00E1ndo ocurre, qu\u00E9 cambi\u00F3 justo antes.\n2. **Reproducir la falla**: un fallo que no se puede reproducir no se puede verificar como resuelto.\n3. **Formular una hip\u00F3tesis** sobre la causa m\u00E1s probable.\n4. **Probar la hip\u00F3tesis** cambiando **una sola variable cada vez**.\n5. **Aplicar la soluci\u00F3n** y **verificar** que la falla desapareci\u00F3.\n6. **Documentar** el caso.\n\n> La regla de oro es cambiar **un elemento a la vez**. Si se sustituyen la memoria y la fuente a la vez y el equipo arranca, no se sabr\u00E1 cu\u00E1l de las dos fallaba.\n\n## El equipo no enciende\nSin ventiladores ni luces:\n- Comprobar el tomacorriente con otro aparato y el interruptor trasero de la fuente.\n- Probar otro cable de alimentaci\u00F3n.\n- Verificar el conector **ATX de 24 pines** y el **EPS del procesador**.\n- Puentear los pines del bot\u00F3n de encendido en la placa con un destornillador: si as\u00ED arranca, el fallo est\u00E1 en el bot\u00F3n del gabinete.\n- Probar la fuente con un **probador de fuentes**.\n\n## Enciende pero no da imagen\nVentiladores girando, pantalla en negro:\n- Escuchar los **pitidos del POST** y consultar su significado en el manual de la placa.\n- **Reasentar los m\u00F3dulos de memoria**; probar con uno solo y en distintas ranuras.\n- Comprobar que el monitor est\u00E1 en la **entrada correcta** y que el cable va a la salida adecuada: si hay tarjeta gr\u00E1fica dedicada, a ella y no a la placa.\n- Reasentar la tarjeta de video y verificar su alimentaci\u00F3n PCIe.\n- Retirar la **bater\u00EDa CMOS** unos minutos para restaurar la configuraci\u00F3n de f\u00E1brica.\n- Dejar solo lo imprescindible: placa, CPU, un m\u00F3dulo de RAM y fuente.\n\n## Reinicios y pantallas azules\n- **Temperaturas**: si el procesador supera los 90 grados, revisar disipador y pasta t\u00E9rmica.\n- **Memoria**: ejecutar MemTest86. Un solo error obliga a sustituir el m\u00F3dulo.\n- **Fuente insuficiente o degradada**: los reinicios bajo carga son su s\u00EDntoma caracter\u00EDstico.\n- **Disco**: revisar SMART.\n- Anotar el **c\u00F3digo de detenci\u00F3n** de la pantalla azul: identifica el subsistema afectado.\n\n## Ruidos y olores\n: Chasquidos r\u00EDtmicos | Disco duro mec\u00E1nico pr\u00F3ximo a fallar. Respaldar de inmediato.\n: Zumbido o chirrido | Rodamiento de un ventilador desgastado.\n: Pitido continuo | Alarma de temperatura o de fallo de la fuente.\n: Olor a quemado | **Apagar y desconectar de inmediato.** Suele ser la fuente o un condensador.\n\n## Signos visuales\n- **Condensadores hinchados o con fugas** en la placa o en la fuente: sustituci\u00F3n.\n- **Marcas de quemadura** o pistas oscurecidas.\n- **Pines doblados** en el z\u00F3calo del procesador.\n- **Corrosi\u00F3n** en los contactos, propia de ambientes h\u00FAmedos."
+  topicImage: {fileID: 0}
+  imageCaption: ""

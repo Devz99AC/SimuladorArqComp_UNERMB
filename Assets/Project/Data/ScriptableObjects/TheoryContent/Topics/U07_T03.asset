@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U07_T03
+  m_EditorClassIdentifier: 
+  title: "Sistemas operativos de interfaz gr\u00E1fica o de comandos"
+  summary: "Las dos formas de dar \u00F3rdenes al sistema, cu\u00E1ndo conviene cada una y las \u00F3rdenes b\u00E1sicas que todo t\u00E9cnico debe manejar."
+  contentText: "## Las dos interfaces\n: Interfaz gr\u00E1fica (GUI) | Ventanas, iconos, men\u00FAs y puntero. Es visual, no exige memorizar nada y es la adecuada para el usuario final.\n: L\u00EDnea de comandos (CLI) | El usuario escribe \u00F3rdenes en texto. Exige conocer la sintaxis, pero es m\u00E1s r\u00E1pida, consume much\u00EDsimos menos recursos y, sobre todo, **se puede automatizar**.\n\n## Por qu\u00E9 la CLI sigue siendo imprescindible\n- Un servidor sin entorno gr\u00E1fico dedica toda su memoria al servicio que presta.\n- La administraci\u00F3n remota por SSH es ligera y funciona con una conexi\u00F3n pobre.\n- Una tarea repetida sobre cien equipos se escribe una vez en un guion.\n- Cuando el entorno gr\u00E1fico no arranca, la consola de recuperaci\u00F3n es lo \u00FAnico que queda.\n- Los mensajes de error de la l\u00EDnea de comandos son mucho m\u00E1s precisos que un cuadro de di\u00E1logo gen\u00E9rico.\n\n## Int\u00E9rpretes habituales\n: CMD | El int\u00E9rprete cl\u00E1sico de Windows. Limitado, pero presente en todas las versiones.\n: PowerShell | El int\u00E9rprete moderno de Windows. Trabaja con objetos, no con texto, y es muy potente para administraci\u00F3n.\n: Bash | El est\u00E1ndar de facto en GNU/Linux y macOS.\n: Zsh y Fish | Alternativas a Bash con mejor autocompletado.\n\n## \u00D3rdenes equivalentes\n: Listar el contenido de un directorio | `dir` en CMD \u00B7 `ls -la` en Bash\n: Cambiar de directorio | `cd carpeta` en ambos\n: Crear un directorio | `mkdir nombre` en ambos\n: Copiar | `copy origen destino` en CMD \u00B7 `cp origen destino` en Bash\n: Mover o renombrar | `move` en CMD \u00B7 `mv` en Bash\n: Borrar | `del archivo` en CMD \u00B7 `rm archivo` en Bash\n: Mostrar el contenido de un archivo | `type archivo` en CMD \u00B7 `cat archivo` en Bash\n: Ver los procesos | `tasklist` en CMD \u00B7 `ps aux` o `top` en Bash\n: Terminar un proceso | `taskkill /PID n` en CMD \u00B7 `kill n` en Bash\n: Configuraci\u00F3n de red | `ipconfig /all` en CMD \u00B7 `ip addr` en Bash\n: Comprobar conectividad | `ping destino` en ambos\n\n## \u00D3rdenes de diagn\u00F3stico \u00FAtiles\n- **Windows**: `sfc /scannow` repara archivos del sistema; `chkdsk C: /f` comprueba el disco; `systeminfo` resume la configuraci\u00F3n; `DISM /Online /Cleanup-Image /RestoreHealth` repara la imagen del sistema.\n- **GNU/Linux**: `dmesg` muestra los mensajes del n\u00FAcleo; `journalctl -xe` los registros del sistema; `df -h` el espacio en disco; `lsblk` los dispositivos de bloque; `systemctl status servicio` el estado de un servicio.\n\n> La recomendaci\u00F3n profesional no es elegir una interfaz sino **dominar ambas**: la gr\u00E1fica para explorar y configurar, la de comandos para diagnosticar, automatizar y trabajar en remoto."
+  topicImage: {fileID: 0}
+  imageCaption: ""

@@ -1,0 +1,26 @@
+/* =====================================================================
+   theme.tss — Theme Style Sheet raíz del Simulador (UI Toolkit)
+   ---------------------------------------------------------------------
+   Se asigna en PanelSettings.asset y aplica a las 4 escenas.
+   - Hereda el tema runtime por defecto (estilo base de Button, ScrollView…).
+   - Importa los tokens (variables.uss).
+   - Fija la tipografía de marca (TT Hoves) como fuente heredada raíz.
+   Las propiedades de fuente/color son heredables en UITK, así que basta
+   definirlas en :root; todos los descendientes las heredan.
+   ===================================================================== */
+
+@import url("unity-theme://default");
+@import url("/Assets/Project/UI/Common/variables.uss");
+@import url("/Assets/Project/UI/Common/Controls.uss");
+
+:root {
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBold.asset");
+    font-size: 18px;
+    color: rgb(240, 241, 243);
+    -unity-text-outline-width: 0;
+}
+
+/* Utilidad: peso Black para titulares. */
+.font-black {
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+}

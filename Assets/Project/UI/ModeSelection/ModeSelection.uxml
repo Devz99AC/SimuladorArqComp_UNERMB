@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <!-- Reutiliza el layout y estilos del MainMenu (mismo escritorio, título, panel gris, rayas) -->
+    <Style src="../MainMenu/MainMenu.uss" />
+    <Style src="ModeSelection.uss" />
+
+    <ui:VisualElement name="root" class="menu-root">
+
+        <DiagonalStripes name="bg" class="menu-bg" picking-mode="Ignore" stripe-width="16" gap="16" speed="12" />
+
+        <ui:VisualElement name="left" class="menu-left" picking-mode="Ignore">
+            <ui:VisualElement class="menu-hero" picking-mode="Ignore">
+                <ui:VisualElement class="menu-wordmark" picking-mode="Ignore">
+                    <ui:Label text="SIMULADOR DE ARQUITECTURA DEL &lt;color=#FD4320&gt;COMPUTADOR&lt;/color&gt;" class="menu-wordmark__name" picking-mode="Ignore" />
+                    <ui:VisualElement class="menu-wordmark__rule" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-logo" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="right" class="menu-right">
+            <ui:VisualElement name="menu" class="menu-list">
+                <ui:Button name="btn-theory" text="MÓDULO TEÓRICO" class="menu-item" />
+                <ui:Button name="btn-assembly" text="LABORATORIO DE ENSAMBLAJE" class="menu-item" />
+                <ui:Button name="btn-back" text="VOLVER AL MENÚ" class="menu-item" />
+            </ui:VisualElement>
+            <ui:VisualElement name="pnf-logo" class="menu-pnf" picking-mode="Ignore" />
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

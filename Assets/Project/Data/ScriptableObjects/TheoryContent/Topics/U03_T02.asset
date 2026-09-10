@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T02
+  m_EditorClassIdentifier: 
+  title: "Herramientas requeridas"
+  summary: "El instrumental m\u00EDnimo para ensamblar y dar mantenimiento a un equipo en el laboratorio."
+  contentText: "## Herramientas b\u00E1sicas\n: Destornillador de estrella (Phillips) del n.\u00BA 2 | La herramienta principal. Casi todos los tornillos de un PC son de este tipo. Con punta imantada, para no perder tornillos dentro del gabinete.\n: Destornillador plano peque\u00F1o | Para conectores y palancas de retenci\u00F3n.\n: Destornillador de precisi\u00F3n | Imprescindible en port\u00E1tiles y en los tornillos M.2.\n: Pulsera antiest\u00E1tica | Con pinza de conexi\u00F3n a tierra.\n: Pinzas de punta fina | Para colocar los diminutos conectores del panel frontal y recuperar tornillos ca\u00EDdos.\n: Bridas o velcro | Para organizar el cableado interno y no obstruir el flujo de aire.\n: Linterna | El interior de un gabinete es oscuro; una linterna frontal deja las dos manos libres.\n\n## Herramientas de limpieza\n- **Aire comprimido** en lata o soplador antiest\u00E1tico.\n- **Brocha de cerdas suaves** antiest\u00E1tica.\n- **Alcohol isoprop\u00EDlico** de 90 grados o m\u00E1s, para contactos y para retirar pasta t\u00E9rmica.\n- **Pa\u00F1os de microfibra** sin pelusa.\n- **Pasta t\u00E9rmica**, para reponerla siempre que se retire un disipador.\n- **Aspiradora antiest\u00E1tica** si est\u00E1 disponible. Una aspiradora dom\u00E9stica genera est\u00E1tica y no debe usarse dentro del equipo.\n\n## Herramientas de diagn\u00F3stico\n: Mult\u00EDmetro | Comprueba continuidad y tensiones. Permite verificar un cable de red o las salidas de una fuente.\n: Probador de fuentes de poder | Verifica las tensiones ATX sin conectar la fuente a la placa.\n: Probador de cables de red | Comprueba el ponchado de un cable UTP par a par.\n: Medio de arranque USB | Con herramientas de diagn\u00F3stico, prueba de memoria y sistema de rescate.\n: Tarjeta POST | Muestra el c\u00F3digo de error del arranque cuando el equipo no da imagen.\n\n> Aire comprimido: **siempre en r\u00E1fagas cortas y con la lata vertical**, y sujetando las aspas del ventilador. Un ventilador que gira empujado por el aire funciona como generador y puede inyectar tensi\u00F3n en la placa."
+  topicImage: {fileID: 0}
+  imageCaption: ""

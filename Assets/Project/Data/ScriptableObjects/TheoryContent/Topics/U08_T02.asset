@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U08_T02
+  m_EditorClassIdentifier: 
+  title: "Gesti\u00F3n de usuarios y grupos"
+  summary: "Cuentas, grupos y permisos: el mecanismo con el que el sistema decide qui\u00E9n puede hacer qu\u00E9."
+  contentText: "## Por qu\u00E9 existen las cuentas\nLas cuentas de usuario cumplen tres funciones: **separar** los datos de cada persona, **limitar** el da\u00F1o que puede causar un error o un programa malicioso, y **auditar** qui\u00E9n hizo cada cosa.\n\n## Tipos de cuenta\n: Administrador / root | Control total sobre el sistema. Debe usarse solo cuando la tarea lo exige.\n: Usuario est\u00E1ndar | Uso cotidiano. Puede trabajar con sus archivos pero no modificar el sistema.\n: Invitado | Acceso temporal y muy limitado. Desactivado por defecto en los sistemas actuales.\n: Cuentas de servicio | No corresponden a personas: las usan los servicios del sistema, y normalmente no pueden iniciar sesi\u00F3n.\n\n## Grupos\nUn **grupo** re\u00FAne usuarios para asignarles permisos de una sola vez. Es lo que hace manejable la administraci\u00F3n: en lugar de dar permiso a treinta personas sobre una carpeta, se da al grupo \"Docentes\" y se a\u00F1ade a las personas al grupo.\n\n## Gesti\u00F3n en Windows\n- **Configuraci\u00F3n \u2192 Cuentas** para el uso normal.\n- `lusrmgr.msc` (Usuarios y grupos locales) en las ediciones Pro y superiores.\n- `net user usuario contrase\u00F1a /add` para crear desde la consola.\n- `net localgroup Administradores usuario /add` para a\u00F1adir a un grupo.\n- **UAC (Control de cuentas de usuario)**: pide confirmaci\u00F3n antes de una acci\u00F3n privilegiada. Desactivarlo es una mala pr\u00E1ctica frecuente.\n- En un dominio, la gesti\u00F3n centralizada se hace con **Active Directory**.\n\n## Gesti\u00F3n en GNU/Linux\n- `sudo adduser nombre` crea usuario, carpeta personal y grupo propio.\n- `sudo usermod -aG grupo usuario` a\u00F1ade a un grupo. La opci\u00F3n `-a` es imprescindible: sin ella se **sustituyen** los grupos en lugar de a\u00F1adir.\n- `sudo passwd usuario` cambia la contrase\u00F1a.\n- `sudo deluser --remove-home usuario` elimina la cuenta y su carpeta.\n- `id usuario` muestra su UID, GID y grupos.\n- `sudo` ejecuta una orden concreta con privilegios, en lugar de iniciar sesi\u00F3n como root.\n\n### Archivos del sistema\n- `/etc/passwd` \u2014 cuentas (sin contrase\u00F1as).\n- `/etc/shadow` \u2014 contrase\u00F1as cifradas, solo legible por root.\n- `/etc/group` \u2014 grupos y sus miembros.\n\n## Permisos de archivos en GNU/Linux\nCada archivo tiene tres permisos (**r** lectura, **w** escritura, **x** ejecuci\u00F3n) para tres \u00E1mbitos: propietario, grupo y otros.\n\n- `chmod 755 archivo` \u2014 el propietario puede todo; grupo y otros pueden leer y ejecutar.\n- `chmod 644 archivo` \u2014 el propietario lee y escribe; el resto solo lee.\n- `chown usuario:grupo archivo` \u2014 cambia el propietario.\n\nEn Windows el equivalente son las **ACL**, accesibles desde la pesta\u00F1a Seguridad de las propiedades del archivo o con `icacls`.\n\n> El principio que ordena todo esto es el de **m\u00EDnimo privilegio**: cada usuario y cada servicio deben tener exactamente los permisos que necesitan para su tarea, y ni uno m\u00E1s. Trabajar a diario como administrador es la causa de buena parte de las infecciones."
+  topicImage: {fileID: 0}
+  imageCaption: ""

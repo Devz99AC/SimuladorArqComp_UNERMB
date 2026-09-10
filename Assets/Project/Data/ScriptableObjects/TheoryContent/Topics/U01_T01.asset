@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T01
+  m_EditorClassIdentifier: 
+  title: "El computador: definici\u00F3n y caracter\u00EDsticas"
+  summary: "M\u00E1quina electr\u00F3nica programable que transforma datos en informaci\u00F3n \u00FAtil siguiendo las instrucciones de un programa."
+  contentText: "## Definici\u00F3n\nUn **computador** es una m\u00E1quina electr\u00F3nica capaz de recibir datos, procesarlos siguiendo las instrucciones de un programa y entregar un resultado \u00FAtil. No \"sabe\" nada por s\u00ED mismo: hace exactamente lo que el programa le indica, pero lo hace a una velocidad y con una precisi\u00F3n que ninguna persona podr\u00EDa igualar.\n\n## Las dos mitades de todo computador\n: Hardware | La parte f\u00EDsica y tangible: la tarjeta madre, el procesador, la memoria, el disco, el monitor. Es lo que se puede tocar y lo que se ensambla en el laboratorio.\n: Software | La parte l\u00F3gica e intangible: el sistema operativo, los controladores y los programas. Es lo que da sentido al hardware.\n\nNinguna de las dos sirve sola. Un equipo sin software es un conjunto de piezas inertes; un programa sin hardware no tiene d\u00F3nde ejecutarse.\n\n## Caracter\u00EDsticas que lo definen\n- **Autom\u00E1tico**: una vez iniciada la tarea, la realiza sin intervenci\u00F3n humana.\n- **Programable**: el mismo equipo sirve para escribir un documento o para simular un circuito; solo cambia el programa.\n- **Veloz**: opera en el orden de miles de millones de operaciones por segundo.\n- **Preciso**: repite un c\u00E1lculo un mill\u00F3n de veces con el mismo resultado.\n- **Con memoria**: almacena datos y programas para usarlos despu\u00E9s.\n- **Universal**: no est\u00E1 atado a un solo tipo de problema.\n\n## Datos e informaci\u00F3n\nLos t\u00E9rminos no son sin\u00F3nimos, y la diferencia es justo lo que aporta el computador.\n\n: Dato | Un hecho aislado, sin contexto: \"18\", \"Cabimas\", \"3,5 GHz\".\n: Informaci\u00F3n | Datos organizados y relacionados que permiten decidir algo: \"el procesador de 3,5 GHz instalado en el laboratorio de Cabimas soporta 18 estaciones de trabajo\".\n\n> El computador es, en esencia, una m\u00E1quina de convertir datos en informaci\u00F3n. Todo lo dem\u00E1s (velocidad, memoria, gr\u00E1ficos) est\u00E1 al servicio de esa transformaci\u00F3n."
+  topicImage: {fileID: 21300000, guid: af00372a9d377b6409f283f173b260ef, type: 3}
+  imageCaption: "Un equipo de escritorio y sus partes visibles."

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T05
+  m_EditorClassIdentifier: 
+  title: "Componentes internos"
+  summary: "Recorrido por las piezas que van dentro del gabinete y por la funci\u00F3n concreta de cada una."
+  contentText: "## Las piezas dentro del gabinete\n: Tarjeta madre (motherboard) | La placa principal. Todo se conecta a ella y por ella circula la comunicaci\u00F3n entre componentes.\n: Procesador (CPU) | El cerebro del sistema: ejecuta las instrucciones. Se instala en un z\u00F3calo espec\u00EDfico y siempre lleva disipador.\n: Memoria RAM | Memoria de trabajo, vol\u00E1til: guarda el programa y los datos que se est\u00E1n usando en este instante.\n: Almacenamiento (HDD o SSD) | Memoria permanente: conserva el sistema operativo, los programas y los archivos aunque se corte la energ\u00EDa.\n: Fuente de poder (PSU) | Convierte la corriente alterna del tomacorriente en las tensiones continuas que consumen los componentes.\n: Tarjeta de video (GPU) | Genera la imagen. Puede estar integrada en el procesador o ser una tarjeta independiente.\n: Sistema de refrigeraci\u00F3n | Disipadores y ventiladores que evacuan el calor. Sin \u00E9l, el procesador reduce su velocidad o se apaga.\n: Gabinete (case) | Sostiene y protege todo, y organiza el flujo de aire.\n\n## C\u00F3mo se relacionan\nLa fuente alimenta a la tarjeta madre; la tarjeta madre distribuye energ\u00EDa y datos al procesador, la memoria y las ranuras de expansi\u00F3n. El procesador pide instrucciones a la RAM, y la RAM las obtuvo del almacenamiento cuando se inici\u00F3 el sistema.\n\n## Orden l\u00F3gico de montaje\n1. Procesador y disipador sobre la tarjeta madre, con la placa a\u00FAn fuera del gabinete.\n2. M\u00F3dulos de memoria RAM en sus ranuras.\n3. La tarjeta madre dentro del gabinete, sobre sus separadores.\n4. Fuente de poder y conectores de alimentaci\u00F3n.\n5. Unidades de almacenamiento y sus cables de datos.\n6. Tarjetas de expansi\u00F3n, la de video en \u00FAltimo lugar por su tama\u00F1o.\n\n> Este es exactamente el orden que sigue el **Laboratorio de Ensamblaje** del simulador. Montar la CPU con la placa ya atornillada en el gabinete es posible, pero inc\u00F3modo y arriesgado."
+  topicImage: {fileID: 21300000, guid: 4cf310e6a35e52d4694dcd586b5f027e, type: 3}
+  imageCaption: "Vista interior de un gabinete de escritorio."

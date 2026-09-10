@@ -1,0 +1,94 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <!-- Reutiliza estilos compartidos del MainMenu (cabecera naranja, ✕, fondo) -->
+    <Style src="../MainMenu/MainMenu.uss" />
+    <Style src="Theory.uss" />
+
+    <ui:VisualElement name="root" class="theory-root">
+
+        <!-- Fondo animado compartido (rayas diagonales vectoriales) -->
+        <DiagonalStripes name="bg" class="menu-bg" picking-mode="Ignore" stripe-width="16" gap="16" speed="12" />
+
+        <ui:VisualElement name="shell" class="theory-shell">
+
+            <!-- ======================= Cabecera ======================= -->
+            <ui:VisualElement class="menu-modal__header theory-header">
+                <ui:VisualElement class="theory-header__titles" picking-mode="Ignore">
+                    <ui:Label text="MÓDULO TEÓRICO" class="menu-modal__title" />
+                    <ui:Label name="header-subtitle" class="theory-header__sub" text="Arquitectura del Computador" />
+                </ui:VisualElement>
+                <ui:Button name="btn-exit" class="menu-modal__close" tooltip="Volver a la selección de modo" />
+            </ui:VisualElement>
+
+            <!-- Barra de progreso de lectura del módulo completo -->
+            <ui:VisualElement class="theory-progressbar" picking-mode="Ignore">
+                <ui:VisualElement name="progress-fill" class="theory-progressbar__fill" picking-mode="Ignore" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="theory-columns">
+
+                <!-- ================= Índice lateral ================= -->
+                <ui:VisualElement name="sidebar" class="theory-sidebar">
+                    <ui:VisualElement class="theory-search">
+                        <ui:TextField name="search" class="theory-search__field" />
+                        <ui:Label name="search-hint" class="theory-search__hint" text="Buscar tema…" picking-mode="Ignore" />
+                    </ui:VisualElement>
+
+                    <ui:ScrollView name="nav" class="theory-nav" />
+
+                    <ui:Button name="btn-home" class="theory-sidebar__foot" text="Portada del módulo" />
+                    <ui:Button name="btn-refs" class="theory-sidebar__foot" text="Bibliografía" />
+                </ui:VisualElement>
+
+                <!-- ================= Panel de lectura ================= -->
+                <ui:VisualElement name="main" class="theory-main">
+
+                    <ui:ScrollView name="body-scroll" class="theory-body">
+                        <ui:VisualElement name="measure" class="theory-measure">
+
+                            <!-- ========== Estado PORTADA ========== -->
+                            <ui:VisualElement name="home-view" class="theory-home">
+                                <ui:Label name="home-course" class="theory-home__course" text="Arquitectura del Computador" />
+                                <ui:Label name="home-meta" class="theory-home__meta" text="ACT139 · Trayecto I" />
+                                <ui:Label class="theory-home__lead" text="Contenido analítico de la unidad curricular. Elige una unidad para comenzar; dentro de cada una encontrarás sus temas en el orden en que conviene leerlos." />
+                                <ui:VisualElement name="home-units" class="theory-home__units" />
+                            </ui:VisualElement>
+
+                            <!-- ========== Estado LECTOR ========== -->
+                            <ui:VisualElement name="reader-view" class="theory-reader">
+                                <ui:Label name="crumb" class="theory-crumb" text="Unidad 1 › El Computador" />
+                                <ui:Label name="topic-title" class="theory-title" text="Título del tema" />
+                                <ui:Label name="topic-summary" class="theory-summary" text="" />
+                                <ui:VisualElement class="theory-rule" picking-mode="Ignore" />
+
+                                <ui:VisualElement name="content" class="theory-content" />
+
+                                <ui:VisualElement name="figure" class="theory-figure">
+                                    <ui:VisualElement name="figure-image" class="theory-figure__image" picking-mode="Ignore" />
+                                    <ui:Label name="figure-caption" class="theory-figure__caption" text="" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <!-- ========== Estado BIBLIOGRAFÍA ========== -->
+                            <ui:VisualElement name="refs-view" class="theory-reader">
+                                <ui:Label class="theory-crumb" text="Módulo teórico › Referencias" />
+                                <ui:Label class="theory-title" text="Bibliografía" />
+                                <ui:Label class="theory-summary" text="Fuentes del contenido analítico de la unidad curricular." />
+                                <ui:VisualElement class="theory-rule" picking-mode="Ignore" />
+                                <ui:VisualElement name="refs-list" class="theory-content" />
+                            </ui:VisualElement>
+
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+
+                    <!-- ========== Pie de navegación ========== -->
+                    <ui:VisualElement name="reader-footer" class="theory-foot">
+                        <ui:Button name="btn-prev" class="theory-foot__btn" text="‹  Anterior" />
+                        <ui:Label name="progress" class="theory-foot__progress" text="" />
+                        <ui:Button name="btn-next" class="theory-foot__btn" text="Siguiente  ›" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

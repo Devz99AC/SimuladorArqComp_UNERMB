@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T08
+  m_EditorClassIdentifier: 
+  title: "Componentes de la tarjeta madre"
+  summary: "Z\u00F3calos, ranuras, conectores, chipset y firmware: el mapa de la placa principal."
+  contentText: "## Qu\u00E9 es la tarjeta madre\nLa **tarjeta madre** o placa base es el circuito impreso principal. No procesa ni almacena: **comunica**. Define qu\u00E9 procesador, qu\u00E9 memoria y cu\u00E1ntas tarjetas admite el equipo, y por tanto condiciona toda futura ampliaci\u00F3n.\n\n## Elementos que hay que saber identificar\n: Z\u00F3calo del procesador | Donde se instala la CPU. Su tipo (LGA1700, AM5...) determina qu\u00E9 procesadores son compatibles.\n: Ranuras DIMM | Para los m\u00F3dulos de memoria RAM. Suelen ser dos o cuatro, con colores que indican los pares de doble canal.\n: Chipset | Uno o dos circuitos que gestionan la comunicaci\u00F3n entre la CPU, la memoria y los perif\u00E9ricos. Determina cu\u00E1ntos puertos y qu\u00E9 velocidades ofrece la placa.\n: Ranuras PCI Express | Para tarjetas de expansi\u00F3n. La x16 es para la tarjeta de video; las x1 para tarjetas de red, sonido o captura.\n: Conectores SATA | Para discos duros y unidades \u00F3pticas.\n: Ranuras M.2 | Para unidades SSD de formato tarjeta, conectadas directamente por PCI Express.\n: Conector ATX de 24 pines | Alimentaci\u00F3n principal desde la fuente de poder.\n: Conector EPS de 4 u 8 pines | Alimentaci\u00F3n dedicada al procesador, junto al z\u00F3calo.\n: Panel frontal (front panel) | Pines peque\u00F1os para el bot\u00F3n de encendido, el de reinicio y los LED del gabinete.\n: Chip de BIOS/UEFI | Memoria no vol\u00E1til con el firmware que arranca el equipo.\n: Bater\u00EDa CMOS | Pila de bot\u00F3n CR2032 que mantiene la hora y la configuraci\u00F3n del firmware con el equipo apagado.\n: Panel de puertos traseros | USB, red, audio y salidas de video integradas.\n\n## Formatos de placa\n- **ATX** (305 x 244 mm): el formato completo, con m\u00E1s ranuras de expansi\u00F3n.\n- **Micro-ATX** (244 x 244 mm): el m\u00E1s com\u00FAn en equipos de oficina.\n- **Mini-ITX** (170 x 170 mm): para gabinetes compactos; normalmente una sola ranura PCIe.\n\nEl formato debe coincidir con el del gabinete: un gabinete ATX admite placas menores, pero no al rev\u00E9s.\n\n> Antes de comprar cualquier pieza, la tarjeta madre es la que manda: fija el z\u00F3calo, el tipo de RAM, el n\u00FAmero de ranuras y el formato del gabinete."
+  topicImage: {fileID: 21300000, guid: c78988f5e85fbcc498f86ccafc75695c, type: 3}
+  imageCaption: "Tarjeta madre y sus elementos identificables."

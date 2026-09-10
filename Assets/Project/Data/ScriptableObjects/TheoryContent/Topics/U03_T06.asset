@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T06
+  m_EditorClassIdentifier: 
+  title: "Verificaci\u00F3n de componentes y unidades del sistema"
+  summary: "C\u00F3mo comprobar, despu\u00E9s del montaje, que cada pieza est\u00E1 presente, reconocida y funcionando correctamente."
+  contentText: "## Verificaci\u00F3n visual y f\u00EDsica\n- Ning\u00FAn cable roza las aspas de un ventilador.\n- Todos los ventiladores giran al encender: fuente, procesador y gabinete.\n- No hay tornillos sueltos dentro del gabinete.\n- Los LED del panel frontal responden.\n- Las tarjetas de expansi\u00F3n est\u00E1n firmes y atornilladas.\n\n## Verificaci\u00F3n en el firmware\nAntes de instalar nada, la pantalla principal de la UEFI ya confirma lo esencial:\n\n- **Modelo y frecuencia del procesador** detectados correctamente.\n- **Cantidad total de memoria RAM**. Si faltan m\u00F3dulos, hay que reasentarlos.\n- **Unidades de almacenamiento** reconocidas, todas las instaladas.\n- **Temperatura del procesador en reposo**: entre 30 y 45 grados es normal.\n\n## Verificaci\u00F3n en el sistema operativo\n: Windows | **Administrador de dispositivos**: ning\u00FAn dispositivo con signo de admiraci\u00F3n amarillo ni categor\u00EDa \"Otros dispositivos\". **Administraci\u00F3n de discos**: todas las unidades presentes. **Administrador de tareas**, pesta\u00F1a Rendimiento: n\u00FAcleos, RAM en doble canal y actividad de disco.\n: GNU/Linux | `lscpu` para el procesador, `free -h` para la memoria, `lsblk` para las unidades, `lspci` y `lsusb` para el resto, `sensors` para las temperaturas.\n\n## Pruebas de esfuerzo\nUna vez todo se detecta, hay que comprobar que aguanta bajo carga.\n\n- **Memoria**: MemTest86 durante al menos una pasada completa. Un solo error obliga a sustituir el m\u00F3dulo.\n- **Procesador**: Prime95 o similar durante 15 o 20 minutos, vigilando la temperatura. Por encima de 90 grados, revisar la instalaci\u00F3n del disipador y la pasta t\u00E9rmica.\n- **Almacenamiento**: CrystalDiskInfo o `smartctl` para leer los valores SMART del disco.\n- **Conjunto**: reproducir contenido, transferir archivos grandes y comprobar la red.\n\n## Lista de comprobaci\u00F3n final\n1. Arranca de forma consistente, varias veces seguidas.\n2. Toda la RAM instalada es reconocida.\n3. Todas las unidades aparecen y son accesibles.\n4. Las temperaturas se mantienen dentro de rango bajo carga.\n5. Red, audio, USB y video funcionan.\n6. No hay errores en el visor de eventos ni en los registros del sistema.\n\n> Un equipo que arranca no es un equipo verificado. Los fallos de memoria y de refrigeraci\u00F3n solo aparecen **bajo carga sostenida**, y son precisamente los que provocan reinicios inexplicables semanas despu\u00E9s de la entrega."
+  topicImage: {fileID: 0}
+  imageCaption: ""

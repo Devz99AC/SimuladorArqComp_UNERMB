@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea1c0d24b6f4a1d9c3e5f70a1b2c301, type: 3}
+  m_Name: U03
+  m_EditorClassIdentifier: 
+  number: 3
+  title: "Ensamblaje"
+  description: "El procedimiento completo de montaje de un equipo: seguridad, herramientas, orden de instalaci\u00F3n, primer arranque y verificaci\u00F3n. Es la unidad que el Laboratorio de Ensamblaje del simulador reproduce paso a paso."
+  topics:
+  - {fileID: 11400000, guid: 61b7f199443c5fbc22ab7f4833d8dc47, type: 2}
+  - {fileID: 11400000, guid: 1667bebd8a0d864fcb86a44d9ac9effa, type: 2}
+  - {fileID: 11400000, guid: bc103b9154166cf29d9f1fcde2b19359, type: 2}
+  - {fileID: 11400000, guid: 5d864efbada0f51ae3663f1715b2425e, type: 2}
+  - {fileID: 11400000, guid: 747d4b3b8a35ecbeaf864e9a285f928a, type: 2}
+  - {fileID: 11400000, guid: 76874d5e5353196d1c03e0b2da9fb7c5, type: 2}

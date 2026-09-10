@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U06_T01
+  m_EditorClassIdentifier: 
+  title: "Esquemas de partici\u00F3n: MBR y GPT"
+  summary: "Las dos formas de describir la tabla de particiones de un disco, sus l\u00EDmites y su relaci\u00F3n con el modo de arranque."
+  contentText: "## Qu\u00E9 es el esquema de partici\u00F3n\nEl **esquema de partici\u00F3n** es la estructura, escrita al principio del disco, que describe cu\u00E1ntas particiones hay, d\u00F3nde empieza cada una y de qu\u00E9 tipo es. Sin ella, el disco es solo una sucesi\u00F3n de sectores sin significado.\n\n## MBR (Master Boot Record)\nIntroducido en 1983, ocupa el primer sector del disco (512 bytes) y contiene el c\u00F3digo de arranque inicial m\u00E1s la tabla de particiones.\n\n- M\u00E1ximo de **cuatro particiones primarias**, o tres primarias m\u00E1s una extendida que contenga l\u00F3gicas.\n- L\u00EDmite de **2 TB** por disco: las direcciones de 32 bits no alcanzan m\u00E1s.\n- **Una sola copia** de la tabla. Si ese sector se corrompe, se pierde el acceso a todas las particiones.\n- Asociado al arranque **Legacy/BIOS**.\n\n## GPT (GUID Partition Table)\nForma parte de la especificaci\u00F3n UEFI y sustituye al MBR.\n\n- Hasta **128 particiones** sin necesidad de particiones extendidas.\n- Soporta discos de hasta **9,4 ZB**: sin l\u00EDmite pr\u00E1ctico.\n- **Tabla duplicada** al principio y al final del disco, con **CRC32** para detectar corrupci\u00F3n.\n- Cada partici\u00F3n tiene un **GUID** \u00FAnico y puede llevar una etiqueta descriptiva.\n- Conserva un **MBR de protecci\u00F3n** en el primer sector, para que las herramientas antiguas no traten el disco como vac\u00EDo.\n- Asociado al arranque **UEFI**.\n\n## C\u00F3mo elegir\n: Usar GPT | Siempre que el equipo tenga UEFI, es decir, pr\u00E1cticamente cualquier equipo posterior a 2012. Obligatorio para discos de m\u00E1s de 2 TB y para Windows 11.\n: Usar MBR | Solo en equipos antiguos que \u00FAnicamente arrancan en modo Legacy, o en unidades extra\u00EDbles que deban ser le\u00EDdas por sistemas muy viejos.\n\n> El esquema del disco y el modo de arranque del firmware **deben coincidir**. Un instalador de Windows que muestra \"no se puede instalar en este disco, tiene una tabla de particiones MBR\" est\u00E1 diciendo exactamente eso: el firmware arranca en UEFI y el disco est\u00E1 en MBR.\n\n## C\u00F3mo comprobarlo y convertirlo\n- **Windows**: en *Administraci\u00F3n de discos*, propiedades del disco, pesta\u00F1a Vol\u00FAmenes, campo \"Estilo de partici\u00F3n\".\n- **GNU/Linux**: `sudo fdisk -l /dev/sda` muestra \"Disklabel type: gpt\" o \"dos\".\n- **Conversi\u00F3n**: `mbr2gpt` en Windows convierte sin perder datos, pero **hay que respaldar antes**. `gdisk` hace lo propio en GNU/Linux."
+  topicImage: {fileID: 0}
+  imageCaption: ""

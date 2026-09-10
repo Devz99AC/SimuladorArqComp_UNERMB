@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U04_T04
+  m_EditorClassIdentifier: 
+  title: "Ventajas y desventajas"
+  summary: "Comparaci\u00F3n honesta entre sistemas libres y propietarios y criterios para elegir en un caso concreto."
+  contentText: "## Sistemas propietarios: ventajas\n- **Compatibilidad de software**: la mayor\u00EDa de las aplicaciones comerciales y de los juegos se desarrollan primero para Windows.\n- **Soporte de hardware inmediato**: los fabricantes publican sus controladores para el sistema mayoritario.\n- **Soporte t\u00E9cnico contractual**: hay un responsable al que reclamar.\n- **Curva de aprendizaje suave** para el usuario final, y abundante documentaci\u00F3n.\n\n## Sistemas propietarios: desventajas\n- **Costo de licencias**, que se multiplica en un despliegue institucional.\n- **Dependencia del proveedor**: el usuario no controla el ciclo de vida del producto.\n- **C\u00F3digo cerrado**: no es posible auditar qu\u00E9 hace realmente el sistema.\n- **Obsolescencia programada**: el fin de soporte obliga a renovar equipos que a\u00FAn funcionan.\n- **Mayor exposici\u00F3n a malware**, en buena medida por su cuota de mercado.\n\n## Sistemas libres: ventajas\n- **Sin costo de licencia**, lo que libera presupuesto para hardware o formaci\u00F3n.\n- **Auditable**: el c\u00F3digo puede ser revisado, lo que es determinante en entornos sensibles.\n- **Eficiencia en hardware modesto**: entornos ligeros permiten reutilizar equipos antiguos.\n- **Estabilidad y tiempo de servicio elevados**, raz\u00F3n por la que domina en servidores.\n- **Actualizaciones centralizadas** de sistema y aplicaciones mediante repositorios.\n- **Soberan\u00EDa tecnol\u00F3gica**: la instituci\u00F3n no depende de un proveedor extranjero.\n\n## Sistemas libres: desventajas\n- **Compatibilidad con software especializado**: hay aplicaciones sin equivalente directo.\n- **Hardware muy reciente** puede tardar en tener soporte.\n- **Curva de aprendizaje** para usuarios acostumbrados a otro entorno.\n- **Soporte comunitario**, excelente pero sin garant\u00EDas contractuales salvo que se contrate.\n\n## C\u00F3mo elegir\n1. **Qu\u00E9 software necesita el usuario**, sin excepciones. Un solo programa imprescindible sin alternativa decide la cuesti\u00F3n.\n2. **Qu\u00E9 hardware hay**, y qu\u00E9 controladores existen para \u00E9l.\n3. **Qu\u00E9 presupuesto** hay para licencias.\n4. **Qu\u00E9 competencias** tiene el personal que lo mantendr\u00E1.\n5. **Qu\u00E9 normativa** aplica, como el Decreto 3.390 en el sector p\u00FAblico venezolano.\n\n> Los dos sistemas conviven con normalidad en la pr\u00E1ctica profesional: es habitual encontrar servidores GNU/Linux dando servicio a estaciones de trabajo con Windows. La competencia que se exige al t\u00E9cnico no es elegir bando, sino **saber administrar ambos**."
+  topicImage: {fileID: 0}
+  imageCaption: ""

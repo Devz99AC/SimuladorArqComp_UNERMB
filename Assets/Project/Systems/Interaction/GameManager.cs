@@ -60,15 +60,14 @@ public class GameManager : MonoBehaviour
         // Lanzar evento de victoria
         OnAssemblyComplete?.Invoke();
 
-        // --- CONEXIÓN CON LA UI ---
-        // Buscamos al UIManager y le decimos que abra el panel de ganar
-        if (UIManager.Instance != null)
+        // --- CONEXIÓN CON LA UI (HUD en UI Toolkit) ---
+        if (AssemblyHudView.Instance != null)
         {
-            UIManager.Instance.ShowVictory();
+            AssemblyHudView.Instance.ShowVictory();
         }
         else
         {
-            Debug.LogError("❌ GameManager intentó mostrar victoria, pero no encontró una instancia de UIManager en la escena.");
+            Debug.LogError("❌ GameManager intentó mostrar victoria, pero no encontró una instancia de AssemblyHudView en la escena.");
         }
     }
 }

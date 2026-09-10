@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T03
+  m_EditorClassIdentifier: 
+  title: "Tipos de computadoras"
+  summary: "Clasificaci\u00F3n por capacidad de proceso y por prop\u00F3sito, desde el sistema embebido hasta la supercomputadora."
+  contentText: "## Por capacidad de procesamiento\n: Supercomputadoras | Las de mayor potencia disponible. Se emplean en simulaci\u00F3n clim\u00E1tica, investigaci\u00F3n nuclear, gen\u00F3mica y modelado f\u00EDsico. Miden su rendimiento en billones de operaciones por segundo.\n: Macrocomputadoras (mainframes) | Procesan vol\u00FAmenes enormes de transacciones con alt\u00EDsima disponibilidad. Bancos, aerol\u00EDneas y sistemas de seguridad social siguen dependiendo de ellas.\n: Minicomputadoras | Equipos de rango medio, hoy en gran medida sustituidos por servidores. Daban servicio a departamentos completos.\n: Microcomputadoras | Las computadoras personales: escritorio, port\u00E1tiles, todo en uno. Son las que se ensamblan en este laboratorio.\n\n## Por formato y uso\n- **De escritorio**: componentes separados y gabinete fijo. Es el formato m\u00E1s f\u00E1cil de ampliar y reparar, y por eso el que se usa para ense\u00F1ar ensamblaje.\n- **Port\u00E1tiles**: integran pantalla, teclado y bater\u00EDa. Priorizan la autonom\u00EDa y el peso sobre la ampliabilidad.\n- **Todo en uno**: la placa y los componentes van dentro del monitor.\n- **Tabletas y tel\u00E9fonos inteligentes**: interacci\u00F3n t\u00E1ctil, procesadores de bajo consumo, sin partes reemplazables por el usuario.\n- **Servidores**: optimizados para atender peticiones de forma continua, con redundancia de fuentes y discos.\n- **Sistemas embebidos**: computadores dedicados a una sola funci\u00F3n dentro de otro aparato (un cajero, un router, el control de un veh\u00EDculo).\n\n## Por el tipo de dato que manejan\n: Anal\u00F3gicas | Trabajan con magnitudes continuas (voltajes, presiones). Hoy son casi exclusivas de instrumentaci\u00F3n especializada.\n: Digitales | Trabajan con valores discretos representados en binario. Son la totalidad de los equipos de uso general.\n: H\u00EDbridas | Combinan ambas. Frecuentes en instrumentaci\u00F3n m\u00E9dica e industrial.\n\n> La frontera entre categor\u00EDas se ha vuelto difusa: un tel\u00E9fono actual supera con holgura a una minicomputadora de los a\u00F1os ochenta. Lo que sigue siendo \u00FAtil de la clasificaci\u00F3n es el criterio de **prop\u00F3sito**, no el de potencia bruta."
+  topicImage: {fileID: 21300000, guid: 6623d5eb3b32ce94ba86d0ea579d2425, type: 3}
+  imageCaption: "Distintos formatos de equipos de c\u00F3mputo."

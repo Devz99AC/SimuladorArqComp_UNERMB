@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems; 
+// Bloqueo puntero-sobre-UI vía UIBlocker (UI Toolkit), no EventSystem de uGUI.
 
 public class CADCameraController : MonoBehaviour
 {
@@ -81,7 +81,8 @@ public class CADCameraController : MonoBehaviour
 
     private bool HandleInput()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return false;
+        Vector2 pointer = _controls.Player.Point.ReadValue<Vector2>();
+        if (UIBlocker.IsPointerOverUI(pointer)) return false;
 
         bool receivedInput = false;
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T11
+  m_EditorClassIdentifier: 
+  title: "Tarjeta de red"
+  summary: "El componente que conecta el equipo con otros: tipos, velocidades, direcciones MAC e IP y medios de transmisi\u00F3n."
+  contentText: "## Qu\u00E9 hace\nLa **tarjeta de red** o NIC (Network Interface Card) es el componente que permite al equipo enviar y recibir datos a trav\u00E9s de una red. Traduce los datos del computador al formato el\u00E9ctrico, \u00F3ptico o de radio que viaja por el medio de transmisi\u00F3n, y viceversa.\n\n## Tipos\n: Integrada en la placa | Lo habitual hoy. El controlador de red forma parte del chipset y el conector RJ-45 est\u00E1 en el panel trasero.\n: Tarjeta PCI Express | Se a\u00F1ade cuando la integrada falla, cuando se necesita m\u00E1s velocidad o cuando se requieren varios puertos.\n: Adaptador USB | Soluci\u00F3n r\u00E1pida y port\u00E1til, \u00FAtil para diagn\u00F3stico.\n: Inal\u00E1mbrica (Wi-Fi) | Integrada, en formato M.2 o por USB. Se comunica por radiofrecuencia en las bandas de 2,4 GHz, 5 GHz y 6 GHz.\n\n## Velocidades habituales\n- **Fast Ethernet**: 100 Mb/s. Presente en equipos antiguos.\n- **Gigabit Ethernet**: 1000 Mb/s. Es el est\u00E1ndar actual en equipos de escritorio.\n- **2,5 y 10 Gigabit**: en servidores y estaciones de trabajo.\n\n## Dos direcciones que no hay que confundir\n: Direcci\u00F3n MAC | Identificador f\u00EDsico de 48 bits grabado en la tarjeta durante su fabricaci\u00F3n (por ejemplo `A4:5E:60:C1:2B:9F`). Es \u00FAnico y no cambia.\n: Direcci\u00F3n IP | Identificador l\u00F3gico asignado por la red, normalmente por DHCP. Puede cambiar cada vez que el equipo se conecta.\n\n## Medios de transmisi\u00F3n\n- **Par trenzado (UTP)** con conectores RJ-45: el cableado de red m\u00E1s com\u00FAn. Categor\u00EDas 5e, 6 y 6a.\n- **Fibra \u00F3ptica**: mayor distancia y velocidad, inmune a la interferencia electromagn\u00E9tica.\n- **Inal\u00E1mbrico**: sin cableado, a costa de una latencia mayor y de la exposici\u00F3n a interferencias.\n\n> Un LED apagado en el conector RJ-45 es la primera pista de un problema de red: indica que no hay enlace f\u00EDsico. Antes de revisar la configuraci\u00F3n del sistema, hay que descartar el cable y el puerto del switch."
+  topicImage: {fileID: 0}
+  imageCaption: ""

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U06_T02
+  m_EditorClassIdentifier: 
+  title: "Estructura de particiones en sistemas propietarios"
+  summary: "C\u00F3mo particiona Windows un disco y qu\u00E9 funci\u00F3n cumple cada una de las particiones que crea sin preguntar."
+  contentText: "## Lo que Windows crea autom\u00E1ticamente\nAl instalar en un disco vac\u00EDo con UEFI y GPT, Windows no crea una sola partici\u00F3n sino cuatro:\n\n: Partici\u00F3n de recuperaci\u00F3n | 500 a 800 MB. Contiene el entorno WinRE para reparar el arranque y restaurar el sistema.\n: Partici\u00F3n del sistema EFI (ESP) | 100 a 300 MB, formateada en FAT32. Guarda los cargadores de arranque. Es la que el firmware UEFI lee para encontrar el sistema.\n: Partici\u00F3n reservada de Microsoft (MSR) | 16 a 128 MB. Espacio de servicio, sin sistema de archivos ni letra de unidad.\n: Partici\u00F3n primaria de Windows | El resto del disco, en NTFS. Es la unidad **C:**.\n\nLas tres primeras no tienen letra y no aparecen en el Explorador. **No deben borrarse**: sin la ESP el equipo no arranca.\n\n## Esquema recomendado para un equipo de trabajo\n1. **EFI** \u2014 300 MB, FAT32.\n2. **Windows (C:)** \u2014 100 a 200 GB, NTFS. Sistema y programas.\n3. **Datos (D:)** \u2014 el resto, NTFS. Documentos y archivos del usuario.\n4. **Recuperaci\u00F3n** \u2014 al final del disco.\n\nSeparar sistema y datos permite reinstalar Windows formateando solo C: y conservar los archivos personales. Conviene adem\u00E1s **redirigir las carpetas** Documentos, Im\u00E1genes y Descargas a la unidad de datos, porque por defecto viven dentro de C:.\n\n## Esquema para un servidor\n- **C:** \u2014 sistema operativo, 100 GB.\n- **Datos** \u2014 aplicaciones y bases de datos, en volumen independiente.\n- **Registros** \u2014 separados, para que un registro descontrolado no llene el volumen del sistema.\n- **Respaldos** \u2014 en disco f\u00EDsicamente distinto, nunca en otra partici\u00F3n del mismo disco.\n\n## Herramientas\n- **Administraci\u00F3n de discos** (`diskmgmt.msc`): crear, eliminar, reducir y extender vol\u00FAmenes.\n- **DiskPart**: la herramienta de l\u00EDnea de comandos, la \u00FAnica disponible durante la instalaci\u00F3n (May\u00FAs+F10 abre una consola).\n- **GParted** desde un USB en vivo, para operaciones que Windows no permite.\n\n> Reducir la partici\u00F3n C: desde Windows suele quedarse muy por debajo de lo esperado por culpa de archivos inamovibles al final del volumen. Desactivar temporalmente la hibernaci\u00F3n, la protecci\u00F3n del sistema y el archivo de paginaci\u00F3n libera ese espacio."
+  topicImage: {fileID: 0}
+  imageCaption: ""

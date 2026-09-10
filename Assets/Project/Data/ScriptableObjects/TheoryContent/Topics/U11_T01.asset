@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U11_T01
+  m_EditorClassIdentifier: 
+  title: "Respaldo de datos y de bases de datos"
+  summary: "Estrategias de copia de seguridad, tipos de respaldo y el procedimiento espec\u00EDfico para bases de datos."
+  contentText: "## Antes de cualquier intervenci\u00F3n\nEl respaldo es el **primer paso** de todo mantenimiento correctivo. Formatear, reinstalar o reparar un disco son operaciones que pueden salir mal, y sin copia previa el error es irreversible.\n\n## Tipos de respaldo\n: Completo | Copia todos los datos. Es el m\u00E1s simple de restaurar y el que m\u00E1s espacio y tiempo consume.\n: Incremental | Copia solo lo cambiado desde la \u00FAltima copia de cualquier tipo. R\u00E1pido y compacto, pero restaurar exige la copia completa **m\u00E1s toda la cadena** de incrementales.\n: Diferencial | Copia lo cambiado desde la \u00FAltima copia completa. Ocupa m\u00E1s que el incremental, pero restaurar solo necesita dos archivos: la completa y la \u00FAltima diferencial.\n: Espejo | R\u00E9plica exacta y sincronizada. Cuidado: si se borra un archivo en el origen, se borra tambi\u00E9n en el espejo.\n\nUna estrategia habitual y equilibrada: **completa semanal m\u00E1s incrementales diarios**.\n\n## La regla 3-2-1\n- **3** copias de los datos, incluida la original.\n- **2** tipos de medio distintos (por ejemplo disco interno y disco externo).\n- **1** copia fuera del edificio o en la nube.\n\nProtege frente a los tres escenarios reales: fallo de disco, error humano y siniestro del local.\n\n## Qu\u00E9 respaldar en un equipo de usuario\n- Carpetas personales: Documentos, Im\u00E1genes, V\u00EDdeos, Escritorio, Descargas.\n- **Datos del correo** si el cliente los guarda localmente (archivos PST u OST en Outlook).\n- Favoritos y perfiles de los navegadores.\n- Licencias y claves de producto.\n- Configuraci\u00F3n de aplicaciones espec\u00EDficas del puesto.\n\n> Comprobar d\u00F3nde guarda realmente cada aplicaci\u00F3n sus datos. Muchas usan `AppData` en Windows o carpetas ocultas en `/home`, que las herramientas de copia omiten si no se configuran para incluirlas.\n\n## Respaldo de bases de datos\nCopiar los archivos de una base de datos **en caliente** produce una copia inconsistente e inservible. Hay que usar el mecanismo del propio gestor:\n\n: MySQL y MariaDB | `mysqldump -u usuario -p base_de_datos > respaldo.sql` genera un volcado consistente. Se restaura con `mysql -u usuario -p base_de_datos < respaldo.sql`.\n: PostgreSQL | `pg_dump` y `pg_restore`.\n: SQL Server | Copias completas, diferenciales y de registro de transacciones desde SQL Server Management Studio o con la sentencia `BACKUP DATABASE`.\n: SQLite | Al ser un solo archivo, basta copiarlo con la base cerrada, o usar la orden `.backup`.\n\nPara bases de datos en producci\u00F3n hay que combinar la copia completa peri\u00F3dica con el **registro de transacciones**, que permite recuperar hasta el instante anterior al fallo.\n\n## Verificar y probar\nUna copia que no se ha restaurado nunca no es una copia: es una suposici\u00F3n.\n\n1. Comprobar que el trabajo de copia **termin\u00F3 sin errores**, no solo que est\u00E1 programado.\n2. **Restaurar un archivo de prueba** cada mes.\n3. Hacer una **restauraci\u00F3n completa de ensayo** al menos una vez al a\u00F1o.\n4. Documentar el procedimiento de restauraci\u00F3n, de modo que otra persona pueda ejecutarlo."
+  topicImage: {fileID: 0}
+  imageCaption: ""

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U02_T02
+  m_EditorClassIdentifier: 
+  title: "Dispositivos port\u00E1tiles"
+  summary: "Qu\u00E9 cambia en un equipo port\u00E1til frente a uno de escritorio y qu\u00E9 implicaciones tiene para el mantenimiento."
+  contentText: "## Qu\u00E9 son\nLos **dispositivos port\u00E1tiles** son equipos de c\u00F3mputo dise\u00F1ados para funcionar con bater\u00EDa y ser transportados. Su dise\u00F1o se rige por tres restricciones que no existen en un equipo de escritorio: **espacio, peso y consumo**.\n\n## Tipos\n: Computador port\u00E1til (laptop) | Equipo completo con pantalla, teclado y bater\u00EDa integrados. Formato de 13 a 17 pulgadas.\n: Ultrabook | Port\u00E1til delgado y ligero, con almacenamiento SSD y componentes de bajo consumo. Suele sacrificar puertos y ampliabilidad.\n: Convertible o 2 en 1 | La pantalla gira o se desprende para funcionar como tableta.\n: Tableta | Solo pantalla t\u00E1ctil, con sistema operativo m\u00F3vil y procesador ARM.\n: Tel\u00E9fono inteligente | El dispositivo de c\u00F3mputo m\u00E1s extendido del mundo.\n: Dispositivos vestibles | Relojes y pulseras inteligentes, con sensores biom\u00E9tricos.\n\n## Diferencias de hardware frente al escritorio\n- **Memoria SO-DIMM**: m\u00F3dulos m\u00E1s cortos, no intercambiables con los DIMM de escritorio. En muchos equipos modernos la RAM va soldada y no se puede ampliar.\n- **Procesadores de bajo consumo**: series U y H de Intel, series U y HS de AMD. Menor TDP y frecuencias que bajan para ahorrar energ\u00EDa.\n- **Gr\u00E1ficos integrados**: lo habitual, salvo en equipos orientados a juegos o dise\u00F1o.\n- **Almacenamiento M.2**: normalmente una sola ranura.\n- **Bater\u00EDa de iones de litio**: se mide en vatios-hora (Wh). Su capacidad se degrada con los ciclos de carga.\n- **Refrigeraci\u00F3n por tubos de calor**: espacio muy justo, lo que hace del polvo un problema mayor que en un equipo de escritorio.\n\n## Implicaciones para el mantenimiento\n- La **limpieza del sistema de disipaci\u00F3n** es la tarea preventiva m\u00E1s importante: un port\u00E1til obstruido por polvo se sobrecalienta y reduce su velocidad.\n- El desmontaje exige **manual de servicio del modelo**; los tornillos son de longitudes distintas y los cables planos son fr\u00E1giles.\n- Muchos componentes est\u00E1n **soldados**, lo que convierte una aver\u00EDa menor en una sustituci\u00F3n de placa completa.\n\n> Antes de abrir un port\u00E1til hay que **desconectar la bater\u00EDa interna**, no solo el cargador. En los equipos con bater\u00EDa no extra\u00EDble, esto significa retirar la tapa inferior y desconectar su conector de la placa."
+  topicImage: {fileID: 21300000, guid: 8388bde83595eb44787950b6659f74bd, type: 3}
+  imageCaption: "Equipos port\u00E1tiles de distintos formatos."

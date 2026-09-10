@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U11_T03
+  m_EditorClassIdentifier: 
+  title: "Eliminaci\u00F3n de temporales y archivos perdidos o corruptos"
+  summary: "Limpieza del sistema de archivos: temporales, fragmentos hu\u00E9rfanos y comprobaci\u00F3n de la integridad."
+  contentText: "## Archivos temporales\nLos programas crean archivos de trabajo que deber\u00EDan borrar al cerrarse, pero que a menudo quedan. Con el tiempo llegan a ocupar decenas de gigabytes.\n\n### En Windows\n- **Liberador de espacio** (`cleanmgr`), con la opci\u00F3n \"Limpiar archivos de sistema\" para incluir las actualizaciones antiguas.\n- **Sensor de almacenamiento**: automatiza la limpieza peri\u00F3dica.\n- Carpetas `%TEMP%` y `C:\\Windows\\Temp`.\n- `C:\\Windows\\SoftwareDistribution\\Download`: cach\u00E9 de Windows Update, que puede vaciarse con el servicio detenido.\n- **Windows.old**: la instalaci\u00F3n anterior tras una actualizaci\u00F3n de versi\u00F3n. Ocupa mucho y se puede eliminar pasados unos d\u00EDas.\n\n### En GNU/Linux\n- `sudo apt autoremove` elimina paquetes que ya no hace falta conservar.\n- `sudo apt clean` vac\u00EDa la cach\u00E9 de paquetes descargados.\n- `sudo journalctl --vacuum-time=30d` limita los registros del sistema.\n- `~/.cache` acumula la cach\u00E9 de las aplicaciones del usuario.\n\n## Archivos perdidos y fragmentos\nCuando el sistema se apaga de forma abrupta quedan **fragmentos hu\u00E9rfanos**: bloques marcados como ocupados que ya no pertenecen a ning\u00FAn archivo.\n\n- **Windows**: `chkdsk C: /f` corrige errores del sistema de archivos; `/r` adem\u00E1s localiza sectores defectuosos y recupera la informaci\u00F3n legible. Los fragmentos recuperados aparecen como `FILE0000.CHK` en una carpeta `FOUND.000`, y en la pr\u00E1ctica casi nunca son \u00FAtiles.\n- **GNU/Linux**: `sudo fsck /dev/sdXn` con la **partici\u00F3n desmontada**. Ejecutarlo sobre una partici\u00F3n montada corrompe el sistema de archivos.\n\n## Archivos corruptos del sistema\n: Windows | `sfc /scannow` compara los archivos del sistema con la copia de referencia y los repara. Si informa de que no pudo repararlos, ejecutar antes `DISM /Online /Cleanup-Image /RestoreHealth` para reparar la propia imagen de referencia, y luego repetir `sfc`.\n: GNU/Linux | `sudo apt install --reinstall paquete` reinstala un paquete da\u00F1ado. `debsums -c` lista los archivos que no coinciden con su suma de comprobaci\u00F3n original.\n\n## Desfragmentaci\u00F3n\nReordena los fragmentos de cada archivo para que queden contiguos y el cabezal no tenga que saltar.\n\n- **Solo tiene sentido en discos mec\u00E1nicos (HDD).**\n- **Nunca se debe desfragmentar un SSD**: no mejora nada, porque el acceso es igual de r\u00E1pido en cualquier posici\u00F3n, y **consume ciclos de escritura** acortando su vida.\n- Windows lo distingue solo: a los SSD les aplica **TRIM** en lugar de desfragmentar. La herramienta se llama *Optimizar unidades*.\n\n> Antes de una limpieza agresiva conviene crear un **punto de restauraci\u00F3n**. Y hay que desconfiar de los \"optimizadores\" que prometen acelerar el equipo borrando el registro: aportan poco y pueden dejar el sistema inservible."
+  topicImage: {fileID: 0}
+  imageCaption: ""

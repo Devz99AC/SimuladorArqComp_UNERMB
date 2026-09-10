@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T01
+  m_EditorClassIdentifier: 
+  title: "Normas de seguridad"
+  summary: "C\u00F3mo proteger al t\u00E9cnico y a los componentes: electricidad est\u00E1tica, manipulaci\u00F3n correcta y seguridad el\u00E9ctrica."
+  contentText: "## Por qu\u00E9 importan\nLa mayor\u00EDa de los componentes que se da\u00F1an durante un ensamblaje no se rompen por un golpe: se degradan por **descargas electrost\u00E1ticas** que el t\u00E9cnico ni siquiera percibe. El cuerpo humano nota una descarga a partir de unos 3.000 voltios, pero un circuito integrado puede quedar da\u00F1ado con menos de 100.\n\n## Descarga de est\u00E1tica\nLa electricidad est\u00E1tica se acumula al caminar sobre alfombras, al usar ropa sint\u00E9tica y en ambientes secos. Antes de tocar cualquier componente:\n\n1. **Desconectar el equipo del tomacorriente** y apagar el interruptor de la fuente.\n2. **Descargarse** tocando una superficie met\u00E1lica sin pintar del gabinete o del chasis.\n3. Usar **pulsera antiest\u00E1tica** conectada a tierra siempre que est\u00E9 disponible.\n4. Trabajar sobre una **superficie no conductora**: mesa de madera o tapete antiest\u00E1tico, nunca sobre alfombra.\n5. Evitar la ropa de lana o sint\u00E9tica durante el trabajo.\n\n> Si no se dispone de pulsera antiest\u00E1tica, la regla m\u00EDnima es **volver a tocar el metal del gabinete cada vez que se interrumpe el trabajo** y antes de retomar el contacto con un componente.\n\n## Manipulaci\u00F3n adecuada de los componentes\n- Sujetar las tarjetas **por los bordes**, nunca por los circuitos ni por los contactos dorados.\n- Sujetar el procesador **por los laterales**, sin tocar los pines ni la superficie de contacto.\n- Manipular los m\u00F3dulos de memoria **por los extremos**.\n- Conservar cada pieza en su **bolsa antiest\u00E1tica** hasta el momento de instalarla.\n- No apoyar componentes sobre la bolsa antiest\u00E1tica con el equipo encendido: su exterior es conductor.\n- **No forzar nunca** una conexi\u00F3n. Todos los conectores tienen gu\u00EDas o muescas: si no entra, est\u00E1 mal orientado o no es el conector correcto.\n\n## Seguridad el\u00E9ctrica del t\u00E9cnico\n- Desconectar el cable de alimentaci\u00F3n antes de abrir el gabinete.\n- Tras desconectar, pulsar el bot\u00F3n de encendido unos segundos para descargar los condensadores.\n- **No abrir nunca la fuente de poder ni el monitor**: retienen carga peligrosa incluso desconectados.\n- Retirar anillos, pulseras y relojes met\u00E1licos.\n- No trabajar con las manos h\u00FAmedas ni sobre superficies mojadas.\n\n## Consultar la documentaci\u00F3n\nEl **manual del usuario de la tarjeta madre** es la referencia obligatoria: indica la posici\u00F3n del pin 1, el mapa de conectores del panel frontal, el orden de poblado de las ranuras de memoria y los valores de configuraci\u00F3n. Ensamblar sin consultarlo es la causa habitual de que un equipo reci\u00E9n montado no encienda."
+  topicImage: {fileID: 0}
+  imageCaption: ""

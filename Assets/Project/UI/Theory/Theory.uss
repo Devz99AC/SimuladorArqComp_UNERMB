@@ -1,0 +1,434 @@
+/* =====================================================================
+   Theory.uss — Módulo Teórico (UI Toolkit)
+   ---------------------------------------------------------------------
+   Estructura de documento: cabecera + índice lateral de dos niveles
+   (unidad → tema) + panel de lectura con ancho de línea acotado.
+
+   Reutiliza del MainMenu la cabecera naranja (.menu-modal__header /
+   __title / __close) y el fondo de rayas (.menu-bg / DiagonalStripes).
+
+   Regla tipográfica que ordena todo el panel de lectura: la columna de
+   texto (.theory-measure) va centrada y acotada a unos 90 caracteres. Sin
+   tope, la línea se estira con la ventana y el ojo se pierde al saltar de
+   renglón: ésa era la causa de que el módulo anterior se leyera como un
+   muro de texto.
+   ===================================================================== */
+
+.theory-root {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(236, 236, 236);
+}
+
+/* Marco general: ocupa casi toda la pantalla (es un documento, no un diálogo) */
+.theory-shell {
+    width: 92%;
+    max-width: 1680px;
+    height: 92%;
+    background-color: rgb(238, 238, 238);
+    border-width: 3px;
+    border-color: var(--color-accent);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+/* ---------- Cabecera ---------- */
+.theory-header { flex-shrink: 0; }
+.theory-header__titles { flex-direction: column; }
+.theory-header__sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 17px;
+    letter-spacing: 1px;
+    margin-top: 1px;
+}
+
+/* Progreso de lectura del módulo completo (temas visitados / total) */
+.theory-progressbar {
+    height: 4px;
+    flex-shrink: 0;
+    background-color: rgba(0, 0, 0, 0.10);
+}
+.theory-progressbar__fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--color-accent);
+    transition-property: width;
+    transition-duration: var(--dur-med);
+}
+
+.theory-columns {
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* =====================================================================
+   Índice lateral
+   ===================================================================== */
+.theory-sidebar {
+    width: 340px;
+    flex-shrink: 0;
+    background-color: rgb(228, 228, 228);
+    border-right-width: 1px;
+    border-right-color: rgba(0, 0, 0, 0.10);
+}
+
+/* Buscador. El Label "Buscar tema" es un placeholder propio: UI Toolkit
+   no trae uno y un TextField vacío no comunica para qué sirve. */
+.theory-search {
+    padding: 12px 14px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.10);
+}
+.theory-search__field { margin: 0; }
+.theory-search__field > .unity-base-text-field__input {
+    background-color: rgb(246, 246, 246);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.16);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 18px;
+    color: rgb(40, 40, 40);
+}
+.theory-search__field:focus > .unity-base-text-field__input {
+    border-color: var(--color-accent);
+}
+.theory-search__hint {
+    position: absolute;
+    left: 27px; top: 21px;
+    color: rgb(140, 140, 140);
+    font-size: 18px;
+}
+
+.theory-nav {
+    flex-grow: 1;
+}
+.theory-nav > .unity-scroll-view__content-container {
+    padding-top: 8px;
+    padding-bottom: 16px;
+}
+
+/* Cabecera de unidad en el índice (botón: pliega y despliega sus temas) */
+.theory-unit {
+    min-height: 46px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    padding: 8px 14px 8px 16px;
+    -unity-text-align: middle-left;
+    white-space: normal;
+    font-size: 18px;
+    color: rgb(38, 38, 38);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    transition-property: background-color, color;
+    transition-duration: var(--dur-fast);
+}
+.theory-unit:hover { background-color: rgba(253, 67, 32, 0.10); color: var(--color-accent); }
+.theory-unit--open { color: var(--color-accent); }
+
+/* Tema dentro de una unidad */
+.theory-topic {
+    min-height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-left-width: 3px;
+    border-left-color: rgba(0, 0, 0, 0);
+    padding: 6px 14px 6px 34px;
+    -unity-text-align: middle-left;
+    white-space: normal;
+    font-size: 17px;
+    color: rgb(72, 72, 72);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBold.asset");
+    transition-property: background-color, color, border-left-color;
+    transition-duration: var(--dur-fast);
+}
+.theory-topic:hover {
+    background-color: rgba(253, 67, 32, 0.08);
+    color: var(--color-accent);
+}
+/* Tema abierto ahora mismo. Marcado por clase, no por :focus: el foco se
+   pierde al hacer clic en los botones del pie y el índice debe seguir
+   señalando dónde está el lector. */
+.theory-topic--current {
+    background-color: rgba(253, 67, 32, 0.16);
+    border-left-color: var(--color-accent);
+    color: var(--color-accent);
+}
+/* Tema ya leído: gris discreto, sin competir con el tema actual */
+.theory-topic--read { color: rgb(125, 125, 125); }
+.theory-topic--read:hover { color: var(--color-accent); }
+
+.theory-sidebar__foot {
+    min-height: 44px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    border-top-width: 1px;
+    border-top-color: rgba(0, 0, 0, 0.10);
+    color: rgb(70, 70, 70);
+    font-size: 17px;
+    -unity-text-align: middle-left;
+    padding-left: 16px;
+    transition-property: background-color, color;
+    transition-duration: var(--dur-fast);
+}
+.theory-sidebar__foot:hover { background-color: rgba(253, 67, 32, 0.10); color: var(--color-accent); }
+
+/* =====================================================================
+   Panel de lectura
+   ===================================================================== */
+.theory-main {
+    flex-grow: 1;
+    background-color: rgb(246, 246, 246);
+    overflow: hidden;
+}
+.theory-body { flex-grow: 1; }
+/* Selector por DESCENDENCIA, no por hijo directo: en UI Toolkit el
+   content-container del ScrollView es nieto (ScrollView > viewport >
+   container), así que un ">" no llega a aplicarse. */
+.theory-body .unity-scroll-view__content-container {
+    align-items: center;
+}
+/* Columna de lectura. El centrado va con márgenes automáticos y el aire
+   interior con padding propio: así no depende de la estructura interna del
+   ScrollView y queda centrada pase lo que pase.
+   El ancho acota la longitud de línea (unos 90 caracteres): más ancho cansa
+   la vista al saltar de renglón, más estrecho desperdicia el panel. */
+.theory-measure {
+    width: 100%;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 48px 56px 48px;
+}
+
+/* ---------- Portada del módulo ---------- */
+.theory-home__course {
+    font-size: 44px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(30, 30, 30);
+    white-space: normal;
+    margin-bottom: 2px;
+}
+.theory-home__meta {
+    font-size: 18px;
+    color: var(--color-accent);
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+.theory-home__lead {
+    font-size: 20px;
+    color: rgb(85, 85, 85);
+    white-space: normal;
+    margin-bottom: 28px;
+}
+
+/* Tarjeta de unidad en la portada */
+.theory-card {
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.10);
+    border-left-width: 4px;
+    border-left-color: var(--color-accent);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    align-items: stretch;
+    transition-property: background-color, translate;
+    transition-duration: var(--dur-fast);
+}
+.theory-card:hover { background-color: rgb(253, 245, 242); translate: 4px 0; }
+.theory-card__num {
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+}
+.theory-card__title {
+    font-size: 25px;
+    color: rgb(30, 30, 30);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    white-space: normal;
+    margin-top: 2px;
+}
+.theory-card__desc {
+    font-size: 18px;
+    color: rgb(95, 95, 95);
+    white-space: normal;
+    margin-top: 6px;
+}
+.theory-card__count {
+    font-size: 15px;
+    color: rgb(140, 140, 140);
+    margin-top: 8px;
+}
+
+/* ---------- Lector ---------- */
+.theory-crumb {
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+    white-space: normal;
+    margin-bottom: 6px;
+}
+.theory-title {
+    font-size: 42px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(28, 28, 28);
+    white-space: normal;
+}
+.theory-summary {
+    font-size: 21px;
+    color: rgb(95, 95, 95);
+    white-space: normal;
+    margin-top: 8px;
+}
+.theory-rule {
+    height: 3px;
+    width: 72px;
+    background-color: var(--color-accent);
+    margin-top: 20px;
+    margin-bottom: 22px;
+}
+
+/* Figura del tema */
+.theory-figure {
+    margin-top: 26px;
+    align-items: stretch;
+}
+.theory-figure__image {
+    height: 380px;
+    background-color: rgb(232, 232, 232);
+    border-radius: 4px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+.theory-figure__caption {
+    font-size: 16px;
+    color: rgb(120, 120, 120);
+    white-space: normal;
+    margin-top: 8px;
+    -unity-text-align: middle-center;
+}
+
+/* ---------- Pie de navegación ---------- */
+.theory-foot {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    padding: 10px 24px;
+    background-color: rgb(232, 232, 232);
+    border-top-width: 1px;
+    border-top-color: rgba(0, 0, 0, 0.10);
+}
+.theory-foot__btn {
+    min-height: 40px;
+    min-width: 150px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-sm);
+    color: rgb(55, 55, 55);
+    font-size: 18px;
+    padding-left: 16px;
+    padding-right: 16px;
+    transition-property: background-color, color, border-color;
+    transition-duration: var(--dur-fast);
+}
+.theory-foot__btn:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: rgb(255, 255, 255);
+}
+.theory-foot__btn:disabled { opacity: 0.35; }
+.theory-foot__progress {
+    font-size: 17px;
+    color: rgb(105, 105, 105);
+    -unity-text-align: middle-center;
+}
+
+/* =====================================================================
+   Marcado (lo que produce TheoryMarkup)
+   ---------------------------------------------------------------------
+   El ritmo vertical es lo que convierte el texto en un documento legible:
+   mucho aire ANTES de un título de sección y poco después (el título
+   pertenece al texto que le sigue, no al que le precede).
+   ===================================================================== */
+.md-h2 {
+    font-size: 27px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(28, 28, 28);
+    margin-top: 32px;
+    margin-bottom: 10px;
+}
+.md-h3 {
+    font-size: 21px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(60, 60, 60);
+    margin-top: 20px;
+    margin-bottom: 6px;
+}
+.md-p {
+    font-size: 21px;
+    color: rgb(52, 52, 52);
+    margin-bottom: 14px;
+}
+
+/* Listas: la marca va en su propia columna para que el texto de varias
+   líneas quede alineado bajo sí mismo y no bajo la viñeta. */
+.md-list { margin-bottom: 14px; }
+.md-item {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 7px;
+}
+.md-item__mark {
+    width: 30px;
+    flex-shrink: 0;
+    color: var(--color-accent);
+    font-size: 20px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    -unity-text-align: upper-right;
+    padding-right: 10px;
+}
+.md-item__text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 21px;
+    color: rgb(52, 52, 52);
+    margin: 0;
+}
+
+/* Glosario: término destacado + definición debajo */
+.md-def {
+    border-left-width: 2px;
+    border-left-color: rgba(253, 67, 32, 0.45);
+    padding-left: 14px;
+    margin-bottom: 12px;
+}
+.md-def__term {
+    font-size: 20px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(35, 35, 35);
+}
+.md-def__body {
+    font-size: 19px;
+    color: rgb(78, 78, 78);
+    margin-top: 2px;
+}
+
+/* Recuadro de dato clave */
+.md-callout {
+    background-color: rgba(253, 67, 32, 0.08);
+    border-left-width: 4px;
+    border-left-color: var(--color-accent);
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin-top: 6px;
+    margin-bottom: 18px;
+}
+.md-callout__text {
+    font-size: 19px;
+    color: rgb(60, 45, 40);
+    margin: 0;
+}

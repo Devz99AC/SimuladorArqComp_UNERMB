@@ -1,0 +1,215 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+
+/// <summary>
+/// Controlador UI Toolkit del HUD del Laboratorio de Ensamblaje. Reemplaza a
+/// UIManager (uGUI). Mantiene el mismo punto de entrada por singleton
+/// (<see cref="Instance"/>) para InteractionManager (<c>ShowPartInfo</c>) y
+/// GameManager (<c>ShowVictory</c>).
+///
+/// Piezas del HUD (según mockups): Instrucciones (arriba-izq), Ficha técnica
+/// (izq, al clic derecho), botones ayuda/⚙ (arriba-der) y modales Opciones/
+/// Victoria. El bloqueo del raycast puntero-sobre-UI y la congelación de la
+/// simulación se resuelven con <see cref="UIBlocker"/> (los managers de
+/// interacción/cámara lo consultan; los modales activan <c>UIBlocker.ModalOpen</c>).
+/// Settings vía <see cref="SettingsService"/>; sonido vía <see cref="UiSound"/>.
+/// </summary>
+[RequireComponent(typeof(UIDocument))]
+public class AssemblyHudView : MonoBehaviour
+{
+    public static AssemblyHudView Instance { get; private set; }
+
+    [Header("Navegación")]
+    [SerializeField] private string returnScene = "ModeSelection";
+
+    [Header("Audio")]
+    [SerializeField] private AudioMixer mainMixer;
+    [SerializeField] private AudioClip uiSound;
+
+    private VisualElement _instructionsPanel;
+    private VisualElement _infoPanel;
+    private Label _infoTitle;
+    private Label _infoDesc;
+    private ModalPanel _settingsModal;
+    private ModalPanel _victoryModal;
+
+    // Settings widgets
+    private VisualElement _volIcon;
+    private Label _volLevel;
+    private VisualElement _screenIcon;
+    private Label _screenText;
+    private readonly List<VisualElement> _volBars = new List<VisualElement>();
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else { Destroy(gameObject); return; }
+    }
+
+    private void Start()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        UiSound.Configure(uiSound, uiSound, 1f, 1f);
+        SettingsService.LoadAndApply(mainMixer);
+        UIBlocker.Register(root);
+
+        // --- Paneles ---
+        _instructionsPanel = root.Q<VisualElement>("instructions-panel");
+        _infoPanel = root.Q<VisualElement>("info-panel");
+        _infoTitle = root.Q<Label>("info-title");
+        _infoDesc = root.Q<Label>("info-desc");
+        _settingsModal = root.Q<ModalPanel>("settings-modal");
+        _victoryModal = root.Q<ModalPanel>("victory-modal");
+
+        root.Q<Button>("instructions-close").clicked += () => SetInstructions(false);
+        root.Q<Button>("info-close").clicked += CloseInfoPanel;
+        root.Q<Button>("btn-help").clicked += ToggleInstructions;
+        root.Q<Button>("btn-settings").clicked += () => _settingsModal.Open();
+
+        // --- Modales (congelan la simulación mientras están abiertos) ---
+        root.Q<Button>("settings-close").clicked += () => _settingsModal.Close();
+        root.Q<Button>("settings-resume").clicked += () => _settingsModal.Close();
+        root.Q<Button>("settings-exit").clicked += ReturnToSelector;
+        root.Q<Button>("victory-exit").clicked += ReturnToSelector;
+        _settingsModal.OnOpenChanged += OnAnyModalOpenChanged;
+        _victoryModal.OnOpenChanged += OnAnyModalOpenChanged;
+        RegisterEscapeToClose(_settingsModal);
+
+        // --- Settings (volumen + pantalla), reutilizando SettingsService ---
+        _volIcon = root.Q<VisualElement>("vol-icon");
+        _volLevel = root.Q<Label>("vol-level");
+        _volBars.AddRange(root.Q<VisualElement>("vol-bars").Query<VisualElement>(className: "volume-bar").ToList());
+        root.Q<Button>("vol-down").clicked += () => { SettingsService.DecreaseVolume(mainMixer); RefreshVolume(); };
+        root.Q<Button>("vol-up").clicked += () => { SettingsService.IncreaseVolume(mainMixer); RefreshVolume(); };
+
+        _screenIcon = root.Q<VisualElement>("screen-icon");
+        _screenText = root.Q<Label>("screen-text");
+        root.Q<Button>("screen-prev").clicked += ToggleScreen;
+        root.Q<Button>("screen-next").clicked += ToggleScreen;
+
+        UiSound.AttachAll(root);
+
+        // Estado inicial: instrucciones visibles, ficha oculta (USS), modales cerrados.
+        SetInstructions(true);
+        RefreshVolume();
+        RefreshScreen();
+    }
+
+    private void Update()
+    {
+        // Tecla I: alterna instrucciones (equivalente al ToggleInstructions original).
+        if (!UIBlocker.ModalOpen && Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
+            ToggleInstructions();
+    }
+
+    private void OnDisable()
+    {
+        UIBlocker.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
+
+    private void OnAnyModalOpenChanged(bool _)
+    {
+        // Congelar si CUALQUIER modal está abierto (red de seguridad de UIBlocker).
+        UIBlocker.ModalOpen = (_settingsModal != null && _settingsModal.IsOpen)
+                           || (_victoryModal != null && _victoryModal.IsOpen);
+    }
+
+    // ===== API pública (mismos nombres que UIManager) =====
+
+    /// <summary>Muestra la ficha técnica de una pieza (clic derecho). No abre si hay un modal.</summary>
+    public void ShowPartInfo(string title, string desc)
+    {
+        if (UIBlocker.ModalOpen) return;
+        if (_infoPanel == null) return;
+
+        if (_infoTitle != null) _infoTitle.text = string.IsNullOrEmpty(title) ? "COMPONENTE" : title;
+        if (_infoDesc != null) _infoDesc.text = HighlightTitle(title, desc);
+        // Info e Instrucciones comparten la columna izquierda: no las solapamos.
+        if (_instructionsPanel != null) _instructionsPanel.style.display = DisplayStyle.None;
+        _infoPanel.style.display = DisplayStyle.Flex;
+    }
+
+    public void CloseInfoPanel()
+    {
+        if (_infoPanel != null) _infoPanel.style.display = DisplayStyle.None;
+    }
+
+    public void ShowVictory()
+    {
+        CloseInfoPanel();
+        SetInstructions(false);
+        if (_victoryModal != null) _victoryModal.Open();
+    }
+
+    public void ToggleInstructions()
+    {
+        bool visible = _instructionsPanel != null && _instructionsPanel.resolvedStyle.display == DisplayStyle.Flex;
+        SetInstructions(!visible);
+    }
+
+    // ===== Internos =====
+
+    private void SetInstructions(bool visible)
+    {
+        // Al mostrar instrucciones, ocultamos la ficha (comparten columna izquierda).
+        if (visible && _infoPanel != null) _infoPanel.style.display = DisplayStyle.None;
+        if (_instructionsPanel != null)
+            _instructionsPanel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    private void ReturnToSelector() => SceneManager.LoadScene(returnScene);
+
+    /// <summary>Resalta en naranja la 1ª aparición del título dentro de la descripción (rich text).</summary>
+    private static string HighlightTitle(string title, string desc)
+    {
+        if (string.IsNullOrEmpty(desc) || string.IsNullOrEmpty(title)) return desc;
+        if (!desc.Contains(title)) return desc;
+        return desc.Replace(title, "<color=#FF4500><b>" + title + "</b></color>");
+    }
+
+    private void RegisterEscapeToClose(ModalPanel modal)
+    {
+        modal.RegisterCallback<KeyDownEvent>(evt =>
+        {
+            if (evt.keyCode == KeyCode.Escape) { modal.Close(); evt.StopPropagation(); }
+        });
+    }
+
+    private void RefreshVolume()
+    {
+        int lvl = SettingsService.VolumeLevel;
+        if (_volLevel != null) _volLevel.text = lvl + "/" + SettingsService.MaxVolume;
+        for (int i = 0; i < _volBars.Count; i++)
+            _volBars[i].EnableInClassList("is-active", i < lvl);
+        if (_volIcon != null)
+            for (int i = SettingsService.MinVolume; i <= SettingsService.MaxVolume; i++)
+                _volIcon.EnableInClassList("level-" + i, i == lvl);
+    }
+
+    private void ToggleScreen()
+    {
+        SettingsService.ToggleFullscreen();
+        RefreshScreen();
+    }
+
+    private void RefreshScreen()
+    {
+        bool fs = SettingsService.Fullscreen;
+        if (_screenText != null) _screenText.text = fs ? "PANTALLA COMPLETA" : "MODO VENTANA";
+        if (_screenIcon != null)
+        {
+            _screenIcon.EnableInClassList("is-fullscreen", fs);
+            _screenIcon.EnableInClassList("is-windowed", !fs);
+        }
+    }
+}

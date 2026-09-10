@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U07_T01
+  m_EditorClassIdentifier: 
+  title: "Configuraci\u00F3n de la BIOS y la UEFI"
+  summary: "Los ajustes del firmware que hay que dejar correctos antes de arrancar el instalador."
+  contentText: "## C\u00F3mo entrar\nAl encender, pulsar repetidamente la tecla de acceso durante los primeros segundos. Var\u00EDa seg\u00FAn el fabricante:\n\n- **Supr o F2**: la mayor\u00EDa de placas de escritorio (ASUS, Gigabyte, MSI, ASRock).\n- **F2 o F10**: HP y Dell.\n- **F1 o Enter**: Lenovo y algunos equipos IBM.\n- **F12**: suele abrir el men\u00FA de arranque puntual, sin entrar a la configuraci\u00F3n.\n\nEn Windows 10 y 11 tambi\u00E9n se llega desde *Recuperaci\u00F3n*, \"Inicio avanzado\", \"Configuraci\u00F3n de firmware UEFI\", lo que resuelve el problema del arranque demasiado r\u00E1pido para pulsar la tecla.\n\n## Ajustes previos a una instalaci\u00F3n\n: Boot Mode | **UEFI**, salvo en equipos muy antiguos. Debe corresponderse con el esquema del disco: UEFI con GPT, Legacy con MBR.\n: CSM (Compatibility Support Module) | Desactivado para una instalaci\u00F3n UEFI limpia.\n: Secure Boot | Activado para Windows 11, que lo exige. Algunas distribuciones GNU/Linux requieren desactivarlo si sus m\u00F3dulos no est\u00E1n firmados.\n: TPM / PTT / fTPM | Activado. Windows 11 exige TPM 2.0; en muchas placas viene desactivado de f\u00E1brica.\n: SATA Mode | **AHCI**. El modo RAID o el antiguo IDE provocan que el instalador no vea los discos.\n: Boot Order | Colocar el medio USB por delante del disco duro. Al terminar la instalaci\u00F3n conviene devolverlo al orden normal.\n: Fast Boot | Desactivado durante la instalaci\u00F3n: omite la inicializaci\u00F3n de USB y puede impedir que se detecte el medio.\n\n## Ajustes de rendimiento\n- **Perfil XMP (Intel) o EXPO (AMD)**: activa la frecuencia real de los m\u00F3dulos de memoria. Sin \u00E9l la RAM funciona a la velocidad base, muy por debajo de lo comprado.\n- **Curvas de ventilador**: ajustar el comportamiento t\u00E9rmico seg\u00FAn la temperatura.\n- **Virtualizaci\u00F3n (VT-x, AMD-V, SVM)**: necesaria para m\u00E1quinas virtuales, WSL2 y algunos emuladores. Suele venir desactivada.\n\n## Actualizaci\u00F3n del firmware\nActualizar la UEFI corrige fallos y a\u00F1ade compatibilidad con procesadores nuevos.\n\n1. Descargar el archivo **exactamente del modelo y revisi\u00F3n** de la placa.\n2. Copiarlo a un USB en FAT32.\n3. Usar la utilidad integrada del firmware, nunca una de terceros.\n4. **No interrumpir el proceso ni cortar la energ\u00EDa**: un fallo aqu\u00ED deja la placa inservible salvo que tenga doble BIOS o BIOS Flashback.\n\n> Si un cambio deja el equipo sin arrancar, se restauran los valores de f\u00E1brica retirando la **bater\u00EDa CMOS** unos minutos o puenteando los pines **CLR_CMOS** de la placa, siempre con el equipo desconectado."
+  topicImage: {fileID: 0}
+  imageCaption: ""

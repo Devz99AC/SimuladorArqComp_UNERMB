@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U09_T03
+  m_EditorClassIdentifier: 
+  title: "Mantenimiento preventivo del software y actualizaciones"
+  summary: "Mantener el sistema operativo, los controladores y las aplicaciones al d\u00EDa y en buen estado."
+  contentText: "## Por qu\u00E9 actualizar\nLas actualizaciones no solo a\u00F1aden funciones: sobre todo **corrigen fallos de seguridad**. Un sistema sin actualizar es la v\u00EDa de entrada m\u00E1s habitual del malware, y la mayor\u00EDa de los ataques aprovechan vulnerabilidades conocidas y ya corregidas.\n\n## Tipos de actualizaci\u00F3n\n: De seguridad | Corrigen vulnerabilidades. Son prioritarias y deben aplicarse cuanto antes.\n: Correctivas | Arreglan errores de funcionamiento.\n: De caracter\u00EDsticas | A\u00F1aden funciones nuevas. Conviene esperar unas semanas antes de aplicarlas en equipos de producci\u00F3n.\n: De controladores | Mejoran la compatibilidad y el rendimiento del hardware.\n: De firmware | UEFI, SSD, impresoras. Las m\u00E1s delicadas: no deben interrumpirse.\n\n## Actualizar el sistema\n- **Windows**: *Configuraci\u00F3n \u2192 Windows Update*. Conviene revisar el historial para detectar actualizaciones que fallan repetidamente. En una red, se centraliza con WSUS.\n- **GNU/Linux**: `sudo apt update && sudo apt upgrade` en Debian y derivadas; `sudo dnf upgrade` en Fedora. La ventaja del modelo de repositorios es que **actualiza tambi\u00E9n todas las aplicaciones** con la misma orden.\n\n## Actualizar las aplicaciones\n- Preferir los **gestores de paquetes** o las tiendas oficiales.\n- Desinstalar el software que ya no se usa: cada programa instalado es superficie de ataque.\n- Vigilar especialmente **navegador, Java y lectores de PDF**, que son los objetivos m\u00E1s frecuentes.\n\n## Limpieza l\u00F3gica peri\u00F3dica\n1. **Archivos temporales**: *Liberador de espacio* o *Sensor de almacenamiento* en Windows; `sudo apt autoremove && sudo apt clean` en GNU/Linux.\n2. **Programas de inicio**: desactivar los que no hacen falta reduce el tiempo de arranque de forma notable.\n3. **Cach\u00E9 de los navegadores**.\n4. **Papelera de reciclaje**.\n5. **Registro de Windows**: modificarlo a mano es arriesgado. Las utilidades \"limpiadoras de registro\" aportan poco y pueden romper el sistema.\n\n## Copias de seguridad\nEs la tarea preventiva m\u00E1s importante, y la que m\u00E1s se descuida.\n\n- **Regla 3-2-1**: tres copias de los datos, en dos tipos de medio distintos, una de ellas fuera del edificio.\n- Automatizar la copia: la que depende de que alguien se acuerde, no se hace.\n- **Verificar peri\u00F3dicamente que la copia se puede restaurar.** Una copia nunca probada no es una copia: es una suposici\u00F3n.\n- Herramientas: *Historial de archivos* y *Copia de seguridad* en Windows; `rsync`, `Timeshift` o `D\u00E9j\u00E0 Dup` en GNU/Linux.\n\n## Puntos de restauraci\u00F3n e im\u00E1genes\n- Crear un **punto de restauraci\u00F3n** antes de instalar controladores o software delicado.\n- Guardar una **imagen del sistema** reci\u00E9n instalado y actualizado: restaurarla es mucho m\u00E1s r\u00E1pido que reinstalar desde cero. Herramientas: Clonezilla, Macrium Reflect, `dd`.\n\n> El calendario m\u00EDnimo razonable para un equipo de laboratorio: copia de seguridad semanal, actualizaciones y an\u00E1lisis antivirus mensuales, limpieza f\u00EDsica semestral y revisi\u00F3n completa anual."
+  topicImage: {fileID: 0}
+  imageCaption: ""

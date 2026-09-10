@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U10_T02
+  m_EditorClassIdentifier: 
+  title: "Detecci\u00F3n de fallas y problemas del software"
+  summary: "C\u00F3mo distinguir un fallo de software de uno de hardware y las herramientas de diagn\u00F3stico del sistema."
+  contentText: "## Hardware o software: c\u00F3mo distinguirlos\nLa primera pregunta del diagn\u00F3stico es en qu\u00E9 mitad est\u00E1 el problema. Estas se\u00F1ales orientan:\n\n: Probablemente software | Ocurre solo dentro de un programa. Empez\u00F3 justo tras una actualizaci\u00F3n o instalaci\u00F3n. Desaparece en modo seguro. No sucede con otro sistema arrancado desde USB.\n: Probablemente hardware | Ocurre tambi\u00E9n en el firmware, antes de cargar el sistema. Persiste tras una reinstalaci\u00F3n limpia. Va acompa\u00F1ado de ruidos, calor u olor. Aparece igualmente con un sistema en vivo desde USB.\n\n> La prueba m\u00E1s concluyente y m\u00E1s barata: arrancar el equipo con una **distribuci\u00F3n GNU/Linux en vivo desde USB**. Si all\u00ED todo funciona con normalidad, el hardware est\u00E1 sano y el problema es del sistema instalado.\n\n## Herramientas de diagn\u00F3stico\n: Windows | **Visor de eventos** (`eventvwr.msc`) para los registros del sistema. **Modo seguro** para arrancar con lo m\u00EDnimo. `sfc /scannow` repara archivos del sistema. `DISM /Online /Cleanup-Image /RestoreHealth` repara la imagen. `chkdsk C: /f /r` comprueba el disco. `msconfig` controla el arranque.\n: GNU/Linux | `journalctl -xe` muestra los registros del sistema. `dmesg` los mensajes del n\u00FAcleo, ideales para fallos de hardware. `systemctl --failed` lista los servicios ca\u00EDdos. `fsck` comprueba el sistema de archivos con la partici\u00F3n desmontada.\n\n## Problemas frecuentes y su tratamiento\n: El sistema no arranca | Usar el entorno de recuperaci\u00F3n. Reparar el arranque (`bootrec /fixmbr`, `/fixboot`, `/rebuildbcd` en Windows; `grub-install` y `update-grub` en GNU/Linux). Si el sistema arrancaba ayer, un punto de restauraci\u00F3n suele bastar.\n: Arranque muy lento | Revisar los programas de inicio, comprobar el estado del disco y descartar malware.\n: Un programa se cierra solo | Reinstalarlo, comprobar sus dependencias y revisar el visor de eventos.\n: Bucle de reinicio | Arrancar en modo seguro y deshacer el \u00FAltimo cambio: controlador o actualizaci\u00F3n.\n: Pantalla azul tras instalar un controlador | Modo seguro y \"Revertir al controlador anterior\".\n\n## Cu\u00E1ndo reinstalar\nReinstalar el sistema resuelve casi cualquier problema de software, pero es la \u00FAltima opci\u00F3n, no la primera: cuesta tiempo, obliga a reconfigurar todo y **no arregla un problema de hardware**. Antes de reinstalar hay que haber descartado el hardware; si no, se reinstalar\u00E1 para nada."
+  topicImage: {fileID: 0}
+  imageCaption: ""

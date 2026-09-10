@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T04
+  m_EditorClassIdentifier: 
+  title: "Ensamblaje de una computadora"
+  summary: "La secuencia completa de montaje, de la preparaci\u00F3n del \u00E1rea de trabajo al cierre del gabinete."
+  contentText: "## Antes de empezar\n- Verificar la **compatibilidad** de todas las piezas: z\u00F3calo de la CPU, generaci\u00F3n de RAM, formato de la placa frente al gabinete, potencia de la fuente y longitud de la tarjeta de video.\n- Preparar un \u00E1rea amplia, bien iluminada y sin alfombra.\n- Tener a mano el manual de la tarjeta madre y un recipiente para los tornillos.\n\n## Secuencia de montaje\n1. **Preparar el gabinete**: retirar ambas tapas laterales y las bolsas de tornillos del interior.\n2. **Instalar la fuente de poder** en su bah\u00EDa, con el ventilador hacia la rejilla correspondiente. Atornillar los cuatro tornillos traseros.\n3. **Preparar la tarjeta madre fuera del gabinete**: procesador, pasta t\u00E9rmica, disipador y m\u00F3dulos de memoria.\n4. **Colocar el embellecedor de puertos y los separadores**, y atornillar la placa.\n5. **Instalar las unidades de almacenamiento**: SSD M.2 directamente en la placa; discos de 2,5 o 3,5 pulgadas en sus bah\u00EDas.\n6. **Instalar la tarjeta de video** en la ranura PCIe x16 superior, retirando antes las tapas de ranura del gabinete. Presionar hasta el clic y atornillar el soporte.\n7. **Conectar la alimentaci\u00F3n**: ATX de 24 pines, EPS del procesador, PCIe de la tarjeta de video y SATA de las unidades.\n8. **Conectar los datos**: cables SATA entre las unidades y la placa.\n9. **Conectar el panel frontal**: encendido, reinicio, LED, USB y audio.\n10. **Organizar el cableado** con bridas, sin obstruir los ventiladores.\n11. **Revisar todo** antes de cerrar: ning\u00FAn tornillo suelto, ning\u00FAn cable dentro de un aspa.\n\n## Primer encendido\nAntes de cerrar las tapas, conectar monitor, teclado y corriente, y encender.\n\n- Si aparece la pantalla del firmware, el montaje es correcto: apagar, cerrar el gabinete y continuar con la instalaci\u00F3n del sistema operativo.\n- Si no enciende, revisar en este orden: interruptor de la fuente, conector EPS del procesador, conexi\u00F3n del bot\u00F3n de encendido al panel frontal y asiento de los m\u00F3dulos de memoria.\n\n> El error m\u00E1s frecuente en un primer ensamblaje es **olvidar el conector EPS de 8 pines** del procesador. El equipo no da imagen y todo parece muerto, aunque los ventiladores giren."
+  topicImage: {fileID: 21300000, guid: c293a6e5023114f4492d5a5962e04e71, type: 3}
+  imageCaption: "Proceso de ensamblaje de un equipo de escritorio."

@@ -1,0 +1,70 @@
+/* =====================================================================
+   variables.uss — Tokens de diseño del Simulador (UI Toolkit)
+   ---------------------------------------------------------------------
+   Fuente única de verdad para color, tipografía, spacing y estado.
+   Valores de color de marca EXTRAÍDOS del código uGUI actual
+   (UIManager.cs / MainMenuManager.cs) — no inventados.
+   Regla de accesibilidad (AUDITORIA §7.1 / §8): el color NUNCA comunica
+   estado por sí solo; siempre acompaña a icono + texto. Estos tokens
+   solo REFUERZAN el mensaje textual.
+   ===================================================================== */
+
+:root {
+    /* --- Color: identidad de marca (extraído del proyecto) --- */
+    --color-accent:        rgb(255, 69, 0);    /* #FF4500 barra volumen activa + hover 3D */
+    --color-accent-hover:  rgb(255, 108, 51);  /* variante clara para :hover */
+    --color-accent-press:  rgb(214, 58, 0);    /* variante oscura para :active */
+    --color-neutral:       rgb(204, 204, 204); /* #CCCCCC barra volumen inactiva */
+
+    /* --- Color: superficies y texto (paleta oscura del simulador) --- */
+    --color-bg:            rgb(18, 20, 24);
+    --color-surface:       rgba(28, 32, 38, 0.96);
+    --color-surface-2:     rgba(40, 45, 52, 0.96);
+    --color-overlay:       rgba(8, 9, 12, 0.72);   /* velo de paneles modales */
+    --color-border:        rgba(255, 255, 255, 0.10);
+    --color-text:          rgb(240, 241, 243);
+    --color-text-dim:      rgb(168, 173, 181);
+    --color-text-on-accent: rgb(20, 12, 6);
+
+    /* --- Color: estado (SIEMPRE con icono + texto) --- */
+    --state-success:       rgb(59, 178, 115);  /* equivale al material "verde" de drag */
+    --state-error:         rgb(229, 72, 77);
+    --state-warning:       rgb(240, 180, 60);
+    --state-info:          rgb(90, 160, 245);
+
+    /* --- Tipografía (tamaños; las fuentes se asignan en theme.tss) --- */
+    --text-xs:  14px;
+    --text-sm:  18px;
+    --text-md:  24px;
+    --text-lg:  34px;
+    --text-xl:  52px;
+    --text-xxl: 72px;
+
+    /* --- Spacing (escala base 4) --- */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  16px;
+    --space-4:  24px;
+    --space-5:  40px;
+    --space-6:  64px;
+
+    /* --- Layout compartido entre pantallas --- */
+    /* Ancho del panel lateral del menu (.menu-right). Vive aqui y no en cada
+       hoja porque MainMenu y ModeSelection deben coincidir al pixel: si el
+       valor se duplica, basta tocar uno para que se vea un salto al cambiar
+       de pantalla. Valor fijo en px a proposito: el PanelSettings escala todo
+       el documento con la resolucion, asi que se comporta igual en cualquier
+       pantalla. */
+    --menu-panel-width: 460px;
+
+    /* --- Radios / bordes / foco --- */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 999px;
+    --focus-ring: 3px;
+
+    /* --- Transiciones --- */
+    --dur-fast: 90ms;
+    --dur-med:  180ms;
+}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U05_T02
+  m_EditorClassIdentifier: 
+  title: "Conceptos b\u00E1sicos: partici\u00F3n y medios de instalaci\u00F3n"
+  summary: "Qu\u00E9 es una partici\u00F3n, qu\u00E9 tipos hay, qu\u00E9 es formatear y c\u00F3mo se prepara el medio desde el que se instala."
+  contentText: "## Qu\u00E9 es una partici\u00F3n\nUna **partici\u00F3n** es una divisi\u00F3n l\u00F3gica de un disco f\u00EDsico. El sistema operativo trata cada partici\u00F3n como si fuera una unidad independiente, aunque todas compartan el mismo disco.\n\n### Para qu\u00E9 sirve particionar\n- **Separar el sistema de los datos**: reinstalar el sistema sin perder los archivos personales.\n- **Instalar varios sistemas operativos** en el mismo disco (arranque dual).\n- **Aislar funciones** en un servidor: que un registro descontrolado llene su partici\u00F3n sin detener el sistema entero.\n- **Usar distintos sistemas de archivos** seg\u00FAn el uso.\n\n## Tipos de partici\u00F3n en el esquema MBR\n: Primaria | Arrancable. El esquema MBR admite un m\u00E1ximo de cuatro.\n: Extendida | Una de las cuatro primarias, que act\u00FAa como contenedor. Solo puede haber una.\n: L\u00F3gica | Se crea dentro de la extendida. Sirve para superar el l\u00EDmite de cuatro particiones.\n\nEn el esquema **GPT** esta distinci\u00F3n desaparece: todas las particiones son equivalentes y caben hasta 128 sin artificios.\n\n## Formatear\n**Formatear** es escribir en la partici\u00F3n la estructura de un sistema de archivos, para que el sistema operativo pueda organizar archivos y carpetas en ella.\n\n: Formateo r\u00E1pido | Reescribe solo la tabla de asignaci\u00F3n. Es casi instant\u00E1neo y los datos siguen f\u00EDsicamente ah\u00ED hasta que se sobrescriben.\n: Formateo completo | Adem\u00E1s verifica el estado de la superficie sector a sector. Tarda mucho m\u00E1s, pero detecta sectores defectuosos.\n\n## Sistemas de archivos habituales\n: NTFS | El de Windows. Permisos, cifrado y registro de transacciones.\n: exFAT | Para unidades extra\u00EDbles. Compatible con Windows, macOS y GNU/Linux, sin el l\u00EDmite de 4 GB por archivo de FAT32.\n: FAT32 | Antiguo y universal. M\u00E1ximo de 4 GB por archivo. Se sigue usando en las particiones EFI.\n: ext4 | El est\u00E1ndar en GNU/Linux. Estable y con registro por diario (journaling).\n: Btrfs y XFS | Alternativas en GNU/Linux con instant\u00E1neas y mejor rendimiento en archivos grandes.\n\n## Medios de instalaci\u00F3n\n- **USB de arranque**: el medio habitual. Se prepara con **Rufus**, **Ventoy**, **balenaEtcher** o la herramienta oficial del fabricante. Requiere al menos 8 GB.\n- **Imagen ISO**: el archivo que contiene la instalaci\u00F3n completa. Conviene **verificar su suma de comprobaci\u00F3n** antes de escribirla.\n- **Instalaci\u00F3n por red (PXE)**: el equipo arranca desde el servidor. Es lo eficiente cuando hay que instalar un laboratorio entero.\n- **DVD**: pr\u00E1cticamente en desuso.\n\n> Al crear el USB hay que elegir el esquema correcto: **GPT para arranque UEFI**, MBR para Legacy. Un USB creado con el esquema equivocado simplemente no aparecer\u00E1 en el men\u00FA de arranque."
+  topicImage: {fileID: 0}
+  imageCaption: ""

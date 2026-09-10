@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea1c0d24b6f4a1d9c3e5f70a1b2c301, type: 3}
+  m_Name: U08
+  m_EditorClassIdentifier: 
+  number: 8
+  title: "Administraci\u00F3n B\u00E1sica del Sistema Operativo"
+  description: "Las tres tareas cotidianas de quien administra un equipo: controlar qu\u00E9 se ejecuta, qui\u00E9n puede hacer qu\u00E9 y c\u00F3mo se reparte el almacenamiento."
+  topics:
+  - {fileID: 11400000, guid: d4ec5abd260585ef814187215e31830f, type: 2}
+  - {fileID: 11400000, guid: 621e78fe8f872fb4d4797c416b9f3653, type: 2}
+  - {fileID: 11400000, guid: be235daae76faa2b02a59c7571579a69, type: 2}

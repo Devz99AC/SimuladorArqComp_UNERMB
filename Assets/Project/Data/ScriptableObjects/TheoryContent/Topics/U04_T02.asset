@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U04_T02
+  m_EditorClassIdentifier: 
+  title: "Tipos: sistemas libres y propietarios"
+  summary: "La diferencia no est\u00E1 en el precio sino en las libertades que la licencia concede al usuario."
+  contentText: "## La distinci\u00F3n real\nLa diferencia entre software libre y propietario **no es el precio**. Un programa libre puede venderse y uno propietario puede regalarse. Lo que las separa es la **licencia**: qu\u00E9 permite hacer al usuario con el programa.\n\n## Software libre\nUn programa es libre si garantiza las cuatro libertades definidas por la Free Software Foundation:\n\n0. Libertad de **usarlo** para cualquier prop\u00F3sito.\n1. Libertad de **estudiar** c\u00F3mo funciona y adaptarlo, lo que exige acceso al c\u00F3digo fuente.\n2. Libertad de **redistribuir** copias.\n3. Libertad de **mejorarlo** y publicar las mejoras.\n\n### Ejemplos\n- **GNU/Linux** y sus distribuciones: Debian, Ubuntu, Fedora, openSUSE, Linux Mint, Canaima.\n- **FreeBSD**, **OpenBSD**, **Android Open Source Project**.\n\n## Software propietario\nEl c\u00F3digo fuente no se distribuye y la licencia restringe el uso, la copia y la modificaci\u00F3n. El usuario adquiere un **derecho de uso**, no el programa.\n\n### Ejemplos\n- **Microsoft Windows** en sus distintas ediciones.\n- **macOS**, ligado al hardware de Apple.\n- **UNIX comerciales**: AIX, HP-UX, Solaris.\n\n## El caso venezolano\nEl **Decreto 3.390 (2004)** estableci\u00F3 el uso prioritario de software libre desarrollado con est\u00E1ndares abiertos en la Administraci\u00F3n P\u00FAblica Nacional, y dio origen a la distribuci\u00F3n nacional **Canaima GNU/Linux**, presente en instituciones educativas del pa\u00EDs. Conocer ambos entornos, libre y propietario, es por tanto una competencia profesional exigible.\n\n> Para el t\u00E9cnico, la consecuencia pr\u00E1ctica m\u00E1s importante es la de los **controladores**. En un sistema propietario los provee el fabricante; en uno libre, buena parte vienen incluidos en el propio n\u00FAcleo, lo que simplifica la instalaci\u00F3n en hardware antiguo pero puede complicarla en hardware muy reciente."
+  topicImage: {fileID: 0}
+  imageCaption: ""

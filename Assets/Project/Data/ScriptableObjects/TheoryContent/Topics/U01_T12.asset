@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T12
+  m_EditorClassIdentifier: 
+  title: "Memorias y tipos"
+  summary: "La jerarqu\u00EDa de memoria del computador, del registro al disco, y las caracter\u00EDsticas de los m\u00F3dulos de RAM."
+  contentText: "## La jerarqu\u00EDa de memoria\nNinguna tecnolog\u00EDa es a la vez rapid\u00EDsima, enorme y barata. Por eso el computador combina varias, de la m\u00E1s r\u00E1pida y peque\u00F1a a la m\u00E1s lenta y grande:\n\n1. **Registros** \u2014 dentro de la CPU. Acceso inmediato, unos pocos cientos de bytes.\n2. **Cach\u00E9 L1, L2 y L3** \u2014 dentro de la CPU. De kilobytes a decenas de megabytes.\n3. **Memoria RAM** \u2014 m\u00F3dulos en la placa. De 8 a 64 GB en equipos actuales.\n4. **Almacenamiento secundario** \u2014 SSD o disco duro. Cientos de gigabytes o terabytes.\n5. **Almacenamiento externo o en red** \u2014 respaldos y archivo.\n\nCuanto m\u00E1s se baja en la jerarqu\u00EDa, m\u00E1s capacidad y menor costo, pero tambi\u00E9n mayor tiempo de acceso.\n\n## Memorias por su comportamiento\n: RAM (Random Access Memory) | Vol\u00E1til, de lectura y escritura. Es la memoria de trabajo del sistema.\n: ROM (Read Only Memory) | No vol\u00E1til, de solo lectura en su origen. Contiene el firmware de arranque.\n: Memoria flash | No vol\u00E1til y regrabable. Es la base de los SSD, las memorias USB y el chip de la UEFI actual.\n: Memoria cach\u00E9 | RAM est\u00E1tica, muy r\u00E1pida, que guarda lo que la CPU acaba de usar o previsiblemente usar\u00E1.\n\n## Tipos de RAM\n: DRAM | RAM din\u00E1mica. Cada bit se guarda en un condensador que hay que refrescar constantemente. Es la memoria principal del sistema.\n: SRAM | RAM est\u00E1tica. M\u00E1s r\u00E1pida y sin refresco, pero mucho m\u00E1s cara. Se usa para la cach\u00E9.\n: SDRAM DDR | DRAM sincronizada con el reloj del sistema, que transfiere datos en los dos flancos del ciclo. Es lo que hay en cualquier m\u00F3dulo actual.\n\n## Generaciones DDR\n- **DDR3**: equipos de 2007 a 2015 aproximadamente. 240 contactos.\n- **DDR4**: el est\u00E1ndar m\u00E1s extendido hoy. 288 contactos.\n- **DDR5**: la generaci\u00F3n actual, con mayor ancho de banda y menor voltaje. Tambi\u00E9n 288 contactos, pero **con la muesca en otra posici\u00F3n**.\n\n> Las generaciones **no son compatibles entre s\u00ED**. La muesca del m\u00F3dulo y la de la ranura solo coinciden si son de la misma generaci\u00F3n: es una protecci\u00F3n f\u00EDsica deliberada. Si un m\u00F3dulo no entra sin forzarlo, no es el m\u00F3dulo correcto.\n\n## Qu\u00E9 mirar en un m\u00F3dulo\n- **Capacidad**: 8, 16 o 32 GB por m\u00F3dulo.\n- **Frecuencia**: en MT/s (por ejemplo 3200 MT/s). La placa y el procesador imponen un m\u00E1ximo.\n- **Latencia (CL)**: ciclos de espera antes de entregar el dato. Menor es mejor.\n- **Formato**: DIMM para escritorio, SO-DIMM para port\u00E1tiles.\n- **ECC**: correcci\u00F3n de errores, propia de servidores.\n\n## Doble canal\nInstalar **dos m\u00F3dulos iguales** en las ranuras del mismo color duplica el ancho de banda frente a un solo m\u00F3dulo de la misma capacidad total. Es una mejora gratuita que se pierde por desconocimiento con enorme frecuencia."
+  topicImage: {fileID: 0}
+  imageCaption: ""

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T05
+  m_EditorClassIdentifier: 
+  title: "Configuraci\u00F3n del hardware: booteo del sistema"
+  summary: "Qu\u00E9 ocurre entre pulsar el bot\u00F3n de encendido y cargar el sistema operativo, y c\u00F3mo se configura ese proceso."
+  contentText: "## La secuencia de arranque\n1. **Se aplica la energ\u00EDa.** La fuente env\u00EDa la se\u00F1al *Power Good* a la placa cuando sus tensiones son estables.\n2. **El firmware toma el control.** El procesador ejecuta el c\u00F3digo de la UEFI o BIOS almacenado en el chip de la placa.\n3. **POST (Power-On Self-Test).** El firmware comprueba procesador, memoria, video y dispositivos esenciales. Si algo falla, avisa con pitidos o con c\u00F3digos en pantalla.\n4. **Inventario de dispositivos.** Se detectan y se les asignan recursos.\n5. **Selecci\u00F3n del dispositivo de arranque**, seg\u00FAn el orden configurado.\n6. **Carga del gestor de arranque** desde ese dispositivo, que a su vez carga el n\u00FAcleo del sistema operativo.\n\n## BIOS y UEFI\n: BIOS | Firmware cl\u00E1sico, de 16 bits. Interfaz de texto, arranque por MBR y l\u00EDmite de 2 TB por disco de arranque.\n: UEFI | Firmware moderno. Interfaz gr\u00E1fica con rat\u00F3n, arranque por GPT sin l\u00EDmite pr\u00E1ctico de tama\u00F1o, arranque m\u00E1s r\u00E1pido y funciones de seguridad.\n\nCasi todo equipo actual usa UEFI, aunque en el lenguaje cotidiano se le siga llamando \"la BIOS\".\n\n## Configuraci\u00F3n habitual\nSe entra pulsando **Supr, F2, F10 o F12** durante el arranque, seg\u00FAn el fabricante.\n\n- **Fecha y hora del sistema.**\n- **Orden de arranque (Boot Order)**: qu\u00E9 dispositivo se intenta primero. Para instalar un sistema operativo hay que poner el medio USB por delante del disco.\n- **Modo de arranque**: UEFI o Legacy/CSM. Debe coincidir con el esquema de particiones del disco.\n- **Secure Boot**: verifica la firma del gestor de arranque. Puede impedir el arranque de algunas distribuciones y a veces hay que desactivarlo.\n- **Modo SATA**: AHCI es el correcto para discos y SSD modernos.\n- **Perfil XMP o EXPO**: activa la frecuencia real de los m\u00F3dulos de memoria. Sin \u00E9l, la RAM funciona a la velocidad base, m\u00E1s lenta.\n- **Monitorizaci\u00F3n**: temperaturas, tensiones y velocidad de ventiladores. Es la primera pantalla de diagn\u00F3stico ante un sobrecalentamiento.\n\n## C\u00F3digos de error del POST\n- **Un pitido corto**: POST correcto.\n- **Pitidos repetidos**: problema de memoria; reasentar los m\u00F3dulos.\n- **Un pitido largo y dos cortos**: problema de video.\n- **Sin pitidos y sin imagen**: alimentaci\u00F3n del procesador o placa.\n\n> Si el equipo pierde la hora cada vez que se apaga, el fallo casi siempre es la **bater\u00EDa CMOS**. Es una pila CR2032 de bajo costo y sustituci\u00F3n inmediata."
+  topicImage: {fileID: 0}
+  imageCaption: ""

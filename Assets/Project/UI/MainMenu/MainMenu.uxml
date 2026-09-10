@@ -1,0 +1,76 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=271a4d4e9a226cc43960832ba9c4c8fa&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="root" class="menu-root">
+        <DiagonalStripes name="bg" picking-mode="Ignore" stripe-width="16" gap="16" speed="12" class="menu-bg"/>
+        <ui:VisualElement name="left" picking-mode="Ignore" class="menu-left">
+            <ui:VisualElement picking-mode="Ignore" class="menu-hero">
+                <ui:VisualElement picking-mode="Ignore" class="menu-wordmark">
+                    <ui:Label text="SIMULADOR DE ARQUITECTURA DEL &lt;color=#FD4320&gt;COMPUTADOR&lt;/color&gt;" picking-mode="Ignore" class="menu-wordmark__name"/>
+                    <ui:VisualElement picking-mode="Ignore" class="menu-wordmark__rule"/>
+                </ui:VisualElement>
+                <ui:VisualElement picking-mode="Ignore" class="menu-logo"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="right" class="menu-right">
+            <ui:VisualElement name="menu" class="menu-list">
+                <ui:Button name="btn-start" text="INICIAR" class="menu-item"/>
+                <ui:Button name="btn-options" text="OPCIONES" class="menu-item"/>
+                <ui:Button name="btn-credits" text="CREDITOS" class="menu-item"/>
+                <ui:Button name="btn-quit" text="SALIR" class="menu-item"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="pnf-logo" picking-mode="Ignore" class="menu-pnf"/>
+        </ui:VisualElement>
+        <ModalPanel name="options-modal" close-on-backdrop="true">
+            <ui:VisualElement class="menu-modal">
+                <ui:VisualElement class="menu-modal__header">
+                    <ui:Label text="OPCIONES" class="menu-modal__title"/>
+                    <ui:Button name="options-close" class="menu-modal__close"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-modal__body">
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="VOLUMEN DE AUDIO" class="setting-row__label"/>
+                        <ui:VisualElement class="setting-row__control">
+                            <ui:Button name="vol-down" class="icon-btn icon-arrow-left"/>
+                            <ui:VisualElement name="vol-icon" class="vol-icon"/>
+                            <ui:VisualElement name="vol-bars" class="vol-bars">
+                                <ui:VisualElement class="volume-bar"/>
+                                <ui:VisualElement class="volume-bar"/>
+                                <ui:VisualElement class="volume-bar"/>
+                            </ui:VisualElement>
+                            <ui:Label name="vol-level" text="3/3" class="vol-level"/>
+                            <ui:Button name="vol-up" class="icon-btn icon-arrow-right"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="MODO DE PANTALLA" class="setting-row__label"/>
+                        <ui:VisualElement class="setting-row__control">
+                            <ui:Button name="screen-prev" class="icon-btn icon-arrow-left"/>
+                            <ui:VisualElement name="screen-icon" class="screen-icon"/>
+                            <ui:Label name="screen-text" text="PANTALLA COMPLETA" class="screen-text"/>
+                            <ui:Button name="screen-next" class="icon-btn icon-arrow-right"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ModalPanel>
+        <ModalPanel name="credits-modal" close-on-backdrop="true">
+            <ui:VisualElement class="menu-modal">
+                <ui:VisualElement class="menu-modal__header">
+                    <ui:Label text="CREDITOS" class="menu-modal__title"/>
+                    <ui:Button name="credits-close" class="menu-modal__close"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-modal__body credits-body">
+                    <ui:Label text="Software desarrollado por los TSU en Informática:" class="credits-lead"/>
+                    <ui:Label text="- Devinzon Acosta" class="credits-name"/>
+                    <ui:Label text="- José Figueredo" class="credits-name"/>
+                    <ui:Label text="- Carlos Mogollón" class="credits-name"/>
+                    <ui:Label text="- Alejandro Mendez" class="credits-name"/>
+                    <ui:Label text="En memoria de:" class="credits-section"/>
+                    <ui:Label text="- José Aguilera (QEPD)" class="credits-name"/>
+                    <ui:Label text="Tutor metodológico:" class="credits-section"/>
+                    <ui:Label text="- Jhonny Diaz" class="credits-name"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ModalPanel>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U10_T03
+  m_EditorClassIdentifier: 
+  title: "Detecci\u00F3n de problemas al cambiar o instalar componentes"
+  summary: "Qu\u00E9 revisar cuando el fallo aparece justo despu\u00E9s de sustituir o a\u00F1adir una pieza."
+  contentText: "## La pregunta que ahorra horas\nSi el equipo funcionaba antes del cambio y falla despu\u00E9s, **el cambio es la causa** hasta que se demuestre lo contrario. La soluci\u00F3n m\u00E1s r\u00E1pida suele ser deshacerlo y volver a hacerlo con m\u00E1s cuidado.\n\n## Compatibilidad\nAntes de culpar a la pieza, verificar que era la correcta:\n\n- **Procesador**: \u00BFcoincide el z\u00F3calo? \u00BFEst\u00E1 el procesador en la lista de compatibilidad de la placa? Algunos modelos exigen **actualizar la UEFI antes** de instalarlos.\n- **Memoria**: \u00BFes la generaci\u00F3n correcta (DDR4 frente a DDR5)? \u00BFAparece en la lista de memorias validadas? \u00BFSe poblaron las ranuras en el orden del manual?\n- **Tarjeta gr\u00E1fica**: \u00BFcabe f\u00EDsicamente en el gabinete? \u00BFLa fuente tiene los conectores PCIe necesarios y potencia suficiente?\n- **Almacenamiento**: \u00BFla ranura M.2 admite NVMe o solo SATA? Muchas placas **desactivan puertos SATA** al ocupar una ranura M.2.\n- **Fuente**: \u00BFla potencia total cubre el consumo con margen?\n\n## Despu\u00E9s de instalar RAM nueva\n1. Comprobar que el firmware reconoce la **cantidad total**.\n2. Si falta un m\u00F3dulo, apagar, reasentar y probarlo solo en otra ranura para descartar si falla el m\u00F3dulo o la ranura.\n3. Activar **XMP o EXPO**. Si el equipo se vuelve inestable con el perfil activo, la combinaci\u00F3n no es estable: bajar a la frecuencia base.\n4. Ejecutar **MemTest86** antes de dar el trabajo por terminado.\n\n## Despu\u00E9s de instalar una tarjeta gr\u00E1fica\n1. Desinstalar por completo los controladores anteriores (con **DDU** si se cambia de fabricante).\n2. Conectar los cables PCIe **desde conectores independientes de la fuente**, no encadenando un solo cable.\n3. Conectar el monitor a la tarjeta, **no a la salida de la placa**.\n4. Instalar los controladores nuevos y comprobar el rendimiento bajo carga.\n\n## Despu\u00E9s de cambiar el procesador\n1. Aplicar pasta t\u00E9rmica nueva. Nunca reutilizar la anterior.\n2. Verificar que el disipador queda **firme y con presi\u00F3n uniforme**.\n3. Comprobar la temperatura en reposo (30 a 45 grados) y bajo carga.\n4. Confirmar que el firmware detecta el modelo correcto.\n\n## Si el equipo ya no arranca tras el cambio\n1. **Revertir el cambio.** Si con la pieza antigua arranca, el problema es la nueva o su instalaci\u00F3n.\n2. Reasentar todos los conectores que se tocaron. Es muy f\u00E1cil aflojar un cable vecino sin darse cuenta.\n3. Restaurar la configuraci\u00F3n del firmware retirando la bater\u00EDa CMOS.\n4. Reducir al m\u00EDnimo arrancable: placa, CPU, un m\u00F3dulo de RAM y fuente. Ir a\u00F1adiendo piezas de una en una.\n\n> Un error cl\u00E1sico y dif\u00EDcil de encontrar: al instalar un SSD M.2 el equipo deja de ver un disco SATA. No hay aver\u00EDa; la placa **comparte l\u00EDneas** entre la ranura M.2 y ciertos puertos SATA, y lo indica en el manual."
+  topicImage: {fileID: 0}
+  imageCaption: ""

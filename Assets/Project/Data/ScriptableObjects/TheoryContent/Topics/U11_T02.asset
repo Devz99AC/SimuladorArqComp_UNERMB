@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U11_T02
+  m_EditorClassIdentifier: 
+  title: "Formateo de alto nivel"
+  summary: "Qu\u00E9 es formatear, en qu\u00E9 se diferencia del formateo de bajo nivel y cu\u00E1ndo procede hacerlo."
+  contentText: "## Los dos niveles\n: Formateo de bajo nivel | Define las pistas y los sectores f\u00EDsicos del disco. Lo hace el fabricante; el usuario no puede rehacerlo en un disco moderno. Lo que las herramientas actuales llaman \"bajo nivel\" es en realidad una **sobrescritura con ceros**.\n: Formateo de alto nivel | Escribe en la partici\u00F3n la estructura de un sistema de archivos: tabla de asignaci\u00F3n, directorio ra\u00EDz y metadatos. Es el que realiza el usuario o el instalador.\n\n## R\u00E1pido y completo\n: R\u00E1pido | Reescribe solo las estructuras de control. Tarda segundos. Los datos siguen f\u00EDsicamente en el disco y se pueden recuperar con software especializado hasta que se sobrescriban.\n: Completo | Adem\u00E1s verifica **sector por sector** y marca los defectuosos. En Windows, escribe ceros en toda la superficie. Tarda horas en discos grandes, pero deja los datos irrecuperables por medios normales.\n\n> Para **dar de baja un equipo o entregarlo a otra persona**, el formateo r\u00E1pido no basta: los datos son recuperables. Hay que hacer formateo completo, sobrescribir con herramientas espec\u00EDficas o, en un SSD, ejecutar un **Secure Erase** desde la utilidad del fabricante.\n\n## Cu\u00E1ndo formatear\n- Antes de instalar un sistema operativo limpio.\n- Al cambiar de sistema de archivos.\n- Ante una infecci\u00F3n grave que no se puede desinfectar con garant\u00EDas.\n- Cuando el sistema est\u00E1 tan degradado que reparar cuesta m\u00E1s que reinstalar.\n- Antes de retirar o transferir el equipo.\n\n## Cu\u00E1ndo NO formatear\n- Antes de haber respaldado. **Siempre**.\n- Ante un fallo que a\u00FAn no se ha diagnosticado: formatear no arregla el hardware, y borra la evidencia.\n- Si el disco presenta errores SMART: formatear no repara sectores defectuosos; el disco hay que sustituirlo.\n\n## Procedimiento\n1. **Respaldar** y verificar el respaldo.\n2. Anotar licencias y configuraciones.\n3. Identificar con total certeza la unidad de destino: comprobar **modelo y tama\u00F1o**, no solo la letra.\n4. Elegir el **sistema de archivos**: NTFS para Windows, ext4 para GNU/Linux, exFAT para unidades compartidas.\n5. Definir el **tama\u00F1o de unidad de asignaci\u00F3n**: el valor por defecto es correcto salvo casos muy concretos.\n6. Poner una **etiqueta descriptiva**.\n7. Formatear y verificar que el volumen queda accesible.\n\n## Herramientas\n- **Windows**: clic derecho sobre la unidad, *Administraci\u00F3n de discos*, `format` o `diskpart` en consola.\n- **GNU/Linux**: `mkfs.ext4 /dev/sdXn`, `mkfs.ntfs`, `mkfs.exfat`; GParted en entorno gr\u00E1fico.\n- **SSD**: el `Secure Erase` de la utilidad del fabricante restaura adem\u00E1s el rendimiento original de la unidad.\n\n> Un error de una letra al elegir la unidad destruye el disco equivocado, y en la mayor\u00EDa de los casos no hay vuelta atr\u00E1s. Confirmar siempre el destino por **modelo y capacidad** antes de pulsar aceptar."
+  topicImage: {fileID: 0}
+  imageCaption: ""

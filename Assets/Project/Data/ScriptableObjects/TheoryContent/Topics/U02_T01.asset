@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U02_T01
+  m_EditorClassIdentifier: 
+  title: "Dispositivos de entrada y salida"
+  summary: "Perif\u00E9ricos que comunican al computador con el mundo exterior, y los puertos por los que se conectan."
+  contentText: "## Clasificaci\u00F3n\n: De entrada | Introducen datos en el sistema. El usuario o un sensor act\u00FAa, y el computador recibe.\n: De salida | Presentan el resultado del proceso al usuario o a otro sistema.\n: De entrada y salida | Hacen ambas cosas. Una pantalla t\u00E1ctil muestra y recibe; una tarjeta de red env\u00EDa y recibe.\n\n## Dispositivos de entrada\n- **Teclado**: el m\u00E1s usado. Distribuciones QWERTY latinoamericana o espa\u00F1ola; mec\u00E1nicos o de membrana.\n- **Rat\u00F3n**: apuntador. \u00D3ptico o l\u00E1ser; se mide en DPI (puntos por pulgada).\n- **Esc\u00E1ner**: convierte documentos impresos en im\u00E1genes digitales.\n- **C\u00E1mara web**: captura video en tiempo real.\n- **Micr\u00F3fono**: captura audio.\n- **Lector de c\u00F3digos de barras y QR**: habitual en puntos de venta e inventarios.\n- **Tableta digitalizadora**: dibujo y dise\u00F1o con l\u00E1piz sensible a la presi\u00F3n.\n- **Sensores**: temperatura, movimiento, huella dactilar.\n\n## Dispositivos de salida\n- **Monitor**: la salida principal. Se describe por tama\u00F1o, resoluci\u00F3n (1920x1080, 2560x1440, 3840x2160), tasa de refresco (Hz) y tipo de panel (TN, IPS, VA, OLED).\n- **Impresora**: de inyecci\u00F3n de tinta, l\u00E1ser o matriz de punto.\n- **Altavoces y auriculares**: salida de audio.\n- **Proyector (videobeam)**: proyecta la imagen sobre una superficie amplia.\n\n## Dispositivos mixtos\n- Pantalla t\u00E1ctil, unidad de disco, tarjeta de red, multifuncional (impresora con esc\u00E1ner), memoria USB.\n\n## Puertos de conexi\u00F3n\n: USB | Universal. Tipo A rectangular, tipo C reversible. USB 2.0 (480 Mb/s), 3.x (5 a 20 Gb/s). Los puertos azules son 3.0.\n: HDMI | Video y audio digital en un solo cable. El m\u00E1s com\u00FAn en monitores y televisores.\n: DisplayPort | Video digital, preferido para altas resoluciones y tasas de refresco elevadas.\n: VGA | Anal\u00F3gico, de 15 pines. Obsoleto pero a\u00FAn presente en proyectores institucionales.\n: RJ-45 | Red cableada Ethernet.\n: Jack de 3,5 mm | Audio anal\u00F3gico. Verde para salida, rosado para micr\u00F3fono.\n\n> Al ensamblar, hay que distinguir los puertos del **panel trasero** (soldados a la tarjeta madre) de los del **panel frontal** del gabinete, que se conectan por cables internos a los conectores correspondientes de la placa."
+  topicImage: {fileID: 21300000, guid: fea7e3f66e4b65f4b926d58f62566a03, type: 3}
+  imageCaption: "Perif\u00E9ricos de entrada y salida de un equipo."

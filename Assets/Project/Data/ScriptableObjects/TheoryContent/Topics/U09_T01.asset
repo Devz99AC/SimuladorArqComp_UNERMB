@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U09_T01
+  m_EditorClassIdentifier: 
+  title: "Mantenimiento preventivo: definici\u00F3n y operatividad"
+  summary: "Las tareas planificadas que evitan la aver\u00EDa antes de que ocurra, y el procedimiento de limpieza interna del equipo."
+  contentText: "## Definici\u00F3n\nEl **mantenimiento preventivo** es el conjunto de acciones planificadas que se realizan sobre un equipo **en buen estado** con el fin de conservar su funcionamiento y prolongar su vida \u00FAtil. Se opone al **mantenimiento correctivo**, que act\u00FAa cuando la falla ya se produjo.\n\n: Preventivo | Programado, con el equipo funcionando. Barato y predecible.\n: Correctivo | Reactivo, con el equipo averiado. Caro, urgente y con p\u00E9rdida de servicio.\n: Predictivo | Basado en la medici\u00F3n de indicadores (SMART, temperaturas) para anticipar el fallo.\n\n## Por qu\u00E9 se hace\n- El **polvo** act\u00FAa como aislante t\u00E9rmico y eleva las temperaturas.\n- El **calor** degrada los componentes electr\u00F3nicos y acorta su vida.\n- La **pasta t\u00E9rmica** se seca y pierde eficacia con los a\u00F1os.\n- Las piezas mec\u00E1nicas (ventiladores, discos) se desgastan y avisan antes de fallar.\n- Un fallo previsto se atiende en horario de taller; uno imprevisto detiene el trabajo.\n\n## Periodicidad orientativa\n: Cada mes | Copias de seguridad, actualizaciones del sistema y an\u00E1lisis antivirus.\n: Cada tres o seis meses | Limpieza externa, revisi\u00F3n de temperaturas y del espacio en disco.\n: Cada a\u00F1o | Limpieza interna completa y revisi\u00F3n de conexiones.\n: Cada dos o tres a\u00F1os | Sustituci\u00F3n de la pasta t\u00E9rmica y de la bater\u00EDa CMOS.\n\nEn ambientes con mucho polvo o alta temperatura ambiente, los intervalos deben acortarse.\n\n## Procedimiento de limpieza interna\n1. **Respaldar los datos** antes de tocar nada.\n2. **Apagar y desconectar** el cable de alimentaci\u00F3n. Pulsar el bot\u00F3n de encendido unos segundos para descargar los condensadores.\n3. Llevar el equipo a un \u00E1rea ventilada; el polvo no debe soplarse dentro del aula.\n4. **Colocarse la pulsera antiest\u00E1tica** o descargarse tocando el metal del chasis.\n5. Abrir el gabinete y **fotografiar el interior** antes de desconectar nada. Es la mejor gu\u00EDa para el montaje.\n6. Retirar el polvo con **aire comprimido en r\u00E1fagas cortas**, sujetando las aspas de los ventiladores para que no giren.\n7. Limpiar los **filtros de polvo** del gabinete con agua y secarlos por completo antes de recolocarlos.\n8. Limpiar los **contactos** de las tarjetas y de la RAM con una goma de borrar blanca o con alcohol isoprop\u00EDlico, y secar bien.\n9. Revisar que todos los **conectores** est\u00E9n firmes y que ning\u00FAn cable roce un ventilador.\n10. Cerrar, encender y **verificar temperaturas** en la UEFI o con un programa de monitorizaci\u00F3n.\n\n## Sustituci\u00F3n de la pasta t\u00E9rmica\n1. Retirar el disipador gir\u00E1ndolo suavemente; nunca tirando en seco.\n2. Limpiar los restos de la CPU y del disipador con alcohol isoprop\u00EDlico y un pa\u00F1o sin pelusa.\n3. Aplicar una porci\u00F3n nueva del tama\u00F1o de un grano de arroz en el centro.\n4. Volver a montar apretando **en cruz** y de forma progresiva.\n\n> Nunca usar una **aspiradora dom\u00E9stica** dentro del equipo: genera electricidad est\u00E1tica. Y nunca soplar con la boca: la humedad del aliento condensa sobre los circuitos."
+  topicImage: {fileID: 0}
+  imageCaption: ""

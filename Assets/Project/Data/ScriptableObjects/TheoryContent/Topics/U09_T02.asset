@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U09_T02
+  m_EditorClassIdentifier: 
+  title: "Mantenimiento preventivo de dispositivos perif\u00E9ricos"
+  summary: "Limpieza y revisi\u00F3n de monitor, teclado, rat\u00F3n, impresora y del resto de dispositivos externos."
+  contentText: "## Monitor\n- Apagado y fr\u00EDo, limpiar con **pa\u00F1o de microfibra ligeramente humedecido** en agua destilada o en limpiador espec\u00EDfico.\n- **No usar alcohol ni amon\u00EDaco** sobre paneles con recubrimiento antirreflejo: lo da\u00F1an de forma irreversible.\n- Nunca rociar l\u00EDquido directamente sobre la pantalla: se aplica al pa\u00F1o.\n- Limpiar las rejillas de ventilaci\u00F3n traseras y revisar el estado del cable de video.\n\n## Teclado\n- Desconectarlo, ponerlo boca abajo y sacudirlo con suavidad.\n- Aire comprimido entre las teclas.\n- Superficie con pa\u00F1o humedecido en alcohol isoprop\u00EDlico.\n- En teclados mec\u00E1nicos, las teclas se retiran con un extractor para limpiar debajo.\n- Un derrame de l\u00EDquido exige **desconectar de inmediato**, poner el teclado boca abajo y dejarlo secar 48 horas antes de probarlo.\n\n## Rat\u00F3n\n- Limpiar la **lente \u00F3ptica** con un bastoncillo seco.\n- Retirar el pelo y la suciedad de los deslizadores de la base.\n- Limpiar la rueda de desplazamiento, donde se acumula la mayor parte de la suciedad.\n- Comprobar el estado del cable o el nivel de la bater\u00EDa.\n\n## Impresora\n: Inyecci\u00F3n de tinta | Ejecutar la limpieza de cabezales del propio controlador. **Imprimir al menos una vez a la semana**: la tinta se seca y obstruye las boquillas si no se usa.\n: L\u00E1ser | Limpiar los restos de t\u00F3ner con aspiradora espec\u00EDfica, **nunca con aire comprimido** (dispersa el t\u00F3ner). Revisar el rodillo de arrastre y el fusor.\n: Ambas | Limpiar la bandeja y los rodillos de papel, y usar papel del gramaje correcto para evitar atascos.\n\n## Otros dispositivos\n- **Esc\u00E1ner**: limpiar el cristal con pa\u00F1o de microfibra; una mota deja una l\u00EDnea en cada digitalizaci\u00F3n.\n- **Altavoces y auriculares**: limpiar rejillas y revisar el jack, que es el punto de fallo habitual.\n- **SAI/UPS**: probar la bater\u00EDa peri\u00F3dicamente. Suelen durar entre tres y cinco a\u00F1os.\n- **Cables**: revisar que no haya conectores forzados ni aislante agrietado.\n\n## Configuraci\u00F3n de controladores de perif\u00E9ricos\n- Mantener actualizados los **controladores** de impresora, esc\u00E1ner y tarjeta de red.\n- Descargarlos siempre del **sitio del fabricante**, nunca de repositorios de terceros.\n- Retirar los controladores de dispositivos que ya no se usan: ocupan espacio y pueden generar conflictos.\n- En una red, configurar las impresoras como **compartidas o de red**, y documentar sus direcciones IP.\n\n## Cuentas de correo y datos del usuario\nDentro del mantenimiento preventivo del puesto de trabajo entra tambi\u00E9n:\n- Verificar que las **cuentas de correo** est\u00E1n correctamente configuradas y que sus datos se sincronizan.\n- Comprobar que la **copia de seguridad** del usuario se est\u00E1 ejecutando de verdad, no solo que est\u00E1 programada.\n- Revisar el espacio ocupado por el buz\u00F3n y archivar el correo antiguo.\n\n> Un plan de mantenimiento sin **registro escrito** no sirve. Cada intervenci\u00F3n debe anotar fecha, equipo, tareas realizadas y observaciones: es lo que permite detectar que un mismo equipo falla repetidamente y decidir su sustituci\u00F3n con argumentos."
+  topicImage: {fileID: 0}
+  imageCaption: ""

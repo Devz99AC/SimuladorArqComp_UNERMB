@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T06
+  m_EditorClassIdentifier: 
+  title: "Microprocesadores"
+  summary: "El circuito integrado que ejecuta las instrucciones: sus unidades internas y los par\u00E1metros que definen su rendimiento."
+  contentText: "## Qu\u00E9 es\nEl **microprocesador** o CPU (Unidad Central de Procesamiento) es el circuito integrado que interpreta y ejecuta las instrucciones de los programas. Concentra en una sola pastilla de silicio lo que en la primera generaci\u00F3n ocupaba una habitaci\u00F3n entera.\n\n## Unidades internas\n: Unidad de Control (UC) | Dirige la operaci\u00F3n: busca instrucciones, las decodifica y genera las se\u00F1ales que activan al resto. Es el director de orquesta.\n: Unidad Aritm\u00E9tico-L\u00F3gica (ALU) | Ejecuta las operaciones matem\u00E1ticas (suma, resta, multiplicaci\u00F3n) y l\u00F3gicas (AND, OR, NOT, comparaciones).\n: Registros | Memorias diminutas y veloc\u00EDsimas dentro del propio procesador, donde se guardan los operandos inmediatos.\n: Memoria cach\u00E9 | Memoria intermedia entre los registros y la RAM. Se organiza en niveles L1, L2 y L3, del m\u00E1s r\u00E1pido y peque\u00F1o al m\u00E1s lento y grande.\n\n## Par\u00E1metros que determinan el rendimiento\n- **Frecuencia de reloj**: ciclos por segundo, en gigahercios (GHz). M\u00E1s frecuencia significa m\u00E1s ciclos, pero no siempre m\u00E1s trabajo \u00FAtil.\n- **N\u00FAmero de n\u00FAcleos**: procesadores completos dentro del mismo encapsulado. Permiten ejecutar varias tareas de verdad en paralelo.\n- **Hilos (threads)**: flujos de ejecuci\u00F3n por n\u00FAcleo. Con multihilo simult\u00E1neo, un n\u00FAcleo atiende dos hilos y aprovecha mejor sus huecos ociosos.\n- **Tama\u00F1o de cach\u00E9**: m\u00E1s cach\u00E9 significa menos viajes a la RAM, que es mucho m\u00E1s lenta.\n- **Litograf\u00EDa**: tama\u00F1o de los transistores, en nan\u00F3metros. A menor tama\u00F1o, m\u00E1s transistores y menos consumo.\n- **TDP**: calor que debe disipar el sistema de refrigeraci\u00F3n, en vatios.\n\n> Comparar procesadores solo por los GHz es un error cl\u00E1sico. Un chip de 3,0 GHz con ocho n\u00FAcleos y cach\u00E9 amplia supera con facilidad a uno de 3,8 GHz con dos n\u00FAcleos.\n\n## El z\u00F3calo, dato cr\u00EDtico para el ensamblaje\nCada procesador encaja en un **z\u00F3calo (socket)** concreto: LGA1700, AM5, LGA1200, AM4. Un procesador AM5 no entra f\u00EDsicamente en una placa LGA1700. Comprobar la compatibilidad de z\u00F3calo es el primer filtro antes de comprar o montar cualquier equipo."
+  topicImage: {fileID: 21300000, guid: 6cb46419da4ffff47b276b69db547f63, type: 3}
+  imageCaption: "Microprocesador y su encapsulado."

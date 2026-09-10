@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U04_T03
+  m_EditorClassIdentifier: 
+  title: "Clasificaci\u00F3n de los sistemas operativos"
+  summary: "Por n\u00FAmero de usuarios y tareas, por tipo de interfaz, por gesti\u00F3n del tiempo y por el \u00E1mbito en el que se despliegan."
+  contentText: "## Por n\u00FAmero de usuarios\n: Monousuario | Atiende a un usuario a la vez. MS-DOS es el ejemplo cl\u00E1sico.\n: Multiusuario | Varios usuarios trabajan simult\u00E1neamente con sesiones y permisos separados. GNU/Linux, Windows Server, UNIX.\n\n## Por n\u00FAmero de tareas\n: Monotarea | Ejecuta un programa cada vez. Hay que cerrar uno para abrir otro.\n: Multitarea | Ejecuta varios procesos en apariencia simult\u00E1nea, repartiendo el tiempo del procesador entre ellos. Es el modelo de todos los sistemas actuales.\n\nLa multitarea puede ser **cooperativa** (cada programa cede el control voluntariamente, y uno que se cuelgue bloquea el sistema) o **apropiativa** (el sistema retira el control por la fuerza, que es el modelo moderno y estable).\n\n## Por n\u00FAmero de procesadores\n: Monoproceso | Usa un solo procesador.\n: Multiproceso | Reparte el trabajo entre varios procesadores o n\u00FAcleos. Puede ser sim\u00E9trico (SMP), donde todos los n\u00FAcleos son equivalentes, o asim\u00E9trico.\n\n## Por tipo de interfaz\n: L\u00EDnea de comandos (CLI) | El usuario escribe \u00F3rdenes. M\u00E1s r\u00E1pido y automatizable; imprescindible en servidores. `cmd`, PowerShell, Bash.\n: Interfaz gr\u00E1fica (GUI) | Ventanas, iconos y rat\u00F3n. M\u00E1s accesible para el usuario final.\n: T\u00E1ctil | Dise\u00F1ada para el dedo, propia de tabletas y tel\u00E9fonos.\n\n## Por gesti\u00F3n del tiempo\n: Por lotes (batch) | Acumula trabajos y los ejecuta en bloque, sin interacci\u00F3n. Hist\u00F3rico, pero a\u00FAn vigente en procesos nocturnos.\n: De tiempo compartido | Reparte el procesador en rodajas de tiempo entre usuarios interactivos.\n: De tiempo real | Garantiza una respuesta dentro de un plazo m\u00E1ximo. Control industrial, avi\u00F3nica, equipos m\u00E9dicos.\n: Distribuido | Un conjunto de equipos en red se presenta al usuario como un solo sistema.\n\n## Por \u00E1mbito\n- **De escritorio**: Windows 11, Ubuntu Desktop, macOS.\n- **De servidor**: Windows Server, Debian, Red Hat Enterprise Linux.\n- **M\u00F3viles**: Android, iOS.\n- **Embebidos y de tiempo real**: FreeRTOS, Embedded Linux."
+  topicImage: {fileID: 0}
+  imageCaption: ""

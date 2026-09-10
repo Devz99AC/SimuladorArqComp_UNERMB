@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U07_T02
+  m_EditorClassIdentifier: 
+  title: "Proceso de instalaci\u00F3n"
+  summary: "Los pasos comunes a cualquier instalaci\u00F3n y las particularidades de Windows y de GNU/Linux."
+  contentText: "## Pasos comunes\n1. Crear el **medio de arranque** y verificar la suma de comprobaci\u00F3n de la imagen.\n2. Configurar el **firmware**: modo de arranque y orden de dispositivos.\n3. Arrancar desde el medio.\n4. Elegir **idioma, zona horaria y distribuci\u00F3n de teclado** (Latinoamericano o Espa\u00F1ol, seg\u00FAn el teclado f\u00EDsico).\n5. Definir el **particionado** del disco.\n6. Copiar los archivos y esperar los reinicios.\n7. Crear el **usuario** y establecer su contrase\u00F1a.\n8. Instalar **controladores** y aplicar **actualizaciones**.\n\n## Instalaci\u00F3n de Windows\n1. Arrancar desde el USB y pulsar una tecla cuando lo pida.\n2. Idioma, formato de hora y teclado.\n3. \"Instalar ahora\" e introducir la clave, o elegir \"No tengo clave\" para activar m\u00E1s tarde.\n4. Seleccionar la **edici\u00F3n** correcta: debe coincidir con la licencia.\n5. Elegir **\"Personalizada\"**, no \"Actualizaci\u00F3n\", para una instalaci\u00F3n limpia.\n6. Particionar: eliminar las particiones antiguas y crear la nueva, o seleccionar el espacio sin asignar y dejar que Windows cree las cuatro particiones autom\u00E1ticamente.\n7. Esperar la copia de archivos y los reinicios. **Retirar el USB** en el primer reinicio.\n8. Configuraci\u00F3n inicial (OOBE): regi\u00F3n, teclado, red, cuenta y opciones de privacidad.\n9. Instalar el **controlador del chipset** primero, luego el resto.\n10. Ejecutar Windows Update hasta que no queden actualizaciones pendientes.\n\n### Truco de instalaci\u00F3n\nSi Windows 11 exige una cuenta de Microsoft y conexi\u00F3n a internet, `May\u00FAs+F10` abre una consola donde `oobe\\bypassnro` reinicia el asistente con la opci\u00F3n de cuenta local.\n\n## Instalaci\u00F3n de GNU/Linux\n1. Arrancar desde el USB. Casi todas las distribuciones ofrecen **probar sin instalar**: un entorno completo en vivo que permite comprobar que Wi-Fi, sonido y video funcionan **antes** de tocar el disco.\n2. Iniciar el instalador desde el escritorio en vivo.\n3. Idioma, ubicaci\u00F3n y teclado.\n4. Marcar la instalaci\u00F3n de **c\u00F3decs y controladores de terceros**, si se ofrece.\n5. Elegir el tipo de instalaci\u00F3n: borrar el disco, instalar junto a otro sistema, o particionado manual (\"M\u00E1s opciones\").\n6. En particionado manual, asignar los puntos de montaje `/`, `/home` y `/boot/efi`, e indicar d\u00F3nde instalar el gestor de arranque.\n7. Crear el usuario y la contrase\u00F1a, que ser\u00E1 tambi\u00E9n la de administraci\u00F3n (`sudo`).\n8. Reiniciar y retirar el medio.\n9. Actualizar el sistema: `sudo apt update && sudo apt upgrade` en las distribuciones basadas en Debian.\n\n## Despu\u00E9s de instalar\n- Verificar en el gestor de dispositivos que **no queda hardware sin controlador**.\n- Comprobar red, audio, video, USB e impresi\u00F3n.\n- Instalar las aplicaciones de trabajo.\n- Configurar la **copia de seguridad** antes de que el equipo se ponga en producci\u00F3n.\n- Crear un **punto de restauraci\u00F3n** o una imagen del sistema reci\u00E9n instalado y actualizado.\n\n> Instalar sin conexi\u00F3n de red es preferible cuando el controlador de red a\u00FAn no est\u00E1: un sistema reci\u00E9n instalado y sin actualizar, expuesto a internet, es vulnerable. Primero controladores, luego red, luego actualizaciones."
+  topicImage: {fileID: 0}
+  imageCaption: ""

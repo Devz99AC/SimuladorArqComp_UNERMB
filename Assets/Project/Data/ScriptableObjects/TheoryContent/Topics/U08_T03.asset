@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U08_T03
+  m_EditorClassIdentifier: 
+  title: "Gesti\u00F3n de almacenamiento"
+  summary: "Administrar el espacio: vol\u00FAmenes, cuotas, supervisi\u00F3n del espacio libre y salud de los discos."
+  contentText: "## Qu\u00E9 comprende\nLa gesti\u00F3n de almacenamiento incluye crear y modificar vol\u00FAmenes, vigilar el espacio libre, controlar cu\u00E1nto puede ocupar cada usuario y anticipar el fallo de los discos.\n\n## Operaciones habituales\n: Crear un volumen | Sobre espacio sin asignar, eligiendo sistema de archivos y etiqueta.\n: Extender | Ampliar un volumen usando espacio libre **contiguo** por la derecha.\n: Reducir | Liberar espacio del final de un volumen para crear otro.\n: Montar y desmontar | Hacer accesible o inaccesible un sistema de archivos.\n: Etiquetar | Poner nombres descriptivos evita errores al operar sobre el disco equivocado.\n\n## Herramientas\n: Windows | *Administraci\u00F3n de discos* (`diskmgmt.msc`), `diskpart` en consola, y los cmdlets `Get-Disk`, `Get-Volume`, `New-Partition` de PowerShell.\n: GNU/Linux | `lsblk` y `df -h` para consultar; `fdisk`, `parted` y `gparted` para particionar; `mkfs.ext4` para formatear; `mount` y `/etc/fstab` para montar.\n\n## Supervisi\u00F3n del espacio\nUn sistema de archivos lleno detiene servicios y, en un servidor, provoca ca\u00EDdas.\n\n- Mantener **al menos un 15 % libre**. En un SSD, adem\u00E1s, el espacio libre es necesario para su rendimiento y su vida \u00FAtil.\n- Localizar lo que ocupa: `du -sh *` en GNU/Linux, o herramientas como WinDirStat y TreeSize en Windows.\n- Vigilar los **registros** en `/var/log` y los archivos temporales.\n- Configurar **rotaci\u00F3n de registros** (`logrotate`) para que no crezcan sin l\u00EDmite.\n\n## Cuotas de disco\nLimitan el espacio que puede ocupar cada usuario. Son imprescindibles en un servidor de archivos compartido por muchas personas.\n\n- Windows: pesta\u00F1a Cuota en las propiedades del volumen NTFS.\n- GNU/Linux: paquete `quota`, con `edquota` y `repquota`.\n\n## Salud de los discos: SMART\nLa tecnolog\u00EDa **SMART** permite al disco informar de su propio estado.\n\n- Windows: **CrystalDiskInfo**.\n- GNU/Linux: `sudo smartctl -a /dev/sda`.\n\nValores que anticipan un fallo:\n- **Reallocated Sectors Count** \u2014 sectores defectuosos reasignados. Cualquier valor creciente es una alarma.\n- **Current Pending Sector** \u2014 sectores a la espera de reasignaci\u00F3n.\n- **Power-On Hours** \u2014 horas de funcionamiento acumuladas.\n- **Wear Leveling Count** (en SSD) \u2014 desgaste de las celdas.\n\n> SMART advierte, pero **no siempre**: una parte de los discos falla sin previo aviso. La \u00FAnica protecci\u00F3n real es la copia de seguridad, y la regla **3-2-1**: tres copias, en dos medios distintos, una de ellas fuera del edificio.\n\n## RAID\nCombina varios discos en un volumen l\u00F3gico.\n\n: RAID 0 | Reparte los datos entre dos discos. Duplica la velocidad pero **no da redundancia**: si falla uno, se pierde todo.\n: RAID 1 | Espejo. Los datos se escriben id\u00E9nticos en dos discos. Sobrevive al fallo de uno.\n: RAID 5 | Tres discos o m\u00E1s con paridad distribuida. Aprovecha la capacidad y tolera el fallo de un disco.\n: RAID 10 | Combina espejo y reparto. R\u00E1pido y redundante, a costa de la mitad de la capacidad.\n\n> RAID **no es una copia de seguridad**. Protege del fallo de un disco, pero no de un borrado accidental, un cifrado por ransomware ni un incendio: el error se replica al instante en todos los discos."
+  topicImage: {fileID: 0}
+  imageCaption: ""

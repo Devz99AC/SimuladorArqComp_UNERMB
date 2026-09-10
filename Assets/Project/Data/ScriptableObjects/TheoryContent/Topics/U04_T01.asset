@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U04_T01
+  m_EditorClassIdentifier: 
+  title: "Definici\u00F3n de sistema operativo"
+  summary: "El programa que administra el hardware y ofrece a las aplicaciones un entorno para ejecutarse."
+  contentText: "## Qu\u00E9 es\nEl **sistema operativo** es el conjunto de programas que administra los recursos del hardware y hace de intermediario entre el equipo y las aplicaciones del usuario. Sin \u00E9l, cada programa tendr\u00EDa que saber hablar directamente con cada modelo de disco, de tarjeta gr\u00E1fica y de impresora.\n\n## Sus dos papeles\n: Administrador de recursos | Reparte el procesador entre los procesos, asigna memoria, controla el acceso a los discos y a los dispositivos, y evita que un programa invada el espacio de otro.\n: M\u00E1quina extendida | Ofrece al programador una visi\u00F3n simplificada del hardware. En lugar de mover cabezales de un disco, el programa \"abre un archivo\".\n\n## Funciones principales\n- **Gesti\u00F3n de procesos**: crear, planificar, suspender y terminar programas en ejecuci\u00F3n.\n- **Gesti\u00F3n de memoria**: asignar y liberar memoria, y usar memoria virtual cuando la RAM se agota.\n- **Gesti\u00F3n de archivos**: organizar los datos en archivos y directorios sobre un sistema de archivos.\n- **Gesti\u00F3n de dispositivos**: comunicarse con el hardware a trav\u00E9s de controladores (drivers).\n- **Interfaz de usuario**: gr\u00E1fica o de l\u00EDnea de comandos.\n- **Seguridad**: autenticar usuarios y controlar los permisos sobre cada recurso.\n- **Comunicaci\u00F3n en red**: implementar los protocolos que permiten el intercambio de datos.\n\n## Componentes\n: N\u00FAcleo (kernel) | El coraz\u00F3n del sistema. Se ejecuta con privilegios totales sobre el hardware y contiene la planificaci\u00F3n, la gesti\u00F3n de memoria y los controladores.\n: Controladores (drivers) | M\u00F3dulos que traducen las \u00F3rdenes gen\u00E9ricas del n\u00FAcleo al lenguaje de un dispositivo concreto.\n: Int\u00E9rprete de \u00F3rdenes (shell) | Recibe las instrucciones del usuario. Puede ser gr\u00E1fico o textual.\n: Programas del sistema | Utilidades que acompa\u00F1an al n\u00FAcleo: gestor de archivos, editor de texto, herramientas de configuraci\u00F3n.\n\n> El sistema operativo se carga en RAM durante el arranque y permanece en memoria mientras el equipo est\u00E9 encendido. Por eso una aver\u00EDa en el disco donde reside deja el equipo inservible aunque el hardware est\u00E9 intacto."
+  topicImage: {fileID: 0}
+  imageCaption: ""

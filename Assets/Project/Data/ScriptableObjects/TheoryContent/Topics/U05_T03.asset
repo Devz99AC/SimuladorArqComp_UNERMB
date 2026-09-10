@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U05_T03
+  m_EditorClassIdentifier: 
+  title: "Nomenclatura para discos y particiones"
+  summary: "C\u00F3mo nombran Windows y GNU/Linux a los discos y a sus particiones, y c\u00F3mo interpretar esos nombres."
+  contentText: "## Nomenclatura en Windows\nWindows asigna a cada partici\u00F3n montada una **letra de unidad**.\n\n- **C:** \u2014 partici\u00F3n del sistema, por convenci\u00F3n.\n- **D:, E:...** \u2014 el resto de particiones y unidades, en el orden en que se detectan.\n- **A: y B:** \u2014 reservadas hist\u00F3ricamente para las disqueteras.\n\nLas letras **no son fijas**: dependen del orden de detecci\u00F3n, y conectar una unidad externa puede alterarlas. En la herramienta *Administraci\u00F3n de discos* los discos f\u00EDsicos se numeran como **Disco 0, Disco 1**, y dentro de cada uno aparecen sus particiones.\n\nExisten adem\u00E1s particiones que Windows no muestra con letra: la **partici\u00F3n EFI**, la **reservada del sistema** y la de **recuperaci\u00F3n**.\n\n## Nomenclatura en GNU/Linux\nEn GNU/Linux todo dispositivo es un archivo dentro de `/dev`, y el nombre describe el tipo de dispositivo.\n\n: /dev/sda | Primer disco SATA, SAS o USB. La `a` es el orden de detecci\u00F3n.\n: /dev/sda1 | Primera partici\u00F3n de ese disco. El n\u00FAmero es el orden de la partici\u00F3n.\n: /dev/sdb2 | Segunda partici\u00F3n del segundo disco.\n: /dev/nvme0n1 | Primer disco NVMe (`nvme0`), primer espacio de nombres (`n1`).\n: /dev/nvme0n1p3 | Tercera partici\u00F3n de ese disco NVMe. N\u00F3tese la `p` antes del n\u00FAmero.\n\n## El \u00E1rbol de directorios\nA diferencia de Windows, GNU/Linux no usa letras: **monta** cada partici\u00F3n en un directorio del \u00FAnico \u00E1rbol que arranca en la ra\u00EDz `/`.\n\n- `/` \u2014 ra\u00EDz del sistema.\n- `/home` \u2014 carpetas personales de los usuarios. Es habitual darle su propia partici\u00F3n.\n- `/boot` \u2014 n\u00FAcleo y gestor de arranque.\n- `/boot/efi` \u2014 punto de montaje de la partici\u00F3n EFI.\n- `/var` \u2014 datos variables: registros, bases de datos, colas de correo.\n- `/tmp` \u2014 archivos temporales.\n\n## Identificadores estables\nComo los nombres `/dev/sdX` pueden cambiar al a\u00F1adir discos, el archivo `/etc/fstab` referencia las particiones por su **UUID**, un identificador \u00FAnico que no cambia. Se consulta con `blkid`.\n\n## \u00D3rdenes \u00FAtiles\n- `lsblk` \u2014 \u00E1rbol de discos, particiones y puntos de montaje.\n- `fdisk -l` \u2014 tabla de particiones detallada.\n- `df -h` \u2014 espacio usado y libre por sistema de archivos montado.\n- `blkid` \u2014 UUID y tipo de sistema de archivos de cada partici\u00F3n.\n\n> Un error de una sola letra en `/dev/sdX` al ejecutar una orden de formateo destruye el disco equivocado. Antes de cualquier operaci\u00F3n destructiva conviene confirmar el destino con `lsblk`, comprobando el **tama\u00F1o y el modelo** del dispositivo."
+  topicImage: {fileID: 0}
+  imageCaption: ""

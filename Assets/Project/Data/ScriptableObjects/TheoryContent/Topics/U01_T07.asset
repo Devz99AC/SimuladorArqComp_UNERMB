@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T07
+  m_EditorClassIdentifier: 
+  title: "Tipos de microprocesadores"
+  summary: "Fabricantes, familias, arquitecturas y la diferencia entre CISC, RISC y los procesadores de prop\u00F3sito espec\u00EDfico."
+  contentText: "## Por fabricante y familia\n: Intel | Familias Core i3, i5, i7 e i9 para escritorio y port\u00E1til; Xeon para servidores; Celeron y Pentium en la gama de entrada. Usa z\u00F3calos LGA, con los pines en la placa madre.\n: AMD | Familias Ryzen 3, 5, 7 y 9; EPYC para servidores; Athlon en gama de entrada. En AM4 los pines van en el procesador (PGA); en AM5 pas\u00F3 a LGA.\n: ARM | No fabrica chips: licencia el dise\u00F1o a Apple, Qualcomm, Samsung y otros. Domina en m\u00F3viles y crece en port\u00E1tiles y servidores por su eficiencia energ\u00E9tica.\n\n## Por conjunto de instrucciones\n: CISC | Conjunto de instrucciones complejo. Instrucciones potentes que hacen mucho por s\u00ED solas, a costa de circuitos m\u00E1s complicados. Es la arquitectura x86 de Intel y AMD.\n: RISC | Conjunto de instrucciones reducido. Instrucciones simples y uniformes que se ejecutan muy r\u00E1pido y consumen poco. Es ARM y RISC-V.\n\nHoy la frontera se ha difuminado: los procesadores x86 modernos traducen internamente sus instrucciones complejas a microoperaciones de estilo RISC.\n\n## Por n\u00FAmero de n\u00FAcleos\n- **Un n\u00FAcleo**: pr\u00E1cticamente desaparecidos en equipos de uso general.\n- **Doble y cu\u00E1druple n\u00FAcleo**: suficientes para ofim\u00E1tica y navegaci\u00F3n.\n- **Seis a diecis\u00E9is n\u00FAcleos**: el rango habitual en equipos de trabajo, edici\u00F3n y desarrollo.\n- **M\u00E1s de diecis\u00E9is**: estaciones de trabajo y servidores.\n\n## Dise\u00F1os h\u00EDbridos\nLos procesadores recientes combinan dos clases de n\u00FAcleo en el mismo chip: **n\u00FAcleos de rendimiento** (P-cores) para las tareas exigentes y **n\u00FAcleos de eficiencia** (E-cores) para las tareas de fondo. El sistema operativo decide d\u00F3nde colocar cada proceso.\n\n## Procesadores de prop\u00F3sito espec\u00EDfico\n: GPU | Procesador gr\u00E1fico. Miles de n\u00FAcleos sencillos que hacen la misma operaci\u00F3n sobre muchos datos a la vez: ideal para gr\u00E1ficos y c\u00E1lculo paralelo.\n: APU | Procesador con gr\u00E1ficos integrados en el mismo encapsulado. Abarata el equipo y elimina la necesidad de tarjeta de video dedicada.\n: DSP | Procesador de se\u00F1ales digitales, para audio y comunicaciones.\n: NPU | Unidad de procesamiento neuronal, dedicada a acelerar tareas de inteligencia artificial.\n\n> Para el ensamblaje, la clasificaci\u00F3n que importa no es la te\u00F3rica sino la pr\u00E1ctica: **qu\u00E9 z\u00F3calo usa, cu\u00E1nto calor disipa y qu\u00E9 memoria admite**."
+  topicImage: {fileID: 0}
+  imageCaption: ""

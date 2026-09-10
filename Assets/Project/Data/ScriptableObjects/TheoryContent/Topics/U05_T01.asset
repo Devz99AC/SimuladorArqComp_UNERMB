@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U05_T01
+  m_EditorClassIdentifier: 
+  title: "Consideraciones previas y requisitos m\u00EDnimos"
+  summary: "Comprobaciones de hardware y de datos que hay que hacer antes de iniciar cualquier instalaci\u00F3n."
+  contentText: "## Requisitos m\u00EDnimos y recomendados\nTodo sistema operativo publica dos listas. Los **requisitos m\u00EDnimos** son la frontera por debajo de la cual no instala; los **recomendados** son los que permiten trabajar con soltura. Instalar en el m\u00EDnimo suele producir un equipo que arranca pero resulta inutilizable.\n\n: Procesador | Arquitectura y n\u00FAmero de n\u00FAcleos. Windows 11 exige 64 bits, dos n\u00FAcleos y aparecer en su lista de procesadores compatibles.\n: Memoria RAM | Windows 11 pide 4 GB como m\u00EDnimo; con menos de 8 GB la experiencia es pobre. Un entorno ligero de GNU/Linux funciona con 2 GB.\n: Espacio de almacenamiento | Windows 11 requiere 64 GB. Una instalaci\u00F3n de escritorio de Ubuntu, unos 25 GB. Conviene prever el doble para actualizaciones y archivos temporales.\n: Firmware | Windows 11 exige UEFI con Secure Boot y **TPM 2.0**. Es el requisito que m\u00E1s equipos deja fuera.\n: Gr\u00E1ficos | Compatibilidad con DirectX 12 o WDDM 2.0 en Windows; pr\u00E1cticamente cualquier GPU en GNU/Linux.\n: Red | Necesaria para activaci\u00F3n y actualizaciones. Windows 11 Home exige conexi\u00F3n durante la instalaci\u00F3n.\n: Unidad de lectura y escritura | Hoy, un puerto USB para el medio de instalaci\u00F3n.\n\n## Comprobaciones antes de empezar\n1. **Respaldar todos los datos.** Una instalaci\u00F3n limpia borra la partici\u00F3n de destino. No hay deshacer.\n2. **Anotar las claves de licencia** del sistema y de las aplicaciones.\n3. **Verificar los controladores** del modelo concreto de tarjeta madre y descargarlos por adelantado, sobre todo el de red: sin \u00E9l, el equipo reci\u00E9n instalado queda incomunicado.\n4. **Comprobar la salud del disco** con SMART. Instalar sobre un disco con sectores defectuosos es perder el trabajo.\n5. **Decidir el esquema de particiones** antes de arrancar el instalador.\n6. **Tener alimentaci\u00F3n estable.** Un corte durante la instalaci\u00F3n deja el sistema inconsistente. Con un port\u00E1til, conectado a la corriente.\n\n## Compatibilidad de arquitectura\n: 64 bits (x86-64) | El est\u00E1ndar actual. Necesario para usar m\u00E1s de 4 GB de RAM.\n: 32 bits (x86) | Solo para equipos muy antiguos. Windows ya no publica ediciones de 32 bits.\n: ARM64 | Port\u00E1tiles con procesador ARM y equipos Apple con chips de la serie M.\n\n> Verificar el TPM y el modo de arranque **antes** de formatear evita el escenario m\u00E1s frustrante: un disco ya borrado y un instalador que se niega a continuar."
+  topicImage: {fileID: 0}
+  imageCaption: ""

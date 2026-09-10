@@ -1,0 +1,176 @@
+/* =====================================================================
+   Assembly.uss — HUD del Laboratorio de Ensamblaje (UI Toolkit)
+   ---------------------------------------------------------------------
+   Overlay sobre la vista 3D. El root y los contenedores NO son pickables
+   (picking-mode="Ignore" en el UXML) para que las zonas vacías dejen pasar
+   el clic al raycast de ensamblaje; solo los paneles/botones bloquean
+   (UIBlocker). Reutiliza de MainMenu.uss: modal cabecera-naranja,
+   setting-row, iconos de volumen/pantalla.
+   ===================================================================== */
+
+.hud-root {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+
+/* ---------- Barra superior derecha (ayuda + ajustes) ---------- */
+.hud-topbar {
+    position: absolute;
+    top: 20px; right: 20px;
+    flex-direction: row;
+}
+.hud-iconbtn {
+    width: 54px; height: 54px;
+    margin-left: 12px;
+    background-color: rgba(20, 20, 20, 0.55);
+    border-width: 0;
+    border-radius: var(--radius-sm);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    transition-property: background-color, scale;
+    transition-duration: var(--dur-fast);
+    padding: 12px;
+}
+.hud-iconbtn:hover,
+.hud-iconbtn:focus { background-color: var(--color-accent); }
+.hud-iconbtn:active { scale: 0.92 0.92; }
+.hud-iconbtn--help { background-image: url("/Assets/Project/Content/Pictures/UI/information.png"); }
+.hud-iconbtn--gear { background-image: url("/Assets/Project/Content/Pictures/UI/gear.png"); }
+
+/* ---------- Paneles (instrucciones + ficha) ---------- */
+.hud-panel {
+    background-color: rgba(238, 238, 238, 0.97);
+    border-width: 2px;
+    border-color: var(--color-accent);
+    border-radius: 4px;
+    overflow: hidden;
+    align-items: stretch;
+}
+.hud-panel__header {
+    padding: 9px 16px;
+}
+.hud-panel__title {
+    font-size: 21px;
+    white-space: normal;      /* nombres largos envuelven en 2 líneas en vez de recortarse */
+    flex-shrink: 1;
+    margin-right: 10px;
+}
+.hud-panel__close {
+    width: 30px; height: 30px;
+}
+.hud-panel__body {
+    padding: 16px 18px;
+}
+
+/* Instrucciones: arriba-izquierda */
+.hud-instructions {
+    position: absolute;
+    top: 20px; left: 20px;
+    width: 400px;
+}
+
+/* Ficha técnica: columna izquierda completa. Oculta hasta el clic derecho.
+   El texto va en un ScrollView (crece) y la imagen queda anclada abajo. */
+.hud-info {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    bottom: 20px;
+    width: 400px;
+    display: none;
+}
+.hud-info__scroll {
+    flex-grow: 1;
+}
+.hud-info__scroll > .unity-scroll-view__content-container {
+    padding: 16px 18px;
+}
+.hud-info__desc {
+    color: rgb(38, 38, 38);
+    font-size: 18px;
+    white-space: normal;
+    -unity-text-align: upper-left;
+}
+.hud-info__image {
+    flex-shrink: 0;
+    height: 170px;
+    margin: 0 18px 18px 18px;
+    background-color: rgb(205, 205, 205);
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+}
+.hud-info__image-ph {
+    color: rgb(120, 120, 120);
+    font-size: 16px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+/* ---------- Viñetas naranjas (instrucciones) ---------- */
+.hud-bullet {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.hud-bullet__dot {
+    width: 9px; height: 9px;
+    border-radius: 9px;
+    background-color: var(--color-accent);
+    margin-top: 7px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+.hud-bullet__text {
+    flex-shrink: 1;
+    color: rgb(45, 45, 45);
+    font-size: 17px;
+    white-space: normal;
+    -unity-text-align: upper-left;
+}
+
+/* ---------- Botones de acción de los modales ---------- */
+.hud-modal-actions {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 26px;
+}
+.hud-btn {
+    min-height: 50px;
+    margin: 0 8px;
+    padding-left: 28px; padding-right: 28px;
+    border-width: 2px;
+    border-radius: var(--radius-sm);
+    font-size: 20px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    transition-property: background-color, scale;
+    transition-duration: var(--dur-fast);
+}
+.hud-btn:active { scale: 0.97 0.97; }
+.hud-btn--primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: rgb(255, 255, 255);
+}
+.hud-btn--primary:hover,
+.hud-btn--primary:focus { background-color: var(--color-accent-hover); }
+.hud-btn--ghost {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgb(120, 120, 120);
+    color: rgb(55, 55, 55);
+}
+.hud-btn--ghost:hover,
+.hud-btn--ghost:focus { border-color: var(--color-accent); color: var(--color-accent); }
+
+/* ---------- Victoria ---------- */
+.hud-victory__body {
+    align-items: center;
+}
+.hud-victory__text {
+    color: rgb(38, 38, 38);
+    font-size: 22px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    max-width: 620px;
+}

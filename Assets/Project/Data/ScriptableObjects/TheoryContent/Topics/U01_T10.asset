@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T10
+  m_EditorClassIdentifier: 
+  title: "Dispositivos de almacenamiento"
+  summary: "D\u00F3nde se guardan los datos de forma permanente: tecnolog\u00EDas, interfaces, capacidades y criterios de elecci\u00F3n."
+  contentText: "## Almacenamiento frente a memoria\nLa RAM es **vol\u00E1til**: pierde su contenido al apagar el equipo. El almacenamiento es **no vol\u00E1til**: conserva los datos indefinidamente. Confundirlos es uno de los errores m\u00E1s frecuentes al empezar.\n\n## Disco duro mec\u00E1nico (HDD)\nPlatos magn\u00E9ticos que giran mientras un cabezal lee y escribe sobre ellos.\n\n- Capacidades muy altas a bajo costo por gigabyte.\n- Velocidad limitada por la mec\u00E1nica: 5400 o 7200 revoluciones por minuto.\n- Sensible a los golpes, sobre todo en funcionamiento.\n- Sigue siendo la opci\u00F3n razonable para respaldos y archivos grandes.\n\n## Unidad de estado s\u00F3lido (SSD)\nMemoria flash sin partes m\u00F3viles.\n\n- Entre cinco y veinte veces m\u00E1s r\u00E1pida que un disco mec\u00E1nico.\n- Silenciosa, resistente a golpes y de menor consumo.\n- Mayor costo por gigabyte, aunque la diferencia se ha reducido mucho.\n- Es la mejora individual que m\u00E1s se nota en un equipo antiguo.\n\n### Formatos de SSD\n: SATA de 2,5 pulgadas | Mismo conector que un disco duro. Limitada a unos 550 MB/s por la interfaz.\n: M.2 SATA | Formato de tarjeta, pero con la misma velocidad que la anterior.\n: M.2 NVMe | Formato de tarjeta conectado por PCI Express. Alcanza varios miles de MB/s.\n\n## Otros medios\n- **Unidades \u00F3pticas** (CD, DVD, Blu-ray): en desuso, aunque siguen apareciendo en equipos institucionales.\n- **Memorias USB y tarjetas SD**: transporte y medios de instalaci\u00F3n.\n- **Almacenamiento en red (NAS)**: discos compartidos por la red local.\n- **Almacenamiento en la nube**: servicio remoto, \u00FAtil como copia externa.\n\n## Interfaces\n: SATA III | 6 Gb/s. Universal para discos mec\u00E1nicos y SSD de 2,5 pulgadas.\n: NVMe sobre PCIe | El est\u00E1ndar actual para SSD de alto rendimiento.\n: USB 3.x y USB-C | Para unidades externas.\n\n> Una configuraci\u00F3n equilibrada y econ\u00F3mica: **SSD NVMe para el sistema operativo y los programas, disco mec\u00E1nico para los archivos**. Se gana la velocidad donde se nota y la capacidad donde hace falta."
+  topicImage: {fileID: 0}
+  imageCaption: ""

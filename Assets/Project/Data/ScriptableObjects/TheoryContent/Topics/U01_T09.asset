@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U01_T09
+  m_EditorClassIdentifier: 
+  title: "Recursos del sistema"
+  summary: "IRQ, DMA, direcciones de E/S y memoria: los recursos que el sistema reparte entre los dispositivos y cuyo conflicto provoca fallos."
+  contentText: "## Qu\u00E9 son\nLos **recursos del sistema** son los medios limitados que el equipo reparte entre sus dispositivos para que puedan comunicarse con el procesador. Cuando dos dispositivos reclaman el mismo recurso se produce un **conflicto**, y el s\u00EDntoma suele ser un dispositivo que no responde o un sistema inestable.\n\n## Los cuatro recursos cl\u00E1sicos\n: IRQ (petici\u00F3n de interrupci\u00F3n) | L\u00EDnea por la que un dispositivo avisa al procesador de que necesita atenci\u00F3n. Antes eran diecis\u00E9is y escaseaban; hoy, con APIC y MSI, el problema pr\u00E1cticamente desapareci\u00F3.\n: Canales DMA | Permiten que un dispositivo lea o escriba en memoria sin pasar por el procesador, liber\u00E1ndolo para otras tareas.\n: Direcciones de puertos de E/S | Rango de direcciones reservado para hablar con un dispositivo concreto.\n: Direcciones de memoria | Zona de la memoria del sistema asignada a un dispositivo, por ejemplo la memoria de video.\n\n## C\u00F3mo se asignan hoy\nCon **Plug and Play**, el firmware y el sistema operativo negocian y reparten los recursos autom\u00E1ticamente al arrancar. El t\u00E9cnico ya no los configura con puentes (jumpers) como en los equipos ISA, pero s\u00ED debe saber consultarlos cuando algo falla.\n\n## D\u00F3nde consultarlos\n- En Windows: **Administrador de dispositivos**, men\u00FA Ver, opci\u00F3n \"Recursos por tipo\". Un signo de admiraci\u00F3n amarillo se\u00F1ala el dispositivo en conflicto.\n- En GNU/Linux: los comandos `lspci -v`, `lsusb` y los ficheros `/proc/interrupts` e `/proc/iomem`.\n\n> Un conflicto de recursos no siempre es un fallo de hardware. Antes de sustituir una tarjeta, conviene comprobar si el problema se resuelve cambi\u00E1ndola de ranura o actualizando su controlador."
+  topicImage: {fileID: 21300000, guid: 1c21b0d298dd0eb40b5cb9e67fef3a51, type: 3}
+  imageCaption: "Recursos asignados a los dispositivos del sistema."

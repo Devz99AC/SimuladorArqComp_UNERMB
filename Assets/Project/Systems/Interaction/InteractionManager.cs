@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using UnityEngine.EventSystems; // Necesario para bloquear UI
+// El bloqueo puntero-sobre-UI lo hace UIBlocker (UI Toolkit); EventSystem de
+// uGUI ya no ve la UI migrada.
 
 public class InteractionManager : MonoBehaviour
 {
@@ -67,14 +68,14 @@ public class InteractionManager : MonoBehaviour
         // Si estamos arrastrando, el objeto ya está verde, no calculamos hover
         if (_currentPart != null) return;
 
-        // Si tocamos UI, limpiamos todo
-        if (EventSystem.current.IsPointerOverGameObject()) 
+        // Si el puntero está sobre la UI (UI Toolkit), limpiamos todo
+        Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
+        if (UIBlocker.IsPointerOverUI(mousePos))
         {
             ClearHighlight();
             return;
         }
 
-        Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
         if (_cam == null) return;
         Ray ray = _cam.ScreenPointToRay(mousePos);
         
@@ -117,9 +118,9 @@ public class InteractionManager : MonoBehaviour
 
     private void HandleLeftClick()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
-
         Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
+        if (UIBlocker.IsPointerOverUI(mousePos)) return;
+
         Ray ray = _cam.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
@@ -174,18 +175,19 @@ public class InteractionManager : MonoBehaviour
 
     private void HandleRightClick()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return;
         if (_currentPart != null) return;
 
         Vector2 mousePos = _controls.Player.Point.ReadValue<Vector2>();
+        if (UIBlocker.IsPointerOverUI(mousePos)) return;
+
         Ray ray = _cam.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
         {
             PCPart part = hit.collider.GetComponentInParent<PCPart>();
-            if (part != null && UIManager.Instance != null)
+            if (part != null && AssemblyHudView.Instance != null)
             {
-                UIManager.Instance.ShowPartInfo(part.title, part.description);
+                AssemblyHudView.Instance.ShowPartInfo(part.title, part.description);
                 
                 // Opcional: Mantener el highlight naranja mientras lees la ficha
                 ObjectHighlighter hl = part.GetComponent<ObjectHighlighter>();

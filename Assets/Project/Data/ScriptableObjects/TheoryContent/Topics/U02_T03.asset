@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U02_T03
+  m_EditorClassIdentifier: 
+  title: "Hardware para multimedia"
+  summary: "Los componentes que exige el trabajo con audio, imagen y video, y por qu\u00E9 el cuello de botella cambia seg\u00FAn la tarea."
+  contentText: "## Qu\u00E9 se entiende por multimedia\nSe llama **multimedia** al tratamiento conjunto de texto, imagen, sonido, video y animaci\u00F3n. Producir y reproducir estos contenidos exige hardware espec\u00EDfico, porque son los datos m\u00E1s voluminosos que maneja un equipo dom\u00E9stico.\n\n## Subsistema de video\n: Tarjeta gr\u00E1fica (GPU) | Genera la imagen. Para edici\u00F3n de video y modelado 3D, la memoria de video (VRAM) es tan determinante como la potencia: 8 GB es hoy un m\u00EDnimo razonable.\n: Monitor | Para trabajo con color, importa la cobertura de gama (sRGB, Adobe RGB) y el tipo de panel. IPS ofrece mejor fidelidad de color que TN.\n: Aceleraci\u00F3n por hardware | Codificadores y decodificadores dedicados (NVENC, Quick Sync, VCN) que comprimen video sin cargar al procesador.\n\n## Subsistema de audio\n- **Tarjeta de sonido**: integrada en la placa en la mayor\u00EDa de equipos; dedicada cuando se requiere baja latencia o entradas profesionales.\n- **Interfaz de audio USB**: para grabaci\u00F3n con micr\u00F3fonos de condensador y conectores XLR.\n- **Altavoces monitores y auriculares de estudio**: reproducen sin colorear el sonido, lo que es imprescindible para mezclar.\n\n## Captura\n- **C\u00E1mara web o c\u00E1mara r\u00E9flex** con capturadora HDMI.\n- **Tarjeta capturadora**: internas PCIe o externas USB, para grabar una fuente de video externa.\n- **Micr\u00F3fono**: din\u00E1mico para ambientes ruidosos, de condensador para estudio.\n\n## Qu\u00E9 componente limita seg\u00FAn la tarea\n: Edici\u00F3n de video | Muchos n\u00FAcleos de CPU, 32 GB de RAM y almacenamiento NVMe r\u00E1pido. El disco suele ser el primer cuello de botella.\n: Dise\u00F1o gr\u00E1fico y fotograf\u00EDa | RAM abundante y un monitor con buena reproducci\u00F3n de color. La GPU importa menos.\n: Modelado y render 3D | GPU potente con mucha VRAM; el render final puede aprovechar tambi\u00E9n todos los n\u00FAcleos de la CPU.\n: Reproducci\u00F3n de video 4K | Cualquier equipo actual con decodificaci\u00F3n por hardware. No hace falta un equipo potente.\n\n> Un error de compra frecuente es invertir todo el presupuesto en la tarjeta gr\u00E1fica para un trabajo de edici\u00F3n, cuando lo que frena el flujo de trabajo es tener 8 GB de RAM y un disco mec\u00E1nico."
+  topicImage: {fileID: 21300000, guid: c661b874bf1409c4a8d7267d5639927d, type: 3}
+  imageCaption: "Equipo de trabajo multimedia."

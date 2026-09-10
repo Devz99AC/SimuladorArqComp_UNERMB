@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U03_T03
+  m_EditorClassIdentifier: 
+  title: "Preparaci\u00F3n e instalaci\u00F3n de la tarjeta madre"
+  summary: "El montaje de la placa base y de los componentes que conviene instalar antes de meterla en el gabinete."
+  contentText: "## Preparar antes de instalar\nLa tarjeta madre se prepara **fuera del gabinete**, sobre una superficie plana y no conductora, idealmente sobre su propia caja. Instalar procesador y memoria con la placa ya atornillada obliga a trabajar en un espacio estrecho y aumenta el riesgo de da\u00F1ar el z\u00F3calo.\n\n## Instalaci\u00F3n del procesador\n1. Levantar la palanca de retenci\u00F3n del z\u00F3calo y abrir la tapa protectora.\n2. Alinear la marca del procesador (un **tri\u00E1ngulo dorado** en una esquina) con la del z\u00F3calo.\n3. Depositarlo **sin presionar ni deslizarlo**. Debe asentar por su propio peso.\n4. Cerrar la tapa y bajar la palanca. La resistencia al bajar es normal.\n\n> El procesador solo entra en una orientaci\u00F3n. Si hay que hacer fuerza, est\u00E1 mal alineado. En los z\u00F3calos LGA los pines est\u00E1n en la placa y **doblarlos inutiliza la tarjeta madre**.\n\n## Pasta t\u00E9rmica y disipador\n1. Aplicar una cantidad del tama\u00F1o de un grano de arroz en el centro del disipador integrado del procesador.\n2. Montar el disipador y apretar los tornillos **en cruz**, poco a poco, para repartir la presi\u00F3n.\n3. Conectar el ventilador al conector **CPU_FAN** de la placa. No a CHA_FAN: muchos firmwares detienen el arranque si no ven un ventilador en CPU_FAN.\n\n## Instalaci\u00F3n de la memoria RAM\n1. Abrir las pesta\u00F1as de retenci\u00F3n de las ranuras.\n2. Consultar el manual: con dos m\u00F3dulos, lo normal es poblar **A2 y B2** (la segunda y la cuarta ranura) para activar el doble canal.\n3. Alinear la **muesca** del m\u00F3dulo con la de la ranura.\n4. Presionar firmemente por los dos extremos hasta o\u00EDr el clic de las pesta\u00F1as.\n\n## Montaje en el gabinete\n1. Instalar el **embellecedor de puertos (I/O shield)** desde el interior del gabinete, si no viene integrado en la placa.\n2. Colocar los **separadores (standoffs)** en los orificios que correspondan al formato de la placa. Un separador sobrante bajo la placa provoca un cortocircuito.\n3. Apoyar la placa alineando sus puertos con el embellecedor.\n4. Atornillar sin apretar en exceso, empezando por el tornillo central.\n\n## Conexiones a la tarjeta madre\n- **ATX de 24 pines**: alimentaci\u00F3n principal.\n- **EPS de 4 u 8 pines**: alimentaci\u00F3n del procesador, en el borde superior.\n- **Panel frontal**: encendido, reinicio, LED de encendido y LED de actividad del disco. Los LED tienen polaridad; el bot\u00F3n de encendido no.\n- **USB frontal, audio frontal y ventiladores del gabinete**."
+  topicImage: {fileID: 0}
+  imageCaption: ""

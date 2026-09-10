@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea1c0d24b6f4a1d9c3e5f70a1b2c302, type: 3}
+  m_Name: TheorySyllabus
+  m_EditorClassIdentifier: 
+  courseName: "Arquitectura del Computador"
+  courseCode: "ACT139"
+  courseTrajectory: "Trayecto I"
+  courseCredits: "9 unidades cr\u00E9dito"
+  units:
+  - {fileID: 11400000, guid: 19bed97b4f9f0c8b00bca6ec1c124082, type: 2}
+  - {fileID: 11400000, guid: 3891567d845c9e63d90b58b9735c6b6f, type: 2}
+  - {fileID: 11400000, guid: aa77520da37548eb5b2f0293f7fae6b1, type: 2}
+  - {fileID: 11400000, guid: 3407ef2946aea7f37656c49850db3fbd, type: 2}
+  - {fileID: 11400000, guid: 38c96f9debde1db878529e40ce555db6, type: 2}
+  - {fileID: 11400000, guid: fc261249df8ebb7cb12dbbe1a825184b, type: 2}
+  - {fileID: 11400000, guid: 763d20387863e530daede9be3f2433a9, type: 2}
+  - {fileID: 11400000, guid: fcad0ffc6b603981a78bbfb44f43dda9, type: 2}
+  - {fileID: 11400000, guid: b80443be0ee9d1224c4e87621d200316, type: 2}
+  - {fileID: 11400000, guid: 7d5efdb6637f1ded978c850029154b4b, type: 2}
+  - {fileID: 11400000, guid: 29d29555b9c1e5d52870b461146d421f, type: 2}
+  references: "Hamacher, C., Vranesic, Z. y Zaky, S. (2002). Organizaci\u00F3n de Computadores (5.\u00AA ed.). McGraw-Hill.\nMano, M. M. y Kime, C. R. (1998). Fundamentos de Dise\u00F1o L\u00F3gico y Computadoras. Prentice Hall.\nMart\u00EDn, J. (2008). Arquitectura de Equipos y Sistemas Inform\u00E1ticos. Editorial McGraw-Hill.\nPatterson, D. A. y Hennessy, J. L. (1995). Organizaci\u00F3n y Dise\u00F1o de Computadores: la interfaz hardware/software. Revert\u00E9.\nStallings, W. (2000). Organizaci\u00F3n y Arquitectura de Computadores (5.\u00AA ed.). Prentice Hall.\nTanenbaum, A. S. (1999). Organizaci\u00F3n de Computadores: un enfoque estructurado (4.\u00AA ed.). Prentice Hall.\nPlasencia, Z. (2008). Introducci\u00F3n a la Inform\u00E1tica. Editorial Anaya Multimedia.\nPrieto, A., Lloris, A. y Torres, J. C. (2006). Introducci\u00F3n a la Inform\u00E1tica (4.\u00AA ed.). McGraw-Hill.\nPatterson, D. A., Hennessy, J. L. y Canal Corretger, R. (2000). Estructura y Dise\u00F1o de Computadores. Revert\u00E9.\nRep\u00FAblica Bolivariana de Venezuela (2004). Decreto N.\u00BA 3.390 sobre el uso del Software Libre en la Administraci\u00F3n P\u00FAblica Nacional. Gaceta Oficial N.\u00BA 38.095.\nUniversidad Nacional Experimental \"Rafael Mar\u00EDa Baralt\" (s. f.). Contenido Anal\u00EDtico de la Unidad Curricular Arquitectura del Computador (ACT139), Trayecto I. PNF en Inform\u00E1tica."

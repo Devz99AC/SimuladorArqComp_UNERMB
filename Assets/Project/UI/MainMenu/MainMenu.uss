@@ -1,0 +1,244 @@
+/* =====================================================================
+   MainMenu.uss — Vista MainMenu (UI Toolkit), diseño según mockups
+   ---------------------------------------------------------------------
+   Layout dividido: zona izquierda (foto de escritorio + título + PC) y
+   panel gris claro a la derecha con la lista de menú (ítem activo = barra
+   de degradado naranja con texto blanco). Modales con cabecera naranja + X.
+   Fondo izquierdo: escritorio.png (coherente con la identidad naranja).
+   Logo PNF a color (Logo_PNF-removebg-preview) = el correcto.
+   ===================================================================== */
+
+.menu-root {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    flex-direction: row;
+    background-color: rgb(236, 236, 236);
+}
+
+/* Fondo animado: rayas diagonales que se desplazan (reemplaza BackgroundScroller).
+   Va detrás; las zonas son semitransparentes para que se vea sutilmente. */
+/* Rayas dibujadas por código (DiagonalStripes); solo posicionamos el elemento. */
+.menu-bg {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+
+/* ---------- Zona izquierda: fondo + título + ilustración ---------- */
+.menu-left {
+    flex-grow: 1;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0);                     /* transparente: se ven las rayas de fondo directamente */
+    background-image: url("/Assets/Project/Content/Pictures/MenuUI/escritorio.png"); /* escritorio coherente (naranja) */
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: bottom;                          /* el escritorio ancla abajo */
+    background-size: contain;
+}
+.menu-hero {
+    align-items: center;
+    margin-bottom: 40px;
+}
+/* Logotipo tipográfico (sustituye a la imagen "Proyecto-Simulación-3D").
+   Texto vectorial en vez de PNG: nítido a cualquier resolución y el título se
+   cambia editando una sola cadena en MainMenu.uxml, resaltado incluido.
+
+   El título es una FRASE, no una palabra: necesita partir en varias líneas y
+   un cuerpo que quepa en la columna. Por eso max-width acota la medida (el
+   salto cae en un punto estable, no donde toque según la resolución) y el
+   tracking es ligeramente positivo: la caja alta muy junta se lee peor. */
+.menu-wordmark {
+    align-items: center;
+    max-width: 780px;
+    margin-bottom: var(--space-3);
+}
+.menu-wordmark__name {
+    font-size: 62px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    color: rgb(28, 30, 34);
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    margin: 0;
+    padding: 0;
+}
+/* Filete de marca. Al quitarse la bajada queda como cierre del bloque, así que
+   el aire va arriba (separa del título) y no abajo. */
+.menu-wordmark__rule {
+    height: 4px;
+    width: 60%;
+    background-color: var(--color-accent);
+    margin-top: 18px;
+}
+.menu-logo {
+    width: 360px; height: 330px;
+    background-image: url("/Assets/Project/Content/Pictures/MenuUI/Logo.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---------- Panel derecho gris + lista de menú ---------- */
+.menu-right {
+    /* Ancho compartido con ModeSelection (token en variables.uss): las dos
+       pantallas usan el mismo panel y deben coincidir al pixel. El alto NO se
+       fija: el panel estira de arriba abajo. */
+    width: var(--menu-panel-width);
+    flex-shrink: 0;
+    position: relative;
+    background-color: rgb(240, 240, 240);                   /* panel liso (parte de los botones) — sin rayas */
+    justify-content: center;
+}
+.menu-list {
+    align-items: stretch;
+}
+.menu-item {
+    min-height: 64px;
+    padding-left: 44px;
+    padding-right: 20px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    color: rgb(43, 43, 43);
+    font-size: 34px;
+    -unity-text-align: middle-left;
+    -unity-background-scale-mode: stretch-to-fill;
+    transition-property: color;
+    transition-duration: var(--dur-fast);
+}
+/* Resaltado SOLO por foco. El ratón mueve el foco (ver MainMenuView:
+   focus-follows-hover), así nunca hay dos ítems naranjas ni resaltado pegado. */
+.menu-item:focus {
+    background-image: url("/Assets/Project/UI/Common/grad_orange_h.png");
+    color: rgb(255, 255, 255);
+}
+.menu-item:active { color: rgb(255, 236, 230); }
+
+/* Logo PNF (placeholder a color; sustituir por el negro de los mockups) */
+.menu-pnf {
+    position: absolute;
+    right: 26px; bottom: 20px;
+    width: 150px; height: 68px;
+    background-image: url("/Assets/Project/Content/Pictures/Logo_PNF-removebg-preview.png");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---------- Modales (cabecera naranja + X, cuerpo gris, borde naranja) ---------- */
+.menu-modal {
+    width: 62%;
+    max-width: 1000px;
+    min-width: 560px;
+    background-color: rgb(233, 233, 233);
+    border-width: 3px;
+    border-color: var(--color-accent);
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 0;
+    align-items: stretch;
+}
+.menu-modal__header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-accent);
+    padding: 12px 22px;
+}
+.menu-modal__title {
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+}
+.menu-modal__close {
+    width: 40px; height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    background-image: url("/Assets/Project/Content/Pictures/UI/close.png");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    transition-property: scale;
+    transition-duration: var(--dur-fast);
+}
+.menu-modal__close:hover { scale: 1.12 1.12; }
+.menu-modal__close:focus { -unity-background-image-tint-color: rgb(30, 30, 30); }
+.menu-modal__body {
+    padding: 34px 44px;
+    background-color: rgb(233, 233, 233);
+    align-items: center;
+}
+
+/* ---------- Opciones: filas sobre fondo claro (texto oscuro) ---------- */
+.menu-modal__body .setting-row { align-self: stretch; }
+.menu-modal__body .setting-row__label { color: rgb(43, 43, 43); }
+.menu-modal__body .screen-text { color: rgb(43, 43, 43); }
+.menu-modal__body .vol-level { color: rgb(95, 95, 95); }
+
+.icon-btn {
+    width: 44px; height: 44px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-width: 0;
+    border-radius: var(--radius-sm);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-accent);
+    transition-property: background-color, scale;
+    transition-duration: var(--dur-fast);
+}
+.icon-btn:hover,
+.icon-btn:focus { background-color: rgba(253, 67, 32, 0.18); }
+.icon-btn:active { scale: 0.94 0.94; }
+.icon-arrow-left  { background-image: url("/Assets/Project/Content/Pictures/UI/left-arrow.png"); }
+.icon-arrow-right { background-image: url("/Assets/Project/Content/Pictures/UI/right-arrow.png"); }
+
+.vol-icon {
+    width: 34px; height: 34px;
+    margin: 0 var(--space-2);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-accent);
+}
+.vol-icon.level-0 { background-image: url("/Assets/Project/Content/Pictures/UI/no-sound.png"); }
+.vol-icon.level-1 { background-image: url("/Assets/Project/Content/Pictures/UI/sound1.png"); }
+.vol-icon.level-2 { background-image: url("/Assets/Project/Content/Pictures/UI/sound2.png"); }
+.vol-icon.level-3 { background-image: url("/Assets/Project/Content/Pictures/UI/sound3.png"); }
+.vol-bars { flex-direction: row; align-items: center; }
+.vol-level {
+    min-width: 44px;
+    margin: 0 var(--space-2);
+    font-size: var(--text-sm);
+    -unity-text-align: middle-center;
+}
+
+.screen-icon {
+    width: 34px; height: 34px;
+    margin: 0 var(--space-2);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-accent);
+}
+.screen-icon.is-fullscreen { background-image: url("/Assets/Project/Content/Pictures/UI/266200.png"); }
+.screen-icon.is-windowed   { background-image: url("/Assets/Project/Content/Pictures/UI/window-mode.png"); }
+.screen-text {
+    min-width: 220px;
+    font-size: var(--text-sm);
+    -unity-text-align: middle-center;
+}
+
+/* ---------- Créditos ---------- */
+.credits-body { align-items: center; }
+.credits-lead {
+    font-size: 26px;
+    color: rgb(28, 28, 28);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    margin-bottom: var(--space-4);
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+.credits-section {
+    font-size: 24px;
+    color: rgb(28, 28, 28);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-1);
+    -unity-text-align: middle-center;
+}
+.credits-name {
+    font-size: 23px;
+    color: rgb(43, 43, 43);
+    -unity-text-align: middle-center;
+}

@@ -1,0 +1,21 @@
+/* =====================================================================
+   ModeSelection.uss — Ajustes sobre el layout del MainMenu
+   ---------------------------------------------------------------------
+   ModeSelection reutiliza MainMenu.uss (mismo escritorio, título, panel
+   lateral, rayas animadas). Aquí NO se toca el ancho del panel: ese valor
+   es el token --menu-panel-width de variables.uss y lo comparten las dos
+   pantallas, para que al pasar de una a otra no se vea ningún salto.
+
+   Lo único que cambia es el menú: sus etiquetas son mucho más largas que
+   las del menú principal ("LABORATORIO DE ENSAMBLAJE" son 25 caracteres
+   frente a los 7 de "OPCIONES"), así que el texto se reduce y el sangrado
+   se recorta para que quepa dentro del mismo ancho.
+   ===================================================================== */
+
+.menu-item {
+    width: auto;              /* ocupa todo el panel → la barra naranja de foco llega a los dos bordes */
+    align-self: stretch;
+    font-size: 24px;
+    padding-left: 34px;
+    padding-right: 20px;
+}

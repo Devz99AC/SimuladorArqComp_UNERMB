@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U06_T03
+  m_EditorClassIdentifier: 
+  title: "Estructura de particiones en sistemas libres"
+  summary: "C\u00F3mo se particiona una instalaci\u00F3n de GNU/Linux, qu\u00E9 punto de montaje corresponde a cada partici\u00F3n y c\u00F3mo convivir con Windows."
+  contentText: "## El modelo de puntos de montaje\nGNU/Linux no asigna letras: cada partici\u00F3n se **monta** en un directorio del \u00E1rbol \u00FAnico que nace en `/`. Decidir el particionado es, por tanto, decidir qu\u00E9 directorios viven en qu\u00E9 partici\u00F3n.\n\n## Esquema m\u00EDnimo (UEFI)\n: /boot/efi | 300 a 512 MB, FAT32. La partici\u00F3n EFI. Si ya existe una creada por Windows, **se reutiliza, no se crea otra**.\n: / (ra\u00EDz) | 30 GB o m\u00E1s, ext4. Sistema y aplicaciones.\n: swap | \u00C1rea de intercambio. Hoy suele sustituirse por un archivo de intercambio, m\u00E1s flexible.\n\n## Esquema recomendado para escritorio\n1. **/boot/efi** \u2014 512 MB, FAT32.\n2. **/** \u2014 40 a 60 GB, ext4. Sistema, programas y configuraci\u00F3n.\n3. **/home** \u2014 el resto, ext4. Archivos y configuraci\u00F3n personal de cada usuario.\n4. **swap** \u2014 2 a 8 GB, o el tama\u00F1o de la RAM si se quiere hibernar.\n\nLa ventaja de separar `/home` es la misma que la de separar los datos en Windows, pero mejor: se puede **reinstalar o cambiar de distribuci\u00F3n conservando `/home` intacto**, con documentos y preferencias incluidos.\n\n## Esquema para servidor\n- **/boot** \u2014 1 GB, separada, para alojar varios n\u00FAcleos.\n- **/** \u2014 30 GB.\n- **/var** \u2014 20 GB o m\u00E1s. Registros, bases de datos y colas.\n- **/tmp** \u2014 5 GB, aislada para que un proceso no llene la ra\u00EDz.\n- **/home** \u2014 seg\u00FAn el n\u00FAmero de usuarios.\n\nSe emplea **LVM** (gestor de vol\u00FAmenes l\u00F3gicos) para poder redimensionar los vol\u00FAmenes en caliente sin rehacer particiones.\n\n## \u00C1rea de intercambio (swap)\nEspacio en disco que el sistema usa cuando la RAM se agota.\n\n- Con 8 GB de RAM o m\u00E1s: 2 a 4 GB bastan.\n- Para **hibernar** hace falta swap de al menos el tama\u00F1o de la RAM.\n- Un **archivo de intercambio** (`/swapfile`) es hoy preferible a una partici\u00F3n: se agranda o se elimina sin tocar el particionado.\n\n## Arranque dual con Windows\n1. **Instalar Windows primero.** Su gestor de arranque sobrescribe el de GNU/Linux; al rev\u00E9s, GRUB detecta Windows y lo a\u00F1ade al men\u00FA.\n2. **Reducir la partici\u00F3n de Windows desde Windows**, con su propia herramienta.\n3. Desactivar el **inicio r\u00E1pido** de Windows: deja el sistema de archivos en un estado que impide montarlo desde GNU/Linux sin riesgo.\n4. Instalar GNU/Linux en el espacio libre, **reutilizando la partici\u00F3n EFI existente**.\n5. GRUB detectar\u00E1 Windows y ofrecer\u00E1 ambos sistemas al arrancar.\n\n> Compartir archivos entre los dos sistemas se resuelve con una **partici\u00F3n de datos en NTFS o exFAT**: ambos sistemas la leen y escriben sin problema, mientras que ext4 no es accesible desde Windows sin software adicional."
+  topicImage: {fileID: 0}
+  imageCaption: ""

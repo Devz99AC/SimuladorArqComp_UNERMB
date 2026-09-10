@@ -1,0 +1,155 @@
+/* =====================================================================
+   Controls.uss — Controles reutilizables del Simulador (UI Toolkit)
+   ---------------------------------------------------------------------
+   Clases base para: botón primario/fantasma, panel modal, fila de
+   setting, toast de feedback (icono+texto+motivo) e ítem de lista.
+   Depende de los tokens de variables.uss.
+   ===================================================================== */
+
+/* ---------- Botón primario ---------- */
+.btn-primary {
+    min-height: 56px;
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+    border-width: var(--focus-ring);
+    border-color: rgba(0, 0, 0, 0);          /* reservado para el anillo de foco */
+    border-radius: var(--radius-md);
+    font-size: var(--text-md);
+    -unity-text-align: middle-center;
+    transition-property: background-color, scale, border-color;
+    transition-duration: var(--dur-fast);
+}
+.btn-primary:hover  { background-color: var(--color-accent-hover); }
+.btn-primary:active { background-color: var(--color-accent-press); scale: 0.98 0.98; }
+.btn-primary:focus  { border-color: var(--color-text); }   /* foco de teclado visible (§7.1) */
+.btn-primary:disabled { opacity: 0.45; }
+
+/* ---------- Botón fantasma (secundario: "Volver", "Cancelar") ---------- */
+.btn-ghost {
+    min-height: 56px;
+    padding: var(--space-2) var(--space-4);
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color-text);
+    border-width: var(--focus-ring);
+    border-color: var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-md);
+    -unity-text-align: middle-center;
+    transition-property: background-color, border-color;
+    transition-duration: var(--dur-fast);
+}
+.btn-ghost:hover { background-color: var(--color-surface-2); }
+.btn-ghost:focus { border-color: var(--color-accent); }
+
+/* ---------- Panel modal + velo ---------- */
+/* El velo cubre el 100% de la pantalla y ABSORBE el puntero: base de la
+   corrección §7.2 (pausa/victoria no deben dejar arrastrar piezas debajo). */
+.modal-overlay {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-color: var(--color-overlay);
+    align-items: center;
+    justify-content: center;
+}
+.panel-modal {
+    min-width: 480px;
+    max-width: 780px;
+    padding: var(--space-5);
+    background-color: var(--color-surface);
+    border-width: 1px;
+    border-color: var(--color-border);
+    border-radius: var(--radius-lg);
+    align-items: stretch;
+}
+.panel-modal__title {
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+    -unity-text-align: middle-center;
+}
+
+/* ---------- Fila de setting (etiqueta + control) ---------- */
+.setting-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: var(--space-2) 0;
+}
+.setting-row__label {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    flex-grow: 1;
+}
+.setting-row__control {
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Barras de volumen 0-3 (icono + texto acompañan; el color solo refuerza) */
+.volume-bar {
+    width: 26px;
+    height: 26px;
+    margin-left: var(--space-1);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-neutral);
+    transition-property: background-color;
+    transition-duration: var(--dur-fast);
+}
+.volume-bar.is-active { background-color: var(--color-accent); }
+
+/* ---------- Toast de feedback (icono + texto + motivo) — §7.1 ---------- */
+.toast {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface);
+    border-left-width: 6px;
+    border-left-color: var(--color-neutral);
+    border-radius: var(--radius-md);
+    max-width: 620px;
+    transition-property: opacity, translate;
+    transition-duration: var(--dur-med);
+}
+.toast__icon {
+    width: 32px;
+    height: 32px;
+    margin-right: var(--space-3);
+    flex-shrink: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+.toast__body { flex-direction: column; flex-grow: 1; }
+.toast__text   { font-size: var(--text-sm); color: var(--color-text); }
+.toast__reason { font-size: var(--text-xs); color: var(--color-text-dim); white-space: normal; }
+
+/* Variantes de estado: SIEMPRE cambian icono + texto en C#; aquí solo el borde. */
+.toast--success { border-left-color: var(--state-success); }
+.toast--error   { border-left-color: var(--state-error); }
+.toast--warning { border-left-color: var(--state-warning); }
+.toast--info    { border-left-color: var(--state-info); }
+
+.toast.is-hidden { opacity: 0; translate: 0 12px; }
+
+/* ---------- Ítem de lista (índice de teoría — ListView) ---------- */
+.list-item {
+    flex-direction: row;
+    align-items: center;
+    min-height: 52px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    transition-property: background-color;
+    transition-duration: var(--dur-fast);
+}
+.list-item:hover { background-color: var(--color-surface-2); }
+.list-item__index {
+    font-size: var(--text-sm);
+    color: var(--color-accent);
+    width: 44px;
+    flex-shrink: 0;
+}
+.list-item__title {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    white-space: normal;
+}

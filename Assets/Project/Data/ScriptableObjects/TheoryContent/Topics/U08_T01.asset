@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U08_T01
+  m_EditorClassIdentifier: 
+  title: "Gesti\u00F3n de procesos"
+  summary: "Qu\u00E9 es un proceso, c\u00F3mo se planifica el uso del procesador y c\u00F3mo diagnosticar un equipo lento o bloqueado."
+  contentText: "## Proceso y programa\n: Programa | Un archivo ejecutable guardado en el disco. Es pasivo: no hace nada.\n: Proceso | Una instancia de ese programa en ejecuci\u00F3n, con su propia memoria, sus archivos abiertos y su estado. Un mismo programa puede tener varios procesos a la vez.\n: Hilo (thread) | Una l\u00EDnea de ejecuci\u00F3n dentro de un proceso. Los hilos de un proceso comparten su memoria, lo que hace la comunicaci\u00F3n entre ellos r\u00E1pida pero delicada.\n\n## Estados de un proceso\n1. **Nuevo**: se est\u00E1 creando.\n2. **Listo**: puede ejecutarse, esperando su turno de procesador.\n3. **En ejecuci\u00F3n**: sus instrucciones se est\u00E1n ejecutando ahora mismo.\n4. **Bloqueado**: espera un suceso externo, t\u00EDpicamente una lectura de disco o de red.\n5. **Terminado**: finaliz\u00F3 y libera sus recursos.\n\nUn proceso pasa la mayor parte de su vida alternando entre *listo*, *en ejecuci\u00F3n* y *bloqueado*.\n\n## Planificaci\u00F3n\nEl **planificador** decide qu\u00E9 proceso ocupa el procesador en cada instante, repartiendo el tiempo en rodajas de milisegundos. Esa alternancia tan r\u00E1pida es lo que produce la ilusi\u00F3n de simultaneidad.\n\nLa **prioridad** determina la frecuencia con que un proceso recibe turno. Se ajusta con `nice` y `renice` en GNU/Linux, o en el Administrador de tareas en Windows.\n\n## Procesos zombis y hu\u00E9rfanos\n: Zombi | Termin\u00F3, pero su proceso padre no ha recogido su c\u00F3digo de salida. No consume CPU ni memoria, solo una entrada en la tabla de procesos.\n: Hu\u00E9rfano | Su padre termin\u00F3 antes que \u00E9l. El sistema lo adopta y se encarga de finalizarlo correctamente.\n\n## Herramientas\n: Windows | **Administrador de tareas** (Ctrl+May\u00FAs+Esc) para ver, ordenar por consumo y finalizar procesos. **Monitor de recursos** para el detalle por CPU, memoria, disco y red. `tasklist` y `taskkill /PID n /F` desde la consola.\n: GNU/Linux | `ps aux` lista todos los procesos; `top` y `htop` los muestran en tiempo real; `kill PID` solicita el cierre; `kill -9 PID` lo fuerza; `systemctl` gestiona los servicios del sistema.\n\n## Diagn\u00F3stico de un equipo lento\n1. Ordenar los procesos **por uso de CPU** y localizar al que consume de forma sostenida.\n2. Comprobar la **memoria**: si el sistema est\u00E1 intercambiando a disco, el equipo se arrastra aunque la CPU est\u00E9 libre.\n3. Revisar el **uso de disco**: un disco al 100 % bloquea todo lo dem\u00E1s. Es el s\u00EDntoma cl\u00E1sico de un disco mec\u00E1nico agonizante.\n4. Revisar los **programas de inicio** y desactivar los innecesarios.\n5. Descartar **malware**: un consumo elevado sin proceso identificable es sospechoso.\n\n> Antes de forzar el cierre de un proceso conviene intentar el cierre ordenado. `kill -9` y \"Finalizar tarea\" no dan al programa la oportunidad de guardar, y en una base de datos pueden dejar los datos inconsistentes."
+  topicImage: {fileID: 0}
+  imageCaption: ""

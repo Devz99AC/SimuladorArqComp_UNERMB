@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369837c42b7239f439a0e49ed4ae0504, type: 3}
+  m_Name: U11_T04
+  m_EditorClassIdentifier: 
+  title: "Ejecuci\u00F3n de programas correctivos"
+  summary: "Desfragmentaci\u00F3n, actualizaci\u00F3n del antivirus, respaldo en medios externos y reinstalaci\u00F3n de aplicaciones."
+  contentText: "## Optimizaci\u00F3n del almacenamiento\n- **Discos mec\u00E1nicos**: desfragmentar cuando la fragmentaci\u00F3n supere el 10 %. En Windows, *Optimizar unidades*; en GNU/Linux, ext4 apenas se fragmenta y no necesita mantenimiento.\n- **SSD**: verificar que **TRIM** est\u00E1 activo (`fsutil behavior query DisableDeleteNotify` en Windows debe devolver 0; `sudo fstrim -av` en GNU/Linux). Mantener al menos un 10 % libre.\n- Comprobar la salud con SMART y sustituir los discos que muestren sectores reasignados en aumento.\n\n## Antivirus y antimalware\n1. **Mantener las definiciones actualizadas.** Un antivirus desactualizado da una falsa sensaci\u00F3n de seguridad.\n2. **Un solo antivirus residente.** Dos en tiempo real se interfieren y degradan el equipo.\n3. Programar un **an\u00E1lisis completo** mensual, adem\u00E1s de la protecci\u00F3n en tiempo real.\n4. Complementar con un analizador **bajo demanda** (Malwarebytes, ADWCleaner) que puede convivir con el residente.\n5. En Windows, **Microsoft Defender** es hoy una soluci\u00F3n solvente y no requiere sustituci\u00F3n en la mayor\u00EDa de los casos.\n\n## Respaldo en medios externos\n- **Disco duro externo USB**: la opci\u00F3n m\u00E1s pr\u00E1ctica para un equipo individual.\n- **NAS**: almacenamiento en red, adecuado para un laboratorio o una oficina.\n- **Nube**: cubre el requisito de copia fuera del edificio.\n- **Regla b\u00E1sica**: el medio de respaldo **no debe permanecer conectado** de forma permanente. El ransomware cifra tambi\u00E9n las unidades conectadas.\n- Etiquetar los medios con fecha y contenido, y verificar la restauraci\u00F3n peri\u00F3dicamente.\n\n## Reinstalaci\u00F3n de programas de oficina\nCuando una suite ofim\u00E1tica falla de forma persistente:\n\n1. **Respaldar plantillas, macros y datos de correo** antes de desinstalar.\n2. Desinstalar desde *Aplicaciones instaladas*.\n3. Usar la **herramienta de reparaci\u00F3n del fabricante** para eliminar los restos que la desinstalaci\u00F3n normal deja.\n4. Reiniciar.\n5. Reinstalar desde el medio original o desde el portal del fabricante.\n6. Reactivar con la licencia y restaurar plantillas y datos.\n\nEn muchos casos basta con la **reparaci\u00F3n**, sin desinstalar: Microsoft Office ofrece reparaci\u00F3n r\u00E1pida y reparaci\u00F3n en l\u00EDnea; LibreOffice se repara reinstalando sobre la instalaci\u00F3n existente.\n\n## Restauraci\u00F3n del sistema\n- **Punto de restauraci\u00F3n**: devuelve el sistema a un estado anterior sin tocar los archivos personales. Es lo primero que hay que intentar tras un cambio que rompi\u00F3 algo.\n- **Restablecer este PC** en Windows: reinstala el sistema conservando o eliminando los archivos.\n- **Imagen del sistema**: la opci\u00F3n m\u00E1s r\u00E1pida si se dispone de ella. Restaura el equipo completo en minutos."
+  topicImage: {fileID: 0}
+  imageCaption: ""

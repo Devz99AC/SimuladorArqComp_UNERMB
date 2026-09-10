@@ -1,0 +1,103 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <!-- Reutiliza estilos compartidos (modal cabecera-naranja, setting-row, iconos) -->
+    <Style src="../MainMenu/MainMenu.uss" />
+    <Style src="Assembly.uss" />
+
+    <!-- root NO pickable: las zonas vacías dejan pasar el clic al 3D (UIBlocker) -->
+    <ui:VisualElement name="root" class="hud-root" picking-mode="Ignore">
+
+        <!-- ===== Barra superior derecha: ayuda + ajustes ===== -->
+        <ui:VisualElement name="topbar" class="hud-topbar" picking-mode="Ignore">
+            <ui:Button name="btn-help" class="hud-iconbtn hud-iconbtn--help" tooltip="Instrucciones (I)" />
+            <ui:Button name="btn-settings" class="hud-iconbtn hud-iconbtn--gear" tooltip="Opciones" />
+        </ui:VisualElement>
+
+        <!-- ===== Panel de Instrucciones (arriba-izquierda) ===== -->
+        <ui:VisualElement name="instructions-panel" class="hud-panel hud-instructions">
+            <ui:VisualElement class="menu-modal__header hud-panel__header">
+                <ui:Label text="INSTRUCCIONES" class="menu-modal__title hud-panel__title" />
+                <ui:Button name="instructions-close" class="menu-modal__close hud-panel__close" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hud-panel__body">
+                <ui:VisualElement class="hud-bullet"><ui:VisualElement class="hud-bullet__dot" /><ui:Label text="Clic izquierdo y arrastra para tomar un componente." class="hud-bullet__text" /></ui:VisualElement>
+                <ui:VisualElement class="hud-bullet"><ui:VisualElement class="hud-bullet__dot" /><ui:Label text="Suéltalo sobre su ranura para instalarlo." class="hud-bullet__text" /></ui:VisualElement>
+                <ui:VisualElement class="hud-bullet"><ui:VisualElement class="hud-bullet__dot" /><ui:Label text="Clic derecho sobre una pieza para ver su ficha." class="hud-bullet__text" /></ui:VisualElement>
+                <ui:VisualElement class="hud-bullet"><ui:VisualElement class="hud-bullet__dot" /><ui:Label text="Rueda para acercar/alejar; botón central para desplazar." class="hud-bullet__text" /></ui:VisualElement>
+                <ui:VisualElement class="hud-bullet"><ui:VisualElement class="hud-bullet__dot" /><ui:Label text="Espacio para reencuadrar la vista." class="hud-bullet__text" /></ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ===== Ficha técnica (izquierda) — aparece al clic derecho ===== -->
+        <ui:VisualElement name="info-panel" class="hud-panel hud-info">
+            <ui:VisualElement class="menu-modal__header hud-panel__header">
+                <ui:Label name="info-title" text="COMPONENTE" class="menu-modal__title hud-panel__title" />
+                <ui:Button name="info-close" class="menu-modal__close hud-panel__close" />
+            </ui:VisualElement>
+            <ui:ScrollView name="info-scroll" class="hud-info__scroll">
+                <ui:Label name="info-desc" text="" class="hud-info__desc" />
+            </ui:ScrollView>
+            <ui:VisualElement class="hud-info__image">
+                <ui:Label text="Aquí puede haber una imagen" class="hud-info__image-ph" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ===== Modal Opciones (velo → congela la simulación) ===== -->
+        <ModalPanel name="settings-modal" close-on-backdrop="true">
+            <ui:VisualElement class="menu-modal">
+                <ui:VisualElement class="menu-modal__header">
+                    <ui:Label text="OPCIONES" class="menu-modal__title" />
+                    <ui:Button name="settings-close" class="menu-modal__close" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-modal__body">
+
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="VOLUMEN DE AUDIO" class="setting-row__label" />
+                        <ui:VisualElement class="setting-row__control">
+                            <ui:Button name="vol-down" class="icon-btn icon-arrow-left" />
+                            <ui:VisualElement name="vol-icon" class="vol-icon" />
+                            <ui:VisualElement name="vol-bars" class="vol-bars">
+                                <ui:VisualElement class="volume-bar" />
+                                <ui:VisualElement class="volume-bar" />
+                                <ui:VisualElement class="volume-bar" />
+                            </ui:VisualElement>
+                            <ui:Label name="vol-level" class="vol-level" text="3/3" />
+                            <ui:Button name="vol-up" class="icon-btn icon-arrow-right" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="setting-row">
+                        <ui:Label text="MODO DE PANTALLA" class="setting-row__label" />
+                        <ui:VisualElement class="setting-row__control">
+                            <ui:Button name="screen-prev" class="icon-btn icon-arrow-left" />
+                            <ui:VisualElement name="screen-icon" class="screen-icon" />
+                            <ui:Label name="screen-text" class="screen-text" text="PANTALLA COMPLETA" />
+                            <ui:Button name="screen-next" class="icon-btn icon-arrow-right" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+
+                    <ui:VisualElement class="hud-modal-actions">
+                        <ui:Button name="settings-resume" text="CONTINUAR" class="hud-btn hud-btn--ghost" />
+                        <ui:Button name="settings-exit" text="VOLVER AL MENÚ" class="hud-btn hud-btn--primary" />
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ModalPanel>
+
+        <!-- ===== Modal Victoria (velo) ===== -->
+        <ModalPanel name="victory-modal" close-on-backdrop="false">
+            <ui:VisualElement class="menu-modal">
+                <ui:VisualElement class="menu-modal__header">
+                    <ui:Label text="¡ENSAMBLAJE COMPLETADO!" class="menu-modal__title" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-modal__body hud-victory__body">
+                    <ui:Label text="¡Felicidades! Has ensamblado correctamente todos los componentes del computador." class="hud-victory__text" />
+                    <ui:VisualElement class="hud-modal-actions">
+                        <ui:Button name="victory-exit" text="VOLVER AL MENÚ" class="hud-btn hud-btn--primary" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ModalPanel>
+
+    </ui:VisualElement>
+</ui:UXML>
