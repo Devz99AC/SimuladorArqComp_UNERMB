@@ -1,5 +1,7 @@
 # Prompt: contorno de selección claro y eficiente
 
+> ✅ **Hecho el 2026-10-18** (commits `653b0d0`, `6cba994` y `2b1535b`; resumen en `Docs/Plan_Laboratorios_Practicos.md` §7.4 y en `CLAUDE.md` §12). Se conserva como registro: lo que sigue describe el estado de antes.
+
 > Pega este documento entero al empezar la sesión. Está escrito para Claude Code trabajando en este repositorio con el editor de Unity abierto (rama `labs-practicos`).
 
 ---

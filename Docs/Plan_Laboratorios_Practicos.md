@@ -350,7 +350,7 @@ Mantenimiento de un **Dell Latitude 5400**: llega cerrada, boca abajo, con todo 
 
 ### 7.4 Estado actual y siguiente sesión
 
-*Última actualización: 2026-10-18 (lab 3 hecho) · rama `labs-practicos`.*
+*Última actualización: 2026-10-18 (lab 3 y contorno de selección hechos) · rama `labs-practicos`.*
 
 **Commits de la rama:**
 - `8e52b87`: interacción nueva + cables con spline + plan.
@@ -372,7 +372,7 @@ Mantenimiento de un **Dell Latitude 5400**: llega cerrada, boca abajo, con todo 
   - Notas de instalación.
   - Reposo de conectores que sigue a la pieza de origen.
   - Cámara con paneo proporcional.
-- Selector ▸ ENTRAR abre `Lab_ATX`, con imagen en la tarjeta. Créditos de los modelos en el modal de Créditos.
+- Selector ▸ ENTRAR abre `Lab_ATX`, con imagen en la tarjeta. Créditos de los modelos en `Docs/Creditos_Modelos.md` (el usuario los quitó del modal de Créditos el 2026-10-18).
 - **Probado por el usuario con el ratón: «todo bien».** Su única corrección: los puntos de conexión de los cables no se notaban. Se añadió `CablePortMarker`, una señal naranja que late en cada puerto libre listo para conectar, queda tenue si aún falta algo y se apaga al conectar.
 
 **Limitaciones conocidas:**
@@ -408,9 +408,23 @@ Mantenimiento de un **Dell Latitude 5400**: llega cerrada, boca abajo, con todo 
 - No se ve el cable de la batería salir por debajo de ella, ni la cinta pasar bajo la bandeja: son aproximaciones.
 - Las piezas de pocos milímetros (terminales de antena, tornillos M2x3, pestillo) pueden costar con el ratón: los colisionadores están agrandados, pero hay que probarlo.
 
+**Contorno de selección (2026-10-18)**, con el prompt [Prompt_Outline.md](Prompt_Outline.md):
+- Sustituye al casco invertido (5 mm en el mundo, roto en los cubos, incompleto con varios submeshes, lleno de líneas internas en las piezas compuestas e invisible tras las paredes).
+- Ahora es una Renderer Feature de URP en espacio de pantalla (`SelectionOutlineFeature`; detalle en `CLAUDE.md` §12).
+- Elecciones del usuario: 3 px a 1080p, lo tapado al 35 % y colores #FF4500 / blanco cálido / #E5484D.
+- Se añadió un filo oscuro de 1 px: sin él, el blanco del arrastre no se veía sobre la mesa clara.
+- Verificado en Play, con capturas a 1920×1080:
+  - Mismo grosor en un tornillo de 5 mm que en la placa ATX.
+  - Una sola silueta para la tapa de la laptop (107 renderers), el chasis SFF y la placa.
+  - Tenue lo que queda tapado: el conector de antena bajo la tapa, el módulo de discos y el F_PANEL dentro del gabinete.
+  - Fantasmas y señales de puerto sin contorno.
+  - 0 pases y 0 copias de profundidad en reposo; 0 bytes por cambio de hover.
+  - Recorridos 21/21, 16/16 y 22/22, con la consola limpia.
+- Commits: `653b0d0` (feature), `6cba994` (integración) y `2b1535b` (fuera `URPOutline` y sus materiales).
+
 **Siguiente:**
 1. Que el usuario pruebe el lab 3 con el ratón: los tornillos, el pestillo, las antenas y la cámara de cerca.
-2. Contorno de selección claro y eficiente: prompt listo en [Prompt_Outline.md](Prompt_Outline.md) (otra sesión).
+2. Que el usuario pruebe el contorno nuevo con el ratón en los tres labs, sobre todo con las piezas pequeñas de la laptop.
 3. Fase A: conectores con forma y prefab `Lab_Systems`.
 4. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
 
