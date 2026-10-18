@@ -3834,13 +3834,10 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
-  hoverMaterial: {fileID: 2100000, guid: 971c4fb303799b54384b0599e7fc88b2, type: 2}
-  dragMaterial: {fileID: 2100000, guid: eaa19f2b0371e3846b8308eed839baa8, type: 2}
   ghostMaterial: {fileID: 0}
   showPlacementHints: 1
   ghostIdleColor: {r: 0.35, g: 0.85, b: 1, a: 0.16}
   ghostTargetColor: {r: 0.35, g: 1, b: 0.6, a: 0.5}
-  rejectOutlineColor: {r: 0.9, g: 0.28, b: 0.3, a: 1}
   liftHeight: 0.04
   followSharpness: 25
   settleDuration: 0.3

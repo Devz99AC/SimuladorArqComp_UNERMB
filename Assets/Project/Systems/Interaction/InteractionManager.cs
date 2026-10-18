@@ -19,19 +19,15 @@ public class InteractionManager : MonoBehaviour
     [Header("Configuración de Raycast")]
     public LayerMask interactableLayer;
 
-    [Header("Configuración Visual (Colores)")]
-    [Tooltip("Material Naranja Transparente (Hover/Inspección)")]
-    public Material hoverMaterial;
-    [Tooltip("Material Verde Transparente (Arrastre)")]
-    public Material dragMaterial;
+    // El contorno de la pieza (hover, arrastre, rechazo) lo dibuja SelectionOutlineFeature; sus colores y su grosor
+    // están en la feature, en el renderer de URP.
+    [Header("Vista previa de colocación")]
     [Tooltip("Material translúcido de la vista previa. Vacío = Resources/Mat_GhostPreview")]
     [SerializeField] private Material ghostMaterial;
     [Tooltip("Modo guiado: muestra fantasmas en los lugares donde la pieza encaja")]
     [SerializeField] private bool showPlacementHints = true;
     [SerializeField] private Color ghostIdleColor = new Color(0.35f, 0.85f, 1f, 0.16f);
     [SerializeField] private Color ghostTargetColor = new Color(0.35f, 1f, 0.6f, 0.5f);
-    [Tooltip("Color del borde cuando la pieza está sobre un lugar donde NO encaja")]
-    [SerializeField] private Color rejectOutlineColor = new Color(0.9f, 0.28f, 0.3f, 1f);
 
     [Header("Configuración de Arrastre")]
     [Tooltip("Cuánto se eleva la pieza al arrastrarla, para pasar por encima de la placa (unidades de mundo)")]
@@ -59,7 +55,6 @@ public class InteractionManager : MonoBehaviour
     private Camera _cam;
     private CADCameraController _camController;
     private PlacementPreview _preview;
-    private Material _rejectMaterial;
 
     // Clic izquierdo pendiente (aún no es arrastre)
     private PCPart _pressPart;
@@ -103,12 +98,6 @@ public class InteractionManager : MonoBehaviour
 
         if (ghostMaterial == null) ghostMaterial = Resources.Load<Material>("Mat_GhostPreview");
         _preview = new PlacementPreview(ghostMaterial, ghostIdleColor, ghostTargetColor);
-
-        if (dragMaterial != null)
-        {
-            _rejectMaterial = new Material(dragMaterial) { name = "Outline_Rechazo (runtime)" };
-            _rejectMaterial.SetColor("_OutlineColor", rejectOutlineColor);
-        }
     }
 
     private void OnEnable()
@@ -121,7 +110,6 @@ public class InteractionManager : MonoBehaviour
     private void OnDestroy()
     {
         _preview?.Clear();
-        if (_rejectMaterial != null) Destroy(_rejectMaterial);
         _controls?.Dispose();
     }
 
@@ -195,7 +183,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     ClearHighlight(); // Apagar anterior
                     _currentHighlighter = highlighter;
-                    _currentHighlighter.SetHighlight(hoverMaterial); // Encender nuevo (Naranja)
+                    _currentHighlighter.SetHighlight(OutlineStyle.Hover); // Encender nuevo (naranja)
                 }
             }
             else
@@ -218,13 +206,13 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    private void SetHighlight(PCPart part, Material material)
+    private void SetHighlight(PCPart part, OutlineStyle style)
     {
         ObjectHighlighter hl = part.GetComponent<ObjectHighlighter>();
         if (hl == null) return;
         if (_currentHighlighter != hl) ClearHighlight();
         _currentHighlighter = hl;
-        hl.SetHighlight(material != null ? material : hoverMaterial);
+        hl.SetHighlight(style);
     }
 
     // --- CLIC IZQUIERDO: clic, doble clic o inicio de arrastre ---
@@ -340,9 +328,9 @@ public class InteractionManager : MonoBehaviour
         _hoverSocket = null;
         _hoverCompatible = false;
 
-        ClearHighlight(); // fuera el hover naranja ANTES de clonar el fantasma
+        ClearHighlight(); // fuera el hover ANTES de clonar el fantasma (el clon no debe llevarse la marca)
         if (showPlacementHints) _preview.Show(part);
-        SetHighlight(part, dragMaterial);
+        SetHighlight(part, OutlineStyle.Drag);
     }
 
     private void DragUpdate()
@@ -381,7 +369,7 @@ public class InteractionManager : MonoBehaviour
             _hoverCompatible = compatible;
             _preview.Highlight(compatible ? target : null);
             bool rejecting = target != null && !compatible;
-            SetHighlight(_currentPart, rejecting && _rejectMaterial != null ? _rejectMaterial : dragMaterial);
+            SetHighlight(_currentPart, rejecting ? OutlineStyle.Reject : OutlineStyle.Drag);
         }
     }
 
@@ -478,8 +466,8 @@ public class InteractionManager : MonoBehaviour
         {
             AssemblyHudView.Instance.ShowPartInfo(part.title, part.description);
 
-            // Mantener el highlight naranja mientras lees la ficha
-            SetHighlight(part, hoverMaterial);
+            // Mantener el contorno naranja mientras lees la ficha
+            SetHighlight(part, OutlineStyle.Hover);
         }
     }
 

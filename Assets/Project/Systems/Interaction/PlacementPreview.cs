@@ -90,7 +90,8 @@ public class PlacementPreview
             int slots = SubMeshCount(r);
             var mats = new Material[slots];
             for (int i = 0; i < slots; i++) mats[i] = _material;
-            r.sharedMaterials = mats; // también descarta el outline que pudiera tener la pieza
+            r.sharedMaterials = mats;
+            r.renderingLayerMask &= ~SelectionOutline.RenderingLayer; // el fantasma nunca lleva el contorno de la pieza
             r.shadowCastingMode = ShadowCastingMode.Off;
             r.receiveShadows = false;
         }

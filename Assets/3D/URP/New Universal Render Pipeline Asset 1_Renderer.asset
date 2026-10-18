@@ -24,12 +24,15 @@ MonoBehaviour:
     probeSamplingDebugMesh: {fileID: 0}
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
-  m_UseNativeRenderPass: 0
+  m_RendererFeatures:
+  - {fileID: 4057137106416914218}
+  m_RendererFeatureMap: 2a4f09e1b3d84d38l
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
-  m_AssetVersion: 2
+  m_AssetVersion: 3
+  m_PrepassLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_OpaqueLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -51,3 +54,26 @@ MonoBehaviour:
   m_DepthTextureFormat: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+  m_TileOnlyMode: 0
+--- !u!114 &4057137106416914218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e33c25a23af2a4542b265c7c4fb582ae, type: 3}
+  m_Name: SelectionOutline
+  m_EditorClassIdentifier: Assembly-CSharp::SelectionOutlineFeature
+  m_Active: 1
+  settings:
+    hoverColor: {r: 1, g: 0.27058825, b: 0, a: 1}
+    dragColor: {r: 1, g: 0.94509804, b: 0.8392157, a: 1}
+    rejectColor: {r: 0.8980392, g: 0.28235295, b: 0.3019608, a: 1}
+    widthAt1080: 3
+    edgeColor: {r: 0, g: 0, b: 0, a: 0.6}
+    edgeWidthAt1080: 1
+    occludedAlpha: 0.35
+  shader: {fileID: 4800000, guid: 3678424c2741708478fcb7ab10a4e7e8, type: 3}
