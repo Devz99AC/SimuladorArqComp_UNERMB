@@ -13,6 +13,7 @@
                 <ui:VisualElement class="hud-progress__track" picking-mode="Ignore">
                     <ui:VisualElement name="progress-fill" class="hud-progress__fill" picking-mode="Ignore" />
                 </ui:VisualElement>
+                <ui:Label name="errors-label" text="ERRORES 0" class="hud-progress__errors" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
 
@@ -103,10 +104,15 @@
         <ModalPanel name="victory-modal" close-on-backdrop="false">
             <ui:VisualElement class="menu-modal">
                 <ui:VisualElement class="menu-modal__header">
-                    <ui:Label text="¡ENSAMBLAJE COMPLETADO!" class="menu-modal__title" />
+                    <ui:Label name="victory-title" text="¡ENSAMBLAJE COMPLETADO!" class="menu-modal__title" />
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-modal__body hud-victory__body">
-                    <ui:Label text="¡Felicidades! Has ensamblado correctamente todos los componentes del computador." class="hud-victory__text" />
+                    <ui:Label name="victory-text" text="¡Felicidades! Has ensamblado correctamente todos los componentes del computador." class="hud-victory__text" />
+                    <!-- Resumen de errores (evaluación guiada, sin nota): lo rellena AssemblyHudView -->
+                    <ui:VisualElement name="victory-errors" class="hud-victory__errors">
+                        <ui:Label name="victory-errors-title" text="ERRORES: 0" class="hud-victory__errors-title" />
+                        <ui:VisualElement name="victory-errors-list" class="hud-victory__errors-list" />
+                    </ui:VisualElement>
                     <ui:VisualElement class="hud-modal-actions">
                         <ui:Button name="victory-exit" text="VOLVER AL MENÚ" class="hud-btn hud-btn--primary" />
                     </ui:VisualElement>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System; // Necesario para usar los Eventos (Action)
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,22 @@ public class GameManager : MonoBehaviour
     public event Action<string> OnPartRemoved;        // "Se retiró la pieza X"
     public event Action<int, int> OnProgressChanged;  // (instaladas, total)
     public event Action OnAssemblyComplete;           // "¡Ensamble terminado!"
+    public event Action<int> OnErrorsChanged;         // errores cometidos hasta ahora
+
+    /// <summary>Un intento rechazado: la pieza, lo que se intentó y el porqué que mostró el aviso.</summary>
+    public struct AssemblyError
+    {
+        public string part;
+        public string message;
+        public string reason;
+    }
+
+    /// <summary>
+    /// Errores de la sesión (evaluación guiada: sin nota). Cuenta cada intento que el sistema rechaza con motivo: soltar una
+    /// pieza en un lugar donde no va, retirar algo de lo que depende otra pieza o abrir una bisagra antes de tiempo. Soltar en
+    /// vacío no cuenta. El resumen sale en el modal de victoria.
+    /// </summary>
+    public readonly List<AssemblyError> Errors = new List<AssemblyError>();
 
     private bool _finished;
 
@@ -93,6 +110,15 @@ public class GameManager : MonoBehaviour
     {
         OnPartRemoved?.Invoke(partName);
         OnProgressChanged?.Invoke(InstalledCount, TotalRequired);
+    }
+
+    // La llama InteractionManager cuando rechaza un intento con motivo (después de la victoria ya no cuenta).
+    public void RegisterError(string part, string message, string reason)
+    {
+        if (_finished) return;
+        Errors.Add(new AssemblyError { part = part, message = message, reason = reason });
+        Debug.Log($"❌ Error {Errors.Count}: {part} — {message}. {reason}");
+        OnErrorsChanged?.Invoke(Errors.Count);
     }
 
     // Lógica de Victoria

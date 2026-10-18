@@ -263,6 +263,7 @@ public class InteractionManager : MonoBehaviour
             {
                 if (AssemblyHudView.Instance != null)
                     AssemblyHudView.Instance.ShowFeedback(removal.Message, ToastKind.Warning, removal.Reason);
+                CountError(_pressPart, removal);
                 _pressPart = null;
                 return;
             }
@@ -301,9 +302,17 @@ public class InteractionManager : MonoBehaviour
     private void ToggleHinge(HingedPart hinge)
     {
         CompatResult result = hinge.Toggle();
+        if (!result.Ok) CountError(hinge.GetComponent<PCPart>(), result);
         var hud = AssemblyHudView.Instance;
         if (hud == null || string.IsNullOrEmpty(result.Message)) return;
         hud.ShowFeedback(result.Message, result.Ok ? ToastKind.Success : ToastKind.Warning, result.Reason);
+    }
+
+    /// <summary>Contador de errores (evaluación guiada): cada intento rechazado con motivo.</summary>
+    private static void CountError(PCPart part, CompatResult result)
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.RegisterError(part != null ? part.title : "", result.Message, result.Reason);
     }
 
     // --- ARRASTRE ---
@@ -429,8 +438,12 @@ public class InteractionManager : MonoBehaviour
         }
         else
         {
-            // Soltar sobre un lugar equivocado enseña el porqué; soltar en vacío solo la devuelve.
-            if (target != null && hud != null) hud.ShowFeedback(result.Message, ToastKind.Error, result.Reason);
+            // Soltar sobre un lugar equivocado enseña el porqué (y cuenta como error); soltar en vacío solo la devuelve.
+            if (target != null)
+            {
+                if (hud != null) hud.ShowFeedback(result.Message, ToastKind.Error, result.Reason);
+                CountError(part, result);
+            }
             part.ReturnToTable(settleDuration);
         }
     }

@@ -37,6 +37,15 @@ public class AssemblyHudView : MonoBehaviour
     [TextArea(1, 3)]
     [SerializeField] private string[] extraInstructions;
 
+    [Header("Textos propios del laboratorio (vacío = los del UXML)")]
+    [Tooltip("Qué cuenta el progreso: \"COMPONENTES\" en un montaje, \"PASOS\" en un mantenimiento")]
+    [SerializeField] private string progressNoun = "COMPONENTES";
+    [SerializeField] private string victoryTitle;
+    [TextArea(2, 4)]
+    [SerializeField] private string victoryText;
+    [Tooltip("Cuántos tipos de error distintos lista el resumen de la victoria")]
+    [SerializeField] private int maxErrorLines = 6;
+
     private VisualElement _instructionsPanel;
     private VisualElement _infoPanel;
     private Label _infoTitle;
@@ -46,6 +55,9 @@ public class AssemblyHudView : MonoBehaviour
     private FeedbackToast _toast;
     private Label _progressLabel;
     private VisualElement _progressFill;
+    private Label _errorsLabel;
+    private Label _victoryErrorsTitle;
+    private VisualElement _victoryErrorsList;
     private GameManager _game;
 
     // Settings widgets
@@ -80,14 +92,21 @@ public class AssemblyHudView : MonoBehaviour
         _toast = root.Q<FeedbackToast>("feedback-toast");
         _progressLabel = root.Q<Label>("progress-label");
         _progressFill = root.Q<VisualElement>("progress-fill");
+        _errorsLabel = root.Q<Label>("errors-label");
+        _victoryErrorsTitle = root.Q<Label>("victory-errors-title");
+        _victoryErrorsList = root.Q<VisualElement>("victory-errors-list");
+        if (!string.IsNullOrEmpty(victoryTitle)) root.Q<Label>("victory-title").text = victoryTitle;
+        if (!string.IsNullOrEmpty(victoryText)) root.Q<Label>("victory-text").text = victoryText;
 
-        // --- Progreso y victoria por EVENTOS (antes: llamada directa desde GameManager) ---
+        // --- Progreso, errores y victoria por EVENTOS (antes: llamada directa desde GameManager) ---
         _game = GameManager.Instance;
         if (_game != null)
         {
             _game.OnProgressChanged += RefreshProgress;
+            _game.OnErrorsChanged += RefreshErrors;
             _game.OnAssemblyComplete += ShowVictory;
             RefreshProgress(_game.InstalledCount, _game.TotalRequired);
+            RefreshErrors(_game.Errors.Count);
         }
 
         root.Q<Button>("instructions-close").clicked += () => SetInstructions(false);
@@ -147,6 +166,7 @@ public class AssemblyHudView : MonoBehaviour
         if (_game != null)
         {
             _game.OnProgressChanged -= RefreshProgress;
+            _game.OnErrorsChanged -= RefreshErrors;
             _game.OnAssemblyComplete -= ShowVictory;
         }
         if (Instance == this) Instance = null;
@@ -184,7 +204,48 @@ public class AssemblyHudView : MonoBehaviour
         CloseInfoPanel();
         SetInstructions(false);
         if (_toast != null) _toast.Hide();
+        FillErrorSummary();
         if (_victoryModal != null) _victoryModal.Open();
+    }
+
+    /// <summary>
+    /// Resumen de errores del modal de victoria (sin nota): los motivos agrupados, de más a menos repetido. Repasar el
+    /// porqué de cada uno es lo que se aprende (la batería conectada, una antena en el terminal equivocado…).
+    /// </summary>
+    private void FillErrorSummary()
+    {
+        if (_victoryErrorsList == null || _game == null) return;
+        _victoryErrorsList.Clear();
+        int total = _game.Errors.Count;
+        if (_victoryErrorsTitle != null)
+            _victoryErrorsTitle.text = total == 0 ? "SIN ERRORES" : "ERRORES: " + total;
+        if (total == 0)
+        {
+            _victoryErrorsList.Add(MakeErrorLine("Seguiste el orden y las reglas de seguridad sin un solo rechazo."));
+            return;
+        }
+
+        var groups = new Dictionary<string, int>();
+        var order = new List<string>();
+        foreach (var e in _game.Errors)
+        {
+            string key = string.IsNullOrEmpty(e.reason) ? e.message : e.reason;
+            if (!groups.ContainsKey(key)) { groups[key] = 0; order.Add(key); }
+            groups[key]++;
+        }
+        order.Sort((a, b) => groups[b].CompareTo(groups[a]));
+        for (int i = 0; i < order.Count && i < maxErrorLines; i++)
+            _victoryErrorsList.Add(MakeErrorLine(
+                "<color=#E5484D><b>×" + groups[order[i]] + "</b></color>  " + order[i]));
+        if (order.Count > maxErrorLines)
+            _victoryErrorsList.Add(MakeErrorLine("… y " + (order.Count - maxErrorLines) + " motivo(s) más."));
+    }
+
+    private static Label MakeErrorLine(string text)
+    {
+        var label = new Label(text);
+        label.AddToClassList("hud-victory__error");
+        return label;
     }
 
     /// <summary>
@@ -200,12 +261,19 @@ public class AssemblyHudView : MonoBehaviour
 
     private void RefreshProgress(int installed, int total)
     {
-        if (_progressLabel != null) _progressLabel.text = "COMPONENTES " + installed + " / " + total;
+        if (_progressLabel != null) _progressLabel.text = progressNoun + " " + installed + " / " + total;
         if (_progressFill != null)
         {
             float pct = total > 0 ? 100f * installed / total : 0f;
             _progressFill.style.width = Length.Percent(pct);
         }
+    }
+
+    private void RefreshErrors(int count)
+    {
+        if (_errorsLabel == null) return;
+        _errorsLabel.text = "ERRORES " + count;
+        _errorsLabel.EnableInClassList("has-errors", count > 0);
     }
 
     /// <summary>Viñetas de <see cref="extraInstructions"/>, con el mismo aspecto que las del UXML.</summary>
