@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a54a2ba04242140b8d6cbaff02ae21, type: 3}
+  m_Name: Lab_02_SFF
+  m_EditorClassIdentifier: Assembly-CSharp::LabDefinitionSO
+  tag: LABORATORIO 2
+  title: PC compacta de oficina
+  description: "Repara y actualiza una PC peque\xF1a como las de aulas y oficinas: poco espacio, piezas de perfil bajo y fuente propia del fabricante."
+  learns:
+  - Trabajar en poco espacio y en orden
+  - Componentes de perfil bajo
+  - Fuente y conectores del fabricante
+  preview: {fileID: 0}
+  sceneName: 
+  available: 0

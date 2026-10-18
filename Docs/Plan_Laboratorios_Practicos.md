@@ -261,7 +261,7 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 ### 7.2 Plan de trabajo, en orden
 
 **Fase A — sin modelos (se puede hacer ya)**
-1. Selector de laboratorios: `LabDefinitionSO` + catálogo + pantalla de 3 tarjetas.
+1. ✅ Selector de laboratorios: `LabDefinitionSO` + `LabCatalog` + modal de 3 tarjetas en ModeSelection (2026-10-18, verificado en Play).
 2. Contador de errores por pieza + resumen al terminar (en el modal de victoria).
 3. Conectores generados por código (24 pines, EPS, PCIe, SATA, pines del panel frontal) para sustituir los bloques.
 4. Prefab `Lab_Systems` (cámara + managers + HUD) como base común de las escenas de laboratorio.

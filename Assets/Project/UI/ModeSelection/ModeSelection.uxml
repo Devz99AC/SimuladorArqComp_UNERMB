@@ -26,5 +26,16 @@
             <ui:VisualElement name="pnf-logo" class="menu-pnf" picking-mode="Ignore" />
         </ui:VisualElement>
 
+        <!-- ===== Selector de laboratorios (las tarjetas las construye ModeSelectionView desde LabCatalogSO) ===== -->
+        <ModalPanel name="labs-modal" close-on-backdrop="true">
+            <ui:VisualElement class="menu-modal labs-modal">
+                <ui:VisualElement class="menu-modal__header">
+                    <ui:Label text="ELIGE UN LABORATORIO" class="menu-modal__title" />
+                    <ui:Button name="labs-close" class="menu-modal__close" />
+                </ui:VisualElement>
+                <ui:VisualElement name="labs-cards" class="menu-modal__body labs-cards" />
+            </ui:VisualElement>
+        </ModalPanel>
+
     </ui:VisualElement>
 </ui:UXML>

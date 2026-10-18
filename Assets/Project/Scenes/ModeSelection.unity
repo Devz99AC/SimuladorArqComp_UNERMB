@@ -152,8 +152,8 @@ MonoBehaviour:
   theoryScene: TheoryModule
   simulationScene: AssemblyLab
   mainMenuScene: MainMenu
+  labCatalog: {fileID: 11400000, guid: 93814b42bf89c7e42a3a03c4d6ee55da, type: 2}
   uiSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
-  bgScrollSpeed: 14
 --- !u!114 &531799161
 MonoBehaviour:
   m_ObjectHideFlags: 0

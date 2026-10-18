@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a54a2ba04242140b8d6cbaff02ae21, type: 3}
+  m_Name: Lab_01_ATX
+  m_EditorClassIdentifier: Assembly-CSharp::LabDefinitionSO
+  tag: LABORATORIO 1
+  title: PC de escritorio (ATX)
+  description: "Arma una PC de torre completa: prepara la placa base fuera del gabinete, m\xF3ntala dentro y conecta todos los cables de la fuente."
+  learns:
+  - Procesador, disipador, memoria RAM y SSD M.2
+  - Placa base, tarjeta de video y almacenamiento
+  - "Cables de alimentaci\xF3n y del panel frontal"
+  preview: {fileID: 0}
+  sceneName: AssemblyLab
+  available: 1

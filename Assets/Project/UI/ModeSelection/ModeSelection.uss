@@ -19,3 +19,118 @@
     padding-left: 34px;
     padding-right: 20px;
 }
+
+/* ---------- Selector de laboratorios: modal con 3 tarjetas ---------- */
+.labs-modal {
+    width: 82%;
+    max-width: 1320px;
+}
+.labs-cards {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    padding: 30px 30px;
+}
+.lab-card {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 10px;
+    background-color: rgb(248, 248, 248);
+    border-width: 2px;
+    border-color: rgb(205, 205, 205);
+    border-radius: 4px;
+    overflow: hidden;
+    transition-property: border-color, translate;
+    transition-duration: var(--dur-fast);
+}
+.lab-card:hover { border-color: var(--color-accent); translate: 0 -3px; }
+.lab-card.is-soon:hover { border-color: rgb(205, 205, 205); translate: 0 0; }
+
+.lab-card__media {
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(252, 252, 252);
+    -unity-background-scale-mode: scale-and-crop;
+}
+.lab-card__stripes {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+.lab-card__number {
+    font-size: 84px;
+    color: var(--color-accent);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    -unity-text-align: middle-center;
+}
+.lab-card.is-soon .lab-card__number { color: rgb(170, 170, 170); }
+
+.lab-card__body {
+    flex-grow: 1;
+    padding: 18px 20px 20px 20px;
+}
+.lab-card__tag {
+    font-size: 15px;
+    color: var(--color-accent);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBold.asset");
+    margin-bottom: 4px;
+}
+.lab-card.is-soon .lab-card__tag { color: rgb(140, 140, 140); }
+.lab-card__title {
+    font-size: 26px;
+    color: rgb(30, 30, 30);
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    white-space: normal;
+    margin-bottom: 10px;
+}
+.lab-card__desc {
+    font-size: 16px;
+    color: rgb(70, 70, 70);
+    white-space: normal;
+    margin-bottom: 14px;
+}
+.lab-card__point {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 7px;
+}
+.lab-card__dot {
+    width: 8px; height: 8px;
+    border-radius: 8px;
+    background-color: var(--color-accent);
+    margin-top: 6px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.lab-card.is-soon .lab-card__dot { background-color: rgb(170, 170, 170); }
+.lab-card__point-text {
+    flex-shrink: 1;
+    font-size: 15px;
+    color: rgb(55, 55, 55);
+    white-space: normal;
+}
+.lab-card__spacer { flex-grow: 1; }
+
+.lab-card__enter {
+    margin: 14px 0 0 0;
+    min-height: 48px;
+    border-width: 2px;
+    border-radius: var(--radius-sm);
+    font-size: 19px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBlack.asset");
+    -unity-text-align: middle-center;
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: rgb(255, 255, 255);
+    transition-property: background-color, scale;
+    transition-duration: var(--dur-fast);
+}
+.lab-card__enter:hover,
+.lab-card__enter:focus { background-color: var(--color-accent-hover); }
+.lab-card__enter:active { scale: 0.97 0.97; }
+.lab-card__enter:disabled {
+    background-color: rgb(225, 225, 225);
+    border-color: rgb(205, 205, 205);
+    color: rgb(130, 130, 130);
+    opacity: 1;
+}
