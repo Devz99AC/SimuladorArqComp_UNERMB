@@ -410,8 +410,9 @@ Mantenimiento de un **Dell Latitude 5400**: llega cerrada, boca abajo, con todo 
 
 **Siguiente:**
 1. Que el usuario pruebe el lab 3 con el ratón: los tornillos, el pestillo, las antenas y la cámara de cerca.
-2. Fase A: conectores con forma y prefab `Lab_Systems`.
-3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
+2. Contorno de selección claro y eficiente: prompt listo en [Prompt_Outline.md](Prompt_Outline.md) (otra sesión).
+3. Fase A: conectores con forma y prefab `Lab_Systems`.
+4. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
