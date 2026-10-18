@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14154dc05f54b844492cc4dff6ee6c1a, type: 3}
+  m_Name: Type_SATAData
+  m_EditorClassIdentifier:
+  labelName: "Datos SATA"
+  debugColor: {r: 0.85, g: 0.2, b: 0.2, a: 1}
+  displayName: "el cable de datos SATA"
+  placementHint: "El cable de datos SATA (7 pines, en forma de L estrecha) une la unidad de almacenamiento con un puerto SATA de la placa base."

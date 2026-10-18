@@ -129,6 +129,12 @@
 .toast--warning { border-left-color: var(--state-warning); }
 .toast--info    { border-left-color: var(--state-info); }
 
+/* Color del icono vectorial (FeedbackToast lo lee de resolvedStyle.color al dibujarlo). */
+.toast--success .toast__icon { color: var(--state-success); }
+.toast--error   .toast__icon { color: var(--state-error); }
+.toast--warning .toast__icon { color: var(--state-warning); }
+.toast--info    .toast__icon { color: var(--state-info); }
+
 .toast.is-hidden { opacity: 0; translate: 0 12px; }
 
 /* ---------- Ítem de lista (índice de teoría — ListView) ---------- */

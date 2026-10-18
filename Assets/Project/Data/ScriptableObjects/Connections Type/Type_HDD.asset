@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelName: HDD
   debugColor: {r: 0.15100837, g: 1, b: 0, a: 1}
+  displayName: "el disco duro (HDD)"
+  placementHint: "El disco duro va en una bah\u00EDa de 3,5 pulgadas del gabinete y se conecta con un cable de datos SATA y uno de alimentaci\u00F3n SATA."

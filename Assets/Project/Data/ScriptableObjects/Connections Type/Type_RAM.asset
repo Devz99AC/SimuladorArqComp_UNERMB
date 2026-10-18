@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelName: Memoria RAM
   debugColor: {r: 0, g: 0.15852594, b: 1, a: 1}
+  displayName: "la memoria RAM"
+  placementHint: "La RAM va en las ranuras DIMM, junto al socket del procesador. La muesca del m\u00F3dulo debe coincidir con la de la ranura."

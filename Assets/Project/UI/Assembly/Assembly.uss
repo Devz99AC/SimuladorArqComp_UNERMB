@@ -174,3 +174,61 @@
     -unity-text-align: middle-center;
     max-width: 620px;
 }
+
+/* ---------- Progreso del laboratorio (arriba-centro, informativo: no bloquea el 3D) ---------- */
+.hud-progress {
+    position: absolute;
+    top: 20px; left: 0; right: 0;
+    align-items: center;
+}
+.hud-progress__pill {
+    align-items: center;
+    padding: 8px 22px 12px 22px;
+    background-color: rgba(20, 20, 20, 0.55);
+    border-radius: var(--radius-sm);
+    min-width: 280px;
+}
+.hud-progress__label {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBold.asset");
+    -unity-text-align: middle-center;
+    margin-bottom: 6px;
+}
+.hud-progress__track {
+    align-self: stretch;
+    height: 6px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.25);
+    overflow: hidden;
+}
+.hud-progress__fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--color-accent);
+    transition-property: width;
+    transition-duration: var(--dur-med);
+}
+
+/* ---------- Toast de acierto/rechazo (abajo-centro). Mismo lenguaje claro que los paneles. ---------- */
+.hud-toast-layer {
+    position: absolute;
+    left: 0; right: 0; bottom: 40px;
+    align-items: center;
+}
+.hud-toast-layer .toast {
+    background-color: rgba(238, 238, 238, 0.97);
+    border-left-width: 8px;
+    min-width: 380px;
+}
+.hud-toast-layer .toast__text {
+    color: rgb(38, 38, 38);
+    font-size: 20px;
+    -unity-font-definition: url("/Assets/Project/UI/Common/Fonts/TTHovesBold.asset");
+    white-space: normal;
+}
+.hud-toast-layer .toast__reason {
+    color: rgb(85, 85, 85);
+    font-size: 17px;
+    margin-top: 2px;
+}

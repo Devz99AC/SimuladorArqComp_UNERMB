@@ -10,8 +10,9 @@ public class CADCameraController : MonoBehaviour
     [Header("Sensibilidad")]
     public float rotateSpeed = 5f;
     public float panSpeed = 0.01f;
-    public float zoomStep = 2f;
-    public float smoothing = 5f; 
+    [Tooltip("Fracción de la distancia que avanza cada paso de rueda (zoom proporcional: fino de cerca, rápido de lejos)")]
+    [Range(0.02f, 0.5f)] public float zoomPercent = 0.12f;
+    public float smoothing = 5f;
 
     [Header("Límites Verticales (Cuello)")]
     public Vector2 verticalAngleLimit = new Vector2(5f, 89f);
@@ -23,28 +24,36 @@ public class CADCameraController : MonoBehaviour
     [Header("Límites de Zoom")]
     public Vector2 zoomLimits = new Vector2(2f, 50f);
 
-    [Header("Límites de Paneo (La Caja 3D)")] // --- ACTUALIZADO ---
+    [Header("Límites de Paneo (La Caja 3D)")]
     public bool enablePanLimits = true;
     [Tooltip("Ancho: Izquierda / Derecha")]
     public Vector2 panLimitX = new Vector2(-5f, 5f);
     [Tooltip("Altura: Suelo / Techo (Evita ir bajo la mesa)")]
-    public Vector2 panLimitY = new Vector2(0f, 3f); // <--- NUEVO
+    public Vector2 panLimitY = new Vector2(0f, 3f);
     [Tooltip("Profundidad: Atrás / Fondo")]
     public Vector2 panLimitZ = new Vector2(-5f, 5f);
 
+    [Header("Gestos")]
+    [Tooltip("Píxeles de arrastre con clic derecho antes de empezar a orbitar (un clic corto abre la ficha)")]
+    public float orbitStartPixels = 6f;
+
     [Header("Automatización")]
+    [Tooltip("Volver sola a la vista general tras un rato sin tocar nada. Desactivado: el encuadre lo decide el estudiante (Espacio reencuadra).")]
+    public bool autoResetWhenIdle = false;
     public float idleTimeBeforeReset = 10f;
-    public float wideShotDistance = 15f;    
+    public float wideShotDistance = 15f;
 
     private SimulationControls _controls;
-    private Vector3 _targetPivotPosition; 
+    private Vector3 _targetPivotPosition;
     private Vector3 _currentPivotPosition;
     private float _targetYaw, _targetPitch, _currentYaw, _currentPitch;
     private float _targetDistance, _currentDistance;
     private float _lastInputTime;
-    private Vector3 _initialPivotPos; 
+    private Vector3 _initialPivotPos;
 
-    private void Awake() => _controls = new SimulationControls();
+    // Gestos en curso (solo pueden EMPEZAR fuera de la UI; una vez empezados, siguen aunque el puntero pase sobre un panel)
+    private bool _orbitArmed, _orbiting, _panning;
+    private Vector2 _orbitPressPos;
 
     private void Start()
     {
@@ -56,7 +65,7 @@ public class CADCameraController : MonoBehaviour
         Vector3 angles = transform.eulerAngles;
         _targetYaw = angles.y;
         _targetPitch = angles.x;
-        _targetDistance = wideShotDistance; 
+        _targetDistance = wideShotDistance;
 
         if (limitHorizontalRotation)
             _targetYaw = Mathf.Clamp(_targetYaw, horizontalAngleLimit.x, horizontalAngleLimit.y);
@@ -65,12 +74,19 @@ public class CADCameraController : MonoBehaviour
         _currentYaw = _targetYaw;
         _currentPitch = _targetPitch;
         _currentDistance = _targetDistance;
-        
+
         _lastInputTime = Time.time;
     }
 
-    private void OnEnable() => _controls.Enable();
-    private void OnDisable() => _controls.Disable();
+    // Los controles se crean aquí (no en Awake): si Unity recompila en mitad del Play, los campos no
+    // serializables vuelven a null y solo OnEnable se vuelve a llamar.
+    private void OnEnable()
+    {
+        if (_controls == null) _controls = new SimulationControls();
+        _controls.Enable();
+    }
+    private void OnDisable() => _controls?.Disable();
+    private void OnDestroy() => _controls?.Dispose();
 
     private void LateUpdate()
     {
@@ -81,9 +97,14 @@ public class CADCameraController : MonoBehaviour
 
     private bool HandleInput()
     {
-        Vector2 pointer = _controls.Player.Point.ReadValue<Vector2>();
-        if (UIBlocker.IsPointerOverUI(pointer)) return false;
+        if (UIBlocker.ModalOpen)
+        {
+            _orbitArmed = _orbiting = _panning = false;
+            return false;
+        }
 
+        Vector2 pointer = _controls.Player.Point.ReadValue<Vector2>();
+        bool overUI = UIBlocker.IsPointerOverUI(pointer);
         bool receivedInput = false;
 
         if (_controls.Player.ResetView.WasPressedThisFrame())
@@ -92,25 +113,31 @@ public class CADCameraController : MonoBehaviour
             receivedInput = true;
         }
 
-        // 1. PANEO (Con límite Y agregado)
-        if (_controls.Player.Pan.IsPressed())
+        // 1. PANEO (botón central)
+        Mouse mouse = Mouse.current;
+        if (mouse != null)
+        {
+            if (mouse.middleButton.wasPressedThisFrame) _panning = !overUI;
+            if (!mouse.middleButton.isPressed) _panning = false;
+        }
+        if (_panning)
         {
             Vector2 delta = _controls.Player.Pan.ReadValue<Vector2>();
             if (delta.sqrMagnitude > 0.1f)
             {
                 Vector3 right = transform.right * -delta.x * panSpeed;
                 Vector3 up = transform.up * -delta.y * panSpeed;
-                
+
                 _targetPivotPosition += right + up;
 
                 if (enablePanLimits)
                 {
                     // Clamp X (Lados)
                     _targetPivotPosition.x = Mathf.Clamp(_targetPivotPosition.x, panLimitX.x, panLimitX.y);
-                    
+
                     // Clamp Y (Altura) - ESTO EVITA IR AL INFINITO
                     _targetPivotPosition.y = Mathf.Clamp(_targetPivotPosition.y, panLimitY.x, panLimitY.y);
-                    
+
                     // Clamp Z (Profundidad)
                     _targetPivotPosition.z = Mathf.Clamp(_targetPivotPosition.z, panLimitZ.x, panLimitZ.y);
                 }
@@ -118,15 +145,30 @@ public class CADCameraController : MonoBehaviour
             }
         }
 
-        // 2. ÓRBITA
-        if (_controls.Player.Inspect.IsPressed())
+        // 2. ÓRBITA (clic derecho + arrastre). Un clic derecho corto NO orbita: es la ficha técnica.
+        if (_controls.Player.Inspect.WasPressedThisFrame())
+        {
+            _orbitArmed = !overUI;
+            _orbiting = false;
+            _orbitPressPos = pointer;
+        }
+        if (!_controls.Player.Inspect.IsPressed())
+        {
+            _orbitArmed = false;
+            _orbiting = false;
+        }
+        if (_orbitArmed && !_orbiting && (pointer - _orbitPressPos).sqrMagnitude > orbitStartPixels * orbitStartPixels)
+        {
+            _orbiting = true;
+        }
+        if (_orbiting)
         {
             Vector2 delta = _controls.Player.Delta.ReadValue<Vector2>();
             if (delta.sqrMagnitude > 0.1f)
             {
                 _targetYaw += delta.x * rotateSpeed * 0.1f;
                 _targetPitch -= delta.y * rotateSpeed * 0.1f;
-                
+
                 _targetPitch = Mathf.Clamp(_targetPitch, verticalAngleLimit.x, verticalAngleLimit.y);
 
                 if (limitHorizontalRotation)
@@ -138,13 +180,12 @@ public class CADCameraController : MonoBehaviour
             }
         }
 
-        // 3. ZOOM
+        // 3. ZOOM (no si la rueda está sobre un panel: ahí desplaza su texto)
         Vector2 scroll = _controls.Player.Zoom.ReadValue<Vector2>();
-        if (Mathf.Abs(scroll.y) > 0.1f)
+        if (!overUI && Mathf.Abs(scroll.y) > 0.1f)
         {
-            float zoomDir = -Mathf.Sign(scroll.y); 
-            _targetDistance += zoomDir * zoomStep;
-            _targetDistance = Mathf.Clamp(_targetDistance, zoomLimits.x, zoomLimits.y);
+            float factor = scroll.y > 0f ? 1f - zoomPercent : 1f / (1f - zoomPercent);
+            _targetDistance = Mathf.Clamp(_targetDistance * factor, zoomLimits.x, zoomLimits.y);
             receivedInput = true;
         }
 
@@ -153,16 +194,16 @@ public class CADCameraController : MonoBehaviour
 
     private void CheckIdle(bool hasInput)
     {
-        if (hasInput) _lastInputTime = Time.time; 
-        else if (Time.time - _lastInputTime > idleTimeBeforeReset) GoToWideView();
+        if (hasInput) _lastInputTime = Time.time;
+        else if (autoResetWhenIdle && Time.time - _lastInputTime > idleTimeBeforeReset) GoToWideView();
     }
 
     public void GoToWideView()
     {
-        _targetPivotPosition = _initialPivotPos; 
-        _targetDistance = wideShotDistance;      
-        _targetPitch = 45f; 
-        
+        _targetPivotPosition = _initialPivotPos;
+        _targetDistance = wideShotDistance;
+        _targetPitch = 45f;
+
         if (limitHorizontalRotation)
             _targetYaw = (horizontalAngleLimit.x + horizontalAngleLimit.y) / 2;
         else
@@ -174,8 +215,8 @@ public class CADCameraController : MonoBehaviour
     public void SetTopDownView(Transform target, float height)
     {
         _targetPivotPosition = target.position;
-        _targetPitch = 89f; 
-        
+        _targetPitch = 89f;
+
         if (limitHorizontalRotation)
             _targetYaw = (horizontalAngleLimit.x + horizontalAngleLimit.y) / 2;
         else
@@ -185,11 +226,12 @@ public class CADCameraController : MonoBehaviour
         _lastInputTime = Time.time;
     }
 
+    /// <summary>Centra la órbita en el objeto y se acerca un poco (doble clic sobre una pieza).</summary>
     public void FocusOnObject(Transform newTarget)
     {
-         _targetPivotPosition = newTarget.position;
-         if (_targetDistance > 10f) _targetDistance = 8f;
-         _lastInputTime = Time.time;
+        _targetPivotPosition = newTarget.position;
+        _targetDistance = Mathf.Clamp(_targetDistance * 0.6f, zoomLimits.x, zoomLimits.y);
+        _lastInputTime = Time.time;
     }
 
     private void ApplyMovement()
@@ -207,17 +249,17 @@ public class CADCameraController : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    // GIZMOS ACTUALIZADOS: AHORA VES LA CAJA 3D
+    // GIZMOS: la caja 3D de paneo
     private void OnDrawGizmosSelected()
     {
         if (enablePanLimits)
         {
             Gizmos.color = Color.cyan;
-            
+
             float sizeX = panLimitX.y - panLimitX.x;
             float sizeY = panLimitY.y - panLimitY.x; // Altura
             float sizeZ = panLimitZ.y - panLimitZ.x;
-            
+
             float centerX = (panLimitX.x + panLimitX.y) / 2;
             float centerY = (panLimitY.x + panLimitY.y) / 2; // Centro Y
             float centerZ = (panLimitZ.x + panLimitZ.y) / 2;

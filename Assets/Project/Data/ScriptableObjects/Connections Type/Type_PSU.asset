@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelName: Power Supply
   debugColor: {r: 1, g: 0, b: 0, a: 1}
+  displayName: "la fuente de alimentaci\u00F3n (PSU)"
+  placementHint: "La fuente va en su compartimento del gabinete (normalmente abajo y al fondo), con el ventilador hacia la rejilla de ventilaci\u00F3n."

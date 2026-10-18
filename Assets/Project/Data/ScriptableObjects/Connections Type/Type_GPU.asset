@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelName: GPU
   debugColor: {r: 0.92933357, g: 1, b: 0, a: 1}
+  displayName: "la tarjeta de video (GPU)"
+  placementHint: "La tarjeta de video va en la ranura PCIe x16: la ranura larga m\u00E1s cercana al procesador."

@@ -6,16 +6,39 @@ public class GameManager : MonoBehaviour
     // SINGLETON: Permite acceder a este script desde cualquier lado como GameManager.Instance
     public static GameManager Instance { get; private set; }
 
-    [Header("Configuración del Ensamble")]
-    [Tooltip("Cantidad total de piezas que el jugador debe colocar para ganar")]
-    public int totalPartsToInstall = 1; 
-    
-    // Contador interno
-    private int _installedParts = 0;
+    // El objetivo ya NO se escribe a mano (antes totalPartsToInstall = 4, AUDITORIA §13.1):
+    // el laboratorio está completo cuando todos los sockets "required" están ocupados.
+    // Añadir una pieza = añadir su socket; no hay contador que sincronizar.
 
-    // EVENTOS: Noticias que emitimos al resto del juego (pueden ser escuchados por otros scripts)
-    public event Action<string> OnPartInstalled; // Avisa: "Se instaló la pieza X"
-    public event Action OnAssemblyComplete;      // Avisa: "¡Juego Terminado!"
+    /// <summary>Lugares que hay que completar (sockets con <c>required</c>).</summary>
+    public int TotalRequired
+    {
+        get
+        {
+            int total = 0;
+            foreach (var s in SocketSystem.All) if (s.required) total++;
+            return total;
+        }
+    }
+
+    /// <summary>Lugares requeridos ya completados.</summary>
+    public int InstalledCount
+    {
+        get
+        {
+            int done = 0;
+            foreach (var s in SocketSystem.All) if (s.required && s.IsComplete) done++;
+            return done;
+        }
+    }
+
+    // EVENTOS: Noticias que emitimos al resto del juego (el HUD se suscribe)
+    public event Action<string> OnPartInstalled;      // "Se instaló la pieza X"
+    public event Action<string> OnPartRemoved;        // "Se retiró la pieza X"
+    public event Action<int, int> OnProgressChanged;  // (instaladas, total)
+    public event Action OnAssemblyComplete;           // "¡Ensamble terminado!"
+
+    private bool _finished;
 
     private void Awake()
     {
@@ -26,48 +49,56 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
+    }
+
+    // Recupera el singleton si Unity recompiló en mitad del Play (los estáticos vuelven a null).
+    private void OnEnable()
+    {
+        if (Instance == null) Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
     }
 
     private void Start()
     {
-        Debug.Log($"🏁 Inicio de Simulación. Piezas requeridas para ganar: {totalPartsToInstall}");
+        Debug.Log($"🏁 Inicio de Simulación. Lugares a completar: {TotalRequired}");
     }
 
     // Esta función la llama el SocketSystem cuando una pieza encaja correctamente
     public void RegisterInstallation(string partName)
     {
-        _installedParts++;
-        
-        Debug.Log($"📈 Progreso: {_installedParts}/{totalPartsToInstall}");
+        int done = InstalledCount, total = TotalRequired;
+        Debug.Log($"📈 Progreso: {done}/{total}");
 
-        // 1. Lanzar el evento de progreso
         OnPartInstalled?.Invoke(partName);
+        OnProgressChanged?.Invoke(done, total);
 
-        // 2. Verificar si ya ganamos
-        if (_installedParts >= totalPartsToInstall)
+        // Verificar si ya ganamos
+        if (!_finished && total > 0 && done >= total)
         {
             FinishSimulation();
         }
     }
 
+    // La llama el SocketSystem cuando el estudiante retira una pieza instalada
+    public void UnregisterInstallation(string partName)
+    {
+        OnPartRemoved?.Invoke(partName);
+        OnProgressChanged?.Invoke(InstalledCount, TotalRequired);
+    }
+
     // Lógica de Victoria
     private void FinishSimulation()
     {
+        _finished = true;
         Debug.Log("🎉 ¡ENSAMBLE COMPLETADO! ¡FELICIDADES!");
-        
-        // Lanzar evento de victoria
-        OnAssemblyComplete?.Invoke();
 
-        // --- CONEXIÓN CON LA UI (HUD en UI Toolkit) ---
-        if (AssemblyHudView.Instance != null)
-        {
-            AssemblyHudView.Instance.ShowVictory();
-        }
-        else
-        {
-            Debug.LogError("❌ GameManager intentó mostrar victoria, pero no encontró una instancia de AssemblyHudView en la escena.");
-        }
+        // El HUD (AssemblyHudView) está suscrito y abre el modal de victoria.
+        OnAssemblyComplete?.Invoke();
     }
 }

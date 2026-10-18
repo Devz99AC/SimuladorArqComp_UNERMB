@@ -2,7 +2,7 @@
 
 Guía de arquitectura y **mapa de conexiones** del proyecto. Este archivo se carga en cada sesión de Claude Code: mantenlo actualizado cuando cambien las conexiones.
 
-> Auditoría técnica completa en [AUDITORIA_TECNICA.md](AUDITORIA_TECNICA.md). Estado y prioridades en [HANDOFF.md](HANDOFF.md).
+> Auditoría técnica completa en [AUDITORIA_TECNICA.md](AUDITORIA_TECNICA.md). Estado y prioridades en [HANDOFF.md](HANDOFF.md). **Parte práctica (3 labs: ATX / compacta / laptop, cables): diagnóstico y plan en [Docs/Plan_Laboratorios_Practicos.md](Docs/Plan_Laboratorios_Practicos.md).**
 
 ---
 
@@ -43,12 +43,18 @@ Retornos: AssemblyLab/TheoryModule ──> ModeSelection ──BackToMenu──>
 
 | Script | Ubicación | Escena | Rol |
 |---|---|---|---|
-| `GameManager` | Systems/Interaction | AssemblyLab | Singleton. Cuenta piezas, dispara victoria |
-| `InteractionManager` | Systems/Interaction | AssemblyLab | Raycast, hover, drag & drop, orquesta cámara y UI |
-| `ObjectHighlighter` | Systems/Interaction | (por pieza) | Aplica material de resaltado (hover/drag) |
-| `PCPart` | Systems/Assembly | (por pieza) | Datos de pieza + lógica de snap |
-| `SocketSystem` | Systems/Assembly | (por socket) | Validación de compatibilidad + instalación |
-| `CADCameraController` | Systems/Camera | AssemblyLab | Órbita/pan/zoom estilo CAD, auto-reset idle |
+| `GameManager` | Systems/Interaction | AssemblyLab | Singleton. Objetivo = sockets `required` (auto). Eventos de progreso/victoria |
+| `InteractionManager` | Systems/Interaction | AssemblyLab | Raycast, hover, clic vs. arrastre, encaje/retirada, fantasmas, feedback al HUD |
+| `PlacementPreview` | Systems/Interaction | — | POCO. Fantasmas translúcidos de la pieza en los lugares compatibles |
+| `IDragConstraint` | Systems/Interaction | — | Interfaz: limita posición/rotación al arrastrar (la implementa `CablePlug`) |
+| `ObjectHighlighter` | Systems/Interaction | (por pieza) | Aplica material de resaltado (hover/drag) vía `sharedMaterials` |
+| `PCPart` | Systems/Assembly | (por pieza) | Datos de pieza + `BeginDrag`/`InstallInto`/`ReturnToTable` animados |
+| `SocketSystem` | Systems/Assembly | (por socket) | Registro `All`, `Evaluate` (con motivo), `requires` (orden), instalar/retirar, `FindTarget` |
+| `CompatResult` | Systems/Assembly | — | struct: Ok + Message + Reason (el "porqué" en español) |
+| `CableSpline` | Systems/Cables | (por cable) | Tubo procedural Bézier entre anclas, puntos de paso, holgura, longitud finita (`[ExecuteAlways]`) |
+| `CablePlug` | Systems/Cables | (conector) | Extremo arrastrable de un cable: limita el alcance y lo orienta |
+| `CableMenu` | Systems/Cables/Editor | — | `GameObject ▸ Simulador ▸ Cable (spline)` / `Puerto de cable` |
+| `CADCameraController` | Systems/Camera | AssemblyLab | Órbita (clic der. + arrastre con umbral)/pan/zoom proporcional. Auto-reset idle opcional (off) |
 | `UIManager` | Scripts | AssemblyLab | Singleton. Paneles HUD, ficha, victoria, settings |
 | `MainMenuManager` | Scripts | MainMenu | ⚠️ **Reemplazado por `MainMenuView` (UITK)**; `MenuController` + `Canvas` uGUI **sacados de la escena** a un prefab de respaldo `UI/_Legacy/MainMenu_LegacyUGUI.prefab` |
 | `MainMenuView` | UI/MainMenu | MainMenu | **UITK**. Controlador del `UIDocument` del menú: binding, modales, settings (vía `SettingsService`), fondo animado |
@@ -69,27 +75,34 @@ Retornos: AssemblyLab/TheoryModule ──> ModeSelection ──BackToMenu──>
 
 ## 4. Conexiones del sistema de ensamblaje (el núcleo) ⭐
 
-**Cadena de datos completa de "arrastrar y encajar una pieza":**
+**Cadena de datos completa de "arrastrar y encajar una pieza"** (reescrita 2026-10-17):
 
 ```
-InteractionManager (Update)
+InteractionManager (Update)   — congelado si UIBlocker.ModalOpen
   ├─ HandleHover()  → ObjectHighlighter.SetHighlight(hoverMaterial)   [naranja]
-  ├─ HandleLeftClick()
-  │     → CADCameraController.SetTopDownView()/FocusOnObject()
-  │     → guarda _currentPart, ObjectHighlighter.SetHighlight(dragMaterial)  [verde]
-  ├─ MovePart()  → mueve la pieza sobre un Plane, clamp a los límites de la mesa
-  └─ HandleRelease()
-        → PCPart.TryToSnap()
-             → Physics.OverlapSphere(pos, 0.5f)   [busca colliders cercanos]
-             → SocketSystem.CanAccept(part)
-                   → !isOccupied && part.connectionType == allowedType   [ÚNICA regla]
-             → SocketSystem.InstallPart(part)
-                   → reparenta al snapPoint, isOccupied = true
-                   → GameManager.Instance.RegisterInstallation(partName)
-                        → _installedParts++; OnPartInstalled?.Invoke()
-                        → si _installedParts >= totalPartsToInstall → FinishSimulation()
-                             → OnAssemblyComplete?.Invoke()
-                             → UIManager.Instance.ShowVictory()   [llamada directa]
+  ├─ HandleLeftPress() → guarda _pressPart (aún NO es arrastre; un clic no desinstala)
+  ├─ CheckDragStart() → si el ratón se movió > dragStartPixels:
+  │     → si está instalada: SocketSystem.EvaluateRemoval()  (¿otro lugar depende de este? → toast aviso)
+  │     → BeginDrag(): PCPart.BeginDrag() [libera su socket → GameManager.UnregisterInstallation]
+  │                    plano elevado (liftHeight) + desfase de agarre; PlacementPreview.Show(part) [fantasmas];
+  │                    SetHighlight(dragMaterial)
+  ├─ DragUpdate() → sigue al cursor (IDragConstraint opcional: cables) →
+  │     SocketSystem.FindTarget(part) [centro visual instalado vs. actual, tolerancia ∝ tamaño]
+  │        → fantasma intenso si encaja / borde rojo (_rejectMaterial) si no
+  ├─ HandleLeftRelease()
+  │     → arrastre: EndDrag() → FindTarget → result.Ok ?
+  │          sí: PCPart.InstallInto(socket) → Reserve → anima (encima → baja) → IsInstalled=true
+  │              → SocketSystem.InstallPart → GameManager.RegisterInstallation
+  │                   → OnPartInstalled, OnProgressChanged(n,total) → si n == total: OnAssemblyComplete
+  │                        → AssemblyHudView.ShowVictory()   [suscrito al evento]
+  │              + AssemblyHudView.ShowFeedback("Instalado: …", Success)
+  │          no: ShowFeedback(result.Message, Error, result.Reason) si soltó sobre un lugar; PCPart.ReturnToTable()
+  │     → clic: doble clic sobre la misma pieza → CADCameraController.FocusOnObject()
+  └─ Clic derecho: al SOLTAR y sin moverse (≤ dragStartPixels) → AssemblyHudView.ShowPartInfo()
+                   (si se movió, era órbita de la cámara)
+
+SocketSystem.Evaluate(part):  null-guard → ocupado → tipo ≠ allowedType (motivo: "Aquí va X. " + placementHint)
+                              → requires sin completar ("Antes hay que instalar X.") → Accept
 ```
 
 **Componentes de datos (ScriptableObjects como "clave de compatibilidad"):**
@@ -100,9 +113,13 @@ InteractionManager (Update)
 | SnapGPU | `Type_GPU` | GPU |
 | SnapRAM1 / SnapRAM2 | `Type_RAM` | RAM (×2) |
 | *(no existe)* | `Type_PSU`, `Type_HDD` | ⚠️ definidos pero **sin socket** — piezas no instalables |
+| *(por crear: puertos de cable)* | `Type_ATX24`, `Type_EPS8`, `Type_PCIePower`, `Type_SATAPower`, `Type_SATAData` | conectores de cable (`CablePlug`) |
 
-- `GameManager.totalPartsToInstall = 4` (CPU + GPU + 2×RAM). **Se sincroniza a mano** — si añades piezas/sockets, actualízalo (frágil, ver AUDITORIA §13.1).
+- **Objetivo automático:** el lab se completa cuando todos los `SocketSystem` con `required = true` están ocupados por una pieza asentada. Ya no hay contador manual (`totalPartsToInstall` eliminado).
+- `ConnectionTypeSO.displayName` / `placementHint` son los textos del motivo de rechazo: rellénalos en cada tipo nuevo.
 - La escena tiene **~28 `PCPart`**, pero solo **4 son `isDraggable`**; el resto son etiquetas informativas fijas (`isDraggable=0` → `IsInstalled=true` en `Start`).
+- **Cables en AssemblyLab (2026-10-17):** `Cable ATX 24 pines` y `Cable EPS 8 pines (CPU)` (bajo `Desk`) ya usan `CableSpline` + `CablePlug`, con sus puertos `Puerto ATX 24 pines` / `Puerto EPS 8 pines` en `Desk/SnapPoints` (`required` → el objetivo pasa a **6**). Apoyo en la mesa: `Desk/Mesa (apoyo de cables)` (y = 6.5725). Los IK `Cable PSU`/`Cable PSU2` están **desactivados** (no borrados). Quedan con IK `CableHDD`/`CableHDDEnergy` (SATA, decorativos). Los dos módulos de RAM se movieron 0.15 a la izquierda para dejar el pasillo de los cables.
+- Los puertos van bajo `SnapPoints` (escala 1), **nunca** bajo la placa: su escala no uniforme (49×58×46) deformaría el conector instalado.
 
 ---
 
@@ -114,7 +131,7 @@ InteractionManager (Update)
 | `GameManager.Instance` | AssemblyLab | por escena | Destruye duplicados en `Awake` |
 | `UIManager.Instance` | AssemblyLab | por escena | Destruye duplicados en `Awake` |
 
-**Eventos** (`GameManager`): `OnPartInstalled(string)`, `OnAssemblyComplete()` — **declarados pero sin suscriptores**; la victoria se resuelve con llamada directa `UIManager.Instance.ShowVictory()`. Al refactorizar, migrar a suscripción por eventos (AUDITORIA §3.1).
+**Eventos** (`GameManager`): `OnPartInstalled(string)`, `OnPartRemoved(string)`, `OnProgressChanged(int installed, int total)`, `OnAssemblyComplete()`. `AssemblyHudView` se suscribe en `Start` (progreso + victoria) y se da de baja en `OnDestroy`. `TotalRequired`/`InstalledCount` se calculan en vivo desde `SocketSystem.All` (los sockets se registran en `OnEnable`, antes de cualquier `Start`).
 
 ---
 
@@ -123,8 +140,8 @@ InteractionManager (Update)
 Mapa **Player** (usado en AssemblyLab): `Point` (posición ratón), `Delta`, `Select` (click izq), `Inspect` (click der), `Zoom` (scroll), `Pan` (botón central + arrastre), `ResetView` (Espacio), `ToggleInstructions` (tecla I).
 Mapa **UI**: navegación estándar (Point, Click, Scroll, Maps, Submit, Cancel).
 
-⚠️ **Conflicto conocido**: `Inspect` (click der) hace dos cosas a la vez — abre ficha en `InteractionManager` **y** orbita cámara en `CADCameraController` (AUDITORIA §6.1).
-⚠️ Se instancian **dos** `new SimulationControls()` (InteractionManager + CADCameraController) y ninguno hace `Dispose()`.
+`Inspect` (click der) **ya no tiene conflicto**: la cámara solo orbita si el ratón se mueve > `orbitStartPixels` con el botón pulsado; `InteractionManager` abre la ficha al soltar solo si no hubo movimiento (AUDITORIA §6.1 resuelto).
+Se instancian **dos** `new SimulationControls()` (InteractionManager + CADCameraController); ambos hacen `Dispose()` en `OnDestroy`.
 
 ---
 
@@ -148,7 +165,7 @@ Mapa **UI**: navegación estándar (Point, Click, Scroll, Maps, Submit, Cancel).
 
 ## 9. Cómo trabajar en este repo
 
-**Añadir un componente ensamblable hoy** (proceso manual, frágil): crear/ubicar prefab con `PCPart` + `ObjectHighlighter` + collider en layer `Interactable` → asignar `connectionType` → crear `SocketSystem` con `allowedType` + `snapPoint` → **incrementar `GameManager.totalPartsToInstall`** → rellenar `title`/`description` en el inspector. *(El refactor data-driven de la auditoría reduce esto a "crear un SO + arrastrar prefab".)*
+**Añadir un componente ensamblable hoy**: crear/ubicar prefab con `PCPart` + `ObjectHighlighter` + collider en layer `Interactable` → asignar `connectionType` (con `displayName`/`placementHint` rellenos) → crear `SocketSystem` con `allowedType` + `snapPoint` (la pieza queda con la pose del snapPoint) → `required` si cuenta para completar, `requires` si exige otro lugar antes → rellenar `title`/`description`. El objetivo de victoria se recalcula solo. *(El refactor data-driven de la auditoría reduce esto a "crear un SO + arrastrar prefab".)*
 
 **Añadir un tema teórico**: crear un `TheoryTopicSO` (menú `Assets/Create/Simulador/Theory Topic`), rellenar `contentText` con el marcado ligero (`## título`, `- viñeta`, `1.` numerada, `: Término | Definición`, `> dato clave`, `**negrita**`) y añadirlo al array `topics` de la `TheoryUnitSO` correspondiente. El índice y la navegación se reconstruyen solos.
 
@@ -157,6 +174,8 @@ Mapa **UI**: navegación estándar (Point, Click, Scroll, Maps, Submit, Cancel).
 **Consistencia entre pantallas**: los valores que deben coincidir en varias vistas viven como tokens en `UI/Common/variables.uss`, no duplicados en cada hoja. Ejemplo: `--menu-panel-width` (ancho del panel lateral) lo comparten MainMenu y ModeSelection — duplicarlo provocó un salto visible al cambiar de escena. Si un ajuste afecta a dos pantallas, hazlo token.
 
 **Reparación del editor** (`Tools/`, fuera de `Assets/`): `reparar-shadergraph.ps1` borra el caché del paquete Shader Graph; `reparar-libreria.ps1` borra `Library/` salvo `PackageCache`. Ambos exigen Unity cerrado. Se usaron para un caso real de corrupción de disco (430 archivos del paquete rellenos de bytes nulos tras un cierre sucio) que se manifestaba como `undeclared identifier 'DecodeHDRSample'` en todos los Shader Graph. Lección: borrar el `PackageCache` no basta — la `ArtifactDB` conserva las huellas viejas y Unity marca el paquete como *immutable package unexpectedly altered*, y entonces no compila sus ensamblados de editor.
+
+**Unity CLI + Pipeline** (instalado 2026-10-17, `com.unity.pipeline` en el manifest): con el editor abierto, `unity command <cmd> --project-path "C:\Users\devin\SimuladorArqComp_UNERMB"` lo controla en vivo (`unity status` → `ready`). Útiles: `open_scene`, `editor_play`/`editor_stop`, `console`/`console_status`, `eval --code '...'`, `get_scene_hierarchy`, `save_scene`. ⚠️ `capture_game_view --save_path X` guarda **dentro de `Assets/`** (crea `Assets/X`; una ruta fuera del proyecto falla y deja un error en la consola): borrarlo después con `AssetDatabase.DeleteAsset`. ⚠️ Antes de cambiar de escena por CLI, vaciar la selección (`Selection.activeObject = null`): el overlay de Animation Rigging (`RigEffectorWizard.cs:35`) no comprueba si el Transform seleccionado fue destruido y lanza `MissingReferenceException` si la escena con los cables IK se descarga con un rig seleccionado (bug del paquete, solo en el editor e inofensivo; desaparece al quitar los cables IK). **Pruebas en Play por CLI:** `simulate_pointer` no llega al juego (el `Mouse.current` se queda en 0,0 aunque se ponga `InputSettings.editorInputBehaviorInPlayMode = AllDeviceInputAlwaysGoesToGameView` y `backgroundBehavior = IgnoreFocus`). Para probar la lógica de encaje, llamar por `eval` a lo mismo que `InteractionManager`: `PCPart.BeginDrag` → mover → `SocketSystem.FindTarget` → `PCPart.InstallInto`. Si se cambian esos ajustes de input, restaurarlos después (están en memoria, no en un asset). Para capturar sin crear assets: cámara temporal con `HideAndDontSave` → RenderTexture → `File.WriteAllBytes` fuera del proyecto. Unity recompila en cuanto detecta un cambio en un `.cs`, aunque esté en Play: no editar código con el Play abierto (los estáticos/singletons vuelven a null; los managers ya se recuperan en `OnEnable`). **Blender 4.5** instalado en `C:\Program Files\Blender Foundation\Blender 4.5\blender.exe` (no está en el PATH) para preparar modelos por script.
 
 **Unity MCP**: hay integración MCP con el editor (`Project Settings > AI > Unity MCP`). Si devuelve "Connection revoked", el usuario debe aprobar el cliente en ese panel y **reconectar el servidor MCP** (una aprobación nueva no se aplica a una sesión ya iniciada). Puede haber varias instancias de Unity abiertas: dejar solo la de este proyecto.
 
@@ -167,9 +186,10 @@ Mapa **UI**: navegación estándar (Point, Click, Scroll, Maps, Submit, Cancel).
 ## 10. Deuda técnica prioritaria (resumen — detalle en AUDITORIA_TECNICA.md)
 
 1. 🔴 **Modelo de datos**: componentes no data-driven; textos hardcodeados en la escena → crear `ComponentSpecSO`.
-2. 🔴 **Compatibilidad**: una sola regla (igualdad de tipo); sin motor de reglas ni "porqué" educativo; sin tests.
+2. 🟠 **Compatibilidad**: igualdad de tipo + orden (`requires`) con "porqué" educativo (`CompatResult`); faltan reglas de dimensiones/consumo y tests.
 3. 🟠 **Rendimiento**: 607k tris / ~259 draw calls en AssemblyLab; modelos de 200k+.
-4. 🟠 **UX**: sin feedback de acierto/rechazo, sin undo/desinstalar, conflicto de click derecho.
+4. 🟢 **UX**: feedback de acierto/rechazo, desinstalar, fantasmas y conflicto de click derecho → **resueltos** (2026-10-17, pendiente de prueba en Play).
+4b. 🔴 **Labs**: sin gabinete/laptop/compacta; escalas no uniformes; cables antiguos de ChainIK → ver `Docs/Plan_Laboratorios_Practicos.md`.
 5. 🟡 **Duplicación**: settings clonados → **ya resuelto en `SettingsService`** (§11); `AudioManager` ausente en AssemblyLab.
 
 ---
@@ -199,3 +219,17 @@ Se está reemplazando la UI uGUI por **UI Toolkit**, escena por escena. Trabajar
 **Patrón de limpieza por escena** (establecido en MainMenu): al migrar, agrupar la UI uGUI vieja (Canvas + su manager) bajo un root, guardarla como prefab en `Assets/Project/UI/_Legacy/<Escena>_LegacyUGUI.prefab` y **quitarla de la escena** (no borrarla del proyecto). Conservar `EventSystem` (input UITK) y `AudioManager`. Al final, revisar `UISoundController`/`BackgroundScroller` y `[SerializeField]` de UI muertos.
 
 **Migración terminada.** Todas las escenas usan UI Toolkit. Managers uGUI vivos que quedaron: ninguno en escena (respaldados en `_Legacy/`). `UIManager.cs`/`MainMenuManager.cs`/`ModeSelectionManager.cs`/`TheoryManager.cs` siguen como archivos en el proyecto (referenciados solo por los prefabs `_Legacy/`).
+
+---
+
+## 12. Cables (`Systems/Cables/`) y laboratorios prácticos
+
+Plan completo (diagnóstico, 3 labs, assets): [Docs/Plan_Laboratorios_Practicos.md](Docs/Plan_Laboratorios_Practicos.md).
+
+- **`CableSpline`** reemplaza a los cables de ChainIK (segmentos rígidos con `Target` estático). Bézier cúbica por tramos: sale recto de cada ancla por su **eje Z+ (= hacia donde sale el cable)**, Catmull-Rom en `waypoints`, holgura = `Length` − recorrido combada hacia `slackDirection`, `restSurface` opcional (no la atraviesa), perfil `Round`/`Flat` con corrección de giro (la cinta llega orientada a `endAnchor.up`). Malla `DontSave` regenerada solo si algo se mueve; `[ExecuteAlways]` → se ve al trazarla en el editor. `length <= 0` → automática (recorrido inicial × `autoSlack`), fijada al entrar en Play.
+- **`CablePlug`** = extremo arrastrable. Va con un `PCPart` (`connectionType` = `Type_ATX24`…) y es el `endAnchor` del cable → reutiliza fantasma/rechazo/progreso/desinstalar. Implementa `IDragConstraint` (`ClampToReach` + orientación al arrastrar).
+- **Puerto** = `SocketSystem` normal con el tipo del conector; su `snapPoint` con Z+ **hacia fuera** del puerto.
+- Crear: `GameObject ▸ Simulador ▸ Cable (spline)` / `Puerto de cable` (`CableMenu.cs`). Material por defecto `Content/Resources/Mat_Cable.mat`.
+- Fantasmas de colocación: `Content/Resources/Mat_GhostPreview.mat` (shader `Custom/GhostPreview`, URP, translúcido + Fresnel; alfa por `MaterialPropertyBlock._BaseColor`).
+
+**Verificación sin editor:** con el editor sin conexión (sin MCP / sin `com.unity.pipeline`), se compila con una copia del `Assembly-CSharp.csproj` que incluye todos los `.cs` (también `Editor/`) y salida al scratchpad: `dotnet build` → 0 errores. LangVersion 9 / netstandard2.1: no usar `record` ni `init`.

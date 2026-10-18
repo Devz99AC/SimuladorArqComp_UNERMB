@@ -8,11 +8,13 @@ using UnityEngine.UIElements;
 /// <summary>
 /// Controlador UI Toolkit del HUD del Laboratorio de Ensamblaje. Reemplaza a
 /// UIManager (uGUI). Mantiene el mismo punto de entrada por singleton
-/// (<see cref="Instance"/>) para InteractionManager (<c>ShowPartInfo</c>) y
-/// GameManager (<c>ShowVictory</c>).
+/// (<see cref="Instance"/>) para InteractionManager (<c>ShowPartInfo</c>,
+/// <c>ShowFeedback</c>). Progreso y victoria llegan por eventos de GameManager
+/// (<c>OnProgressChanged</c>, <c>OnAssemblyComplete</c>).
 ///
 /// Piezas del HUD (según mockups): Instrucciones (arriba-izq), Ficha técnica
-/// (izq, al clic derecho), botones ayuda/⚙ (arriba-der) y modales Opciones/
+/// (izq, al clic derecho), progreso (arriba-centro), toast de acierto/rechazo
+/// (abajo-centro), botones ayuda/⚙ (arriba-der) y modales Opciones/
 /// Victoria. El bloqueo del raycast puntero-sobre-UI y la congelación de la
 /// simulación se resuelven con <see cref="UIBlocker"/> (los managers de
 /// interacción/cámara lo consultan; los modales activan <c>UIBlocker.ModalOpen</c>).
@@ -36,6 +38,10 @@ public class AssemblyHudView : MonoBehaviour
     private Label _infoDesc;
     private ModalPanel _settingsModal;
     private ModalPanel _victoryModal;
+    private FeedbackToast _toast;
+    private Label _progressLabel;
+    private VisualElement _progressFill;
+    private GameManager _game;
 
     // Settings widgets
     private VisualElement _volIcon;
@@ -65,6 +71,18 @@ public class AssemblyHudView : MonoBehaviour
         _infoDesc = root.Q<Label>("info-desc");
         _settingsModal = root.Q<ModalPanel>("settings-modal");
         _victoryModal = root.Q<ModalPanel>("victory-modal");
+        _toast = root.Q<FeedbackToast>("feedback-toast");
+        _progressLabel = root.Q<Label>("progress-label");
+        _progressFill = root.Q<VisualElement>("progress-fill");
+
+        // --- Progreso y victoria por EVENTOS (antes: llamada directa desde GameManager) ---
+        _game = GameManager.Instance;
+        if (_game != null)
+        {
+            _game.OnProgressChanged += RefreshProgress;
+            _game.OnAssemblyComplete += ShowVictory;
+            RefreshProgress(_game.InstalledCount, _game.TotalRequired);
+        }
 
         root.Q<Button>("instructions-close").clicked += () => SetInstructions(false);
         root.Q<Button>("info-close").clicked += CloseInfoPanel;
@@ -107,6 +125,12 @@ public class AssemblyHudView : MonoBehaviour
             ToggleInstructions();
     }
 
+    // Recupera el singleton si Unity recompiló en mitad del Play (los estáticos vuelven a null).
+    private void OnEnable()
+    {
+        if (Instance == null) Instance = this;
+    }
+
     private void OnDisable()
     {
         UIBlocker.Clear();
@@ -114,6 +138,11 @@ public class AssemblyHudView : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_game != null)
+        {
+            _game.OnProgressChanged -= RefreshProgress;
+            _game.OnAssemblyComplete -= ShowVictory;
+        }
         if (Instance == this) Instance = null;
     }
 
@@ -148,7 +177,29 @@ public class AssemblyHudView : MonoBehaviour
     {
         CloseInfoPanel();
         SetInstructions(false);
+        if (_toast != null) _toast.Hide();
         if (_victoryModal != null) _victoryModal.Open();
+    }
+
+    /// <summary>
+    /// Feedback del ensamblaje: icono + texto + motivo (nunca solo color). Los errores
+    /// duran más porque traen el "porqué" que hay que leer.
+    /// </summary>
+    public void ShowFeedback(string message, ToastKind kind, string reason = null)
+    {
+        if (_toast == null || UIBlocker.ModalOpen) return;
+        int duration = kind == ToastKind.Error ? 5000 : 1800;
+        _toast.Show(message, kind, reason, null, duration);
+    }
+
+    private void RefreshProgress(int installed, int total)
+    {
+        if (_progressLabel != null) _progressLabel.text = "COMPONENTES " + installed + " / " + total;
+        if (_progressFill != null)
+        {
+            float pct = total > 0 ? 100f * installed / total : 0f;
+            _progressFill.style.width = Length.Percent(pct);
+        }
     }
 
     public void ToggleInstructions()

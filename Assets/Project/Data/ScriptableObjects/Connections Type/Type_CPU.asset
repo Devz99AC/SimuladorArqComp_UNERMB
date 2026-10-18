@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labelName: CPU_Socket
   debugColor: {r: 1, g: 0, b: 0, a: 1}
+  displayName: "el procesador (CPU)"
+  placementHint: "El procesador va en el socket de la placa base (el cuadro central con palanca). Alinea el tri\u00E1ngulo dorado de una esquina con el del socket y no hagas fuerza."

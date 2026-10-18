@@ -220,11 +220,7 @@ MonoBehaviour:
   partName: Unidad Central de Procesamiento (CPU)
   connectionType: {fileID: 11400000, guid: 7c39cd17fa08f5c42ab5f7ae66842ea3, type: 2}
   title: Unidad Central de Procesamiento (CPU)
-  description: "Es el \"cerebro\" del computador. Se encarga de interpretar las instrucciones
-    de los programas y procesar los datos. Realiza operaciones aritm\xE9ticas, l\xF3gicas
-    y de entrada/salida b\xE1sicas. Su velocidad y capacidad determinan qu\xE9 tan
-    r\xE1pido el equipo puede \"pensar\" y ejecutar tareas.\nSe instala en el Z\xF3calo
-    (Socket) de la placa base."
+  description: "Es el \"cerebro\" del computador. Se encarga de interpretar las instrucciones de los programas y procesar los datos. Realiza operaciones aritm\xE9ticas, l\xF3gicas y de entrada/salida b\xE1sicas. Su velocidad y capacidad determinan qu\xE9 tan r\xE1pido el equipo puede \"pensar\" y ejecutar tareas.\nSe instala en el Z\xF3calo (Socket) de la placa base."
 --- !u!1001 &98245280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,9 +389,7 @@ MonoBehaviour:
   partName: Cable de Datos SATA
   connectionType: {fileID: 0}
   title: Cable de Datos SATA
-  description: "SATA (Serial Advanced Technology Attachment) transmite datos en serie
-    bit a bit.\n\nEs el \"puente de informaci\xF3n\" entre la Placa Base y las unidades
-    de almacenamiento (Discos Duros, SSDs de 2.5\", Lectores de DVD)."
+  description: "SATA (Serial Advanced Technology Attachment) transmite datos en serie bit a bit.\n\nEs el \"puente de informaci\xF3n\" entre la Placa Base y las unidades de almacenamiento (Discos Duros, SSDs de 2.5\", Lectores de DVD)."
 --- !u!114 &170275767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +614,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88fdab4b58161c44fb9d63c36695bfde, type: 3}
   m_PrefabInstance: {fileID: 214171782}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &234337035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234337036}
+  - component: {fileID: 234337037}
+  m_Layer: 0
+  m_Name: Puerto ATX 24 pines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234337036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234337035}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.51100004, y: 5.6322665, z: 0.097792506}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 990342027}
+  m_Father: {fileID: 1206000576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &234337037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234337035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca26b595c30dd64c9a57d13498aa298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SocketSystem
+  allowedType: {fileID: 11400000, guid: b13c350c014744c39fe5256540d7729c, type: 2}
+  snapPoint: {fileID: 990342027}
+  required: 1
+  snapRadius: 0.12
+  requires: []
+  isOccupied: 0
 --- !u!1 &239202843
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,6 +1032,180 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7187ec0bea0b9a0429da114d620c18e0, type: 3}
   m_PrefabInstance: {fileID: 352458200}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &367934878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367934879}
+  - component: {fileID: 367934885}
+  - component: {fileID: 367934884}
+  - component: {fileID: 367934880}
+  - component: {fileID: 367934883}
+  - component: {fileID: 367934882}
+  - component: {fileID: 367934881}
+  m_Layer: 3
+  m_Name: Cable EPS 8 pines (CPU)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &367934879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.02000007, y: 5.713766, z: 0.21079248}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2114616874}
+  - {fileID: 1587974819}
+  m_Father: {fileID: 3261297533279819866}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &367934880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d756dcf966f1a8346ae00ff1fc921b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableSpline
+  startAnchor: {fileID: 2114616874}
+  endAnchor: {fileID: 1587974819}
+  waypoints: []
+  profile: 0
+  radius: 0.016
+  flatHalfThickness: 0.005
+  radialSegments: 10
+  samplesPerUnit: 60
+  stiffness: 0.06
+  length: 0.85
+  autoSlack: 1.15
+  slackDirection: {x: 0, y: -1, z: 0}
+  slackAmount: 0.4
+  restSurface: {fileID: 2013911545}
+  updateCollider: 1
+--- !u!114 &367934881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301dad57368281b4ab91dc99d0bf3a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectHighlighter
+--- !u!114 &367934882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCPart
+  isDraggable: 0
+  partName: Cable EPS de 8 pines (CPU)
+  connectionType: {fileID: 0}
+  title: Cable EPS de 8 pines (CPU)
+  description: "Alimenta al procesador con +12 V a trav\xE9s de los reguladores de voltaje (VRM) de la placa. Sin \xE9l la PC no arranca, aunque el ATX de 24 pines est\xE9 conectado."
+--- !u!64 &367934883
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!23 &367934884
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 14177cdb700642759b215e547ba22153, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &367934885
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367934878}
+  m_Mesh: {fileID: 0}
 --- !u!1 &408105264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,11 +1240,19 @@ MonoBehaviour:
     m_Bits: 8
   hoverMaterial: {fileID: 2100000, guid: 971c4fb303799b54384b0599e7fc88b2, type: 2}
   dragMaterial: {fileID: 2100000, guid: eaa19f2b0371e3846b8308eed839baa8, type: 2}
-  dragHeight: 0.001
+  ghostMaterial: {fileID: 0}
+  showPlacementHints: 1
+  ghostIdleColor: {r: 0.35, g: 0.85, b: 1, a: 0.16}
+  ghostTargetColor: {r: 0.35, g: 1, b: 0.6, a: 0.5}
+  rejectOutlineColor: {r: 0.9, g: 0.28, b: 0.3, a: 1}
+  liftHeight: 0.12
+  followSharpness: 25
+  settleDuration: 0.3
+  dragStartPixels: 6
+  doubleClickSeconds: 0.3
   tableLimitSize: 3
   maxRayDistance: 10
   assemblyZone: {fileID: 0}
-  topDownHeight: 5
 --- !u!4 &408105266
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,6 +1267,211 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &477041958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 477041959}
+  - component: {fileID: 477041965}
+  - component: {fileID: 477041964}
+  - component: {fileID: 477041960}
+  - component: {fileID: 477041963}
+  - component: {fileID: 477041962}
+  - component: {fileID: 477041961}
+  m_Layer: 3
+  m_Name: Cable ATX 24 pines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477041959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.12999997, y: 5.713766, z: 0.21079248}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 834264591}
+  - {fileID: 1533047875}
+  m_Father: {fileID: 3261297533279819866}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &477041960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d756dcf966f1a8346ae00ff1fc921b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CableSpline
+  startAnchor: {fileID: 834264591}
+  endAnchor: {fileID: 1533047875}
+  waypoints: []
+  profile: 0
+  radius: 0.022
+  flatHalfThickness: 0.005
+  radialSegments: 10
+  samplesPerUnit: 60
+  stiffness: 0.06
+  length: 1.08
+  autoSlack: 1.15
+  slackDirection: {x: 0, y: -1, z: 0}
+  slackAmount: 0.4
+  restSurface: {fileID: 2013911545}
+  updateCollider: 1
+--- !u!114 &477041961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301dad57368281b4ab91dc99d0bf3a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectHighlighter
+--- !u!114 &477041962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCPart
+  isDraggable: 0
+  partName: Cable ATX de 24 pines
+  connectionType: {fileID: 0}
+  title: Cable ATX de 24 pines
+  description: "Lleva la energ\xEDa de la fuente a la placa base: +3,3 V, +5 V y +12 V para los circuitos de la placa, la memoria y las ranuras de expansi\xF3n. Es el cable m\xE1s grueso de la fuente. Arrastra su conector hasta el conector largo de 24 pines del borde de la placa."
+--- !u!64 &477041963
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!23 &477041964
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 14177cdb700642759b215e547ba22153, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &477041965
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477041958}
+  m_Mesh: {fileID: 0}
+--- !u!1 &538144991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538144992}
+  m_Layer: 0
+  m_Name: SnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538144992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538144991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1604682622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &615083397
 PrefabInstance:
@@ -1133,10 +1565,7 @@ MonoBehaviour:
   partName: "Alimentaci\xF3n SATA"
   connectionType: {fileID: 0}
   title: "Alimentaci\xF3n SATA"
-  description: "Cable que sale de la Fuente de Poder y se conecta a la parte trasera
-    del Disco Duro o SSD, justo al lado del cable de datos.\n\nProporciona la electricidad
-    necesaria para girar los platos magn\xE9ticos (en HDD mec\xE1nicos) y activar
-    los chips de memoria (en SSD). Suministra rieles de 3.3V, 5V y 12V."
+  description: "Cable que sale de la Fuente de Poder y se conecta a la parte trasera del Disco Duro o SSD, justo al lado del cable de datos.\n\nProporciona la electricidad necesaria para girar los platos magn\xE9ticos (en HDD mec\xE1nicos) y activar los chips de memoria (en SSD). Suministra rieles de 3.3V, 5V y 12V."
 --- !u!4 &647737470
 Transform:
   m_ObjectHideFlags: 0
@@ -1256,6 +1685,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   snapPoint: {fileID: 1428627738}
+  required: 1
+  snapRadius: 0
+  requires: []
   isOccupied: 0
 --- !u!1 &703484766
 GameObject:
@@ -1542,6 +1974,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7187ec0bea0b9a0429da114d620c18e0, type: 3}
   m_PrefabInstance: {fileID: 739298465}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &834264590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 834264591}
+  m_Layer: 0
+  m_Name: Inicio (fuente)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834264591
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834264590}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 477041959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874661099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +2401,7 @@ MonoBehaviour:
   targetInicial: {fileID: 2692059570854820031}
   rotateSpeed: 5
   panSpeed: 0.02
-  zoomStep: 2
+  zoomPercent: 0.12
   smoothing: 10
   verticalAngleLimit: {x: 5, y: 90}
   limitHorizontalRotation: 1
@@ -1948,6 +2411,8 @@ MonoBehaviour:
   panLimitX: {x: -10, y: 5}
   panLimitY: {x: 4, y: 10}
   panLimitZ: {x: -5, y: 5}
+  orbitStartPixels: 6
+  autoResetWhenIdle: 0
   idleTimeBeforeReset: 5
   wideShotDistance: 5
 --- !u!114 &963194230
@@ -2085,7 +2550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &987715231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,11 +2567,7 @@ MonoBehaviour:
   partName: Conector EPS 12V
   connectionType: {fileID: 0}
   title: Conector EPS 12V
-  description: "Es una l\xEDnea de alimentaci\xF3n dedicada y exclusiva para el Procesador.
-    Se conecta generalmente en la esquina superior izquierda de la placa base.\n\nAunque
-    el cable de 24 pines da energ\xEDa a la placa, los procesadores modernos consumen
-    demasiada potencia para compartirla. Este cable garantiza un flujo estable de
-    12V directo a los reguladores de voltaje (VRM) de la CPU."
+  description: "Es una l\xEDnea de alimentaci\xF3n dedicada y exclusiva para el Procesador. Se conecta generalmente en la esquina superior izquierda de la placa base.\n\nAunque el cable de 24 pines da energ\xEDa a la placa, los procesadores modernos consumen demasiada potencia para compartirla. Este cable garantiza un flujo estable de 12V directo a los reguladores de voltaje (VRM) de la CPU."
 --- !u!4 &987715233
 Transform:
   m_ObjectHideFlags: 0
@@ -2157,6 +2618,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 33}
   m_Center: {x: -2, y: 0, z: 3}
+--- !u!1 &990342026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990342027}
+  m_Layer: 0
+  m_Name: SnapPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &990342027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990342026}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 234337036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &998288571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,7 +3382,7 @@ Transform:
   m_GameObject: {fileID: 1187457675}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: 0.17599997, y: 5.6297665, z: 0.794}
+  m_LocalPosition: {x: 0.32600006, y: 5.6297665, z: 0.794}
   m_LocalScale: {x: 10.143703, y: 12.755708, z: 10.1437025}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2933,12 +3425,7 @@ MonoBehaviour:
   partName: Memoria de Acceso Aleatorio (RAM)
   connectionType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   title: Memoria de Acceso Aleatorio (RAM)
-  description: "Es la memoria de \"corto plazo\" del computador. Almacena temporalmente
-    los datos y programas que la CPU est\xE1 usando activamente en ese momento. Es
-    una memoria vol\xE1til, lo que significa que cuando apagas el computador, la
-    informaci\xF3n almacenada en ella se borra.\n\nA mayor cantidad de RAM, m\xE1s
-    aplicaciones podr\xE1s tener abiertas simult\xE1neamente sin que el equipo se
-    ralentice."
+  description: "Es la memoria de \"corto plazo\" del computador. Almacena temporalmente los datos y programas que la CPU est\xE1 usando activamente en ese momento. Es una memoria vol\xE1til, lo que significa que cuando apagas el computador, la informaci\xF3n almacenada en ella se borra.\n\nA mayor cantidad de RAM, m\xE1s aplicaciones podr\xE1s tener abiertas simult\xE1neamente sin que el equipo se ralentice."
 --- !u!23 &1187457679
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3041,6 +3528,8 @@ Transform:
   - {fileID: 1546330293}
   - {fileID: 1714302314}
   - {fileID: 693168922}
+  - {fileID: 234337036}
+  - {fileID: 1604682622}
   m_Father: {fileID: 3261297533279819866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219691747
@@ -3410,7 +3899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1374099967
 Transform:
   m_ObjectHideFlags: 0
@@ -3444,11 +3933,7 @@ MonoBehaviour:
   partName: Conector Principal ATX
   connectionType: {fileID: 0}
   title: Conector Principal ATX
-  description: "Es el canal de energ\xEDa primario del computador. Conecta la Fuente
-    de Poder (PSU) con la Placa Base.\n\nSuministra las diferentes l\xEDneas de voltaje
-    (+3.3V, +5V, +12V, -12V) necesarias para alimentar los circuitos l\xF3gicos de
-    la placa, el Chipset, la memoria RAM y las ranuras de expansi\xF3n b\xE1sicas.
-    Sin este cable, el equipo no puede encender."
+  description: "Es el canal de energ\xEDa primario del computador. Conecta la Fuente de Poder (PSU) con la Placa Base.\n\nSuministra las diferentes l\xEDneas de voltaje (+3.3V, +5V, +12V, -12V) necesarias para alimentar los circuitos l\xF3gicos de la placa, el Chipset, la memoria RAM y las ranuras de expansi\xF3n b\xE1sicas. Sin este cable, el equipo no puede encender."
 --- !u!114 &1374099970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4122,6 +4607,167 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7187ec0bea0b9a0429da114d620c18e0, type: 3}
   m_PrefabInstance: {fileID: 1530494485}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1533047874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1533047875}
+  - component: {fileID: 1533047881}
+  - component: {fileID: 1533047880}
+  - component: {fileID: 1533047879}
+  - component: {fileID: 1533047878}
+  - component: {fileID: 1533047877}
+  - component: {fileID: 1533047876}
+  m_Layer: 3
+  m_Name: Conector ATX 24 pines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1533047875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.06999993, y: -0.12949944, z: -0.988}
+  m_LocalScale: {x: 0.262, y: 0.062, z: 0.06}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 477041959}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1533047876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617db2894e8b72643ad1ce400069b923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CablePlug
+  cable: {fileID: 477041960}
+  turnSharpness: 12
+  looseSlack: {x: 0, y: -1, z: 0}
+  archWhenConnected: 1
+  slackBlendSharpness: 8
+--- !u!114 &1533047877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301dad57368281b4ab91dc99d0bf3a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectHighlighter
+--- !u!114 &1533047878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCPart
+  isDraggable: 1
+  partName: Conector ATX de 24 pines
+  connectionType: {fileID: 11400000, guid: b13c350c014744c39fe5256540d7729c, type: 2}
+  title: Conector ATX de 24 pines
+  description: "Conector principal de alimentaci\xF3n de la placa base (20+4 pines). Tiene una pesta\xF1a de seguridad que solo encaja en una posici\xF3n: no hay que forzarlo."
+--- !u!23 &1533047879
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 14177cdb700642759b215e547ba22153, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1533047880
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1533047881
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533047874}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1535730298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4255,6 +4901,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedType: {fileID: 11400000, guid: f19d91570a5350f4082b0e64b3bd9a19, type: 2}
   snapPoint: {fileID: 998288572}
+  required: 1
+  snapRadius: 0
+  requires: []
   isOccupied: 0
 --- !u!65 &1546330295
 BoxCollider:
@@ -4277,6 +4926,218 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1587974818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587974819}
+  - component: {fileID: 1587974825}
+  - component: {fileID: 1587974824}
+  - component: {fileID: 1587974823}
+  - component: {fileID: 1587974822}
+  - component: {fileID: 1587974821}
+  - component: {fileID: 1587974820}
+  m_Layer: 3
+  m_Name: Conector EPS 8 pines (CPU)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587974819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.09000015, y: -0.12949944, z: -0.74799997}
+  m_LocalScale: {x: 0.098, y: 0.062, z: 0.06}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 367934879}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587974820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617db2894e8b72643ad1ce400069b923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CablePlug
+  cable: {fileID: 367934880}
+  turnSharpness: 12
+  looseSlack: {x: 0, y: -1, z: 0}
+  archWhenConnected: 1
+  slackBlendSharpness: 8
+--- !u!114 &1587974821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301dad57368281b4ab91dc99d0bf3a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectHighlighter
+--- !u!114 &1587974822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6085a43441a4314ea9cce78c7ce45ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PCPart
+  isDraggable: 1
+  partName: Conector EPS de 8 pines (4+4)
+  connectionType: {fileID: 11400000, guid: fbb7cb44b4c649e3aa8ab156b356c7dc, type: 2}
+  title: Conector EPS de 8 pines (4+4)
+  description: "Va en la esquina de la placa m\xE1s cercana al procesador. No hay que confundirlo con el PCIe de 6+2 pines de la tarjeta de video: se parecen, pero no son intercambiables."
+--- !u!23 &1587974823
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 14177cdb700642759b215e547ba22153, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1587974824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1587974825
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587974818}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1604682621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604682622}
+  - component: {fileID: 1604682623}
+  m_Layer: 0
+  m_Name: Puerto EPS 8 pines
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1604682622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604682621}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.17699996, y: 5.6322665, z: 0.79279244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 538144992}
+  m_Father: {fileID: 1206000576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604682623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604682621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca26b595c30dd64c9a57d13498aa298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SocketSystem
+  allowedType: {fileID: 11400000, guid: fbb7cb44b4c649e3aa8ab156b356c7dc, type: 2}
+  snapPoint: {fileID: 538144992}
+  required: 1
+  snapRadius: 0.1
+  requires: []
+  isOccupied: 0
 --- !u!1001 &1635048476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4406,6 +5267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   snapPoint: {fileID: 184754826}
+  required: 1
+  snapRadius: 0
+  requires: []
   isOccupied: 0
 --- !u!65 &1714302316
 BoxCollider:
@@ -4750,6 +5614,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowedType: {fileID: 11400000, guid: 7c39cd17fa08f5c42ab5f7ae66842ea3, type: 2}
   snapPoint: {fileID: 887734527}
+  required: 1
+  snapRadius: 0
+  requires: []
   isOccupied: 0
 --- !u!65 &1789809333
 BoxCollider:
@@ -4938,6 +5805,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88fdab4b58161c44fb9d63c36695bfde, type: 3}
   m_PrefabInstance: {fileID: 1969775452}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2013911544
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2013911545}
+  m_Layer: 0
+  m_Name: Mesa (apoyo de cables)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2013911545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013911544}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.02000013, y: 5.5532665, z: 0.47879243}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3261297533279819866}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016130055
 GameObject:
   m_ObjectHideFlags: 0
@@ -4967,7 +5865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ecf2e601bf7664b99364fb7f9693a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalPartsToInstall: 4
 --- !u!4 &2016130057
 Transform:
   m_ObjectHideFlags: 0
@@ -5284,6 +6181,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5437e0899787ceb42afdbbedabc3187a, type: 3}
+--- !u!1 &2114616873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114616874}
+  m_Layer: 0
+  m_Name: Inicio (fuente)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2114616874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114616873}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 367934879}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2128729702
 GameObject:
   m_ObjectHideFlags: 0
@@ -7956,11 +8884,7 @@ MonoBehaviour:
   partName: Tarjeta de Video / GPU
   connectionType: {fileID: 11400000, guid: f19d91570a5350f4082b0e64b3bd9a19, type: 2}
   title: Tarjeta de Video / GPU
-  description: "Es un coprocesador especializado en el procesamiento de gr\xE1ficos
-    y operaciones de coma flotante. Su funci\xF3n principal es calcular y renderizar
-    im\xE1genes, videos y entornos 3D para enviarlos al monitor. Alivia la carga
-    de la CPU principal.\n\nPuede ser \"Integrada\" (dentro del procesador) o \"Dedicada\"
-    (una tarjeta aparte conectada al puerto PCIe)."
+  description: "Es un coprocesador especializado en el procesamiento de gr\xE1ficos y operaciones de coma flotante. Su funci\xF3n principal es calcular y renderizar im\xE1genes, videos y entornos 3D para enviarlos al monitor. Alivia la carga de la CPU principal.\n\nPuede ser \"Integrada\" (dentro del procesador) o \"Dedicada\" (una tarjeta aparte conectada al puerto PCIe)."
 --- !u!1 &1965449338368312922
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,11 +8993,7 @@ MonoBehaviour:
   partName: "Fuente de Alimentaci\xF3n (PSU)"
   connectionType: {fileID: 11400000, guid: d547e3b23345dd141a77405b8afb183d, type: 2}
   title: "Fuente de Alimentaci\xF3n (PSU)"
-  description: "Es el componente encargado de convertir la corriente alterna (AC)
-    de tu toma de pared en corriente continua (DC) de bajo voltaje que los componentes
-    del PC pueden usar.\n\nSuministra energ\xEDa estable a trav\xE9s de diferentes
-    cables (24 pines para la placa, 8 pines para CPU, cables SATA, etc.). Una mala
-    fuente puede quemar todo el equipo."
+  description: "Es el componente encargado de convertir la corriente alterna (AC) de tu toma de pared en corriente continua (DC) de bajo voltaje que los componentes del PC pueden usar.\n\nSuministra energ\xEDa estable a trav\xE9s de diferentes cables (24 pines para la placa, 8 pines para CPU, cables SATA, etc.). Una mala fuente puede quemar todo el equipo."
 --- !u!4 &2136182505094850015
 Transform:
   m_ObjectHideFlags: 0
@@ -8788,7 +9708,7 @@ Transform:
   m_GameObject: {fileID: 3291739941221534618}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: 0.17599997, y: 5.6297665, z: 0.873}
+  m_LocalPosition: {x: 0.32600006, y: 5.6297665, z: 0.873}
   m_LocalScale: {x: 10.143703, y: 12.755708, z: 10.1437025}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9415,6 +10335,9 @@ Transform:
   - {fileID: 647737470}
   - {fileID: 1374099967}
   - {fileID: 987715233}
+  - {fileID: 2013911545}
+  - {fileID: 477041959}
+  - {fileID: 367934879}
   m_Father: {fileID: 3162109839326452832}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!33 &3266242177452492437
@@ -10153,10 +11076,7 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
-    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
-    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
-    binarios (tus archivos y programas)."
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD) o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos binarios (tus archivos y programas)."
 --- !u!64 &3973271510350436380
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11705,12 +12625,7 @@ MonoBehaviour:
   partName: Memoria de Acceso Aleatorio (RAM)
   connectionType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   title: Memoria de Acceso Aleatorio (RAM)
-  description: "Es la memoria de \"corto plazo\" del computador. Almacena temporalmente
-    los datos y programas que la CPU est\xE1 usando activamente en ese momento. Es
-    una memoria vol\xE1til, lo que significa que cuando apagas el computador, la
-    informaci\xF3n almacenada en ella se borra.\n\nA mayor cantidad de RAM, m\xE1s
-    aplicaciones podr\xE1s tener abiertas simult\xE1neamente sin que el equipo se
-    ralentice."
+  description: "Es la memoria de \"corto plazo\" del computador. Almacena temporalmente los datos y programas que la CPU est\xE1 usando activamente en ese momento. Es una memoria vol\xE1til, lo que significa que cuando apagas el computador, la informaci\xF3n almacenada en ella se borra.\n\nA mayor cantidad de RAM, m\xE1s aplicaciones podr\xE1s tener abiertas simult\xE1neamente sin que el equipo se ralentice."
 --- !u!65 &5052575636188680727
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11923,10 +12838,7 @@ MonoBehaviour:
   partName: "Disco Duro Mec\xE1nico (HDD)"
   connectionType: {fileID: 11400000, guid: a158ff0b9d489124bb4da487b8315c1e, type: 2}
   title: "Disco Duro Mec\xE1nico (HDD)"
-  description: "Dispositivo de almacenamiento de datos no vol\xE1til. Utiliza platos
-    magn\xE9ticos giratorios y cabezales de lectura/escritura para guardar informaci\xF3n
-    a largo plazo (S.O., fotos, documentos).\n\nOfrece gran capacidad a bajo costo,
-    pero es m\xE1s lento y fr\xE1gil que un SSD debido a sus partes m\xF3viles."
+  description: "Dispositivo de almacenamiento de datos no vol\xE1til. Utiliza platos magn\xE9ticos giratorios y cabezales de lectura/escritura para guardar informaci\xF3n a largo plazo (S.O., fotos, documentos).\n\nOfrece gran capacidad a bajo costo, pero es m\xE1s lento y fr\xE1gil que un SSD debido a sus partes m\xF3viles."
 --- !u!65 &5222530058886109637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13817,10 +14729,7 @@ MonoBehaviour:
   partName: Puerto VGA (Video Graphics Array)
   connectionType: {fileID: 0}
   title: Puerto VGA (Video Graphics Array)
-  description: "Conector de video anal\xF3gico de 15 pines (color azul). Fue el est\xE1ndar
-    durante d\xE9cadas para monitores y proyectores.\nAl ser anal\xF3gico, la calidad
-    de imagen se degrada con la distancia y no transmite audio. Hoy en d\xEDa se
-    considera obsoleto, reemplazado por HDMI y DisplayPort."
+  description: "Conector de video anal\xF3gico de 15 pines (color azul). Fue el est\xE1ndar durante d\xE9cadas para monitores y proyectores.\nAl ser anal\xF3gico, la calidad de imagen se degrada con la distancia y no transmite audio. Hoy en d\xEDa se considera obsoleto, reemplazado por HDMI y DisplayPort."
 --- !u!114 &6528939184638044301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14055,10 +14964,7 @@ MonoBehaviour:
   partName: Puerto HDMI
   connectionType: {fileID: 0}
   title: Puerto HDMI
-  description: "(High-Definition Multimedia Interface). Interfaz digital que transmite
-    video de alta definici\xF3n y audio multicanal a trav\xE9s de un solo cable.\nEs
-    el est\xE1ndar actual para conectar el PC a monitores modernos, televisores y
-    proyectores."
+  description: "(High-Definition Multimedia Interface). Interfaz digital que transmite video de alta definici\xF3n y audio multicanal a trav\xE9s de un solo cable.\nEs el est\xE1ndar actual para conectar el PC a monitores modernos, televisores y proyectores."
 --- !u!114 &6670022249498277503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14712,10 +15618,7 @@ MonoBehaviour:
   partName: 'Conector de Potencia CPU '
   connectionType: {fileID: 0}
   title: 'Conector de Potencia CPU '
-  description: "Z\xF3calo situado generalmente cerca del procesador, dise\xF1ado
-    para recibir energ\xEDa exclusiva para la CPU\n\nAlimenta los reguladores de
-    voltaje (VRM) que rodean al procesador, garantizando un suministro el\xE9ctrico
-    estable y limpio, separado del resto de la placa."
+  description: "Z\xF3calo situado generalmente cerca del procesador, dise\xF1ado para recibir energ\xEDa exclusiva para la CPU\n\nAlimenta los reguladores de voltaje (VRM) que rodean al procesador, garantizando un suministro el\xE9ctrico estable y limpio, separado del resto de la placa."
 --- !u!64 &7049265981756689169
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14798,8 +15701,7 @@ MonoBehaviour:
   title: "Panel de Audio Anal\xF3gico"
   description: 'Conjunto de conectores Jack de 3.5mm para entrada y salida de sonido
 
-    En
-    sistemas 5.1/7.1, se usan los negros y naranjas para altavoces traseros y subwoofer.'
+    En sistemas 5.1/7.1, se usan los negros y naranjas para altavoces traseros y subwoofer.'
 --- !u!114 &7070928429245848065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15016,11 +15918,7 @@ MonoBehaviour:
   partName: Motherboard
   connectionType: {fileID: 0}
   title: Placa Base / Motherboard
-  description: "Es la columna vertebral del computador. Es un circuito impreso (PCB)
-    que conecta todos los componentes del sistema (CPU, RAM, Discos, GPU) permitiendo
-    que se comuniquen entre s\xED. Distribuye la energ\xEDa proveniente de la fuente
-    de poder y gestiona el tr\xE1fico de datos a trav\xE9s de los \"Buses\" y el
-    Chipset."
+  description: "Es la columna vertebral del computador. Es un circuito impreso (PCB) que conecta todos los componentes del sistema (CPU, RAM, Discos, GPU) permitiendo que se comuniquen entre s\xED. Distribuye la energ\xEDa proveniente de la fuente de poder y gestiona el tr\xE1fico de datos a trav\xE9s de los \"Buses\" y el Chipset."
 --- !u!65 &7125871678899655155
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15104,10 +16002,7 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
-    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
-    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
-    binarios (tus archivos y programas)."
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD) o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos binarios (tus archivos y programas)."
 --- !u!64 &7211126910624854249
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15358,11 +16253,7 @@ MonoBehaviour:
   partName: Ranura de Memoria (DIMM)
   connectionType: {fileID: 0}
   title: Ranura de Memoria (DIMM)
-  description: "Z\xF3calo alargado donde se instalan los m\xF3dulos de memoria RAM.\n\nDIMM:
-    Significa \"M\xF3dulo de Memoria en L\xEDnea Doble\".\n\nMuesca de Seguridad:
-    Tienen una separaci\xF3n f\xEDsica asim\xE9trica que impide conectar una memoria
-    de generaci\xF3n incorrecta (ej: intentar poner una DDR3 en una ranura DDR4)
-    o conectarla al rev\xE9s."
+  description: "Z\xF3calo alargado donde se instalan los m\xF3dulos de memoria RAM.\n\nDIMM: Significa \"M\xF3dulo de Memoria en L\xEDnea Doble\".\n\nMuesca de Seguridad: Tienen una separaci\xF3n f\xEDsica asim\xE9trica que impide conectar una memoria de generaci\xF3n incorrecta (ej: intentar poner una DDR3 en una ranura DDR4) o conectarla al rev\xE9s."
 --- !u!64 &7345359529084815639
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15825,10 +16716,7 @@ MonoBehaviour:
   partName: Puerto Ethernet / LAN (RJ45)
   connectionType: {fileID: 0}
   title: Puerto Ethernet / LAN (RJ45)
-  description: "Interfaz f\xEDsica para conectar el computador a una red de \xE1rea
-    local (LAN) o a Internet mediante cable\n\nLos est\xE1ndares modernos son Gigabit
-    Ethernet (1000 Mbps) o superior, ofreciendo una conexi\xF3n mucho m\xE1s estable
-    y r\xE1pida que el Wi-Fi."
+  description: "Interfaz f\xEDsica para conectar el computador a una red de \xE1rea local (LAN) o a Internet mediante cable\n\nLos est\xE1ndares modernos son Gigabit Ethernet (1000 Mbps) o superior, ofreciendo una conexi\xF3n mucho m\xE1s estable y r\xE1pida que el Wi-Fi."
 --- !u!114 &7715844477935376524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16184,8 +17072,7 @@ MonoBehaviour:
   partName: Puerto DVI
   connectionType: {fileID: 0}
   title: Puerto DVI
-  description: "Predecesor del HDMI. Transmite video digital de alta calidad pero,
-    a diferencia del HDMI, generalmente no transporta se\xF1al de audio."
+  description: "Predecesor del HDMI. Transmite video digital de alta calidad pero, a diferencia del HDMI, generalmente no transporta se\xF1al de audio."
 --- !u!114 &8035342520188437415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16409,10 +17296,7 @@ MonoBehaviour:
   partName: Puerto USB (Universal Serial Bus)
   connectionType: {fileID: 0}
   title: Puerto USB (Universal Serial Bus)
-  description: "El est\xE1ndar mundial para conectar perif\xE9ricos (teclados, memorias,
-    c\xE1maras, impresoras).\n\nUSB 2.0 (Negro): Velocidad est\xE1ndar (480 Mbps),
-    ideal para mouse/teclado.\n\nUSB 3.0/3.1 (Azul/Rojo): Alta velocidad (5 Gbps
-    o m\xE1s), ideal para transferir archivos desde discos externos."
+  description: "El est\xE1ndar mundial para conectar perif\xE9ricos (teclados, memorias, c\xE1maras, impresoras).\n\nUSB 2.0 (Negro): Velocidad est\xE1ndar (480 Mbps), ideal para mouse/teclado.\n\nUSB 3.0/3.1 (Azul/Rojo): Alta velocidad (5 Gbps o m\xE1s), ideal para transferir archivos desde discos externos."
 --- !u!114 &8090462250841587513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16745,10 +17629,7 @@ MonoBehaviour:
   partName: Conector ATX 24 Pines
   connectionType: {fileID: 0}
   title: Conector ATX 24 Pines
-  description: "Es el puerto de entrada de energ\xEDa m\xE1s grande de la placa base.\n\nRecibe
-    el mazo de cables principal de la fuente de poder. Distribuye voltajes de +3.3V,
-    +5V y +12V a todos los componentes integrados, como el Chipset, la memoria RAM
-    y las ranuras PCIe."
+  description: "Es el puerto de entrada de energ\xEDa m\xE1s grande de la placa base.\n\nRecibe el mazo de cables principal de la fuente de poder. Distribuye voltajes de +3.3V, +5V y +12V a todos los componentes integrados, como el Chipset, la memoria RAM y las ranuras PCIe."
 --- !u!64 &8420542575990803711
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16963,11 +17844,7 @@ MonoBehaviour:
   partName: Ranura de Memoria (DIMM)
   connectionType: {fileID: 0}
   title: Ranura de Memoria (DIMM)
-  description: "Z\xF3calo alargado donde se instalan los m\xF3dulos de memoria RAM.\n\nDIMM:
-    Significa \"M\xF3dulo de Memoria en L\xEDnea Doble\".\n\nMuesca de Seguridad:
-    Tienen una separaci\xF3n f\xEDsica asim\xE9trica que impide conectar una memoria
-    de generaci\xF3n incorrecta (ej: intentar poner una DDR3 en una ranura DDR4)
-    o conectarla al rev\xE9s."
+  description: "Z\xF3calo alargado donde se instalan los m\xF3dulos de memoria RAM.\n\nDIMM: Significa \"M\xF3dulo de Memoria en L\xEDnea Doble\".\n\nMuesca de Seguridad: Tienen una separaci\xF3n f\xEDsica asim\xE9trica que impide conectar una memoria de generaci\xF3n incorrecta (ej: intentar poner una DDR3 en una ranura DDR4) o conectarla al rev\xE9s."
 --- !u!64 &8631720827129914120
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17246,11 +18123,7 @@ MonoBehaviour:
   partName: Puerto PS/2
   connectionType: {fileID: 0}
   title: Puerto PS/2
-  description: "Conector cl\xE1sico de 6 pines utilizado para teclados (color morado)
-    y mouses (color verde).\n\nA diferencia del USB, el PS/2 es una conexi\xF3n directa
-    por interrupci\xF3n real, lo que significa que tiene te\xF3ricamente menos latencia
-    y permite \"N-Key Rollover\" (pulsar todas las teclas a la vez sin bloqueo),
-    por eso algunos gamers profesionales a\xFAn lo prefieren."
+  description: "Conector cl\xE1sico de 6 pines utilizado para teclados (color morado) y mouses (color verde).\n\nA diferencia del USB, el PS/2 es una conexi\xF3n directa por interrupci\xF3n real, lo que significa que tiene te\xF3ricamente menos latencia y permite \"N-Key Rollover\" (pulsar todas las teclas a la vez sin bloqueo), por eso algunos gamers profesionales a\xFAn lo prefieren."
 --- !u!114 &8768317884284795207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17416,10 +18289,7 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
-    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
-    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
-    binarios (tus archivos y programas)."
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD) o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos binarios (tus archivos y programas)."
 --- !u!64 &8913203959929714848
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17617,10 +18487,7 @@ MonoBehaviour:
   partName: Puerto SATA
   connectionType: {fileID: 0}
   title: Puerto SATA
-  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa
-    como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD)
-    o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos
-    binarios (tus archivos y programas)."
+  description: "Interfaz de conexi\xF3n para dispositivos de almacenamiento masivo.\n\nAct\xFAa como el canal de comunicaci\xF3n entre la placa base y los discos duros (HDD) o unidades de estado s\xF3lido (SSD). A trav\xE9s de este puerto viajan los datos binarios (tus archivos y programas)."
 --- !u!64 &8951242316210173825
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17766,10 +18633,7 @@ MonoBehaviour:
   partName: Puerto USB (Universal Serial Bus)
   connectionType: {fileID: 0}
   title: Puerto USB (Universal Serial Bus)
-  description: "El est\xE1ndar mundial para conectar perif\xE9ricos (teclados, memorias,
-    c\xE1maras, impresoras).\n\nUSB 2.0 (Negro): Velocidad est\xE1ndar (480 Mbps),
-    ideal para mouse/teclado.\n\nUSB 3.0/3.1 (Azul/Rojo): Alta velocidad (5 Gbps
-    o m\xE1s), ideal para transferir archivos desde discos externos."
+  description: "El est\xE1ndar mundial para conectar perif\xE9ricos (teclados, memorias, c\xE1maras, impresoras).\n\nUSB 2.0 (Negro): Velocidad est\xE1ndar (480 Mbps), ideal para mouse/teclado.\n\nUSB 3.0/3.1 (Azul/Rojo): Alta velocidad (5 Gbps o m\xE1s), ideal para transferir archivos desde discos externos."
 --- !u!114 &9028358593774958443
 MonoBehaviour:
   m_ObjectHideFlags: 0
