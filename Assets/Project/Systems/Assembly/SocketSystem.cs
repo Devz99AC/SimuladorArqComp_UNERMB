@@ -20,6 +20,11 @@ public class SocketSystem : MonoBehaviour
     [Tooltip("Tolerancia de encaje (unidades de mundo, en horizontal). <= 0: automática, proporcional al tamaño de la pieza.")]
     public float snapRadius = 0f;
 
+    [Tooltip("Nota que se muestra al instalar aquí: el encaje es válido, pero hay algo que aprender " +
+             "(p. ej. \"con dos módulos, mejor A2 y B2\"). Vacío = mensaje de éxito normal.")]
+    [TextArea(2, 4)]
+    public string installNote;
+
     [Tooltip("Orden de montaje: estos lugares deben estar completos antes (p. ej. el disipador exige la CPU). " +
              "Mientras este lugar esté ocupado, tampoco se pueden vaciar.")]
     public List<SocketSystem> requires = new List<SocketSystem>();
@@ -104,7 +109,7 @@ public class SocketSystem : MonoBehaviour
             if (other == null || other == this || !other.isOccupied || !other.requires.Contains(this)) continue;
             string blocker = other.allowedType != null ? other.allowedType.DisplayName : "otro componente";
             return CompatResult.Reject("Todavía no se puede retirar",
-                "Primero retira " + blocker + ", que va montado encima o depende de esta pieza.");
+                "Primero retira " + blocker + ": depende de esta pieza (va encima o conectado a ella).");
         }
         return CompatResult.Accept();
     }
@@ -164,7 +169,8 @@ public class SocketSystem : MonoBehaviour
 
         foreach (var socket in All)
         {
-            if (socket == null) continue;
+            // Los lugares que lleva la propia pieza (p. ej. los de la placa base) viajan con ella: no son destino.
+            if (socket == null || socket.transform.IsChildOf(part.transform)) continue;
             Vector3 installed = part.VisualCenterAt(socket.SnapPosition, socket.SnapRotation);
             Vector3 delta = installed - current;
             delta.y = 0f; // el arrastre es sobre un plano horizontal: la altura no cuenta

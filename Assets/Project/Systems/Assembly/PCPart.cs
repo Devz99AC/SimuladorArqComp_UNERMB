@@ -32,6 +32,8 @@ public class PCPart : MonoBehaviour
     /// <summary>Centro visual actual (centro de sus renderers, no el pivote del modelo).</summary>
     public Vector3 VisualCenter => transform.TransformPoint(_localVisualCenter);
 
+    // Sitio en la mesa, relativo al padre inicial: si ese padre se mueve (un conector que cuelga de la
+    // fuente, y la fuente ya está dentro del gabinete), "volver a la mesa" sigue al padre.
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
     private Transform _initialParent;
@@ -41,8 +43,8 @@ public class PCPart : MonoBehaviour
     private void Start()
     {
         _initialParent = transform.parent;
-        _initialPosition = transform.position;
-        _initialRotation = transform.rotation;
+        _initialPosition = transform.localPosition;
+        _initialRotation = transform.localRotation;
         CacheVisualBounds();
 
         // TRUCO: Si la pieza no se puede arrastrar (como la Motherboard),
@@ -99,13 +101,15 @@ public class PCPart : MonoBehaviour
         transform.SetParent(_initialParent, true);
         IsInstalled = false;
 
+        Vector3 homePos = _initialParent != null ? _initialParent.TransformPoint(_initialPosition) : _initialPosition;
+        Quaternion homeRot = _initialParent != null ? _initialParent.rotation * _initialRotation : _initialRotation;
+
         if (duration <= 0f)
         {
-            transform.position = _initialPosition;
-            transform.rotation = _initialRotation;
+            transform.SetPositionAndRotation(homePos, homeRot);
             return;
         }
-        _moveRoutine = StartCoroutine(MoveRoutine(_initialPosition, _initialRotation, duration, () => _moveRoutine = null));
+        _moveRoutine = StartCoroutine(MoveRoutine(homePos, homeRot, duration, () => _moveRoutine = null));
     }
 
     // Compatibilidad con el nombre anterior.

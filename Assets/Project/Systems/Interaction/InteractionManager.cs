@@ -42,6 +42,10 @@ public class InteractionManager : MonoBehaviour
     [Tooltip("Píxeles que hay que mover el ratón para que un clic se convierta en arrastre")]
     [SerializeField] private float dragStartPixels = 6f;
     [SerializeField] private float doubleClickSeconds = 0.3f;
+    [Tooltip("Al arrastrar, la pieza pasa por encima de lo que tiene debajo (paredes del gabinete, otras piezas) con este margen")]
+    [SerializeField] private float hoverClearance = 0.01f;
+    [Tooltip("Capas en las que la pieza se apoya al pasar por encima")]
+    [SerializeField] private LayerMask supportLayers = Physics.DefaultRaycastLayers;
 
     [Header("Límites de la Mesa")]
     public float tableLimitSize = 4f;
@@ -71,6 +75,12 @@ public class InteractionManager : MonoBehaviour
     private Vector3 _targetPos;
     private SocketSystem _hoverSocket;
     private bool _hoverCompatible;
+
+    // Huella de la pieza arrastrada (relativa a su pivote), para pasar por encima de lo que haya debajo
+    private Vector3 _footCenter;
+    private Vector3 _footExtents;
+    private float _bottomOffset;
+    private readonly RaycastHit[] _supportHits = new RaycastHit[32];
 
     // Clic derecho (ficha solo si no hubo órbita)
     private Vector2 _rightPressPos;
@@ -295,6 +305,11 @@ public class InteractionManager : MonoBehaviour
         _grabOffset = part.transform.position - hit.point;
         _targetPos = part.transform.position + lift;
 
+        Bounds b = WorldBounds(part);
+        _footCenter = b.center - part.transform.position;
+        _footExtents = new Vector3(b.extents.x, 0.001f, b.extents.z);
+        _bottomOffset = b.min.y - part.transform.position.y;
+
         _hoverSocket = null;
         _hoverCompatible = false;
 
@@ -317,6 +332,11 @@ public class InteractionManager : MonoBehaviour
                 p.z = Mathf.Clamp(p.z, c.z - tableLimitSize, c.z + tableLimitSize);
             }
             if (_constraint != null) p = _constraint.ConstrainDragPosition(p);
+
+            // Por encima de lo que tenga debajo: entra al gabinete por arriba en vez de atravesar sus paredes.
+            float support = SupportHeight(p);
+            if (!float.IsNegativeInfinity(support))
+                p.y = Mathf.Max(p.y, support + hoverClearance - _bottomOffset);
             _targetPos = p;
         }
 
@@ -338,6 +358,37 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
+    /// <summary>Altura de lo más alto que queda bajo la huella de la pieza si su pivote estuviera en <paramref name="pivot"/>.</summary>
+    private float SupportHeight(Vector3 pivot)
+    {
+        Vector3 c = pivot + _footCenter;
+        // Desde un poco por encima del plano de arrastre (no desde el techo: la lámpara no cuenta).
+        float planeHeight = -_dragPlane.distance;
+        Vector3 origin = new Vector3(c.x, planeHeight + 0.5f, c.z);
+        int n = Physics.BoxCastNonAlloc(origin, _footExtents, Vector3.down, _supportHits, Quaternion.identity,
+                                        4f, supportLayers, QueryTriggerInteraction.Ignore);
+        float top = float.NegativeInfinity;
+        for (int i = 0; i < n; i++)
+        {
+            RaycastHit h = _supportHits[i];
+            if (h.distance <= 0f) continue; // ya solapaba al empezar el barrido
+            Transform t = h.collider.transform;
+            if (t.IsChildOf(_currentPart.transform)) continue;
+            if (h.collider.GetComponentInParent<CableSpline>() != null) continue; // un cable no sostiene nada
+            if (h.point.y > top) top = h.point.y;
+        }
+        return top;
+    }
+
+    private static Bounds WorldBounds(PCPart part)
+    {
+        Renderer[] renderers = part.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0) return new Bounds(part.transform.position, Vector3.zero);
+        Bounds b = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++) b.Encapsulate(renderers[i].bounds);
+        return b;
+    }
+
     private void EndDrag()
     {
         PCPart part = _currentPart;
@@ -352,7 +403,11 @@ public class InteractionManager : MonoBehaviour
         if (target != null && result.Ok)
         {
             part.InstallInto(target, settleDuration, liftHeight);
-            if (hud != null) hud.ShowFeedback("Instalado: " + part.title, ToastKind.Success);
+            if (hud != null)
+            {
+                if (string.IsNullOrEmpty(target.installNote)) hud.ShowFeedback("Instalado: " + part.title, ToastKind.Success);
+                else hud.ShowFeedback("Instalado: " + part.title, ToastKind.Warning, target.installNote);
+            }
         }
         else
         {

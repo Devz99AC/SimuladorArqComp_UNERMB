@@ -9,7 +9,8 @@ public class CADCameraController : MonoBehaviour
 
     [Header("Sensibilidad")]
     public float rotateSpeed = 5f;
-    public float panSpeed = 0.01f;
+    [Tooltip("1 = la escena sigue al cursor como si la arrastraras con la mano (a cualquier distancia y escala)")]
+    public float panGrab = 1f;
     [Tooltip("Fracción de la distancia que avanza cada paso de rueda (zoom proporcional: fino de cerca, rápido de lejos)")]
     [Range(0.02f, 0.5f)] public float zoomPercent = 0.12f;
     public float smoothing = 5f;
@@ -42,8 +43,11 @@ public class CADCameraController : MonoBehaviour
     public bool autoResetWhenIdle = false;
     public float idleTimeBeforeReset = 10f;
     public float wideShotDistance = 15f;
+    [Tooltip("Inclinación de la vista general (Espacio). 90 = cenital")]
+    [Range(5f, 89f)] public float wideShotPitch = 45f;
 
     private SimulationControls _controls;
+    private Camera _cam;
     private Vector3 _targetPivotPosition;
     private Vector3 _currentPivotPosition;
     private float _targetYaw, _targetPitch, _currentYaw, _currentPitch;
@@ -84,6 +88,7 @@ public class CADCameraController : MonoBehaviour
     {
         if (_controls == null) _controls = new SimulationControls();
         _controls.Enable();
+        _cam = GetComponent<Camera>();
     }
     private void OnDisable() => _controls?.Disable();
     private void OnDestroy() => _controls?.Dispose();
@@ -125,8 +130,13 @@ public class CADCameraController : MonoBehaviour
             Vector2 delta = _controls.Player.Pan.ReadValue<Vector2>();
             if (delta.sqrMagnitude > 0.1f)
             {
-                Vector3 right = transform.right * -delta.x * panSpeed;
-                Vector3 up = transform.up * -delta.y * panSpeed;
+                // Tamaño en mundo de un píxel a la distancia del pivote: el paneo es igual de "agarrado"
+                // de cerca que de lejos (una velocidad fija era lentísima de lejos y brusca de cerca).
+                float fov = _cam != null ? _cam.fieldOfView : 60f;
+                float worldPerPixel = 2f * _currentDistance * Mathf.Tan(fov * 0.5f * Mathf.Deg2Rad) / Mathf.Max(1, Screen.height);
+                float step = worldPerPixel * panGrab;
+                Vector3 right = transform.right * -delta.x * step;
+                Vector3 up = transform.up * -delta.y * step;
 
                 _targetPivotPosition += right + up;
 
@@ -202,7 +212,7 @@ public class CADCameraController : MonoBehaviour
     {
         _targetPivotPosition = _initialPivotPos;
         _targetDistance = wideShotDistance;
-        _targetPitch = 45f;
+        _targetPitch = wideShotPitch;
 
         if (limitHorizontalRotation)
             _targetYaw = (horizontalAngleLimit.x + horizontalAngleLimit.y) / 2;

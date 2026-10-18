@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14154dc05f54b844492cc4dff6ee6c1a, type: 3}
+  m_Name: Type_CaseFan
+  m_EditorClassIdentifier: Assembly-CSharp::ConnectionTypeSO
+  labelName: Ventilador de 120 mm
+  debugColor: {r: 0.55, g: 0.55, b: 0.6, a: 1}
+  displayName: el ventilador de 120 mm
+  placementHint: El ventilador trasero va en la pared trasera del gabinete, junto a la abertura del panel de E/S, y saca el aire caliente hacia afuera.

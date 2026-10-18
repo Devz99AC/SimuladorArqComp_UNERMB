@@ -182,13 +182,13 @@ public class AssemblyHudView : MonoBehaviour
     }
 
     /// <summary>
-    /// Feedback del ensamblaje: icono + texto + motivo (nunca solo color). Los errores
-    /// duran más porque traen el "porqué" que hay que leer.
+    /// Feedback del ensamblaje: icono + texto + motivo (nunca solo color). Los mensajes con
+    /// motivo duran más porque traen el "porqué" que hay que leer.
     /// </summary>
     public void ShowFeedback(string message, ToastKind kind, string reason = null)
     {
         if (_toast == null || UIBlocker.ModalOpen) return;
-        int duration = kind == ToastKind.Error ? 5000 : 1800;
+        int duration = kind == ToastKind.Error ? 5000 : string.IsNullOrEmpty(reason) ? 1800 : 4500;
         _toast.Show(message, kind, reason, null, duration);
     }
 

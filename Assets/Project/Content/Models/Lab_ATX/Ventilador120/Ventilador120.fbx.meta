@@ -3,7 +3,47 @@ guid: a8fd4b544b2864b4393b36057c32f91e
 ModelImporter:
   serializedVersion: 24600
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BLACK_PLASTIC
+    second: {fileID: 2100000, guid: 2614f4384a048c34aabc20d6577d8631, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CHROME_1
+    second: {fileID: 2100000, guid: ac6746e1756763c4781c4e6d0c24a0f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CHROME_2
+    second: {fileID: 2100000, guid: 3a0c620db31e51042b714be37aaf83f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic.001
+    second: {fileID: 2100000, guid: e9940ce4a8d6cfe4baceb1dd3ca11f6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic.002
+    second: {fileID: 2100000, guid: 6e6dffae1c78d134b92413fa86678af7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic.003
+    second: {fileID: 2100000, guid: 27345df7cb732474eb5138b8f147c72e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WHITE_PLASTIC
+    second: {fileID: 2100000, guid: fda4839942e5e194cb2c01d1c1fd82a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material
+    second: {fileID: 2100000, guid: 0c4c80b6ca057f2488f407b147290663, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
