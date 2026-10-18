@@ -69,18 +69,19 @@
     width: 400px;
 }
 
-/* Ficha técnica: columna izquierda completa. Oculta hasta el clic derecho.
-   El texto va en un ScrollView (crece) y la imagen queda anclada abajo. */
+/* Ficha técnica: columna izquierda, solo texto. Oculta hasta el clic derecho.
+   Mide lo que su texto; si no cabe, el ScrollView se encoge y se desplaza. */
 .hud-info {
     position: absolute;
     left: 20px;
     top: 20px;
-    bottom: 20px;
+    max-height: 92%;
     width: 400px;
     display: none;
 }
 .hud-info__scroll {
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-shrink: 1;
 }
 .hud-info__scroll > .unity-scroll-view__content-container {
     padding: 16px 18px;
@@ -90,21 +91,6 @@
     font-size: 18px;
     white-space: normal;
     -unity-text-align: upper-left;
-}
-.hud-info__image {
-    flex-shrink: 0;
-    height: 170px;
-    margin: 0 18px 18px 18px;
-    background-color: rgb(205, 205, 205);
-    border-radius: 4px;
-    align-items: center;
-    justify-content: center;
-}
-.hud-info__image-ph {
-    color: rgb(120, 120, 120);
-    font-size: 16px;
-    white-space: normal;
-    -unity-text-align: middle-center;
 }
 
 /* ---------- Viñetas naranjas (instrucciones) ---------- */

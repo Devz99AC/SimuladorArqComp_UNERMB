@@ -43,7 +43,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <!-- ===== Ficha técnica (izquierda) — aparece al clic derecho ===== -->
+        <!-- ===== Ficha técnica (izquierda) — aparece al clic derecho. Solo texto ===== -->
         <ui:VisualElement name="info-panel" class="hud-panel hud-info">
             <ui:VisualElement class="menu-modal__header hud-panel__header">
                 <ui:Label name="info-title" text="COMPONENTE" class="menu-modal__title hud-panel__title" />
@@ -52,9 +52,6 @@
             <ui:ScrollView name="info-scroll" class="hud-info__scroll">
                 <ui:Label name="info-desc" text="" class="hud-info__desc" />
             </ui:ScrollView>
-            <ui:VisualElement class="hud-info__image">
-                <ui:Label text="Aquí puede haber una imagen" class="hud-info__image-ph" />
-            </ui:VisualElement>
         </ui:VisualElement>
 
         <!-- ===== Modal Opciones (velo → congela la simulación) ===== -->
