@@ -166,6 +166,50 @@ public static class LabBuilderKit
 
     public static Vector3 Inverse(Vector3 v) => new Vector3(1f / v.x, 1f / v.y, 1f / v.z);
 
+    /// <summary>Posición del pivote para que, con rotación <paramref name="rot"/>, la pieza apoye su base centrada en <paramref name="bottomCenter"/>.</summary>
+    public static Vector3 SeatAt(Transform t, Quaternion rot, Vector3 bottomCenter)
+    {
+        Bounds b = BoundsAt(t, rot);
+        return bottomCenter - new Vector3(b.center.x, b.min.y, b.center.z);
+    }
+
+    /// <summary>Cilindro (sin colisionador) con su eje a lo largo de <paramref name="axis"/>.</summary>
+    public static Transform Disc(Transform parent, string name, Vector3 center, float radius, float thickness, Vector3 axis, Material m)
+    {
+        var go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        Object.DestroyImmediate(go.GetComponent<Collider>());
+        go.name = name;
+        go.transform.SetParent(parent, false);
+        go.transform.SetPositionAndRotation(center, Quaternion.FromToRotation(Vector3.up, axis));
+        go.transform.localScale = new Vector3(radius * 2f, thickness * 0.5f, radius * 2f);
+        go.GetComponent<MeshRenderer>().sharedMaterial = m;
+        return go.transform;
+    }
+
+    /// <summary>Raíz vacía de una pieza hecha con primitivas: su pivote queda en <paramref name="pos"/>.</summary>
+    public static Transform PartRoot(string name, Transform root, Vector3 pos)
+    {
+        Transform t = NewChild(name, root);
+        t.SetPositionAndRotation(pos, Quaternion.identity);
+        return t;
+    }
+
+    /// <summary>Tipo de conexión propio de un lab: lo crea si falta y fija sus textos (el constructor del lab es su fuente).</summary>
+    public static void EnsureType(string asset, string label, string display, string hint)
+    {
+        string path = TypesDir + asset + ".asset";
+        var t = AssetDatabase.LoadAssetAtPath<ConnectionTypeSO>(path);
+        if (t == null)
+        {
+            t = ScriptableObject.CreateInstance<ConnectionTypeSO>();
+            AssetDatabase.CreateAsset(t, path);
+        }
+        t.labelName = label;
+        t.displayName = display;
+        t.placementHint = hint;
+        EditorUtility.SetDirty(t);
+    }
+
     // ===================================================================== piezas y lugares
 
     public static SocketSystem MakeSocket(string name, Transform parent, Vector3 pos, Quaternion rot, string type, bool required = true, string note = null)
@@ -195,6 +239,28 @@ public static class LabBuilderKit
         part.rotation = extraRot * part.rotation;
         RestOnDesk(part, xz, WorldBounds(part));
         return part;
+    }
+
+    /// <summary>
+    /// Bisagra, pestillo o tornillo cautivo (<see cref="HingedPart"/>): un clic lo abre o lo cierra. Su eje es un Transform
+    /// hermano en <paramref name="pivot"/> con el Z+ en <paramref name="axis"/>; <paramref name="lift"/> lo desplaza a lo largo
+    /// del eje al abrirse (un tornillo que sube al aflojarse).
+    /// </summary>
+    public static HingedPart AddHinge(Transform part, SocketSystem state, Vector3 pivot, Vector3 axis, float angle,
+                                      string openVerb, string closeVerb, string opened, string closed, Transform root, float lift = 0f)
+    {
+        Transform hinge = NewChild("Bisagra: " + part.name, root);
+        hinge.SetPositionAndRotation(pivot, Quaternion.LookRotation(axis, Mathf.Abs(axis.y) > 0.9f ? Vector3.forward : Vector3.up));
+        var h = part.gameObject.AddComponent<HingedPart>();
+        h.closedState = state;
+        h.hinge = hinge;
+        h.openAngle = angle;
+        h.openLift = lift;
+        h.openVerb = openVerb;
+        h.closeVerb = closeVerb;
+        h.openedText = opened;
+        h.closedText = closed;
+        return h;
     }
 
     public static PCPart MakePart(Transform t, string id, string type, string title, string desc, bool draggable = true, bool fitCollider = true)
@@ -368,6 +434,18 @@ public static class LabBuilderKit
         public Vector2 horizontalAngleLimit = new Vector2(-90f, 90f);
         public float liftHeight = 0.05f;
         public float hoverClearance = 0.008f;
+    }
+
+    /// <summary>Viñetas propias del lab en el panel de instrucciones del HUD.</summary>
+    public static void SetHudInstructions(params string[] lines)
+    {
+        var hud = Object.FindAnyObjectByType<AssemblyHudView>();
+        if (hud == null) { Log("⚠ No hay AssemblyHudView en la escena"); return; }
+        var so = new SerializedObject(hud);
+        var arr = so.FindProperty("extraInstructions");
+        arr.arraySize = lines.Length;
+        for (int i = 0; i < lines.Length; i++) arr.GetArrayElementAtIndex(i).stringValue = lines[i];
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     public static void ConfigureScene(Transform root, SceneFrame f)
