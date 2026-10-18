@@ -32,6 +32,11 @@ public class AssemblyHudView : MonoBehaviour
     [SerializeField] private AudioMixer mainMixer;
     [SerializeField] private AudioClip uiSound;
 
+    [Header("Instrucciones propias del laboratorio")]
+    [Tooltip("Viñetas que se añaden al panel de instrucciones de esta escena (p. ej. cómo abrir una bisagra)")]
+    [TextArea(1, 3)]
+    [SerializeField] private string[] extraInstructions;
+
     private VisualElement _instructionsPanel;
     private VisualElement _infoPanel;
     private Label _infoTitle;
@@ -66,6 +71,7 @@ public class AssemblyHudView : MonoBehaviour
 
         // --- Paneles ---
         _instructionsPanel = root.Q<VisualElement>("instructions-panel");
+        AddExtraInstructions();
         _infoPanel = root.Q<VisualElement>("info-panel");
         _infoTitle = root.Q<Label>("info-title");
         _infoDesc = root.Q<Label>("info-desc");
@@ -199,6 +205,26 @@ public class AssemblyHudView : MonoBehaviour
         {
             float pct = total > 0 ? 100f * installed / total : 0f;
             _progressFill.style.width = Length.Percent(pct);
+        }
+    }
+
+    /// <summary>Viñetas de <see cref="extraInstructions"/>, con el mismo aspecto que las del UXML.</summary>
+    private void AddExtraInstructions()
+    {
+        var body = _instructionsPanel?.Q<VisualElement>(className: "hud-panel__body");
+        if (body == null || extraInstructions == null) return;
+        foreach (string text in extraInstructions)
+        {
+            if (string.IsNullOrWhiteSpace(text)) continue;
+            var bullet = new VisualElement();
+            bullet.AddToClassList("hud-bullet");
+            var dot = new VisualElement();
+            dot.AddToClassList("hud-bullet__dot");
+            var label = new Label(text);
+            label.AddToClassList("hud-bullet__text");
+            bullet.Add(dot);
+            bullet.Add(label);
+            body.Add(bullet);
         }
     }
 

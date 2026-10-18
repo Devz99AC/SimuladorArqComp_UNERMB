@@ -29,11 +29,35 @@ public class SocketSystem : MonoBehaviour
              "Mientras este lugar esté ocupado, tampoco se pueden vaciar.")]
     public List<SocketSystem> requires = new List<SocketSystem>();
 
+    [Tooltip("Estos lugares tienen que estar VACÍOS para instalar o retirar aquí (p. ej. nada de dentro se toca con la tapa " +
+             "puesta, ni la memoria con el módulo de discos bajado). Mensaje: «Antes hay que» + su acción de vaciar.")]
+    public List<SocketSystem> requiresEmpty = new List<SocketSystem>();
+
+    [Header("Textos de las reglas (opcional)")]
+    [Tooltip("Cómo se dice llenar este lugar en los mensajes. Ej: \"bajar el módulo de discos\". Vacío = \"instalar\" + el tipo.")]
+    public string fillAction;
+    [Tooltip("Cómo se dice vaciarlo. Ej: \"quitar la tapa\", \"levantar el módulo de discos (haz clic en él)\". Vacío = \"quitar\" + el tipo.")]
+    public string emptyAction;
+
     [Header("Estado")]
     public bool isOccupied = false;
 
     /// <summary>Pieza instalada (o reservada mientras termina su animación de encaje).</summary>
     public PCPart Occupant { get; private set; }
+
+    /// <summary>
+    /// Si no es null, este lugar es un ESTADO (cerrado = ocupado) que alterna una pieza con bisagra o pestillo: no recibe
+    /// piezas arrastradas, no tiene fantasma ni cuenta como destino al arrastrar. Lo asigna <see cref="HingedPart"/>.
+    /// </summary>
+    public HingedPart StateOwner { get; set; }
+
+    string TypeName => allowedType != null ? allowedType.DisplayName : "otro componente";
+
+    /// <summary>"instalar la CPU", "bajar el módulo de discos"…</summary>
+    public string FillText => string.IsNullOrEmpty(fillAction) ? "instalar " + TypeName : fillAction;
+
+    /// <summary>"quitar la tapa", "levantar el módulo de discos"…</summary>
+    public string EmptyText => string.IsNullOrEmpty(emptyAction) ? "quitar " + TypeName : emptyAction;
 
     public Vector3 SnapPosition => snapPoint != null ? snapPoint.position : transform.position;
     public Quaternion SnapRotation => snapPoint != null ? snapPoint.rotation : transform.rotation;
@@ -83,13 +107,17 @@ public class SocketSystem : MonoBehaviour
                 string.IsNullOrEmpty(hint) ? here : here + " " + hint);
         }
 
+        // Lo que estorba: la tapa puesta, el módulo bajado… (primero, porque es lo que se ve).
+        SocketSystem inTheWay = FirstOccupied(requiresEmpty);
+        if (inTheWay != null)
+            return CompatResult.Reject("Todavía no se puede instalar aquí", "Antes hay que " + inTheWay.EmptyText + ".");
+
         // Orden de montaje: lo que tiene que estar antes.
         foreach (var req in requires)
         {
             if (req == null || req.IsComplete) continue;
-            string what = req.allowedType != null ? req.allowedType.DisplayName : "otro componente";
             return CompatResult.Reject("Todavía no se puede instalar aquí",
-                "Antes hay que instalar " + what + ".");
+                "Antes hay que " + req.FillText + ".");
         }
 
         // Si todo coincide, aprobar.
@@ -101,15 +129,55 @@ public class SocketSystem : MonoBehaviour
     /// <summary>Ocupado por una pieza ya asentada (no solo reservada durante su animación).</summary>
     public bool IsComplete => isOccupied && Occupant != null && Occupant.IsInstalled;
 
-    /// <summary>¿Se puede retirar la pieza de aquí? No, si otro lugar ocupado depende de este.</summary>
+    /// <summary>
+    /// Cuenta para el objetivo: completo y con todo lo que exige también cumplido. Para un lugar normal es lo mismo que
+    /// <see cref="IsComplete"/> (sus <see cref="requires"/> se comprobaron al instalar y no se pueden vaciar mientras esté
+    /// ocupado). La diferencia está en los que empiezan ocupados: la tapa del equipo cerrado exige todo lo de dentro,
+    /// así que no cuenta hasta que se cierra al final (y el progreso no baja al quitarla para empezar).
+    /// </summary>
+    public bool IsSatisfied => Satisfied(0);
+
+    private bool Satisfied(int depth)
+    {
+        if (!IsComplete) return false;
+        if (depth > 16) return true; // ciclo en los requires: no debería pasar
+        foreach (var req in requires)
+            if (req != null && !req.Satisfied(depth + 1)) return false;
+        return true;
+    }
+
+    /// <summary>¿Se puede llenar ya (lo exigido está y lo que estorba no)? Lo usa la señal de los puertos de cable.</summary>
+    public bool PrerequisitesMet()
+    {
+        if (FirstOccupied(requiresEmpty) != null) return false;
+        foreach (var req in requires)
+            if (req != null && !req.IsComplete) return false;
+        return true;
+    }
+
+    private SocketSystem FirstOccupied(List<SocketSystem> list)
+    {
+        foreach (var s in list)
+            if (s != null && s != this && s.isOccupied) return s;
+        return null;
+    }
+
+    /// <summary>
+    /// ¿Se puede vaciar este lugar (retirar su pieza, abrir la bisagra)? No, si algo que debe estar vacío para tocarlo
+    /// está puesto (la tapa), ni si otro lugar ocupado depende de este.
+    /// </summary>
     public CompatResult EvaluateRemoval()
     {
+        SocketSystem inTheWay = FirstOccupied(requiresEmpty);
+        if (inTheWay != null)
+            return CompatResult.Reject("Todavía no se puede retirar", "Antes hay que " + inTheWay.EmptyText + ".");
+
         foreach (var other in All)
         {
             if (other == null || other == this || !other.isOccupied || !other.requires.Contains(this)) continue;
-            string blocker = other.allowedType != null ? other.allowedType.DisplayName : "otro componente";
+            string first = string.IsNullOrEmpty(other.emptyAction) ? "Primero retira " + other.TypeName : "Primero hay que " + other.emptyAction;
             return CompatResult.Reject("Todavía no se puede retirar",
-                "Primero retira " + blocker + ": depende de esta pieza (va encima o conectado a ella).");
+                first + ": depende de esta pieza (va encima o conectado a ella).");
         }
         return CompatResult.Accept();
     }
@@ -147,6 +215,13 @@ public class SocketSystem : MonoBehaviour
         if (GameManager.Instance != null) GameManager.Instance.UnregisterInstallation(part.partName);
     }
 
+    /// <summary>Lugar de estado (<see cref="StateOwner"/>): queda ocupado (cerrado) sin mover la pieza.</summary>
+    public void FillState(PCPart owner)
+    {
+        Reserve(owner);
+        if (GameManager.Instance != null) GameManager.Instance.RegisterInstallation(owner.partName);
+    }
+
     /// <summary>Tolerancia efectiva para esta pieza: la del inspector o ~40% del tamaño de la pieza.</summary>
     public float RadiusFor(PCPart part)
     {
@@ -160,18 +235,23 @@ public class SocketSystem : MonoBehaviour
     /// Si alguno de los que están a tiro la acepta, gana ese (el más cercano de ellos).
     /// Devuelve null si ninguno está a tiro. <paramref name="result"/> dice si encajaría y,
     /// si no, por qué — así soltar sobre el lugar equivocado enseña en vez de fallar en silencio.
+    /// Si ninguno la acepta, el motivo sale de un lugar de su mismo tipo (si hay uno a tiro): con el disipador
+    /// sobre la CPU que falta, «antes hay que instalar la CPU» enseña más que «aquí va el ventilador», que
+    /// comparte centro con él.
     /// </summary>
     public static SocketSystem FindTarget(PCPart part, out CompatResult result)
     {
         result = default;
-        SocketSystem best = null, bestValid = null;
-        float bestScore = 1f, bestValidScore = 1f;
+        SocketSystem best = null, bestValid = null, bestSameType = null;
+        float bestScore = 1f, bestValidScore = 1f, bestSameTypeScore = 1f;
         Vector3 current = part.VisualCenter;
 
         foreach (var socket in All)
         {
             // Los lugares que lleva la propia pieza (p. ej. los de la placa base) viajan con ella: no son destino.
-            if (socket == null || socket.transform.IsChildOf(part.transform)) continue;
+            // Los de estado (bisagras, pestillos) tampoco: se alternan con un clic.
+            if (socket == null || socket.StateOwner != null || socket.transform.IsChildOf(part.transform)) continue;
+            if (!part.explainWrongPlace && socket.allowedType != part.connectionType) continue;
             Vector3 installed = part.VisualCenterAt(socket.SnapPosition, socket.SnapRotation);
             Vector3 delta = installed - current;
             delta.y = 0f; // el arrastre es sobre un plano horizontal: la altura no cuenta
@@ -190,6 +270,11 @@ public class SocketSystem : MonoBehaviour
                 bestValidScore = score;
                 bestValid = socket;
             }
+            if (score <= bestSameTypeScore && socket.allowedType != null && socket.allowedType == part.connectionType)
+            {
+                bestSameTypeScore = score;
+                bestSameType = socket;
+            }
         }
 
         if (bestValid != null)
@@ -197,6 +282,7 @@ public class SocketSystem : MonoBehaviour
             result = CompatResult.Accept();
             return bestValid;
         }
+        if (bestSameType != null) best = bestSameType;
         if (best != null) result = best.Evaluate(part);
         return best;
     }

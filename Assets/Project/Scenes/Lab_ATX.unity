@@ -306,6 +306,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable del ventilador trasero
   description: "Va a un cabezal CHA_FAN de la placa base, que ajusta su velocidad seg\xFAn la temperatura."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &34645041
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -514,6 +516,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 587263073}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &116584819
 GameObject:
@@ -600,6 +605,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: dd90e734178646418a19433485e3422e, type: 2}
   title: Conector PCIe de 6+2 pines
   description: "Da a la tarjeta de video la energ\xEDa que la ranura PCIe no alcanza a darle (la ranura entrega hasta 75 W). Los 2 pines sueltos se suman a los 6 cuando la tarjeta pide un conector de 8."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &116584824
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -790,6 +797,9 @@ MonoBehaviour:
   requires:
   - {fileID: 970298839}
   - {fileID: 1291992802}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &236380139
 GameObject:
@@ -843,6 +853,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 2032964099}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &260791077
 GameObject:
@@ -894,6 +907,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &305211138
 GameObject:
@@ -1101,6 +1117,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 830cab555c88fe0429e87d7c16839a93, type: 2}
   title: Cables del panel frontal (F_PANEL)
   description: "Conectan el bot\xF3n de encendido, el de reinicio y las luces del frente del gabinete al cabezal F_PANEL. El manual de la placa indica qu\xE9 pin va en cada lugar."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &311964890
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1229,6 +1247,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: "Funciona, pero con dos m\xF3dulos el manual de la placa indica A2 y B2: as\xED trabajan en doble canal (el doble de ancho de banda)."
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &366560185
 GameObject:
@@ -1311,6 +1332,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: "Funciona, pero con dos m\xF3dulos el manual de la placa indica A2 y B2: as\xED trabajan en doble canal (el doble de ancho de banda)."
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &398853624
 GameObject:
@@ -1362,6 +1386,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &408105264
 GameObject:
@@ -1465,6 +1492,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 587263073}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!4 &427834740
 Transform:
@@ -1547,6 +1577,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable del ventilador del disipador
   description: 'El ventilador del procesador va siempre al cabezal CPU_FAN: la placa vigila que gire y, si se detiene, avisa o apaga el equipo para proteger el procesador.'
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &446362255
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1724,6 +1756,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 587263073}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &570067123
 GameObject:
@@ -1797,6 +1832,9 @@ MonoBehaviour:
   requires:
   - {fileID: 587263073}
   - {fileID: 1326274238}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &582726762
 GameObject:
@@ -1923,6 +1961,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!4 &587263074
 Transform:
@@ -2444,6 +2485,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: "Conector de alimentaci\xF3n SATA"
   description: "Alimenta discos duros y SSD de 2,5\" con 12 V y 5 V. Tiene forma de L para que solo entre en una posici\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &731950742
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2944,6 +2987,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 236380141}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &812857121
 GameObject:
@@ -3106,6 +3152,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 587263073}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &864702102
 GameObject:
@@ -3157,6 +3206,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &874661099
 GameObject:
@@ -3191,6 +3243,7 @@ MonoBehaviour:
   returnScene: ModeSelection
   mainMixer: {fileID: 24100000, guid: 42adc1806a10bb74490e2756cf54cdfb, type: 2}
   uiSound: {fileID: 8300000, guid: b505fc264f48d024ca17525ac1ad2e92, type: 3}
+  extraInstructions: []
 --- !u!114 &874661101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3348,6 +3401,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Conector PCIe de 6+2 pines
   description: "Da a la tarjeta de video la energ\xEDa que la ranura PCIe no alcanza a darle (la ranura entrega hasta 75 W). Los 2 pines sueltos se suman a los 6 cuando la tarjeta pide un conector de 8."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &886095078
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3602,6 +3657,9 @@ MonoBehaviour:
   requires:
   - {fileID: 587263073}
   - {fileID: 1291992802}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &934658574
 GameObject:
@@ -3906,6 +3964,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &977390083
 GameObject:
@@ -4010,6 +4071,9 @@ MonoBehaviour:
   requires:
   - {fileID: 587263073}
   - {fileID: 1291992802}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1065943215
 GameObject:
@@ -4077,6 +4141,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable USB 3.0 frontal
   description: "Lleva los puertos USB del frente del gabinete a la placa base. Su cabezal de 19 pines tiene una muesca para que solo entre en una posici\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &1065943219
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4670,6 +4736,9 @@ MonoBehaviour:
   installNote: 
   requires:
   - {fileID: 587263073}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1220260540
 GameObject:
@@ -4849,6 +4918,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1292956202
 GameObject:
@@ -4935,6 +5007,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 6de11050fd33a5f41aa3de02a171c36d, type: 2}
   title: Cable de los ventiladores frontales
   description: "Los dos ventiladores del frente se unen con un divisor (cable en Y) y van a un cabezal CHA_FAN de la placa, que regula su velocidad seg\xFAn la temperatura."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1292956207
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5079,6 +5153,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable de datos SATA
   description: "Transmite los datos entre el disco y la placa base (hasta 6 Gb/s). Es plano y delgado, con un conector en L m\xE1s peque\xF1o que el de alimentaci\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &1323731343
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5236,6 +5312,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1341635156
 GameObject:
@@ -5412,6 +5491,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 6de11050fd33a5f41aa3de02a171c36d, type: 2}
   title: Cable del ventilador trasero
   description: "Va a un cabezal CHA_FAN de la placa base, que ajusta su velocidad seg\xFAn la temperatura."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1378640510
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5720,6 +5801,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Conector EPS de 8 pines (CPU)
   description: 'Alimenta el procesador con 12 V. Va en el borde superior de la placa, cerca del socket. No hay que confundirlo con el PCIe de 6+2: se parecen, pero sus pines tienen formas distintas.'
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &1508486819
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6019,6 +6102,9 @@ MonoBehaviour:
   requires:
   - {fileID: 587263073}
   - {fileID: 970298839}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1709431998
 GameObject:
@@ -6086,6 +6172,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cables del panel frontal (F_PANEL)
   description: "Conectan el bot\xF3n de encendido, el de reinicio y las luces del frente del gabinete al cabezal F_PANEL. El manual de la placa indica qu\xE9 pin va en cada lugar."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &1709432002
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6277,6 +6365,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 7943f4e7d94148cd8f0bf70b0d5459c7, type: 2}
   title: Cable de datos SATA
   description: "Transmite los datos entre el disco y la placa base (hasta 6 Gb/s). Es plano y delgado, con un conector en L m\xE1s peque\xF1o que el de alimentaci\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1727405620
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6502,6 +6592,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 2988dab6c92648c1b8e30c676cca464a, type: 2}
   title: "Conector de alimentaci\xF3n SATA"
   description: "Alimenta discos duros y SSD de 2,5\" con 12 V y 5 V. Tiene forma de L para que solo entre en una posici\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1755284478
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6792,6 +6884,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: fbb7cb44b4c649e3aa8ab156b356c7dc, type: 2}
   title: Conector EPS de 8 pines (CPU)
   description: 'Alimenta el procesador con 12 V. Va en el borde superior de la placa, cerca del socket. No hay que confundirlo con el PCIe de 6+2: se parecen, pero sus pines tienen formas distintas.'
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1798858267
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6973,6 +7067,9 @@ MonoBehaviour:
   requires:
   - {fileID: 427834739}
   - {fileID: 1291992802}
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!1 &1919221257
 GameObject:
@@ -7059,6 +7156,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 79b55fbec711ebf40afa901027928239, type: 2}
   title: Cable de audio frontal (HD Audio)
   description: "Lleva las tomas de auriculares y micr\xF3fono del frente del gabinete al cabezal HD_AUDIO de la placa."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1919221262
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7306,6 +7405,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 8d12adb11e3272d44b5fd12098b529bc, type: 2}
   title: Cable USB 3.0 frontal
   description: "Lleva los puertos USB del frente del gabinete a la placa base. Su cabezal de 19 pines tiene una muesca para que solo entre en una posici\xF3n."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &1993735892
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7553,6 +7654,9 @@ MonoBehaviour:
   snapRadius: 0
   installNote: 
   requires: []
+  requiresEmpty: []
+  fillAction: 
+  emptyAction: 
   isOccupied: 0
 --- !u!4 &2032964100
 Transform:
@@ -7635,6 +7739,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Conector ATX de 24 pines
   description: "Lleva la energ\xEDa principal de la fuente a la placa base (12 V, 5 V, 3,3 V y la se\xF1al de encendido). Es el conector m\xE1s grande; su pesta\xF1a tiene que quedar trabada."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &2052090735
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7807,6 +7913,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable de los ventiladores frontales
   description: "Los dos ventiladores del frente se unen con un divisor (cable en Y) y van a un cabezal CHA_FAN de la placa, que regula su velocidad seg\xFAn la temperatura."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &2082371710
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8071,6 +8179,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 86a2d9ef80182354d8321a4a1e116f30, type: 2}
   title: Cable del ventilador del disipador
   description: 'El ventilador del procesador va siempre al cabezal CPU_FAN: la placa vigila que gire y, si se detiene, avisa o apaga el equipo para proteger el procesador.'
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &2108739305
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8215,6 +8325,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Cable de audio frontal (HD Audio)
   description: "Lleva las tomas de auriculares y micr\xF3fono del frente del gabinete al cabezal HD_AUDIO de la placa."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!64 &2109117553
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8472,6 +8584,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: b13c350c014744c39fe5256540d7729c, type: 2}
   title: Conector ATX de 24 pines
   description: "Lleva la energ\xEDa principal de la fuente a la placa base (12 V, 5 V, 3,3 V y la se\xF1al de encendido). Es el conector m\xE1s grande; su pesta\xF1a tiene que quedar trabada."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!23 &2144363654
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9467,6 +9581,8 @@ MonoBehaviour:
   connectionType: {fileID: 0}
   title: Gabinete ATX (torre media)
   description: "Es la carcasa que protege y sujeta todos los componentes. Aqu\xED est\xE1 tumbado y sin el panel lateral, como se hace al armar un equipo. Por dentro tiene la bandeja de la placa base con sus separadores, el hueco de la fuente (abajo y al fondo), la bah\xEDa del disco y los ventiladores, que meten aire fresco por el frente y lo sacan por detr\xE1s."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!4 &3106261575883671259
 Transform:
   m_ObjectHideFlags: 0
@@ -9539,6 +9655,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: f19d91570a5350f4082b0e64b3bd9a19, type: 2}
   title: Tarjeta de video (GPU)
   description: "Procesa los gr\xE1ficos y los env\xEDa al monitor. Va en la ranura PCIe x16 m\xE1s cercana al procesador, con su placa met\xE1lica (el bracket) atornillada a la parte trasera del gabinete. Necesita alimentaci\xF3n extra de la fuente por un conector PCIe."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &3256154878557778804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9766,6 +9884,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: a158ff0b9d489124bb4da487b8315c1e, type: 2}
   title: Disco duro de 3,5" (HDD)
   description: "Almacenamiento magn\xE9tico de gran capacidad y bajo costo, m\xE1s lento que un SSD. Va en la bah\xEDa de discos y necesita dos cables: datos SATA (a la placa) y alimentaci\xF3n SATA (a la fuente)."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &3886125258856974572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10115,6 +10235,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: fe2064d6a41fa9b40843b7092bed0702, type: 2}
   title: Placa base ATX (ASUS ROG Strix Z370-E)
   description: "Es el circuito principal: conecta el procesador, la memoria, el almacenamiento y las tarjetas de expansi\xF3n. Formato ATX (30,5 \xD7 24,4 cm), socket LGA 1151 para procesadores Intel, cuatro ranuras DDR4 y dos ranuras M.2. Conviene instalarle el procesador, el disipador y la memoria fuera del gabinete, donde hay espacio."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!1 &4399244265577476992
 GameObject:
   m_ObjectHideFlags: 0
@@ -10163,6 +10285,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: d547e3b23345dd141a77405b8afb183d, type: 2}
   title: "Fuente de alimentaci\xF3n ATX"
   description: Convierte la corriente alterna del enchufe en las tensiones continuas que usan los componentes (12 V, 5 V y 3,3 V). Va abajo y al fondo del gabinete, con su ventilador hacia la rejilla y el enchufe hacia afuera.
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &4399244265577476995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10294,6 +10418,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 5f6e58d5afbe0874aa4d0ba49aa47d1e, type: 2}
   title: Disipador de torre con ventilador
   description: "Extrae el calor del procesador: la base de cobre toca la CPU (con pasta t\xE9rmica en medio), los heatpipes llevan el calor a las aletas y el ventilador lo empuja hacia la parte trasera del gabinete, donde sale."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &4536049680040628765
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11376,6 +11502,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 3ca3be19cec04eb40916703554c260fd, type: 2}
   title: Unidad SSD M.2 NVMe
   description: "Almacenamiento sin partes m\xF3viles conectado directamente por PCI Express: varias veces m\xE1s r\xE1pido que un disco duro. Se inserta en la ranura M.2 de la placa y se fija con un tornillo; no lleva cables."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &6998511054961528683
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11493,6 +11621,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 7d112bc01e2272a4b91451e0e4cf8492, type: 2}
   title: Ventilador de 120 mm
   description: 'Mueve el aire dentro del gabinete: los del frente meten aire fresco y el trasero saca el caliente. Se conecta a un cabezal de ventilador de 4 pines de la placa base.'
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &7208229917487042786
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11756,6 +11886,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   title: "Memoria RAM DDR4 (m\xF3dulo DIMM)"
   description: "Guarda los datos y programas en uso mientras el equipo est\xE1 encendido; se borra al apagarlo. Con dos m\xF3dulos se usan las ranuras A2 y B2, para que trabajen en doble canal."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &8001050637804902669
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11960,6 +12092,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 1a0ef16d4b8f24145b96d85c912f0790, type: 2}
   title: "Memoria RAM DDR4 (m\xF3dulo DIMM)"
   description: "Guarda los datos y programas en uso mientras el equipo est\xE1 encendido; se borra al apagarlo. Con dos m\xF3dulos se usan las ranuras A2 y B2, para que trabajen en doble canal."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &8593494585232854887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12031,6 +12165,8 @@ MonoBehaviour:
   connectionType: {fileID: 11400000, guid: 7c39cd17fa08f5c42ab5f7ae66842ea3, type: 2}
   title: Procesador (CPU) Intel LGA 1151
   description: "Ejecuta las instrucciones de los programas. Se apoya en el socket sin hacer fuerza: el tri\xE1ngulo dorado de una esquina indica c\xF3mo va orientado. Nunca funciona sin disipador: se calentar\xEDa en segundos."
+  startInstalledIn: {fileID: 0}
+  restPoint: {fileID: 0}
 --- !u!65 &8778297721824674549
 BoxCollider:
   m_ObjectHideFlags: 0

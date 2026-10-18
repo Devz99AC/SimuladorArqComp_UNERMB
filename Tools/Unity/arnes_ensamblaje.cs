@@ -10,6 +10,7 @@
 // que un estudiante nunca provocaría.
 // Las líneas de resultado dicen a qué lugar apuntó la pieza, si se acepta (con el motivo si no) y si el
 // cable no alcanza (ClampToReach recortó la posición).
+// También: Toggle("Módulo de discos") = clic en una bisagra; Remove("Tapa") = retirarla a la mesa; Progress().
 var s = new System.Text.StringBuilder();
 var im = UnityEngine.Object.FindAnyObjectByType<InteractionManager>();
 var T = typeof(InteractionManager);
@@ -32,5 +33,33 @@ System.Func<string, string, string> Try = (partName, socketName) => {
     CompatResult cr; var tgt = SocketSystem.FindTarget(part, out cr);
     T.GetMethod("EndDrag", F).Invoke(im, null);
     string reach = (got - want).magnitude > 0.001f ? "  (no alcanza: falta " + (got - want).magnitude.ToString("F3") + " m)" : "";
-    return partName + " -> " + socketName + ": " + (tgt ? tgt.name : "null") + " ok=" + cr.Ok + (cr.Ok ? "" : " [" + cr.Reason + "]") + reach;
+    return partName + " -> " + socketName + ": " + (tgt ? tgt.name : "null") + " ok=" + cr.Ok + (cr.Ok ? "" : " [" + cr.Message + " · " + cr.Reason + "]") + reach;
 };
+// Clic sobre una bisagra o un pestillo (HingedPart): lo abre o lo cierra si las reglas lo permiten.
+System.Func<string, string> Toggle = name => {
+    var go = Find(name);
+    if (go == null) return "NO ENCONTRADO " + name;
+    var h = go.GetComponent<HingedPart>();
+    if (h == null) return name + " no tiene HingedPart";
+    var r = h.Toggle();
+    return "clic " + name + ": ok=" + r.Ok + " [" + r.Message + (r.Reason != null ? " · " + r.Reason : "") + "]";
+};
+// Arrastrar una pieza instalada fuera y soltarla en vacío (vuelve a su reposo). Antes comprueba, como
+// InteractionManager, si se puede retirar.
+System.Func<string, string> Remove = name => {
+    var go = Find(name);
+    if (go == null) return "NO ENCONTRADO " + name;
+    var part = go.GetComponent<PCPart>();
+    if (part.CurrentSocket != null)
+    {
+        var rem = part.CurrentSocket.EvaluateRemoval();
+        if (!rem.Ok) return "retirar " + name + ": bloqueado [" + rem.Reason + "]";
+    }
+    var hit = new UnityEngine.RaycastHit(); hit.point = part.transform.position;
+    T.GetMethod("BeginDrag", F).Invoke(im, new object[] { part, hit });
+    part.transform.position += new UnityEngine.Vector3(0f, 0.3f, -0.6f); // lejos de cualquier lugar
+    T.GetMethod("EndDrag", F).Invoke(im, null);
+    return "retirar " + name + ": ok";
+};
+System.Func<string> Progress = () => GameManager.Instance == null ? "sin GameManager"
+    : "progreso " + GameManager.Instance.InstalledCount + "/" + GameManager.Instance.TotalRequired;

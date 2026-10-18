@@ -21,13 +21,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>Lugares requeridos ya completados.</summary>
+    /// <summary>
+    /// Lugares requeridos ya completados (con lo que exigen también cumplido: la tapa del equipo cerrado no cuenta
+    /// al empezar, solo cuando se vuelve a cerrar con todo dentro — ver <see cref="SocketSystem.IsSatisfied"/>).
+    /// </summary>
     public int InstalledCount
     {
         get
         {
             int done = 0;
-            foreach (var s in SocketSystem.All) if (s.required && s.IsComplete) done++;
+            foreach (var s in SocketSystem.All) if (s.required && s.IsSatisfied) done++;
             return done;
         }
     }

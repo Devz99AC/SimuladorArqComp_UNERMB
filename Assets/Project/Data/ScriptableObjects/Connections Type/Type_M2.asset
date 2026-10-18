@@ -15,4 +15,4 @@ MonoBehaviour:
   labelName: SSD M.2
   debugColor: {r: 0.3, g: 0.5, b: 1, a: 1}
   displayName: la unidad SSD M.2
-  placementHint: "El SSD M.2 va en la ranura M.2 de la placa base: una ranura peque\xF1a y plana entre las ranuras PCIe, que se fija con un tornillo en el extremo."
+  placementHint: "El SSD M.2 va en la ranura M.2 de la placa base: una ranura peque\u00F1a y plana, y se fija con un tornillo en el otro extremo."

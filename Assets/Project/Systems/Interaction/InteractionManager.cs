@@ -10,6 +10,7 @@ using UnityEngine;
 ///    sobre uno incompatible, vuelve a la mesa y el HUD explica por qué.
 ///  - Arrastrar una pieza instalada: la retira (deshacer — §6.2).
 ///  - Doble clic izq.: encuadra la pieza con la cámara.
+///  - Clic izq. sobre una pieza con bisagra o pestillo (<see cref="HingedPart"/>): la abre o la cierra.
 ///  - Clic der. SIN mover el ratón: ficha técnica. Clic der. + arrastrar: órbita (la hace la cámara).
 /// La cámara ya NO se mueve sola al agarrar/soltar: el estudiante controla el encuadre.
 /// </summary>
@@ -278,7 +279,16 @@ public class InteractionManager : MonoBehaviour
         }
         else if (_pressPart != null)
         {
-            // Fue un clic (sin arrastre). Dos seguidos sobre la misma pieza = encuadrarla.
+            // Fue un clic (sin arrastre). Sobre una bisagra o pestillo: abrirlo o cerrarlo (si el ratón no se movió).
+            if (_pressPart.TryGetComponent(out HingedPart hinge))
+            {
+                if ((PointerPos - _pressPos).sqrMagnitude <= dragStartPixels * dragStartPixels) ToggleHinge(hinge);
+                _lastClickPart = null;
+                _pressPart = null;
+                return;
+            }
+
+            // Dos seguidos sobre la misma pieza = encuadrarla.
             bool isDouble = _pressPart == _lastClickPart && Time.unscaledTime - _lastClickTime <= doubleClickSeconds;
             if (isDouble && _camController != null) _camController.FocusOnObject(_pressPart.transform);
 
@@ -286,6 +296,14 @@ public class InteractionManager : MonoBehaviour
             _lastClickTime = Time.unscaledTime;
         }
         _pressPart = null;
+    }
+
+    private void ToggleHinge(HingedPart hinge)
+    {
+        CompatResult result = hinge.Toggle();
+        var hud = AssemblyHudView.Instance;
+        if (hud == null || string.IsNullOrEmpty(result.Message)) return;
+        hud.ShowFeedback(result.Message, result.Ok ? ToastKind.Success : ToastKind.Warning, result.Reason);
     }
 
     // --- ARRASTRE ---

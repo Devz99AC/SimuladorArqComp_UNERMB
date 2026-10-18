@@ -20,6 +20,9 @@ public readonly struct CompatResult
 
     public static CompatResult Accept() => new CompatResult(true, null, null);
 
+    /// <summary>Aceptado, con un aviso para el HUD (p. ej. "Módulo de discos levantado").</summary>
+    public static CompatResult Accept(string message) => new CompatResult(true, message, null);
+
     public static CompatResult Reject(string message, string reason = null) => new CompatResult(false, message, reason);
 
     /// <summary>Pone en mayúscula la primera letra (los displayName van en minúscula con artículo).</summary>

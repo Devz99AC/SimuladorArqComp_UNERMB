@@ -17,6 +17,17 @@ public class PCPart : MonoBehaviour
     [TextArea(4, 10)]
     public string description = "Descripción...";
 
+    [Tooltip("Si se suelta sobre un lugar de otro tipo, explicar qué va ahí. Desmárcalo en piezas grandes que tapan muchos " +
+             "lugares (la tapa del equipo): soltarla cerca del equipo no es un error de lugar, y su tolerancia (∝ tamaño) alcanzaría " +
+             "puertos pequeños.")]
+    public bool explainWrongPlace = true;
+
+    [Header("Inicio (opcional)")]
+    [Tooltip("La pieza empieza instalada en este lugar (p. ej. la tapa de un equipo cerrado). Vacío = empieza suelta.")]
+    public SocketSystem startInstalledIn;
+    [Tooltip("Si empieza instalada: dónde se deja al retirarla y soltarla en vacío (en la mesa). Vacío = donde está en la escena.")]
+    public Transform restPoint;
+
     [Header("Estado")]
     public bool IsInstalled { get; private set; } = false;
 
@@ -53,6 +64,23 @@ public class PCPart : MonoBehaviour
         // TRUCO: Si la pieza no se puede arrastrar (como la Motherboard),
         // le decimos al sistema que ya está "Instalada" para que no intente moverla.
         if (!isDraggable) IsInstalled = true;
+
+        if (startInstalledIn != null)
+        {
+            if (restPoint != null) SetHome(restPoint.parent, restPoint.position, restPoint.rotation);
+            PlaceInstantly(startInstalledIn);
+        }
+    }
+
+    /// <summary>Instalada ya, sin animación (estado inicial de la escena).</summary>
+    public void PlaceInstantly(SocketSystem socket)
+    {
+        StopMove();
+        IsHeld = false;
+        socket.Reserve(this);
+        CurrentSocket = socket;
+        IsInstalled = true;
+        socket.InstallPart(this);
     }
 
     /// <summary>Dónde quedaría el centro visual si la pieza estuviera en esa pose (misma escala de mundo).</summary>

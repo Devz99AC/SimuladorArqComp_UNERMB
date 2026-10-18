@@ -4,7 +4,8 @@ using UnityEngine.Rendering;
 /// <summary>
 /// Señal luminosa en un puerto de cable libre. Los cabezales de la placa son pequeños y oscuros: sin ayuda
 /// cuesta encontrarlos. Mientras el puerto está libre se ve una caja translúcida del tamaño del conector:
-///  - late con brillo cuando ya se puede conectar (todo lo que exige su <see cref="SocketSystem.requires"/> está puesto);
+///  - late con brillo cuando ya se puede conectar (todo lo que exige su <see cref="SocketSystem.requires"/> está puesto
+///    y nada de su <see cref="SocketSystem.requiresEmpty"/> estorba);
 ///  - queda tenue mientras falta algo (p. ej. la placa aún no está en el gabinete);
 ///  - desaparece al conectar.
 /// La caja se crea al empezar (no se guarda en la escena), en la capa Ignore Raycast: no tapa clics ni sostiene piezas.
@@ -70,10 +71,5 @@ public class CablePortMarker : MonoBehaviour
         _renderer.SetPropertyBlock(_block);
     }
 
-    private bool Ready()
-    {
-        foreach (var req in _socket.requires)
-            if (req != null && !req.IsComplete) return false;
-        return true;
-    }
+    private bool Ready() => _socket.PrerequisitesMet();
 }

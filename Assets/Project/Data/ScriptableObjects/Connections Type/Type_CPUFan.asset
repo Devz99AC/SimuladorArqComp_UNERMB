@@ -15,4 +15,4 @@ MonoBehaviour:
   labelName: Ventilador de CPU (CPU_FAN)
   debugColor: {r: 0.6, g: 0.6, b: 0.65, a: 1}
   displayName: el ventilador del procesador
-  placementHint: 'El ventilador del disipador va al cabezal CPU_FAN, junto a las ranuras de memoria: la placa vigila que gire y, si se detiene, protege el procesador.'
+  placementHint: "El ventilador del disipador va al cabezal CPU_FAN de la placa, cerca del procesador: la placa vigila que gire y, si se detiene, protege el procesador."
