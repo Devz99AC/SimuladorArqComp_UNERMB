@@ -11,7 +11,7 @@ using static LabBuilderKit;
 /// Escala real (1 unidad = 1 m), mesa a 0,849 m, el estudiante mira desde -Z. El equipo va acostado con la tapa
 /// arriba: su alto de pie (290 mm) es el ancho (X), su ancho (92,6 mm) la altura (Y) y su fondo (292 mm) va en Z.
 /// El chasis, la placa, el disipador, la fuente y las tarjetas se hacen con primitivas (chapa de 1,2 mm). La CPU,
-/// la RAM, el SSD M.2, el disco, el ventilador y la tarjeta de perfil completo se reutilizan del lab ATX.
+/// la RAM, el SSD M.2, el disco y el ventilador se reutilizan del lab ATX.
 ///
 /// Lo que enseña (y el manual exige): la tapa empieza puesta; el módulo de discos tapa la memoria, el procesador y
 /// el SSD y solo se levanta sin el disco; el SSD y la fuente van antes que el disipador; las tarjetas son de perfil
@@ -228,9 +228,6 @@ public static class LabSffBuilder
         card.rotation = Quaternion.Euler(0f, 0f, -90f) * card.rotation; // acostada en la mesa, el disipador hacia arriba
         RestOnDesk(card, new Vector2(-0.45f, -0.15f), WorldBounds(card));
 
-        Transform bigCard = Spawn(AtxModels + "GPU/GPU.fbx", "Tarjeta de perfil completo", root);
-        RestOnDesk(bigCard, new Vector2(0.56f, -0.255f), WorldBounds(bigCard));
-
         // ---------------- Botón de encendido (fijo, en el frente) ----------------
         Transform button = BuildPowerButton(root, out Transform buttonOut);
         MakePart(button, "Botón de encendido", null, "Botón de encendido",
@@ -266,9 +263,6 @@ public static class LabSffBuilder
         MakePart(card, "Tarjeta perfil bajo", "Type_PCIeLowProfile", "Tarjeta de video de perfil bajo",
             "Tarjeta PCIe con bracket corto (perfil bajo, 79,2 mm): la única que cabe en una PC compacta. Se abre el pestillo de las " +
             "tarjetas, se mete en la ranura PCIe x16 con el bracket en la abertura trasera y se vuelve a cerrar el pestillo.");
-        MakePart(bigCard, "Tarjeta perfil completo", "Type_PCIeFullHeight", "Tarjeta de video de perfil completo",
-            "Una tarjeta para PC de escritorio normal: su bracket mide 120 mm de alto y ocupa dos ranuras. No cabe en este gabinete, " +
-            "que mide 92,6 mm de alto: en una PC compacta solo entran tarjetas de perfil bajo.");
 
         // ---------------- Cables ----------------
         BuildCables(new SffCables
@@ -356,9 +350,6 @@ public static class LabSffBuilder
         EnsureType("Type_CardLatch", "Pestillo de tarjetas", "el pestillo de las tarjetas", "");
         EnsureType("Type_PCIeLowProfile", "Tarjeta PCIe de perfil bajo", "la tarjeta de perfil bajo",
             "Va en la ranura PCIe x16 de la placa, con su bracket corto (79,2 mm) en la abertura trasera. Antes hay que abrir el pestillo de las tarjetas.");
-        EnsureType("Type_PCIeFullHeight", "Tarjeta PCIe de perfil completo", "la tarjeta de perfil completo",
-            "Su bracket mide 120 mm de alto y esta PC compacta solo tiene ranuras de perfil bajo (79,2 mm): no cabe. Hay que usar una tarjeta " +
-            "de perfil bajo (muchas traen los dos brackets en la caja).");
         EnsureType("Type_PSU_SFF", "Fuente SFF (Dell)", "la fuente de alimentación (propia de Dell)",
             "Va detrás a la izquierda, con el enchufe hacia afuera. Es propia del fabricante: una fuente ATX no cabe ni tiene sus conectores.");
         EnsureType("Type_DellSysPower", "Alimentación del sistema (Dell)", "el conector de alimentación del sistema",

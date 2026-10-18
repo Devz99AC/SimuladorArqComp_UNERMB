@@ -161,7 +161,7 @@ Gabinete mid-tower **tumbado de lado** y sin panel lateral, como se monta en la 
 
 ### 4.2 Lab PC compacta (SFF de oficina) — hecho (2026-10-18)
 
-Decisión del usuario: **PC pequeña de oficina**, no Mini-ITX gamer. Modelo de referencia: **Dell OptiPlex 7070 SFF** (Service Manual y Setup and Specifications de Dell). Lo que enseña: tapa sin herramientas, un **orden que impone el espacio** (el módulo de discos tapa la memoria y el procesador; el SSD y la fuente van antes que el disipador), tarjetas de **perfil bajo** con pestillo, **fuente propia** con solo dos cables y discos alimentados desde la placa. Mecánica nueva: `requiresEmpty`, lugares de estado y `HingedPart` (ver `CLAUDE.md` §4). Cómo probarlo: §6.1. La regla de holgura física por dimensiones no hizo falta: la tarjeta de perfil completo se rechaza por tipo, con el motivo en su texto.
+Decisión del usuario: **PC pequeña de oficina**, no Mini-ITX gamer. Modelo de referencia: **Dell OptiPlex 7070 SFF** (Service Manual y Setup and Specifications de Dell). Lo que enseña: tapa sin herramientas, un **orden que impone el espacio** (el módulo de discos tapa la memoria y el procesador; el SSD y la fuente van antes que el disipador), tarjetas de **perfil bajo** con pestillo, **fuente propia** con solo dos cables y discos alimentados desde la placa. Mecánica nueva: `requiresEmpty`, lugares de estado y `HingedPart` (ver `CLAUDE.md` §4). Cómo probarlo: §6.1. Hubo una tarjeta de perfil completo para rechazarla, pero el usuario la quitó: solo hace falta la de perfil bajo.
 
 ### 4.3 Lab laptop
 
@@ -249,7 +249,7 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
    - El disipador exige la CPU; el ventilador del disipador va encima de él.
    - RAM en DIMM1 y DIMM2 (en DIMM3/4 entra, con un aviso, pero no cuenta).
 4. **Clic en el módulo para bajarlo** y coloca el disco encima (con el módulo levantado se rechaza). Con el disco puesto, el módulo ya no se levanta.
-5. **Tarjeta.** La de perfil completo (a la derecha, delante) no cabe: se rechaza con motivo. Clic en el **pestillo azul de las tarjetas** (atrás a la derecha) para abrirlo, mete la de perfil bajo en la PCIe x16 y vuelve a cerrarlo.
+5. **Tarjeta.** Clic en el **pestillo azul de las tarjetas** (atrás a la derecha) para abrirlo, mete la de perfil bajo en la PCIe x16 y vuelve a cerrarlo.
 6. **Cables** (6):
    - Fuente: alimentación del sistema (junto a la fuente, delante) y del procesador (ATX_CPU, junto al panel trasero). Son distintos: cambiarlos se rechaza.
    - De la placa al disco: datos SATA y alimentación (en este Dell salen de la placa).
@@ -258,7 +258,7 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 **Verificado en Play (2026-10-18), por código** (`arnes_ensamblaje.cs`):
 - Recorrido completo hasta 16/16 y victoria.
-- Rechazos con su motivo: tapa puesta, módulo bajado (RAM, CPU), módulo levantado (disco), disipador antes que la CPU, SSD y fuente con el disipador puesto, tarjeta de perfil completo, pestillo cerrado, cable en el puerto equivocado y tapa antes de terminar.
+- Rechazos con su motivo: tapa puesta, módulo bajado (RAM, CPU), módulo levantado (disco), disipador antes que la CPU, SSD y fuente con el disipador puesto, pestillo cerrado, cable en el puerto equivocado y tapa antes de terminar.
 - Bloqueos: el módulo no se levanta con el disco encima, y no se puede retirar el SSD ni la fuente con el disipador puesto, ni la CPU bajo el disipador, ni nada con la tapa puesta.
 - Alcance de los cables, y la tapa soltada cerca del equipo vuelve a la mesa sin aviso.
 - Selector ▸ ENTRAR (tarjeta 2) carga `Lab_SFF`, con la consola limpia. El lab ATX sigue llegando a 21/21.
@@ -363,11 +363,12 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
   - Escena `Lab_SFF` generada por `LabSffBuilder` (16 pasos), tarjeta en el selector con imagen, y la escena en Build Settings.
 - Verificado por código en Play (§6.1). El lab ATX sigue llegando a 21/21.
 
+- **Probado por el usuario con el ratón: «funciona bien».** Su única corrección: quitar la tarjeta de perfil completo (no hace falta, solo la de perfil bajo). Preguntó cómo se quita una pieza puesta: se arrastra fuera (las bisagras, con otro clic).
+
 **Siguiente:**
-1. Que el usuario pruebe el lab 2 con el ratón: arrastrar la tapa, el clic en el módulo y el pestillo, y los cables cortos.
-2. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
-3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
-4. Lab 3 (laptop): prompt listo en [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). La mecánica de estado ya existe; la batería es un puerto que los demás piden vacío y el pestillo ZIF, un `HingedPart`. Falta la inserción en ángulo y, si se eligen, los tornillos con clic.
+1. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
+2. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
+3. Lab 3 (laptop): prompt listo en [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). La mecánica de estado ya existe; la batería es un puerto que los demás piden vacío y el pestillo ZIF, un `HingedPart`. Falta la inserción en ángulo y, si se eligen, los tornillos con clic.
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
