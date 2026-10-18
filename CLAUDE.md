@@ -56,6 +56,7 @@ Retornos: Lab_ATX/TheoryModule ──> ModeSelection ──BackToMenu──> Mai
 | `CompatResult` | Systems/Assembly | — | struct: Ok + Message + Reason (el "porqué" en español) |
 | `CableSpline` | Systems/Cables | (por cable) | Tubo procedural Bézier entre anclas, puntos de paso, holgura, longitud finita (`[ExecuteAlways]`) |
 | `CablePlug` | Systems/Cables | (conector) | Extremo arrastrable de un cable: limita el alcance y lo orienta |
+| `CablePortMarker` | Systems/Cables | (puerto de cable) | Señal naranja translúcida del tamaño del conector en un puerto libre: tenue mientras falta algo de su `requires`, late cuando ya se puede conectar, se apaga al conectar (pedido del usuario: los cabezales no se notaban) |
 | `CableMenu` | Systems/Cables/Editor | — | `GameObject ▸ Simulador ▸ Cable (spline)` / `Puerto de cable` |
 | `LabAtxBuilder` | Systems/Assembly/Editor | Lab_ATX | `Tools ▸ Simulador ▸ Reconstruir laboratorio ATX`: genera todo `PC (Lab ATX)` (piezas, lugares, añadidos del gabinete, 11 cables). **Fuente de verdad de las posiciones** |
 | `EstiloMateriales` | Content/Models/Editor | — | Pasa los materiales de un FBX al shader estilizado (Attenuation2) con texturas de color liso; `SolidMaterial()` para piezas añadidas |
@@ -251,6 +252,9 @@ Plan completo (diagnóstico, 3 labs, assets): [Docs/Plan_Laboratorios_Practicos.
 - La holgura se comba **perpendicular a la cuerda**: si el cable baja en diagonal junto a una pared, "abajo" proyectado empuja el sobrante contra ella. Remedios: salidas casi a la altura del reposo, `looseSlack` del conector hacia el interior, o reposo justo debajo de la salida.
 - **Puerto** = `SocketSystem` normal con el tipo del conector; su `snapPoint` con Z+ **hacia fuera** del puerto.
 - Crear: `GameObject ▸ Simulador ▸ Cable (spline)` / `Puerto de cable` (`CableMenu.cs`). Material por defecto `Content/Resources/Mat_Cable.mat`.
+- **Señal de puerto** (`CablePortMarker`, material `Content/Resources/Mat_PuertoCable.mat`, mismo shader que los fantasmas): la caja se crea en `Start` (después de que `ObjectHighlighter` guarde sus renderers) en la capa Ignore Raycast. `LabAtxBuilder.AddPortMarker` la pone en los 11 puertos.
 - Fantasmas de colocación: `Content/Resources/Mat_GhostPreview.mat` (shader `Custom/GhostPreview`, URP, translúcido + Fresnel; alfa por `MaterialPropertyBlock._BaseColor`).
+
+**Herramientas de prueba** (`Tools/Unity/`): `capturar.sh` renderiza vistas de la escena abierta (edición o Play) a PNG en `Temp/capturas` con una cámara temporal (ortográfica opcional, para medir), y `arnes_ensamblaje.cs` prueba el montaje en Play sin ratón (`Try(pieza, lugar)` vía `eval_file`). **Prompts de los labs pendientes:** `Docs/Prompt_Lab_PC_Compacta.md` y `Docs/Prompt_Lab_Laptop.md`.
 
 **Verificación sin editor:** con el editor sin conexión (sin MCP / sin `com.unity.pipeline`), se compila con una copia del `Assembly-CSharp.csproj` que incluye todos los `.cs` (también `Editor/`) y salida al scratchpad: `dotnet build` → 0 errores. LangVersion 9 / netstandard2.1: no usar `record` ni `init`.

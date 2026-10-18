@@ -566,6 +566,7 @@ public static class LabAtxBuilder
             Quaternion.LookRotation(Vector3.back, Vector3.right), "Type_PCIePower");
         pcie.requires.Add(c.gpuSocket);
         pcie.requires.Add(c.psuSocket);
+        AddPortMarker(pcie, PlugPCIe);
         Cable(c, "Cable PCIe 6+2 (GPU)", outPCIe, "Type_PCIePower", PlugPCIe, c.dark, c.cableBlack, CableSpline.Profile.Round, 0.004f, 0.30f,
             new Vector3(0.705f, 0f, -0.19f), Vector3.forward, c.psuSocket, PsuHome("Reposo PCIe", 0.012f, PlugPCIe),
             "Conector PCIe de 6+2 pines",
@@ -579,6 +580,7 @@ public static class LabAtxBuilder
             new Vector3(hddB.min.x - PlugSataPower.z * 0.5f + 0.003f, hddB.min.y + 0.007f, hddB.center.z + 0.012f), hddPortRot, "Type_SATAPower");
         sataPower.requires.Add(c.hddSocket);
         sataPower.requires.Add(c.psuSocket);
+        AddPortMarker(sataPower, PlugSataPower);
         Cable(c, "Cable de alimentación SATA", outSata, "Type_SATAPower", PlugSataPower, c.dark, c.cableBlack, CableSpline.Profile.Flat, 0.007f, 0.26f,
             new Vector3(0.745f, 0f, -0.15f), Vector3.forward, c.psuSocket, PsuHome("Reposo SATA", -0.012f, PlugSataPower),
             "Conector de alimentación SATA",
@@ -713,7 +715,14 @@ public static class LabAtxBuilder
         }
         var s = MakeSocket(name, c.board, pos, rot, type);
         foreach (var r in requires) s.requires.Add(r);
+        AddPortMarker(s, size);
         return s;
+    }
+
+    /// <summary>Señal luminosa del puerto (los cabezales son pequeños y oscuros: el usuario pidió que se noten más).</summary>
+    static void AddPortMarker(SocketSystem socket, Vector3 plugSize)
+    {
+        socket.gameObject.AddComponent<CablePortMarker>().size = plugSize;
     }
 
     static float TopNear(Collider col, float x, float z, float half, float fallback)

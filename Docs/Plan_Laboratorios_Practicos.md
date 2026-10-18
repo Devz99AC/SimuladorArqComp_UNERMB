@@ -319,6 +319,7 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
   - Reposo de conectores que sigue a la pieza de origen.
   - Cámara con paneo proporcional.
 - Selector ▸ ENTRAR abre `Lab_ATX`, con imagen en la tarjeta. Créditos de los modelos en el modal de Créditos.
+- **Probado por el usuario con el ratón: «todo bien».** Su única corrección: los puntos de conexión de los cables no se notaban. Se añadió `CablePortMarker`, una señal naranja que late en cada puerto libre listo para conectar, queda tenue si aún falta algo y se apaga al conectar.
 
 **Limitaciones conocidas:**
 - Con el gabinete tumbado, sus paredes (29 cm) tapan el interior desde ángulos bajos. La vista general está a 60°; mejoraría con paredes que se aclaren al taparlo.
@@ -327,10 +328,10 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 - El modelo de gabinete no sigue del todo la norma ATX: el interior mide 398 mm, así que placa y fuente quedan justas, y el hueco de las ranuras traseras no coincide del todo con la GPU.
 
 **Siguiente:**
-1. Prueba a mano con el ratón (usuario).
+1. Que el usuario vea las señales de puerto nuevas.
 2. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
 3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
-4. Labs 2 (PC compacta de oficina) y 3 (laptop Dell Latitude 5400).
+4. Labs 2 y 3: hay un prompt listo para cada sesión, [Prompt_Lab_PC_Compacta.md](Prompt_Lab_PC_Compacta.md) y [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). Recogen las decisiones tomadas, lo que hay que preguntar, la mecánica nueva («exige que otro esté vacío», bisagras, inserción en ángulo, tornillos), cómo reutilizar el patrón del lab ATX y cómo verificar.
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
