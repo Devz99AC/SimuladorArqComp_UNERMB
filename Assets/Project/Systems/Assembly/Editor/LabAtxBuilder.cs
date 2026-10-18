@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using static LabBuilderKit;
 
 /// <summary>
 /// Construye el contenido del laboratorio ATX (escena Lab_ATX) a partir de los modelos de
@@ -20,20 +20,15 @@ using UnityEngine;
 public static class LabAtxBuilder
 {
     const string Models = "Assets/Project/Content/Models/Lab_ATX/";
-    const string TypesDir = "Assets/Project/Data/ScriptableObjects/Connections Type/";
     const string ExtrasDir = Models + "Añadidos/";
     const string ColorDir = Models + "Colores";
     const string RootName = "PC (Lab ATX)";
-    const float DeskY = 0.849f;
-    const int InteractableLayer = 3;
 
     // Huecos del modelo de gabinete medidos con rayos (relativos a la esquina inferior del chasis
     // tumbado: x desde su cara "suelo del gabinete", y desde la mesa). El de arriba no corresponde
     // a nada de una torre ATX y se tapa.
     static readonly Vector2 HuecoSobranteX = new Vector2(0.141f, 0.331f);
     static readonly Vector2 HuecoSobranteY = new Vector2(0.123f, 0.182f);
-
-    static StringBuilder _log;
 
     struct Interior
     {
@@ -46,7 +41,7 @@ public static class LabAtxBuilder
 
     public static string Build()
     {
-        _log = new StringBuilder();
+        BeginLog();
         var old = GameObject.Find(RootName);
         if (old != null) Object.DestroyImmediate(old);
         Transform root = new GameObject(RootName).transform;
@@ -204,151 +199,10 @@ public static class LabAtxBuilder
 
         EditorSceneManager.MarkSceneDirty(root.gameObject.scene);
         AssetDatabase.SaveAssets(); // los materiales de los añadidos y los cables (guardar la escena no los guarda)
-        return _log.ToString();
+        return EndLog();
     }
 
     // =====================================================================
-
-    static void Log(string s) => _log.AppendLine(s);
-
-    static Transform Spawn(string path, string name, Transform parent)
-    {
-        var asset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-        var go = (GameObject)PrefabUtility.InstantiatePrefab(asset);
-        PrefabUtility.UnpackPrefabInstance(go, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
-        go.name = name;
-        go.transform.SetParent(parent, false);
-        return go.transform;
-    }
-
-    static Transform NewChild(string name, Transform parent)
-    {
-        var t = new GameObject(name).transform;
-        t.SetParent(parent, false);
-        return t;
-    }
-
-    static ConnectionTypeSO Type(string name) =>
-        string.IsNullOrEmpty(name) ? null : AssetDatabase.LoadAssetAtPath<ConnectionTypeSO>(TypesDir + name + ".asset");
-
-    /// <summary>Apoya el objeto en la mesa con el centro de <paramref name="b"/> en (x, z).</summary>
-    static void RestOnDesk(Transform t, Vector2 xz, Bounds b)
-    {
-        t.position += new Vector3(xz.x - b.center.x, DeskY - b.min.y, xz.y - b.center.z);
-    }
-
-    static Bounds WorldBounds(Transform t)
-    {
-        var rs = t.GetComponentsInChildren<Renderer>();
-        Bounds b = rs[0].bounds;
-        for (int i = 1; i < rs.Length; i++) b.Encapsulate(rs[i].bounds);
-        return b;
-    }
-
-    /// <summary>Caja de las mallas en el espacio local de <paramref name="t"/>.</summary>
-    static Bounds LocalBounds(Transform t)
-    {
-        bool any = false;
-        var b = new Bounds();
-        foreach (var mf in t.GetComponentsInChildren<MeshFilter>())
-        {
-            if (mf.sharedMesh == null) continue;
-            Matrix4x4 m = t.worldToLocalMatrix * mf.transform.localToWorldMatrix;
-            Bounds mb = mf.sharedMesh.bounds;
-            for (int i = 0; i < 8; i++)
-            {
-                var c = new Vector3((i & 1) == 0 ? mb.min.x : mb.max.x, (i & 2) == 0 ? mb.min.y : mb.max.y, (i & 4) == 0 ? mb.min.z : mb.max.z);
-                Vector3 p = m.MultiplyPoint3x4(c);
-                if (!any) { b = new Bounds(p, Vector3.zero); any = true; }
-                else b.Encapsulate(p);
-            }
-        }
-        return b;
-    }
-
-    /// <summary>Caja en mundo que tendría la pieza con rotación <paramref name="rot"/> y pivote en el origen.</summary>
-    static Bounds BoundsAt(Transform t, Quaternion rot)
-    {
-        Vector3 p = t.position;
-        Quaternion r = t.rotation;
-        t.SetPositionAndRotation(Vector3.zero, rot);
-        Bounds b = WorldBounds(t);
-        t.SetPositionAndRotation(p, r);
-        return b;
-    }
-
-    static void SetLayer(Transform t, int layer)
-    {
-        foreach (var c in t.GetComponentsInChildren<Transform>(true)) c.gameObject.layer = layer;
-    }
-
-    static SocketSystem MakeSocket(string name, Transform parent, Vector3 pos, Quaternion rot, string type, bool required = true, string note = null)
-    {
-        Transform t = NewChild(name, parent);
-        t.SetPositionAndRotation(pos, rot);
-        var s = t.gameObject.AddComponent<SocketSystem>();
-        s.allowedType = Type(type);
-        s.snapPoint = t;
-        s.required = required;
-        s.installNote = note;
-        return s;
-    }
-
-    /// <summary>Lugar con la pose exacta de una pieza que el modelo trae ya montada.</summary>
-    static SocketSystem SocketFromChild(Transform board, string child, string name, string type, bool required = true, string note = null)
-    {
-        Transform c = board.Find(child);
-        return MakeSocket(name, board, c.position, c.rotation, type, required, note);
-    }
-
-    /// <summary>Separa una pieza de la placa y la deja en la mesa.</summary>
-    static Transform Detach(Transform part, Transform root, string name, Vector2 xz, Quaternion extraRot)
-    {
-        part.name = name;
-        part.SetParent(root, true);
-        part.rotation = extraRot * part.rotation;
-        RestOnDesk(part, xz, WorldBounds(part));
-        return part;
-    }
-
-    static PCPart MakePart(Transform t, string id, string type, string title, string desc, bool draggable = true, bool fitCollider = true)
-    {
-        SetLayer(t, InteractableLayer);
-        if (fitCollider)
-        {
-            Bounds lb = LocalBounds(t);
-            var box = t.gameObject.AddComponent<BoxCollider>();
-            box.center = lb.center;
-            box.size = lb.size;
-        }
-        var part = t.gameObject.AddComponent<PCPart>();
-        part.isDraggable = draggable;
-        part.partName = id;
-        part.connectionType = Type(type);
-        part.title = title;
-        part.description = desc;
-        t.gameObject.AddComponent<ObjectHighlighter>();
-        return part;
-    }
-
-    /// <summary>Centro de la base (vértices más bajos) en el espacio local de la pieza.</summary>
-    static Vector3 BaseCentroidLocal(Transform t)
-    {
-        var pts = new List<Vector3>();
-        float minY = float.MaxValue;
-        foreach (var mf in t.GetComponentsInChildren<MeshFilter>())
-            foreach (var v in mf.sharedMesh.vertices)
-            {
-                Vector3 w = mf.transform.TransformPoint(v);
-                pts.Add(w);
-                if (w.y < minY) minY = w.y;
-            }
-        Vector3 sum = Vector3.zero;
-        int n = 0;
-        foreach (var w in pts)
-            if (w.y < minY + 0.002f) { sum += w; n++; }
-        return t.InverseTransformPoint(sum / Mathf.Max(1, n));
-    }
 
     /// <summary>Punto medio del borde de los contactos PCIe (submalla del material dorado), en local.</summary>
     static Vector3 GpuFingersLocal(Transform gpu)
@@ -407,11 +261,6 @@ public static class LabAtxBuilder
         return it;
     }
 
-    static Vector3 Hit(Collider c, Vector3 from, Vector3 dir, Vector3 fallback)
-    {
-        return c.Raycast(new Ray(from, dir), out RaycastHit h, 2f) ? h.point : fallback;
-    }
-
     /// <summary>Paredes como cajas (clic y apoyo al arrastrar): más fiables que la malla, de una sola cara.</summary>
     static void BuildCaseColliders(Transform caseT, Interior i)
     {
@@ -423,27 +272,6 @@ public static class LabAtxBuilder
         Box(group, "Frente", o.min, new Vector3(o.max.x, o.max.y, i.front));
         Box(group, "Base", o.min, new Vector3(i.bottom, o.max.y, o.max.z));
         Box(group, "Techo", new Vector3(i.top, o.min.y, o.min.z), o.max);
-    }
-
-    static void Box(Transform parent, string name, Vector3 min, Vector3 max)
-    {
-        Transform t = NewChild(name, parent);
-        t.SetPositionAndRotation((min + max) * 0.5f, Quaternion.identity);
-        var box = t.gameObject.AddComponent<BoxCollider>();
-        box.size = max - min;
-    }
-
-    static Transform Solid(Transform parent, string name, Vector3 min, Vector3 max, Material mat, PrimitiveType shape = PrimitiveType.Cube)
-    {
-        var go = GameObject.CreatePrimitive(shape);
-        Object.DestroyImmediate(go.GetComponent<Collider>());
-        go.name = name;
-        go.transform.SetParent(parent, false);
-        go.transform.SetPositionAndRotation((min + max) * 0.5f, Quaternion.identity);
-        Vector3 size = max - min;
-        go.transform.localScale = shape == PrimitiveType.Cylinder ? new Vector3(size.x, size.y * 0.5f, size.z) : size;
-        go.GetComponent<MeshRenderer>().sharedMaterial = mat;
-        return go.transform;
     }
 
     static void BuildExtras(Transform extras, Interior i, Bounds pcb, Vector3 boardDelta)
@@ -487,14 +315,13 @@ public static class LabAtxBuilder
 
     // ===================================================================== cables
 
-    class CableContext
+    class CableContext : CableRig
     {
         public Transform root, caseT, board, psu, hdd, gpu, cooler, fan;
         public Interior inn;
         public Collider boardCollider;
         public Bounds pcb;
         public SocketSystem boardSocket, psuSocket, hddSocket, gpuSocket, coolerSocket, fanSocket;
-        public Transform cables, rest;
         public Material dark, red, blue, cableBlack, cableRed, cableBlue, cableGray;
     }
 
@@ -520,6 +347,7 @@ public static class LabAtxBuilder
         c.cables = NewChild("Cables", c.root);
         c.rest = NewChild("Superficie de apoyo (mesa)", c.root);
         c.rest.position = new Vector3(0f, DeskY, 0f);
+        c.fixedParent = c.caseT;
         c.dark = EstiloMateriales.SolidMaterial(ExtrasDir + "Conector_Negro.mat", ColorDir, new Color(0.12f, 0.12f, 0.13f), false);
         c.red = EstiloMateriales.SolidMaterial(ExtrasDir + "Conector_Rojo.mat", ColorDir, new Color(0.78f, 0.12f, 0.1f), false);
         c.blue = EstiloMateriales.SolidMaterial(ExtrasDir + "Conector_Azul.mat", ColorDir, new Color(0.12f, 0.3f, 0.8f), false);
@@ -658,39 +486,9 @@ public static class LabAtxBuilder
             "equipo para proteger el procesador.");
 
         // Al añadir CableSpline aún no tenía anclas: su malla se construye ahora (en Play se rehace sola al activarse).
-        foreach (var spline in c.cables.GetComponentsInChildren<CableSpline>()) spline.Rebuild();
+        RebuildCables(c);
         Log($"Cables: 11 · superficie del PCB a {pcbTop:F4}");
     }
-
-    static Transform Anchor(string name, Transform parent, Vector3 pos, Vector3 dir)
-    {
-        Transform t = NewChild(name, parent);
-        t.SetPositionAndRotation(pos, Quaternion.LookRotation(dir, Mathf.Abs(dir.y) > 0.9f ? Vector3.forward : Vector3.up));
-        return t;
-    }
-
-    /// <summary>Pose de un conector suelto acostado: su Z+ (por donde sale el cable) mira hacia <paramref name="dir"/>.</summary>
-    static Quaternion Lying(Vector3 dir) => Quaternion.LookRotation(dir, Vector3.Cross(dir, Vector3.up));
-
-    static Transform Home(string name, Transform parent, Vector3 pos, Vector3 dir)
-    {
-        Transform t = NewChild(name, parent);
-        t.SetPositionAndRotation(pos, Lying(dir));
-        return t;
-    }
-
-    static void StaticBlock(string name, Transform parent, Vector3 pos, Quaternion rot, Vector3 size, Material mat)
-    {
-        var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        Object.DestroyImmediate(go.GetComponent<Collider>());
-        go.name = name;
-        go.transform.SetParent(parent, true);
-        go.transform.SetPositionAndRotation(pos, rot);
-        go.transform.localScale = Vector3.Scale(size, Inverse(parent.lossyScale));
-        go.GetComponent<MeshRenderer>().sharedMaterial = mat;
-    }
-
-    static Vector3 Inverse(Vector3 v) => new Vector3(1f / v.x, 1f / v.y, 1f / v.z);
 
     /// <summary>
     /// Puerto en la placa (medido en la mesa, coordenadas de la captura). Vertical: el conector entra desde arriba
@@ -713,149 +511,24 @@ public static class LabAtxBuilder
             rot = Quaternion.LookRotation(Vector3.back, longAxis);
             pos = new Vector3(x, c.pcb.min.y + 0.0016f + 0.0075f, c.pcb.min.z - size.z * 0.5f + 0.003f);
         }
-        var s = MakeSocket(name, c.board, pos, rot, type);
-        foreach (var r in requires) s.requires.Add(r);
-        AddPortMarker(s, size);
-        return s;
-    }
-
-    /// <summary>Señal luminosa del puerto (los cabezales son pequeños y oscuros: el usuario pidió que se noten más).</summary>
-    static void AddPortMarker(SocketSystem socket, Vector3 plugSize)
-    {
-        socket.gameObject.AddComponent<CablePortMarker>().size = plugSize;
-    }
-
-    static float TopNear(Collider col, float x, float z, float half, float fallback)
-    {
-        float top = float.MinValue;
-        for (int ix = -1; ix <= 1; ix++)
-            for (int iz = -1; iz <= 1; iz++)
-                if (col.Raycast(new Ray(new Vector3(x + ix * half, DeskY + 0.5f, z + iz * half), Vector3.down), out RaycastHit h, 1f))
-                    top = Mathf.Max(top, h.point.y);
-        return top == float.MinValue ? fallback : top;
-    }
-
-    static Transform MakePlug(string name, Transform parent, Vector3 pos, Quaternion rot, Vector3 size, Material mat,
-                              string type, string title, string desc)
-    {
-        var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        go.name = name;
-        go.transform.SetParent(parent, true);
-        go.transform.SetPositionAndRotation(pos, rot);
-        go.transform.localScale = size;
-        go.GetComponent<MeshRenderer>().sharedMaterial = mat;
-        MakePart(go.transform, name, type, title, desc, fitCollider: false);
-        return go.transform;
-    }
-
-    /// <summary>Cable cuyo origen es una pieza que también se instala: su conector reposa en la mesa y luego dentro del gabinete.</summary>
-    static void Cable(CableContext c, string name, Transform start, string type, Vector3 plugSize, Material plugMat, Material cableMat,
-                      CableSpline.Profile profile, float radius, float length, Vector3 deskXZ, Vector3 deskDir,
-                      SocketSystem source, Transform homeInstalled, string title, string desc, float flatHalfThickness = 0.001f,
-                      Vector3? looseSlack = null)
-    {
-        var pos = new Vector3(deskXZ.x, DeskY + plugSize.x * 0.5f, deskXZ.z);
-        Transform plug = MakePlug("Conector: " + title, c.cables, pos, Lying(deskDir), plugSize, plugMat, type, title, desc);
-        var spline = Spline(c, name, start, plug, cableMat, profile, radius, flatHalfThickness, length, title, desc);
-        var cp = plug.gameObject.AddComponent<CablePlug>();
-        cp.cable = spline;
-        cp.sourceSocket = source;
-        cp.homeWhenSourceInstalled = homeInstalled;
-        if (looseSlack.HasValue) SetLooseSlack(cp, looseSlack.Value);
-    }
-
-    static void SetLooseSlack(CablePlug plug, Vector3 direction)
-    {
-        var so = new SerializedObject(plug);
-        so.FindProperty("looseSlack").vector3Value = direction.normalized;
-        so.ApplyModifiedPropertiesWithoutUndo();
-        plug.cable.slackDirection = direction.normalized;
-    }
-
-    /// <summary>Cable que sale del gabinete (fijo): su conector reposa dentro, en el suelo del frente.</summary>
-    static void CaseCable(CableContext c, string name, Transform start, string type, Vector3 plugSize, Material plugMat, Material cableMat,
-                          float radius, float length, Transform home, string title, string desc)
-    {
-        Transform plug = MakePlug("Conector: " + title, c.caseT, home.position, home.rotation, plugSize, plugMat, type, title, desc);
-        Object.DestroyImmediate(home.gameObject);
-        var spline = Spline(c, name, start, plug, cableMat, CableSpline.Profile.Round, radius, 0.001f, length, title, desc);
-        var cp = plug.gameObject.AddComponent<CablePlug>();
-        cp.cable = spline;
-        // La caída se aplica perpendicular a la cuerda: "abajo" a secas sacaría el sobrante por la pared frontal.
-        SetLooseSlack(cp, new Vector3(0f, -0.4f, 1f));
-    }
-
-    static CableSpline Spline(CableContext c, string name, Transform start, Transform plug, Material mat, CableSpline.Profile profile,
-                              float radius, float flatHalfThickness, float length, string title, string desc)
-    {
-        var go = new GameObject(name);
-        go.transform.SetParent(c.cables, false);
-        go.layer = InteractableLayer;
-        var spline = go.AddComponent<CableSpline>();
-        go.GetComponent<MeshRenderer>().sharedMaterial = mat;
-        spline.startAnchor = start;
-        spline.endAnchor = plug;
-        spline.profile = profile;
-        spline.radius = radius;
-        spline.flatHalfThickness = flatHalfThickness;
-        spline.radialSegments = 8;
-        spline.samplesPerUnit = 160f;
-        spline.stiffness = 0.025f;
-        spline.length = length;
-        spline.restSurface = c.rest;
-        go.AddComponent<MeshCollider>();
-        var info = go.AddComponent<PCPart>();
-        info.isDraggable = false;
-        info.partName = "Cable";
-        info.title = title;
-        info.description = desc;
-        go.AddComponent<ObjectHighlighter>();
-        return spline;
+        return Port(name, c.board, pos, rot, type, size, requires);
     }
 
     static void ConfigureScene(Transform root)
     {
-        // Mesa con colisionador: las piezas se apoyan en ella al arrastrar.
-        var wood = GameObject.Find("Entorno/Desk/wood");
-        if (wood != null && wood.GetComponent<Collider>() == null) wood.AddComponent<BoxCollider>();
-
-        Transform center = NewChild("Centro de trabajo", root);
-        center.position = new Vector3(0.0f, 0.88f, 0.0f);
-
-        var cam = Camera.main;
-        if (cam != null)
+        LabBuilderKit.ConfigureScene(root, new SceneFrame
         {
-            cam.nearClipPlane = 0.02f;
-            cam.farClipPlane = 80f;
-            var cad = cam.GetComponent<CADCameraController>();
-            if (cad != null)
-            {
-                cad.targetInicial = center;
-                cad.wideShotDistance = 1.3f;
-                cad.wideShotPitch = 60f; // el gabinete tumbado tiene paredes de 29 cm: desde más bajo no se ve su interior
-                cad.zoomLimits = new Vector2(0.15f, 2.2f);
-                cad.panLimitX = new Vector2(-0.9f, 0.9f);
-                cad.panLimitY = new Vector2(0.80f, 1.40f);
-                cad.panLimitZ = new Vector2(-0.4f, 0.4f);
-                cad.verticalAngleLimit = new Vector2(5f, 89f);
-                cad.horizontalAngleLimit = new Vector2(-90f, 90f);
-                EditorUtility.SetDirty(cad);
-            }
-            cam.transform.rotation = Quaternion.Euler(60f, 0f, 0f);
-            cam.transform.position = center.position - cam.transform.forward * 1.3f;
-        }
-
-        var im = Object.FindAnyObjectByType<InteractionManager>();
-        if (im != null)
-        {
-            var so = new SerializedObject(im);
-            so.FindProperty("liftHeight").floatValue = 0.05f;
-            so.FindProperty("hoverClearance").floatValue = 0.008f;
-            so.FindProperty("maxRayDistance").floatValue = 10f;
-            so.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        var sun = GameObject.Find("Directional Light");
-        if (sun != null && sun.GetComponent<ShadowDistanceOverride>() == null) sun.AddComponent<ShadowDistanceOverride>();
+            center = new Vector3(0.0f, 0.88f, 0.0f),
+            wideShotDistance = 1.3f,
+            wideShotPitch = 60f, // el gabinete tumbado tiene paredes de 29 cm: desde más bajo no se ve su interior
+            zoomLimits = new Vector2(0.15f, 2.2f),
+            panLimitX = new Vector2(-0.9f, 0.9f),
+            panLimitY = new Vector2(0.80f, 1.40f),
+            panLimitZ = new Vector2(-0.4f, 0.4f),
+            verticalAngleLimit = new Vector2(5f, 89f),
+            horizontalAngleLimit = new Vector2(-90f, 90f),
+            liftHeight = 0.05f,
+            hoverClearance = 0.008f,
+        });
     }
 }
