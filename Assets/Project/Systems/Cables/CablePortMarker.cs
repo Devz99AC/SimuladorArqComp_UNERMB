@@ -41,7 +41,9 @@ public class CablePortMarker : MonoBehaviour
         go.name = "Señal del puerto";
         go.layer = 2; // Ignore Raycast
         go.transform.SetParent(transform, false);
-        go.transform.localScale = size * padding;
+        // size está en metros: se descuenta la escala heredada (el disco reutilizado viene ×100).
+        Vector3 inherited = transform.lossyScale;
+        go.transform.localScale = new Vector3(size.x / inherited.x, size.y / inherited.y, size.z / inherited.z) * padding;
 
         _renderer = go.GetComponent<MeshRenderer>();
         _renderer.sharedMaterial = material;
