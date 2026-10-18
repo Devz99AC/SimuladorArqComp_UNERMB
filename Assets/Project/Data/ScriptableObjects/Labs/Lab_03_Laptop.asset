@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Lab_03_Laptop
   m_EditorClassIdentifier: Assembly-CSharp::LabDefinitionSO
   tag: LABORATORIO 3
-  title: Laptop
-  description: "Abre una laptop y cambia sus componentes siguiendo las normas de seguridad: tornillos, bater\xEDa, memoria, SSD y Wi-Fi."
+  title: Laptop de empresa
+  description: "Haz el mantenimiento de una laptop Dell Latitude 5400 como en un servicio t\xE9cnico: \xE1brela, desconecta la bater\xEDa, cambia el SSD, ampl\xEDa la memoria, reasienta la Wi-Fi y conecta la cinta del touchpad."
   learns:
-  - "Desconectar la bater\xEDa antes de todo"
+  - "Tornillos cautivos y bater\xEDa desconectada primero"
   - "Memoria SO-DIMM y SSD M.2 en \xE1ngulo"
-  - Antenas Wi-Fi y cintas planas
-  preview: {fileID: 0}
-  sceneName: 
-  available: 0
+  - Antenas Wi-Fi y cintas con pestillo (ZIF)
+  preview: {fileID: 21300000, guid: 0eee9d0077254c188d0075641e57b52b, type: 3}
+  sceneName: Lab_Laptop
+  available: 1

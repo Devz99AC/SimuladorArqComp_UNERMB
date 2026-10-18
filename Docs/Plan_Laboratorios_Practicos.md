@@ -163,14 +163,18 @@ Gabinete mid-tower **tumbado de lado** y sin panel lateral, como se monta en la 
 
 Decisión del usuario: **PC pequeña de oficina**, no Mini-ITX gamer. Modelo de referencia: **Dell OptiPlex 7070 SFF** (Service Manual y Setup and Specifications de Dell). Lo que enseña: tapa sin herramientas, un **orden que impone el espacio** (el módulo de discos tapa la memoria y el procesador; el SSD y la fuente van antes que el disipador), tarjetas de **perfil bajo** con pestillo, **fuente propia** con solo dos cables y discos alimentados desde la placa. Mecánica nueva: `requiresEmpty`, lugares de estado y `HingedPart` (ver `CLAUDE.md` §4). Cómo probarlo: §6.1. Hubo una tarjeta de perfil completo para rechazarla, pero el usuario la quitó: solo hace falta la de perfil bajo.
 
-### 4.3 Lab laptop
+### 4.3 Lab laptop — hecho (2026-10-18)
 
-Mecánicas nuevas que hay que añadir al sistema:
+Decisiones del usuario: **mantenimiento** (no montaje desde cero), tornillos **clic + bandeja** (los cautivos se aflojan con un clic; los sueltos se arrastran a la bandeja magnética) y **pestillo ZIF** interactivo. Modelo: **Dell Latitude 5400** (Owner's Manual y Setup and Specifications de Dell). El servicio: el touchpad no responde (su cinta llegó suelta), la Wi-Fi se corta (reasentar la tarjeta y sus antenas), el SSD da errores (cambiarlo por el nuevo) y hay que ampliar la memoria a doble canal.
 
-- **Tornillos** de la tapa inferior (`ScrewPoint`: quitar en orden, contador de tornillos).
-- **Desconectar la batería primero** (regla de seguridad: `requires` invertido; nada se instala o retira con la batería conectada).
-- **Inserción en ángulo:** SO-DIMM a ~30° y bajar hasta el clic; M.2 2280 en ángulo + tornillo. Necesita una dirección de aproximación por socket (hoy el encaje entra siempre desde arriba).
-- **Cables finos:** antenas Wi-Fi (coaxiales, `Round` fino) y cintas FPC/ZIF de teclado/touchpad (`Flat`) con el mismo `CableSpline`.
+Mecánicas nuevas (`CLAUDE.md` §4, «Mantenimiento»):
+- **Tornillos** de la tapa: 8 cautivos (`HingedPart` con giro y subida); los M2x3 de los soportes son piezas que van a la bandeja.
+- **Batería primero**: todo lo de dentro exige su cable desconectado, con el porqué (`blockReason`), y reconectarla exige todo terminado.
+- **Inserción en ángulo** (`insertTilt` + `insertHinge`): SO-DIMM a 30°, SSD y Wi-Fi a 20°.
+- **Antenas** MAIN/AUX con tipos distintos y la **cinta** con su pestillo ZIF.
+- **Mantenimiento**: `goalPart` (el SSD nuevo), `cycleRequired` (quitar y volver a poner) y el **contador de errores** con su resumen.
+
+Cómo probarlo: §6.2.
 
 ---
 
@@ -265,6 +269,29 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 **Sin verificar:** los gestos con el ratón real (arrastrar la tapa, el clic en la bisagra y el pestillo).
 
+### 6.2 Lab 3: laptop (Play en `Lab_Laptop`, o Laboratorio de ensamblaje ▸ Laptop de empresa ▸ ENTRAR)
+
+Mantenimiento de un **Dell Latitude 5400**: llega cerrada, boca abajo, con todo puesto. 22 pasos («PASOS 0/22»). Bajo el progreso, «ERRORES n» cuenta cada intento rechazado.
+
+1. **Clic (sin arrastrar) en cada uno de los 8 tornillos de la tapa** para aflojarlos: giran, suben y no se salen (son cautivos). Con uno apretado la tapa no sale. Arrastra la tapa: reposa detrás de la laptop.
+2. **Desconecta la batería**: arrastra su conector blanco (junto a la memoria) fuera de la placa. Antes, nada de dentro se toca, y el aviso explica por qué.
+3. **Memoria**: el módulo nuevo (a la izquierda, en la alfombrilla) va a la ranura B. Entra en ángulo y baja hasta su sitio.
+4. **SSD**: los 2 tornillos del soporte negro, a la bandeja magnética; luego el soporte y el SSD viejo. Pon el nuevo (el Samsung 980 Pro), el soporte y los tornillos. El viejo entra en la ranura, pero con él el soporte no vuelve: el trabajo es cambiarlo.
+5. **Wi-Fi** (a la izquierda, junto a los puertos): tornillo, soporte de las antenas, antenas y tarjeta. Luego al revés: tarjeta, antena blanca en MAIN (triángulo blanco), negra en AUX (cruzarlas se rechaza con motivo), soporte y tornillo.
+6. **Cinta del touchpad** (a la derecha del conector de la batería): clic en el pestillo marrón para levantarlo, mete la cinta y vuelve a hacer clic para bajarlo. Con el pestillo bajado no entra.
+7. **Reconecta la batería**. Exige todo lo anterior; si falta algo, el aviso dice qué.
+8. **Pon la tapa y aprieta sus 8 tornillos**: 22/22 y victoria, con el resumen de errores agrupado por motivo.
+
+**Verificado en Play (2026-10-18), por código** (`arnes_ensamblaje.cs`; `Toggle` y `Remove` van por el mismo camino que el ratón, así que los rechazos cuentan como errores):
+- Recorrido completo hasta 22/22 y modal de victoria.
+- Rechazos con motivo, y contados: quitar la tapa con tornillos, retirar o instalar algo con la batería conectada, antena en el terminal equivocado, cinta con el pestillo bajado, cerrar la tapa antes de reconectar la batería, reconectarla antes de terminar, SSD nuevo sobre el viejo y soporte sin SSD.
+- Bloqueos al retirar: el SSD bajo su soporte, el soporte con tornillos, la tarjeta con su soporte y sus antenas.
+- Inserción en ángulo vista de perfil a cámara lenta (`Time.timeScale = 0,04`): entra por delante, inclinada 30°, y baja girando sobre el borde de los contactos.
+- Selector ▸ ENTRAR (tarjeta 3) carga `Lab_Laptop` con 0/22 y la consola sin errores del juego.
+- Los labs 1 y 2 siguen igual (0/21 y 0/16, mismos motivos) y ahora también cuentan errores.
+
+**Sin verificar:** los gestos con el ratón real: el clic en los tornillos pequeños y el pestillo, arrastrar conectores de pocos milímetros y la cámara a esta escala.
+
 ---
 
 ## 7. Decisiones tomadas y plan de trabajo
@@ -295,7 +322,7 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 **Fase A — sin modelos (se puede hacer ya)**
 1. ✅ Selector de laboratorios: `LabDefinitionSO` + `LabCatalog` + modal de 3 tarjetas en ModeSelection (2026-10-18, verificado en Play).
-2. Contador de errores por pieza + resumen al terminar (en el modal de victoria).
+2. ✅ Contador de errores + resumen al terminar, agrupado por motivo, en el modal de victoria (2026-10-18, con el lab 3).
 3. Conectores generados por código (24 pines, EPS, PCIe, SATA, pines del panel frontal) para sustituir los bloques.
 4. Prefab `Lab_Systems` (cámara + managers + HUD) como base común de las escenas de laboratorio.
 
@@ -313,7 +340,7 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 **Fase C — labs 2 y 3**
 9. ✅ Lab PC SFF de oficina (2026-10-18): chasis y piezas con primitivas, piezas reutilizadas del lab ATX, escena `Lab_SFF` (§6.1).
-10. Lab laptop (Dell Latitude 5400 + interior + las 4 mecánicas).
+10. ✅ Lab laptop (2026-10-18): Dell Latitude 5400 de Yolala3D + interior con primitivas + las 4 mecánicas, escena `Lab_Laptop` (§6.2).
 
 ### 7.3 Cómo pasar el token de Sketchfab (sin exponerlo)
 
@@ -323,7 +350,7 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 ### 7.4 Estado actual y siguiente sesión
 
-*Última actualización: 2026-10-18 (noche, lab 2 hecho) · rama `labs-practicos`.*
+*Última actualización: 2026-10-18 (lab 3 hecho) · rama `labs-practicos`.*
 
 **Commits de la rama:**
 - `8e52b87`: interacción nueva + cables con spline + plan.
@@ -365,10 +392,26 @@ Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual.
 
 - **Probado por el usuario con el ratón: «funciona bien».** Su única corrección: quitar la tarjeta de perfil completo (no hace falta, solo la de perfil bajo). Preguntó cómo se quita una pieza puesta: se arrastra fuera (las bisagras, con otro clic).
 
+**Lab 3, laptop (2026-10-18):**
+- Decisiones del usuario: mantenimiento, tornillos con clic + bandeja, pestillo ZIF interactivo.
+- Del manual de Dell: tapa con 8 tornillos cautivos, que se levanta haciendo palanca desde la esquina superior izquierda; batería de 3 celdas, 42 Wh, 181 × 95,9 × 7,05 mm; descarga de la electricidad residual pulsando el botón de encendido 20 s; memoria en ángulo hasta el clic; soporte del SSD con 2 M2x3; soporte de la Wi-Fi con 1 M2x3 que sujeta las antenas; cintas con pestillo.
+- Hecho:
+  - Modelos en `Content/Models/Lab_Laptop/`: carcasa de Yolala3D, SO-DIMM y ventilador, preparados en Blender. La batería de Graphitage se descargó pero no se usa.
+  - Mecánica: `goalPart`, `cycleRequired`, `blockReason`, `onlyOwnType`, inserción en ángulo, tornillos cautivos (`HingedPart.openLift`) y contador de errores en todos los labs.
+  - Ayudantes del SFF movidos a `LabBuilderKit`: el lab 2 se genera idéntico (volcado con `Tools/Unity/volcar_jerarquia.cs`).
+  - Escena `Lab_Laptop` (22 pasos), tarjeta 3 del selector con imagen, escena en Build Settings y créditos.
+- Verificado por código en Play (§6.2).
+- Suposiciones marcadas en las fichas: colores de las antenas (convención de otros manuales de Dell), posiciones internas (de las figuras), tamaño del ventilador.
+
+**Limitaciones del lab 3:**
+- La batería solo se desconecta, no se saca (el manual la saca en todos los procedimientos). La descarga de 20 s está en el texto, no es un paso: con la laptop boca abajo no se puede pulsar el botón.
+- No se ve el cable de la batería salir por debajo de ella, ni la cinta pasar bajo la bandeja: son aproximaciones.
+- Las piezas de pocos milímetros (terminales de antena, tornillos M2x3, pestillo) pueden costar con el ratón: los colisionadores están agrandados, pero hay que probarlo.
+
 **Siguiente:**
-1. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
-2. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
-3. Lab 3 (laptop): prompt listo en [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). La mecánica de estado ya existe; la batería es un puerto que los demás piden vacío y el pestillo ZIF, un `HingedPart`. Falta la inserción en ángulo y, si se eligen, los tornillos con clic.
+1. Que el usuario pruebe el lab 3 con el ratón: los tornillos, el pestillo, las antenas y la cámara de cerca.
+2. Fase A: conectores con forma y prefab `Lab_Systems`.
+3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
