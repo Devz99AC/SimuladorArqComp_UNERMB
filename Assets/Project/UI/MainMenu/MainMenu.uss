@@ -242,3 +242,15 @@
     color: rgb(43, 43, 43);
     -unity-text-align: middle-center;
 }
+/* Atribución de modelos de terceros (CC BY): obligatoria, pero discreta */
+.credits-section--small {
+    font-size: 19px;
+    white-space: normal;
+}
+.credits-small {
+    font-size: 17px;
+    color: rgb(80, 80, 80);
+    white-space: normal;
+    -unity-text-align: middle-center;
+    max-width: 820px;
+}

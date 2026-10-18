@@ -4,7 +4,7 @@
 
 Documento de traspaso para quien continúe el proyecto (persona o asistente). Lee primero [CLAUDE.md](CLAUDE.md) (mapa de conexiones) y [AUDITORIA_TECNICA.md](AUDITORIA_TECNICA.md) (diagnóstico completo).
 
-> **Actualización 2026-10-18 — parte práctica en curso (rama `labs-practicos`).** La teoría está terminada. El trabajo actual son los 3 laboratorios de ensamblaje (ATX / PC compacta / laptop) y los cables con spline. Diagnóstico, cambios hechos, modelos 3D candidatos y **las decisiones tomadas y el estado actual para retomar** están en [Docs/Plan_Laboratorios_Practicos.md §7 (ver §7.4)](Docs/Plan_Laboratorios_Practicos.md). Parte de las secciones de abajo (UX, `totalPartsToInstall`, cables) quedó desactualizada por ese trabajo.
+> **Actualización 2026-10-18 — parte práctica en curso (rama `labs-practicos`).** La teoría está terminada. El trabajo actual son los 3 laboratorios de ensamblaje (ATX / PC compacta / laptop) y los cables con spline. Diagnóstico, cambios hechos, modelos 3D candidatos y **las decisiones tomadas y el estado actual para retomar** están en [Docs/Plan_Laboratorios_Practicos.md §7 (ver §7.4)](Docs/Plan_Laboratorios_Practicos.md). Parte de las secciones de abajo (UX, `totalPartsToInstall`, cables) quedó desactualizada por ese trabajo. **El lab ATX ya está jugable** en la escena `Lab_ATX` (selector ▸ PC de escritorio): 21 pasos, con piezas y 11 cables, a escala real. Se genera con *Tools ▸ Simulador ▸ Reconstruir laboratorio ATX* (`LabAtxBuilder.cs`).
 
 ---
 

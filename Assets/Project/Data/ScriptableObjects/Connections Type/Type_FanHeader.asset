@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14154dc05f54b844492cc4dff6ee6c1a, type: 3}
   m_Name: Type_FanHeader
   m_EditorClassIdentifier: Assembly-CSharp::ConnectionTypeSO
-  labelName: Ventilador (4 pines)
+  labelName: Ventilador del gabinete (CHA_FAN)
   debugColor: {r: 0.4, g: 0.4, b: 0.45, a: 1}
-  displayName: el conector del ventilador
-  placementHint: Los ventiladores del gabinete se enchufan a los cabezales de 4 pines CHA_FAN o SYS_FAN de la placa base.
+  displayName: el ventilador del gabinete
+  placementHint: Los ventiladores del gabinete van a los cabezales CHA_FAN de la placa. El CPU_FAN queda reservado para el ventilador del procesador.

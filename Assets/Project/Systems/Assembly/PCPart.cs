@@ -26,6 +26,9 @@ public class PCPart : MonoBehaviour
     /// <summary>True mientras anima (encaje o regreso a la mesa): no se puede agarrar.</summary>
     public bool IsMoving => _moveRoutine != null;
 
+    /// <summary>True mientras el estudiante la sostiene (desde que la agarra hasta que la suelta).</summary>
+    public bool IsHeld { get; private set; }
+
     /// <summary>Tamaño aproximado (mayor lado de su caja visual), en unidades de mundo.</summary>
     public float Size { get; private set; } = 0.25f;
 
@@ -68,6 +71,7 @@ public class PCPart : MonoBehaviour
             CurrentSocket = null;
         }
         IsInstalled = false;
+        IsHeld = true;
         transform.SetParent(_initialParent, true);
     }
 
@@ -78,6 +82,7 @@ public class PCPart : MonoBehaviour
     public void InstallInto(SocketSystem socket, float duration, float approachHeight)
     {
         StopMove();
+        IsHeld = false;
         socket.Reserve(this);
         CurrentSocket = socket;
 
@@ -98,6 +103,7 @@ public class PCPart : MonoBehaviour
     public void ReturnToTable(float duration = 0f)
     {
         StopMove();
+        IsHeld = false;
         transform.SetParent(_initialParent, true);
         IsInstalled = false;
 
@@ -110,6 +116,17 @@ public class PCPart : MonoBehaviour
             return;
         }
         _moveRoutine = StartCoroutine(MoveRoutine(homePos, homeRot, duration, () => _moveRoutine = null));
+    }
+
+    /// <summary>
+    /// Cambia su sitio de reposo (a donde vuelve al soltarla en vacío). Lo usa el conector de un cable
+    /// cuando la pieza de la que sale se instala: deja de reposar en la mesa y pasa a dentro del gabinete.
+    /// </summary>
+    public void SetHome(Transform parent, Vector3 position, Quaternion rotation)
+    {
+        _initialParent = parent;
+        _initialPosition = parent != null ? parent.InverseTransformPoint(position) : position;
+        _initialRotation = parent != null ? Quaternion.Inverse(parent.rotation) * rotation : rotation;
     }
 
     // Compatibilidad con el nombre anterior.

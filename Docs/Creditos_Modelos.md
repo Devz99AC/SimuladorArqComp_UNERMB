@@ -13,6 +13,8 @@ Modelos usados en el simulador bajo licencia **Creative Commons Atribución 4.0*
 | SSD M.2 de repuesto (`Lab_ATX/SSD_980Pro`) | Samsung 980 Pro NVMe 1tb | [BlenderFace](https://sketchfab.com/BlenderFace1) | [sketchfab.com/3d-models/1f386c8d…](https://sketchfab.com/3d-models/1f386c8d782d4b208717bc64474b98b3) |
 | Ventilador de 120 mm (`Lab_ATX/Ventilador120`) | Lian Li UNI FAN SL120 RGB BLACK | [DIEKO](https://sketchfab.com/DIEKO) | [sketchfab.com/3d-models/5abd0d8e…](https://sketchfab.com/3d-models/5abd0d8e89ea4241b7216f4b6d5a2ca4) |
 
+**En el juego** (desde el 2026-10-18): menú principal ▸ CRÉDITOS, sección «Modelos 3D del laboratorio» (`UI/MainMenu/MainMenu.uxml`). Allí van los cinco modelos que usa la escena `Lab_ATX`. El SSD 980 Pro no se usa y no entra en la build: si se usa más adelante, hay que añadirlo también allí.
+
 Texto corto para la pantalla de Créditos:
 
 > Modelos 3D (CC BY 4.0, modificados): «Basic PC case» de Sousinho · «MotherBoard + Components» de Daniel Cardona · «RTX 3060 TI - LOW POLY» de Up1x · «CPU Cooler» de Fochdog · «Samsung 980 Pro NVMe» de BlenderFace · «Lian Li UNI FAN SL120» de DIEKO — vía Sketchfab.

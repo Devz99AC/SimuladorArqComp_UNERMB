@@ -217,20 +217,26 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 
 ---
 
-## 6. Cómo probar (Play en `AssemblyLab`)
+## 6. Cómo probar (Play en `Lab_ATX`, o desde el menú: Laboratorio de ensamblaje ▸ PC de escritorio ▸ ENTRAR)
 
-1. Arrastra la RAM: aparecen dos siluetas en las ranuras DIMM; la que apuntas se intensifica. Suelta → baja a su sitio, toast verde "Instalado: …" y la barra sube (el total es **6**: 4 componentes + 2 cables).
-2. Arrastra la RAM sobre el socket de la CPU → borde rojo; al soltar, toast con el motivo y la RAM vuelve a la mesa.
-3. Arrastra una pieza ya instalada fuera de su sitio → se retira y la barra baja.
-4. Clic derecho corto sobre una pieza → ficha (la cámara no se mueve). Clic derecho y arrastrar → órbita (no abre la ficha).
-5. Deja la cámara quieta 10 s → **no** debe reencuadrar sola. Espacio sí reencuadra. Doble clic sobre una pieza → la encuadra.
-6. Rueda con el puntero sobre la ficha → desplaza el texto, sin zoom.
-7. **Cables:** los dos bloques negros sobre la mesa, entre la RAM y la placa, son los conectores de los cables de la fuente. Agarra el bloque **o el propio cable** y arrastra (un clic solo no hace nada). El ATX de 24 pines va al conector largo del borde trasero de la placa, junto a la RAM; el EPS de 8 pines, al conector pequeño del borde izquierdo, junto a la CPU. En el puerto equivocado sale el motivo. Arrastrarlo fuera lo desconecta.
-8. Completa todo (6/6) → modal de victoria tras asentarse la última pieza.
+1. **Placa en la mesa.** Arrastra la CPU al socket, los dos módulos de RAM a A2 y B2 (la segunda y la cuarta ranura contando desde la CPU) y el SSD M.2 a su ranura. En A1 o B1 la RAM entra igual, pero sale un aviso de doble canal y no cuenta para terminar.
+2. **Orden físico.** El disipador antes que la CPU se rechaza con motivo. Con el disipador puesto, la CPU no se puede retirar.
+3. **Placa al gabinete.** Arrástrala: pasa por encima de las paredes y baja dentro. Se lleva todo lo que tenga montado.
+4. **Gabinete.** La GPU va a la ranura PCIe x16 más cercana a la CPU (solo con la placa dentro). La fuente va abajo y al fondo, el disco en la bahía (junto a la base, de canto) y el ventilador en la pared trasera.
+5. **Cables.** Al instalar la fuente, sus cuatro conectores pasan de la mesa al suelo del gabinete. Arrastra cada conector (o su cable) a su puerto: ATX 24 (borde frontal, junto a la RAM), EPS 8 (borde superior, junto a la E/S), PCIe a la GPU y alimentación SATA al disco. Los cables del frente (panel frontal, USB 3.0, audio, ventiladores) ya están dentro del gabinete. El ventilador del disipador solo entra en CPU_FAN.
+6. Completa todo (**21/21**): modal de victoria.
+7. Cámara: rueda = zoom, botón central = paneo (la escena sigue al cursor), clic derecho y arrastrar = órbita, Espacio = vista general (a 60°, para ver dentro del gabinete).
 
-**Ajustes en el inspector si algo no se siente bien:** `InteractionManager.liftHeight` (altura al arrastrar), `settleDuration`, colores del fantasma; `SocketSystem.snapRadius` (tolerancia de un lugar concreto); `CADCameraController.zoomPercent`, `orbitStartPixels`, `autoResetWhenIdle`; en cada cable, `CableSpline.length` / `slackAmount` (cuánto se arquea al conectar) / `radius`.
+**Ajustes:** las posiciones y textos del lab están en `LabAtxBuilder.cs` (se rehace con *Tools ▸ Simulador ▸ Reconstruir laboratorio ATX*). En el `InteractionManager` de la escena: `liftHeight` (0,05) y `hoverClearance` (0,008).
 
-**Verificado por mí en Play (2026-10-17):** consola limpia, objetivo automático, HUD de progreso, alcance máximo del cable, rechazo con motivo en el puerto equivocado, instalación del conector ATX (progreso 1/6, el cable se arquea por encima de la placa) y fantasma sin errores. **Sin verificar:** el gesto con el ratón real (la herramienta de ratón simulado no llega al juego). Es la primera prueba que hay que hacer a mano.
+**Verificado en Play (2026-10-18), por código** (la herramienta de ratón simulado no llega al juego):
+- Recorrido completo hasta 21/21 y victoria.
+- Rechazos con motivo: disipador antes que la CPU, ventilador del gabinete en CPU_FAN.
+- Bloqueos al retirar, alcance de los cables y cambio de reposo de los conectores.
+- Pasar por encima de las paredes del gabinete.
+- Selector ▸ ENTRAR carga `Lab_ATX`, con la consola limpia.
+
+**Sin verificar:** el gesto con el ratón real. Es la primera prueba que hay que hacer a mano.
 
 ---
 
@@ -290,34 +296,43 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 
 ### 7.4 Estado actual y siguiente sesión
 
-*Última actualización: 2026-10-18 · rama `labs-practicos`.*
+*Última actualización: 2026-10-18 (tarde) · rama `labs-practicos`.*
 
 **Commits de la rama:**
 - `8e52b87`: interacción nueva + cables con spline + plan.
 - `b08d1ad`: selector de laboratorios.
 - `aaf6d84`: modelos del lab ATX.
+- `eeb09a5`: escena `Lab_ATX` con gabinete, placa y piezas.
+- Commit siguiente: cables del lab, selector apuntando a `Lab_ATX` y créditos.
 
-**Hecho y probado:**
-- Interacción nueva, en Play.
-- Cables ATX 24 y EPS 8 en `AssemblyLab`: el usuario confirmó que funcionan bien.
-- Selector de 3 tarjetas, en Play.
-- Modelos del ATX a escala real, verificados en Unity.
+**Hecho:**
+- Materiales de los modelos nuevos en el **estilo del proyecto** (decisión del usuario).
+- Escena `Lab_ATX` a escala real, generada por `LabAtxBuilder`:
+  - Gabinete tumbado y abierto, con tapa del hueco trasero sobrante, escudo de E/S, 9 separadores y jaula del disco.
+  - Placa con CPU, disipador, RAM A1–B2, M.2 y GPU.
+  - Fuente, disco y ventilador trasero.
+  - 11 cables con su puerto.
+- Interacción:
+  - Pasar por encima de lo que hay debajo.
+  - `FindTarget` prefiere el lugar válido.
+  - Notas de instalación.
+  - Reposo de conectores que sigue a la pieza de origen.
+  - Cámara con paneo proporcional.
+- Selector ▸ ENTRAR abre `Lab_ATX`, con imagen en la tarjeta. Créditos de los modelos en el modal de Créditos.
 
-**Decisión pendiente (ya preguntada):** el aspecto de los modelos nuevos.
-- **Realistas** (URP Lit, como vienen).
-- **Estilo del proyecto** (shader estilizado `Attenuation2`). Como ese shader solo tiene `_Textura` y ningún color, habría que generar texturas de color liso para los materiales que no tienen textura.
+**Limitaciones conocidas:**
+- Con el gabinete tumbado, sus paredes (29 cm) tapan el interior desde ángulos bajos. La vista general está a 60°; mejoraría con paredes que se aclaren al taparlo.
+- Los cables no esquivan componentes: van por encima de la placa, sin enrutar por detrás de la bandeja. Se pueden añadir puntos de paso.
+- Los conectores son bloques simples. Pendiente de la Fase A: conectores generados por código, con pines y pestaña.
+- El modelo de gabinete no sigue del todo la norma ATX: el interior mide 398 mm, así que placa y fuente quedan justas, y el hueco de las ranuras traseras no coincide del todo con la GPU.
 
-**Siguiente paso: escena `Lab_ATX`**
-1. Mesa y luz. Gabinete tumbado sobre la pared de la bandeja, sin el panel lateral, que queda apoyado al lado.
-2. Añadir al gabinete lo que no trae: separadores (standoffs) en los agujeros ATX y la zona de la fuente.
-3. Sockets: CPU, disipador (`requires` CPU), RAM ×4 (A2/B2 `required`, A1/B1 opcionales), M.2 y placa → gabinete. Se sacan de las posiciones instaladas de `PlacaBase.fbx`; después GPU, disco y fuente.
-4. Cables con `CableSpline`: ATX 24, EPS 8, PCIe 6+2, SATA alimentación + datos, panel frontal, USB/audio frontal y ventiladores.
-5. Apuntar `Lab_01_ATX.sceneName` a `Lab_ATX`, añadirla a Build Settings y pasar los créditos de los modelos al modal de Créditos.
-
-**Fase A pendiente (no necesita modelos):** contador de errores + resumen al terminar, conectores generados por código y prefab `Lab_Systems`.
+**Siguiente:**
+1. Prueba a mano con el ratón (usuario).
+2. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
+3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
+4. Labs 2 (PC compacta de oficina) y 3 (laptop Dell Latitude 5400).
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
-- Gabinete de pie: frente = −X, trasera (E/S) = +X, panel removible = +Z, pared de la bandeja = −Z.
-- La placa viene tumbada, con los componentes hacia +Y.
+- Gabinete de pie: frente = −X, trasera (E/S) = +X, panel removible = +Z, pared de la bandeja = −Z. En la escena está tumbado: techo hacia +X, frente hacia el estudiante (−Z).
 - Cómo operar el editor por CLI: `CLAUDE.md` §9.

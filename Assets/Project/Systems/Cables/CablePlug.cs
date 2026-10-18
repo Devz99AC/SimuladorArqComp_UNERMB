@@ -10,6 +10,9 @@ using UnityEngine;
 ///    en vez de conservar la pose que tenía sobre la mesa.
 ///  - Suelto, la holgura cae por gravedad (y se apoya en la mesa); conectado, se arquea hacia donde
 ///    sale el cable del puerto, como un cable rígido, en vez de atravesar la placa.
+///  - Si el cable sale de una pieza que también se instala (la fuente, el disipador…), el conector
+///    suelto cambia de sitio de reposo con ella: en la mesa mientras la pieza está en la mesa, y dentro
+///    del gabinete (<see cref="homeWhenSourceInstalled"/>) cuando se instala.
 /// El tubo del cable sigue al conector solo: el <see cref="CableSpline.endAnchor"/> es este Transform.
 /// </summary>
 [RequireComponent(typeof(PCPart))]
@@ -30,16 +33,38 @@ public class CablePlug : MonoBehaviour, IDragConstraint
     [Tooltip("Qué tan rápido cambia la caída al conectar/desconectar (transición suave)")]
     [SerializeField] private float slackBlendSharpness = 8f;
 
+    [Header("Origen del cable (opcional)")]
+    [Tooltip("Lugar donde se instala la pieza de la que sale el cable (p. ej. la fuente). Vacío = el origen no se mueve.")]
+    public SocketSystem sourceSocket;
+    [Tooltip("Dónde reposa este conector, suelto, cuando esa pieza ya está instalada")]
+    public Transform homeWhenSourceInstalled;
+
     private PCPart _part;
+    private Transform _deskParent;
+    private Vector3 _deskLocalPos;
+    private Quaternion _deskLocalRot;
+    private bool _sourceWasInstalled;
 
     private void Awake()
     {
         _part = GetComponent<PCPart>();
     }
 
+    private void Start()
+    {
+        _deskParent = transform.parent;
+        _deskLocalPos = transform.localPosition;
+        _deskLocalRot = transform.localRotation;
+        _sourceWasInstalled = SourceInstalled;
+    }
+
+    private bool SourceInstalled => sourceSocket != null && sourceSocket.IsComplete;
+
     private void Update()
     {
-        if (cable == null || _part == null) return;
+        if (_part == null) return;
+        FollowSource();
+        if (cable == null) return;
 
         // CurrentSocket se asigna al empezar la animación de encaje: la caída cambia mientras baja.
         Vector3 target = archWhenConnected && _part.CurrentSocket != null ? transform.forward : looseSlack.normalized;
@@ -48,6 +73,22 @@ public class CablePlug : MonoBehaviour, IDragConstraint
             ? target
             : Vector3.Slerp(current, target, 1f - Mathf.Exp(-slackBlendSharpness * Time.deltaTime));
         cable.SetSlackDirection(next);
+    }
+
+    /// <summary>Si la pieza de origen se instaló o se retiró, el conector suelto se va a su nuevo sitio de reposo.</summary>
+    private void FollowSource()
+    {
+        if (homeWhenSourceInstalled == null) return;
+        bool installed = SourceInstalled;
+        if (installed == _sourceWasInstalled) return;
+        _sourceWasInstalled = installed;
+
+        if (installed)
+            _part.SetHome(homeWhenSourceInstalled, homeWhenSourceInstalled.position, homeWhenSourceInstalled.rotation);
+        else if (_deskParent != null)
+            _part.SetHome(_deskParent, _deskParent.TransformPoint(_deskLocalPos), _deskParent.rotation * _deskLocalRot);
+
+        if (_part.CurrentSocket == null && !_part.IsHeld) _part.ReturnToTable(0.35f);
     }
 
     public Vector3 ConstrainDragPosition(Vector3 desired)

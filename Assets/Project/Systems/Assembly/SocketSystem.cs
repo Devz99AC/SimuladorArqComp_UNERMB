@@ -157,14 +157,15 @@ public class SocketSystem : MonoBehaviour
     /// <summary>
     /// Busca el socket "al que apunta" la pieza: el que tenga más cerca (en horizontal) el
     /// lugar donde quedaría su centro visual una vez instalada, normalizado por su tolerancia.
+    /// Si alguno de los que están a tiro la acepta, gana ese (el más cercano de ellos).
     /// Devuelve null si ninguno está a tiro. <paramref name="result"/> dice si encajaría y,
     /// si no, por qué — así soltar sobre el lugar equivocado enseña en vez de fallar en silencio.
     /// </summary>
     public static SocketSystem FindTarget(PCPart part, out CompatResult result)
     {
         result = default;
-        SocketSystem best = null;
-        float bestScore = 1f;
+        SocketSystem best = null, bestValid = null;
+        float bestScore = 1f, bestValidScore = 1f;
         Vector3 current = part.VisualCenter;
 
         foreach (var socket in All)
@@ -176,13 +177,26 @@ public class SocketSystem : MonoBehaviour
             delta.y = 0f; // el arrastre es sobre un plano horizontal: la altura no cuenta
 
             float score = delta.magnitude / socket.RadiusFor(part);
+            if (score > 1f) continue;
             if (score <= bestScore)
             {
                 bestScore = score;
                 best = socket;
             }
+            // Un lugar donde SÍ encaja gana a uno incompatible que quede igual o más cerca (p. ej. el puerto
+            // PCIe de la GPU justo encima de la ranura que ocupa la propia GPU).
+            if (score <= bestValidScore && socket.Evaluate(part).Ok)
+            {
+                bestValidScore = score;
+                bestValid = socket;
+            }
         }
 
+        if (bestValid != null)
+        {
+            result = CompatResult.Accept();
+            return bestValid;
+        }
         if (best != null) result = best.Evaluate(part);
         return best;
     }
