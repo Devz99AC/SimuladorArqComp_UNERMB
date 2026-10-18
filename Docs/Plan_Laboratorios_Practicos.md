@@ -159,9 +159,9 @@ Gabinete mid-tower **tumbado de lado** y sin panel lateral, como se monta en la 
 
 **Con lo que ya hay** se pueden hacer los pasos 2, 4 y 7, los cables 9 y el disco/fuente (en cuanto tengan socket). **Falta arte:** gabinete, disipador, SSD M.2 y modelos de conectores.
 
-### 4.2 Lab PC compacta (Mini-ITX / SFF)
+### 4.2 Lab PC compacta (SFF de oficina) — hecho (2026-10-18)
 
-Mismos sistemas; cambia lo que se enseña: fuente SFX, disipador de perfil bajo (**altura máxima**), longitud máxima de la GPU, solo 2 DIMM, M.2 por detrás de la placa, cables cortos o modulares y un **orden que importa más** (en un gabinete pequeño, si instalas la GPU primero ya no llegas al EPS). Nuevo: regla de **holgura física** (dimensiones de la pieza frente al hueco), que necesita las dimensiones de cada pieza en datos.
+Decisión del usuario: **PC pequeña de oficina**, no Mini-ITX gamer. Modelo de referencia: **Dell OptiPlex 7070 SFF** (Service Manual y Setup and Specifications de Dell). Lo que enseña: tapa sin herramientas, un **orden que impone el espacio** (el módulo de discos tapa la memoria y el procesador; el SSD y la fuente van antes que el disipador), tarjetas de **perfil bajo** con pestillo, **fuente propia** con solo dos cables y discos alimentados desde la placa. Mecánica nueva: `requiresEmpty`, lugares de estado y `HingedPart` (ver `CLAUDE.md` §4). Cómo probarlo: §6.1. La regla de holgura física por dimensiones no hizo falta: la tarjeta de perfil completo se rechaza por tipo, con el motivo en su texto.
 
 ### 4.3 Lab laptop
 
@@ -238,6 +238,33 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 
 **Sin verificar:** el gesto con el ratón real. Es la primera prueba que hay que hacer a mano.
 
+### 6.1 Lab 2: PC compacta (Play en `Lab_SFF`, o Laboratorio de ensamblaje ▸ PC compacta de oficina ▸ ENTRAR)
+
+Modelada sobre el **Dell OptiPlex 7070 SFF**, con el orden de su Service Manual. 16 pasos.
+
+1. **La tapa empieza puesta.** Con ella nada se toca, ni el módulo se levanta: el aviso lo dice. Arrástrala a la mesa (a la derecha).
+2. **Clic (sin arrastrar) en el módulo de discos** para levantarlo. Debajo están la memoria, el socket y el M.2.
+3. **Orden en poco espacio.**
+   - El SSD M.2 y la fuente van **antes que el disipador**: con él puesto se rechazan («Antes hay que quitar el disipador») y no se pueden retirar.
+   - El disipador exige la CPU; el ventilador del disipador va encima de él.
+   - RAM en DIMM1 y DIMM2 (en DIMM3/4 entra, con un aviso, pero no cuenta).
+4. **Clic en el módulo para bajarlo** y coloca el disco encima (con el módulo levantado se rechaza). Con el disco puesto, el módulo ya no se levanta.
+5. **Tarjeta.** La de perfil completo (a la derecha, delante) no cabe: se rechaza con motivo. Clic en el **pestillo azul de las tarjetas** (atrás a la derecha) para abrirlo, mete la de perfil bajo en la PCIe x16 y vuelve a cerrarlo.
+6. **Cables** (6):
+   - Fuente: alimentación del sistema (junto a la fuente, delante) y del procesador (ATX_CPU, junto al panel trasero). Son distintos: cambiarlos se rechaza.
+   - De la placa al disco: datos SATA y alimentación (en este Dell salen de la placa).
+   - Botón de encendido a PWR_SW y ventilador a FAN_CPU.
+7. **Pon la tapa** (exige todo lo anterior, con el módulo bajado y el pestillo cerrado): 16/16 y victoria.
+
+**Verificado en Play (2026-10-18), por código** (`arnes_ensamblaje.cs`):
+- Recorrido completo hasta 16/16 y victoria.
+- Rechazos con su motivo: tapa puesta, módulo bajado (RAM, CPU), módulo levantado (disco), disipador antes que la CPU, SSD y fuente con el disipador puesto, tarjeta de perfil completo, pestillo cerrado, cable en el puerto equivocado y tapa antes de terminar.
+- Bloqueos: el módulo no se levanta con el disco encima, y no se puede retirar el SSD ni la fuente con el disipador puesto, ni la CPU bajo el disipador, ni nada con la tapa puesta.
+- Alcance de los cables, y la tapa soltada cerca del equipo vuelve a la mesa sin aviso.
+- Selector ▸ ENTRAR (tarjeta 2) carga `Lab_SFF`, con la consola limpia. El lab ATX sigue llegando a 21/21.
+
+**Sin verificar:** los gestos con el ratón real (arrastrar la tapa, el clic en la bisagra y el pestillo).
+
 ---
 
 ## 7. Decisiones tomadas y plan de trabajo
@@ -285,7 +312,7 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 8. Sustituir `AssemblyLab` en Build Settings y en el selector; limpieza del punto 14.
 
 **Fase C — labs 2 y 3**
-9. Lab PC SFF de oficina (modelar el chasis; reutilizar piezas).
+9. ✅ Lab PC SFF de oficina (2026-10-18): chasis y piezas con primitivas, piezas reutilizadas del lab ATX, escena `Lab_SFF` (§6.1).
 10. Lab laptop (Dell Latitude 5400 + interior + las 4 mecánicas).
 
 ### 7.3 Cómo pasar el token de Sketchfab (sin exponerlo)
@@ -296,7 +323,7 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 
 ### 7.4 Estado actual y siguiente sesión
 
-*Última actualización: 2026-10-18 (tarde) · rama `labs-practicos`.*
+*Última actualización: 2026-10-18 (noche, lab 2 hecho) · rama `labs-practicos`.*
 
 **Commits de la rama:**
 - `8e52b87`: interacción nueva + cables con spline + plan.
@@ -327,11 +354,20 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 - Los conectores son bloques simples. Pendiente de la Fase A: conectores generados por código, con pines y pestaña.
 - El modelo de gabinete no sigue del todo la norma ATX: el interior mide 398 mm, así que placa y fuente quedan justas, y el hueco de las ranuras traseras no coincide del todo con la GPU.
 
+**Lab 2, PC compacta (2026-10-18, mismo día):**
+- Decisiones del usuario: Dell OptiPlex 7070 SFF, chasis modelado completo y todos los bloques (disco con SATA, tarjeta de perfil bajo, fuente propia con cables, ventilador y botón de encendido).
+- Ajustes por el manual: el 7070 SFF **no tiene ventilador de sistema**, así que ese paso es el ventilador del disipador y su cable a FAN_CPU. El orden lo pone el manual (módulo sobre la memoria; SSD y fuente antes que el disipador).
+- Hecho:
+  - `LabBuilderKit`: los ayudantes del lab ATX en una clase común. `LabAtxBuilder` genera exactamente lo mismo: volcado de toda la jerarquía antes y después, idéntico.
+  - Mecánica nueva: `requiresEmpty`, `fillAction`/`emptyAction`, lugares de estado, `HingedPart`, piezas que empiezan instaladas y el objetivo por `IsSatisfied`.
+  - Escena `Lab_SFF` generada por `LabSffBuilder` (16 pasos), tarjeta en el selector con imagen, y la escena en Build Settings.
+- Verificado por código en Play (§6.1). El lab ATX sigue llegando a 21/21.
+
 **Siguiente:**
-1. Que el usuario vea las señales de puerto nuevas.
+1. Que el usuario pruebe el lab 2 con el ratón: arrastrar la tapa, el clic en el módulo y el pestillo, y los cables cortos.
 2. Fase A: contador de errores + resumen al terminar (sin nota), conectores con forma y prefab `Lab_Systems`.
 3. Limpieza: retirar `AssemblyLab`, los cables IK, Animation Rigging y `CableTest`.
-4. Labs 2 y 3: hay un prompt listo para cada sesión, [Prompt_Lab_PC_Compacta.md](Prompt_Lab_PC_Compacta.md) y [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). Recogen las decisiones tomadas, lo que hay que preguntar, la mecánica nueva («exige que otro esté vacío», bisagras, inserción en ángulo, tornillos), cómo reutilizar el patrón del lab ATX y cómo verificar.
+4. Lab 3 (laptop): prompt listo en [Prompt_Lab_Laptop.md](Prompt_Lab_Laptop.md). La mecánica de estado ya existe; la batería es un puerto que los demás piden vacío y el pestillo ZIF, un `HingedPart`. Falta la inserción en ángulo y, si se eligen, los tornillos con clic.
 
 **Datos útiles:**
 - Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).

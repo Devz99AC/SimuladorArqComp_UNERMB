@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/Lab_ATX.unity
     guid: 9c66bd9abba96d445b983223b6e19fdd
+  - enabled: 1
+    path: Assets/Project/Scenes/Lab_SFF.unity
+    guid: 6fd8ce5f8cd8c8b4fb13cf0f40e1dfa5
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LabDefinitionSO
   tag: LABORATORIO 2
   title: PC compacta de oficina
-  description: "Repara y actualiza una PC peque\xF1a como las de aulas y oficinas: poco espacio, piezas de perfil bajo y fuente propia del fabricante."
+  description: "Repara y arma una PC peque\xF1a como las de aulas y oficinas (modelo Dell OptiPlex 7070 SFF): poco espacio, piezas de perfil bajo y fuente propia del fabricante."
   learns:
   - Trabajar en poco espacio y en orden
-  - Componentes de perfil bajo
+  - "M\xF3dulo con bisagra, pestillos y perfil bajo"
   - Fuente y conectores del fabricante
-  preview: {fileID: 0}
-  sceneName: 
-  available: 0
+  preview: {fileID: 21300000, guid: 5c8eed773f87aa54fb5f22986025157e, type: 3}
+  sceneName: Lab_SFF
+  available: 1
