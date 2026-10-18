@@ -163,6 +163,7 @@ Se instancian **dos** `new SimulationControls()` (InteractionManager + CADCamera
 
 - **Modelos 3D**: `Assets/3D/` (paralelo a `Assets/Project/` — ver AUDITORIA §1.1). ⚠️ **Muy pesados**: motherboard 217k tris, gpu 211k, `hdd 1` 117k. Duplicados muertos: `gpu.fbx` (212k), `hdd.fbx` (5k, versión ligera **sin usar** — cambiar a esta ahorra 112k tris).
 - **Prefabs de piezas**: repartidos entre `Assets/3D/prefabs/` y `Assets/Project/Prefabs/` (unificar).
+- **Modelos del lab ATX nuevo** (2026-10-18): `Assets/Project/Content/Models/Lab_ATX/`, con `Gabinete` (Chasis, PanelLateral, 2 ventiladores), `PlacaBase` (PlacaBase, CPU, SSD_M2, RAM_1..4 **en su posición instalada**: sus transforms son los puntos de encaje), `GPU`, `Disipador`, `Ventilador120` y `SSD_980Pro`. Están a **escala real (1 u = 1 m)** con texturas ≤ 2048 en las carpetas `.fbm`. En total ≈ 90k tris. Materiales: URP Lit (pendiente decidir si se pasan al shader estilizado). Son de terceros (CC BY 4.0): créditos en `Docs/Creditos_Modelos.md`. Tubería de descarga y preparación: `Tools/Modelos/` (Blender por script).
 - **Teoría**: jerarquía en `Assets/Project/Data/ScriptableObjects/TheoryContent/` — `TheorySyllabus.asset` (raíz) → `Units/U01..U11.asset` → `Topics/U01_T01..U11_T05.asset` (49 temas). Generados por script a partir de fuentes de texto plano. Los 20 SO planos antiguos están archivados en `TheoryContent/_Legacy/`.
 - **Layers**: `Interactable = 3` (⚠️ slot reservado, debería ser 8+), `UI = 5`.
 

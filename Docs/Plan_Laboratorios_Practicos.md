@@ -267,8 +267,14 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 4. Prefab `Lab_Systems` (cámara + managers + HUD) como base común de las escenas de laboratorio.
 
 **Fase B — lab ATX (necesita el token)**
-5. Descargar: Basic PC case, MotherBoard + Components, RTX 3060 TI Low Poly, CPU Cooler, Samsung 980 Pro y un ventilador.
-6. Prepararlos en Blender por script: escala real, pivote en el punto de encaje, panel lateral separado, < 40k tris, FBX; materiales al shader del proyecto.
+5. ✅ Descargados (2026-10-18) con el token del usuario. Los originales están en `C:\Users\devin\SimuladorArqComp_ArtSource\Sketchfab\` (fuera del repo) y los créditos en [Creditos_Modelos.md](Creditos_Modelos.md).
+6. ✅ Preparados en Blender por script y exportados a `Assets/Project/Content/Models/Lab_ATX/`:
+   - Escala real verificada en Unity (1 u = 1 m).
+   - Panel lateral separado y paredes con grosor.
+   - Texturas de 2048 px como máximo.
+   - Total del lab ≈ 90k triángulos (antes 607k).
+
+   **Pendiente:** pasar los materiales (hoy URP Lit) al estilo del proyecto si se quiere el mismo aspecto, y añadir al gabinete lo que no trae: separadores (standoffs) y zona de la fuente.
 7. Escena nueva `Lab_ATX` a escala real: mesa, gabinete tumbado, placa sobre la mesa → al gabinete, sockets, todos los cables con `requires` físicos.
 8. Sustituir `AssemblyLab` en Build Settings y en el selector; limpieza del punto 14.
 
