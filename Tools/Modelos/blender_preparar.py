@@ -113,13 +113,37 @@ def origin_to_center(o):
     bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY", center="BOUNDS")
 
 
-def solidify(o, thickness):
+def solidify(o, thickness, even=True):
     m = o.modifiers.new("grosor", "SOLIDIFY")
     m.thickness = thickness
     m.offset = -1.0
-    m.use_even_offset = True
+    m.use_even_offset = even  # False en mallas con caras casi degeneradas: el grosor "parejo" se dispara en ellas
     bpy.context.view_layer.objects.active = o
     bpy.ops.object.modifier_apply(modifier=m.name)
+
+
+def recalc_normals(o):
+    """Normales coherentes y hacia fuera (hay modelos con media malla invertida). En una malla abierta,
+    recalc_face_normals las deja coherentes pero puede elegir "hacia dentro": se comprueba con el centro."""
+    bm = bmesh.new()
+    bm.from_mesh(o.data)
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    center = sum((v.co for v in bm.verts), Vector()) / max(1, len(bm.verts))
+    outward = sum((f.calc_center_median() - center).dot(f.normal) * f.calc_area() for f in bm.faces)
+    if outward < 0:
+        bmesh.ops.reverse_faces(bm, faces=bm.faces)
+    report.append(f"normales de {o.name}: {'invertidas' if outward < 0 else 'ya hacia fuera'} (índice {outward:.3f})")
+    bm.to_mesh(o.data); bm.free()
+
+
+def face_normals_towards(o, direction):
+    """Da la vuelta a las caras cuya normal no mira hacia direction (una placa casi plana: la tapa inferior)."""
+    bm = bmesh.new()
+    bm.from_mesh(o.data)
+    bad = [f for f in bm.faces if f.normal.dot(direction) < 0]
+    if bad:
+        bmesh.ops.reverse_faces(bm, faces=bad)
+    bm.to_mesh(o.data); bm.free()
 
 
 def separate_faces(o, predicate, new_name):
@@ -264,5 +288,110 @@ elif model == "fan_sl120":
     recenter_world([fan])
     origin_to_center(fan)
     export("Ventilador120.fbx", [fan])
+
+# ----------------------------------------------------------------- lab 3 (laptop)
+elif model == "dell_latitude_5400":
+    # Yolala3D, abierta a ~105°. Ancho = Y (2,92), fondo = X (frente -0,79 → bisagra 1,229), arriba = Z;
+    # la base va de z 0,339 (fondo) a 0,438 (teclado). Se usa CERRADA y BOCA ABAJO: se borra lo que queda
+    # dentro (teclado, textos, bisel y panel), se cierra la pantalla, se voltea y se separa la tapa inferior
+    # (las caras de abajo de la base) de la carcasa. Se exporta con los ejes del laboratorio: ancho = X de Unity,
+    # bisagra hacia +Z de Unity (al fondo, como en las figuras del manual de Dell), arriba = Y.
+    keep_base = ["Object_14", "Object_20"]
+    keep_ports = ["Object_10", "Object_18", "Object_24", "Object_8", "Object_454",
+                  "Object_380", "Object_384", "Object_412", "Object_414", "Object_442", "Object_444"]
+    keep_lid = ["Object_363", "Object_362"]
+    keep = set(keep_base + keep_ports + keep_lid)
+    for o in [o for o in bpy.data.objects if o.type == "MESH" and o.name not in keep]:
+        bpy.data.objects.remove(o, do_unlink=True)
+    bake_all()
+    for o in [o for o in bpy.data.objects if o.type == "MESH"]:
+        a, b = bounds([o])
+        report.append(f"   {o.name:12s} min=({a.x:.3f}, {a.y:.3f}, {a.z:.3f}) max=({b.x:.3f}, {b.y:.3f}, {b.z:.3f})")
+    get = lambda names: [bpy.data.objects[n] for n in names if n in bpy.data.objects]
+    base, ports, lid = get(keep_base), get(keep_ports), get(keep_lid)
+
+    # 1) Cerrar la pantalla: su eje largo (de la bisagra al borde superior) pasa a apuntar hacia el frente (-X),
+    #    y se apoya sobre el teclado con el borde de la bisagra en la trasera de la base.
+    back = bpy.data.objects["Object_363"]
+    vs = [back.matrix_world @ v.co for v in back.data.vertices]
+    zmin = min(v.z for v in vs); zmax = max(v.z for v in vs)
+    lo = [v for v in vs if v.z < zmin + 0.02]; hi = [v for v in vs if v.z > zmax - 0.02]
+    d = sum(hi, Vector()) / len(hi) - sum(lo, Vector()) / len(lo)
+    ang = math.atan2(d.z, d.x) + math.pi
+    rot = Matrix.Rotation(ang, 4, "Y")
+    for o in lid:
+        o.data.transform(rot)
+    bmn, bmx = bounds(base)
+    lmn, lmx = bounds(lid)
+    shift = Vector((bmx.x - lmx.x, 0.0, bmx.z - lmn.z + 0.001))
+    for o in lid:
+        o.data.transform(Matrix.Translation(shift))
+    report.append(f"pantalla girada {math.degrees(ang):.1f}°; base z {bmn.z:.3f}–{bmx.z:.3f}")
+
+    # 2) Tapa inferior: las caras de abajo de la base (fondo plano y chaflanes, ~3 mm a escala real). La mitad del
+    #    fondo trae las normales invertidas: se recalculan antes de elegir.
+    shell = join(base, "Carcasa")
+    recalc_normals(shell)
+    cover = separate_faces(shell, lambda c, n: abs(n.z) > 0.3 and c.z < bmn.z + 0.022, "TapaInferior")
+    face_normals_towards(cover, Vector((0, 0, -1)))
+    solidify(shell, 0.009, even=False)   # ~1 mm a escala real: la carcasa ya no está cerrada por abajo
+    solidify(cover, 0.012, even=False)   # ~1,3 mm, hacia dentro
+    shell = join([shell] + ports + lid, "Carcasa")
+
+    # 3) Boca abajo y con los ejes del laboratorio: (x, y, z) → (-y, -x, -z) (giro propio, sin espejo).
+    flip = Matrix(((0, -1, 0, 0), (-1, 0, 0, 0), (0, 0, -1, 0), (0, 0, 0, 1)))
+    for o in (shell, cover):
+        o.data.transform(flip)
+
+    # 4) Tamaño real del manual de Dell (Setup and Specifications): 323,05 × 216 mm; alto 19,6 (frente) a 20,85 (atrás).
+    mn, mx = bounds([shell, cover])
+    size = mx - mn
+    sx, sy = 0.32305 / size.x, 0.216 / size.y
+    sz = 0.0202 / size.z
+    sm = Matrix.Diagonal((sx, sy, sz, 1.0))
+    for o in (shell, cover):
+        o.data.transform(sm)
+    report.append(f"escala x={sx:.5f} y={sy:.5f} z={sz:.5f} (sin ajustar el alto sería {size.z * (sx + sy) / 2 * 1000:.1f} mm)")
+    recenter_world([shell, cover], anchor="base")
+
+    # 5) El hueco del touchpad sobresale hacia el interior (llega a 14,6 mm) y atravesaría la batería: se quita. Son caras de
+    #    la cara de arriba del reposamanos, que con la laptop cerrada nunca se ven. Solo en su zona (delante, en el centro; en
+    #    Unity x de -0,03 a 0,06 y z de -0,095 a -0,03): la pared de la bisagra queda a la vista y no se toca.
+    inside = lambda c: -0.06 < c.x < 0.03 and 0.03 < c.y < 0.095 and 0.0095 < c.z < 0.0190
+    bm = bmesh.new(); bm.from_mesh(shell.data)
+    kill = [f for f in bm.faces if inside(f.calc_center_median())]
+    bmesh.ops.delete(bm, geom=kill, context="FACES")
+    bm.to_mesh(shell.data); bm.free()
+    report.append(f"caras del interior quitadas: {len(kill)}")
+    for p in (shell, cover):
+        origin_to_center(p)
+    export("Laptop.fbx", [shell, cover])
+
+elif model == "sodimm_ddr4_8gb":
+    # Viene de canto: grosor = X, largo = Y (2,223 → 69,6 mm), ancho = Z (contactos abajo). Se deja acostada:
+    # largo = X, ancho = Y (contactos hacia -Y de Blender = +Z de Unity), grosor = Z.
+    bake_all()
+    ram = join([o for o in bpy.data.objects if o.type == "MESH"], "SODIMM")
+    scale_all(0.6960 / 22.23)
+    ram.data.transform(Matrix(((0, 1, 0, 0), (0, 0, 1, 0), (1, 0, 0, 0), (0, 0, 0, 1))))
+    recenter_world([ram])
+    origin_to_center(ram)
+    export("SODIMM.fbx", [ram])
+
+elif model == "laptop_fan":
+    # Dos ventiladores de tipo blower; se usa el que no tiene cable (".004", 77 × 97 mm) llevado a ~62 mm
+    # (tamaño aproximado del de una laptop de 14"; el manual de Dell no lo da) y simplificado.
+    names = [o.name for o in bpy.data.objects if o.type == "MESH" and ".004" in o.name]
+    for o in [o for o in bpy.data.objects if o.type == "MESH" and o.name not in names]:
+        bpy.data.objects.remove(o, do_unlink=True)
+    bake_all()
+    for o in [o for o in bpy.data.objects if o.type == "MESH"]:
+        decimate(o, 0.12)
+    fan = join([o for o in bpy.data.objects if o.type == "MESH"], "VentiladorLaptop")
+    mn, mx = bounds([fan])
+    scale_all(0.062 / max(mx.x - mn.x, mx.y - mn.y))
+    recenter_world([fan], anchor="base")
+    origin_to_center(fan)
+    export("VentiladorLaptop.fbx", [fan])
 
 open(report_path, "w", encoding="utf-8").write("\n".join(report) + "\n")

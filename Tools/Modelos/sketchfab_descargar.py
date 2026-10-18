@@ -1,18 +1,26 @@
 # Descarga modelos de Sketchfab con el token del usuario (nunca se imprime ni se copia).
 # Uso:
-#   python -I sf_download.py check                      → valida el token y lista formatos disponibles
-#   python -I sf_download.py get <destino_raiz>         → descarga el glTF de cada modelo a <raiz>/<slug>/
+#   python -I sf_download.py check [conjunto]           → valida el token y lista formatos disponibles
+#   python -I sf_download.py get <destino_raiz> [conjunto] → descarga el glTF de cada modelo a <raiz>/<slug>/
+# Conjuntos: atx (por defecto), laptop.
 import json, os, re, sys, urllib.request, zipfile
 
 TOKEN_FILE = os.path.join(os.path.expanduser("~"), ".sketchfab_token", "sketchfab.txt")
 
-MODELS = [
+SETS = {}
+SETS["atx"] = [
     ("pc_case", "2869fb18575d49128a3115d42d5d3826"),            # Basic PC case — sousinho
     ("motherboard_components", "3bc94057328243d4b341a55f59160f8a"),  # MotherBoard + Components — DanielCardonaArt
     ("gpu_rtx3060ti", "b65c5c0807be4ece9a95090d1a1794bb"),      # RTX 3060 TI Low Poly — alexlh2003
     ("cpu_cooler", "672a0a74a98c452a862016bee99f3579"),         # CPU Cooler — bazyaev08
     ("ssd_m2_980pro", "1f386c8d782d4b208717bc64474b98b3"),      # Samsung 980 Pro NVMe — BlenderFace1
     ("fan_sl120", "5abd0d8e89ea4241b7216f4b6d5a2ca4"),          # Lian Li UNI FAN SL120 — DIEKO
+]
+SETS["laptop"] = [
+    ("dell_latitude_5400", "c3dfc53a600e427c9db9be83aec9860d"), # Dell Latitude 5400 — Yolala3d
+    ("sodimm_ddr4_8gb", "d5c9a2a4d15146889aa2e0b360ff00a2"),    # 8 GB SODIMM DDR4 — Cashierobz
+    ("laptop_battery", "e463a4413af647a3b88b6c6d40a12e72"),     # Mac Laptop Battery — Graphitage
+    ("laptop_fan", "0796a914f76944f8bb443dce83dc0c8a"),         # Laptop cooling fan — ponchoguy
 ]
 
 
@@ -47,6 +55,8 @@ def info(uid):
 
 def main():
     mode = sys.argv[1]
+    global MODELS
+    MODELS = SETS[sys.argv[2] if mode == "check" and len(sys.argv) > 2 else sys.argv[3] if len(sys.argv) > 3 else "atx"]
     tok = token()
     if mode == "check":
         me = api("/me", tok)
