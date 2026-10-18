@@ -287,3 +287,37 @@ Todos **CC-BY** salvo que se indique: se pueden usar y modificar **citando al au
 1. En Sketchfab: *Settings ▸ Password & API* → copia tu **API token**.
 2. Guárdalo en un archivo **fuera del repositorio**: `C:\Users\devin\.sketchfab_token` (una sola línea, solo el token).
 3. Avísame. Lo leo de ahí al descargar; no lo copio al proyecto ni lo escribo en el chat. La API entrega glTF o el archivo original; Blender los convierte a FBX.
+
+### 7.4 Estado actual y siguiente sesión
+
+*Última actualización: 2026-10-18 · rama `labs-practicos`.*
+
+**Commits de la rama:**
+- `8e52b87`: interacción nueva + cables con spline + plan.
+- `b08d1ad`: selector de laboratorios.
+- `aaf6d84`: modelos del lab ATX.
+
+**Hecho y probado:**
+- Interacción nueva, en Play.
+- Cables ATX 24 y EPS 8 en `AssemblyLab`: el usuario confirmó que funcionan bien.
+- Selector de 3 tarjetas, en Play.
+- Modelos del ATX a escala real, verificados en Unity.
+
+**Decisión pendiente (ya preguntada):** el aspecto de los modelos nuevos.
+- **Realistas** (URP Lit, como vienen).
+- **Estilo del proyecto** (shader estilizado `Attenuation2`). Como ese shader solo tiene `_Textura` y ningún color, habría que generar texturas de color liso para los materiales que no tienen textura.
+
+**Siguiente paso: escena `Lab_ATX`**
+1. Mesa y luz. Gabinete tumbado sobre la pared de la bandeja, sin el panel lateral, que queda apoyado al lado.
+2. Añadir al gabinete lo que no trae: separadores (standoffs) en los agujeros ATX y la zona de la fuente.
+3. Sockets: CPU, disipador (`requires` CPU), RAM ×4 (A2/B2 `required`, A1/B1 opcionales), M.2 y placa → gabinete. Se sacan de las posiciones instaladas de `PlacaBase.fbx`; después GPU, disco y fuente.
+4. Cables con `CableSpline`: ATX 24, EPS 8, PCIe 6+2, SATA alimentación + datos, panel frontal, USB/audio frontal y ventiladores.
+5. Apuntar `Lab_01_ATX.sceneName` a `Lab_ATX`, añadirla a Build Settings y pasar los créditos de los modelos al modal de Créditos.
+
+**Fase A pendiente (no necesita modelos):** contador de errores + resumen al terminar, conectores generados por código y prefab `Lab_Systems`.
+
+**Datos útiles:**
+- Ejes de los FBX en Unity: Blender (x, y, z) → Unity (−x, z, −y).
+- Gabinete de pie: frente = −X, trasera (E/S) = +X, panel removible = +Z, pared de la bandeja = −Z.
+- La placa viene tumbada, con los componentes hacia +Y.
+- Cómo operar el editor por CLI: `CLAUDE.md` §9.
