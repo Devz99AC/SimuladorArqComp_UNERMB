@@ -20,6 +20,10 @@ public class SocketSystem : MonoBehaviour
     [Tooltip("Tolerancia de encaje (unidades de mundo, en horizontal). <= 0: automática, proporcional al tamaño de la pieza.")]
     public float snapRadius = 0f;
 
+    [Tooltip("Solo es destino para piezas de su tipo: un lugar grande (la tapa de una laptop, en el centro del equipo) no " +
+             "debe explicar «aquí va la tapa» a una memoria soltada cerca de su centro.")]
+    public bool onlyOwnType = false;
+
     [Tooltip("Nota que se muestra al instalar aquí: el encaje es válido, pero hay algo que aprender " +
              "(p. ej. \"con dos módulos, mejor A2 y B2\"). Vacío = mensaje de éxito normal.")]
     [TextArea(2, 4)]
@@ -38,9 +42,36 @@ public class SocketSystem : MonoBehaviour
     public string fillAction;
     [Tooltip("Cómo se dice vaciarlo. Ej: \"quitar la tapa\", \"levantar el módulo de discos (haz clic en él)\". Vacío = \"quitar\" + el tipo.")]
     public string emptyAction;
+    [Tooltip("Por qué estorba este lugar mientras está ocupado. Se añade al motivo cuando bloquea a otro (p. ej. con la batería " +
+             "conectada: riesgo de cortocircuito). Vacío = solo «Antes hay que…».")]
+    [TextArea(2, 4)]
+    public string blockReason;
+
+    [Header("Mantenimiento (opcional)")]
+    [Tooltip("Pieza concreta que cuenta para el objetivo (p. ej. el SSD nuevo; el viejo entra igual, pero no termina el trabajo). Vacío = cualquiera de su tipo.")]
+    public PCPart goalPart;
+    [Tooltip("Qué falta mientras hay otra pieza. Ej: \"poner el SSD nuevo\". Vacío = el texto de llenar.")]
+    public string goalAction;
+    [Tooltip("Empieza ocupado y solo cuenta para el objetivo después de vaciarlo y volver a llenarlo (quitar y volver a poner: " +
+             "la tapa, los tornillos, la batería, reasentar la tarjeta Wi-Fi).")]
+    public bool cycleRequired;
+    [Tooltip("Qué falta mientras no se ha vuelto a poner. Ej: \"reasentar la tarjeta Wi-Fi (quitarla y volver a ponerla)\".")]
+    public string cycleAction;
+
+    [Header("Inserción en ángulo (opcional)")]
+    [Tooltip("Grados con que la pieza entra inclinada en su conector antes de bajar a su sitio (SO-DIMM ~30°, M.2 ~20°). 0 = baja recta desde arriba.")]
+    public float insertTilt = 0f;
+    [Tooltip("Borde que queda dentro del conector: su posición está en esa línea y su Z+ es el eje del giro (regla de la mano " +
+             "derecha: un ángulo positivo levanta el otro extremo de la pieza).")]
+    public Transform insertHinge;
+    [Tooltip("Cuánto se desliza la pieza, ya inclinada, hasta entrar en el conector (metros)")]
+    public float insertSlide = 0.006f;
 
     [Header("Estado")]
     public bool isOccupied = false;
+
+    // Se vació al menos una vez desde que empezó la escena (para cycleRequired).
+    private bool _cycled;
 
     /// <summary>Pieza instalada (o reservada mientras termina su animación de encaje).</summary>
     public PCPart Occupant { get; private set; }
@@ -58,6 +89,21 @@ public class SocketSystem : MonoBehaviour
 
     /// <summary>"quitar la tapa", "levantar el módulo de discos"…</summary>
     public string EmptyText => string.IsNullOrEmpty(emptyAction) ? "quitar " + TypeName : emptyAction;
+
+    /// <summary>Lo que falta para que cuente (lleno, con la pieza objetivo y, si hay que reasentarlo, vuelto a poner).</summary>
+    public string PendingText
+    {
+        get
+        {
+            if (!IsComplete) return FillText;
+            if (goalPart != null && Occupant != goalPart) return string.IsNullOrEmpty(goalAction) ? FillText : goalAction;
+            return string.IsNullOrEmpty(cycleAction) ? "quitar y volver a poner " + TypeName : cycleAction;
+        }
+    }
+
+    /// <summary>«Antes hay que quitar la tapa.» + el porqué, si lo tiene.</summary>
+    string BlockedBy(SocketSystem inTheWay) =>
+        "Antes hay que " + inTheWay.EmptyText + "." + (string.IsNullOrEmpty(inTheWay.blockReason) ? "" : " " + inTheWay.blockReason);
 
     public Vector3 SnapPosition => snapPoint != null ? snapPoint.position : transform.position;
     public Quaternion SnapRotation => snapPoint != null ? snapPoint.rotation : transform.rotation;
@@ -110,14 +156,14 @@ public class SocketSystem : MonoBehaviour
         // Lo que estorba: la tapa puesta, el módulo bajado… (primero, porque es lo que se ve).
         SocketSystem inTheWay = FirstOccupied(requiresEmpty);
         if (inTheWay != null)
-            return CompatResult.Reject("Todavía no se puede instalar aquí", "Antes hay que " + inTheWay.EmptyText + ".");
+            return CompatResult.Reject("Todavía no se puede instalar aquí", BlockedBy(inTheWay));
 
-        // Orden de montaje: lo que tiene que estar antes.
+        // Orden de montaje: lo que tiene que estar antes (y, en mantenimiento, ya terminado: el SSD nuevo, la tarjeta reasentada).
         foreach (var req in requires)
         {
-            if (req == null || req.IsComplete) continue;
+            if (req == null || req.GoalMet) continue;
             return CompatResult.Reject("Todavía no se puede instalar aquí",
-                "Antes hay que " + req.FillText + ".");
+                "Antes hay que " + req.PendingText + ".");
         }
 
         // Si todo coincide, aprobar.
@@ -130,6 +176,12 @@ public class SocketSystem : MonoBehaviour
     public bool IsComplete => isOccupied && Occupant != null && Occupant.IsInstalled;
 
     /// <summary>
+    /// Completo y con el trabajo hecho: la pieza objetivo, si la hay (<see cref="goalPart"/>), y vaciado y vuelto a llenar si
+    /// es de mantenimiento (<see cref="cycleRequired"/>). Para un lugar normal es lo mismo que <see cref="IsComplete"/>.
+    /// </summary>
+    public bool GoalMet => IsComplete && (goalPart == null || Occupant == goalPart) && (!cycleRequired || _cycled);
+
+    /// <summary>
     /// Cuenta para el objetivo: completo y con todo lo que exige también cumplido. Para un lugar normal es lo mismo que
     /// <see cref="IsComplete"/> (sus <see cref="requires"/> se comprobaron al instalar y no se pueden vaciar mientras esté
     /// ocupado). La diferencia está en los que empiezan ocupados: la tapa del equipo cerrado exige todo lo de dentro,
@@ -139,7 +191,7 @@ public class SocketSystem : MonoBehaviour
 
     private bool Satisfied(int depth)
     {
-        if (!IsComplete) return false;
+        if (!GoalMet) return false;
         if (depth > 16) return true; // ciclo en los requires: no debería pasar
         foreach (var req in requires)
             if (req != null && !req.Satisfied(depth + 1)) return false;
@@ -151,7 +203,7 @@ public class SocketSystem : MonoBehaviour
     {
         if (FirstOccupied(requiresEmpty) != null) return false;
         foreach (var req in requires)
-            if (req != null && !req.IsComplete) return false;
+            if (req != null && !req.GoalMet) return false;
         return true;
     }
 
@@ -170,14 +222,14 @@ public class SocketSystem : MonoBehaviour
     {
         SocketSystem inTheWay = FirstOccupied(requiresEmpty);
         if (inTheWay != null)
-            return CompatResult.Reject("Todavía no se puede retirar", "Antes hay que " + inTheWay.EmptyText + ".");
+            return CompatResult.Reject("Todavía no se puede retirar", BlockedBy(inTheWay));
 
         foreach (var other in All)
         {
             if (other == null || other == this || !other.isOccupied || !other.requires.Contains(this)) continue;
             string first = string.IsNullOrEmpty(other.emptyAction) ? "Primero retira " + other.TypeName : "Primero hay que " + other.emptyAction;
-            return CompatResult.Reject("Todavía no se puede retirar",
-                first + ": depende de esta pieza (va encima o conectado a ella).");
+            string why = string.IsNullOrEmpty(other.blockReason) ? "depende de esta pieza (va encima o conectado a ella)." : other.blockReason;
+            return CompatResult.Reject("Todavía no se puede retirar", first + ": " + why);
         }
         return CompatResult.Accept();
     }
@@ -211,6 +263,7 @@ public class SocketSystem : MonoBehaviour
 
         isOccupied = false;
         Occupant = null;
+        _cycled = true;
 
         if (GameManager.Instance != null) GameManager.Instance.UnregisterInstallation(part.partName);
     }
@@ -251,7 +304,7 @@ public class SocketSystem : MonoBehaviour
             // Los lugares que lleva la propia pieza (p. ej. los de la placa base) viajan con ella: no son destino.
             // Los de estado (bisagras, pestillos) tampoco: se alternan con un clic.
             if (socket == null || socket.StateOwner != null || socket.transform.IsChildOf(part.transform)) continue;
-            if (!part.explainWrongPlace && socket.allowedType != part.connectionType) continue;
+            if ((!part.explainWrongPlace || socket.onlyOwnType) && socket.allowedType != part.connectionType) continue;
             Vector3 installed = part.VisualCenterAt(socket.SnapPosition, socket.SnapRotation);
             Vector3 delta = installed - current;
             delta.y = 0f; // el arrastre es sobre un plano horizontal: la altura no cuenta

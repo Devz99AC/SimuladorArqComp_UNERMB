@@ -3,7 +3,8 @@ using UnityEngine;
 
 /// <summary>
 /// Pieza fija con dos posiciones que se alternan con un clic (sin arrastrar): el módulo de discos que se levanta
-/// sobre su bisagra, el pestillo que sujeta las tarjetas, el pestillo ZIF de una cinta…
+/// sobre su bisagra, el pestillo que sujeta las tarjetas, el pestillo ZIF de una cinta, un tornillo cautivo que se
+/// afloja (gira sobre su eje y sube, <see cref="openLift"/>) sin salir de la tapa…
 ///
 /// Su posición «cerrada» es un lugar de ESTADO (<see cref="closedState"/>, ocupado = cerrado), así que usa las mismas
 /// reglas que cualquier lugar:
@@ -25,6 +26,9 @@ public class HingedPart : MonoBehaviour
     public Transform hinge;
     [Tooltip("Grados que gira al abrirse (positivo = regla de la mano derecha sobre el Z+ de la bisagra)")]
     public float openAngle = 95f;
+    [Tooltip("Cuánto se desplaza a lo largo del eje al abrirse (metros). Un tornillo cautivo gira sobre su eje y sube al " +
+             "aflojarse, sin salir de su pieza. 0 = solo gira (bisagra, pestillo).")]
+    public float openLift = 0f;
     public float duration = 0.45f;
     public bool startOpen = false;
 
@@ -114,7 +118,8 @@ public class HingedPart : MonoBehaviour
     {
         _angle = angle;
         Quaternion r = Quaternion.AngleAxis(angle, _hingeAxis);
-        transform.localPosition = _hingePos + r * (_closedPos - _hingePos);
+        float lift = openAngle != 0f ? openLift * angle / openAngle : 0f;
+        transform.localPosition = _hingePos + r * (_closedPos - _hingePos) + _hingeAxis * lift;
         transform.localRotation = r * _closedRot;
     }
 }

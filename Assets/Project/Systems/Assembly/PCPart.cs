@@ -106,6 +106,7 @@ public class PCPart : MonoBehaviour
     /// <summary>
     /// Encaja la pieza en <paramref name="socket"/>: se acerca por encima (a <paramref name="approachHeight"/>),
     /// baja hasta su sitio y solo entonces queda instalada (la victoria llega cuando la última pieza asienta).
+    /// Si el lugar pide inserción en ángulo (<see cref="SocketSystem.insertTilt"/>), entra inclinada y luego baja.
     /// </summary>
     public void InstallInto(SocketSystem socket, float duration, float approachHeight)
     {
@@ -116,6 +117,11 @@ public class PCPart : MonoBehaviour
 
         Vector3 seat = socket.SnapPosition;
         Quaternion rot = socket.SnapRotation;
+        if (socket.insertTilt > 0f && socket.insertHinge != null)
+        {
+            _moveRoutine = StartCoroutine(AngledInsertRoutine(socket, seat, rot, duration, approachHeight));
+            return;
+        }
         Vector3 above = seat + Vector3.up * approachHeight;
 
         _moveRoutine = StartCoroutine(MoveRoutine(above, rot, duration * 0.6f, () =>
@@ -165,6 +171,59 @@ public class PCPart : MonoBehaviour
         if (_moveRoutine == null) return;
         StopCoroutine(_moveRoutine);
         _moveRoutine = null;
+    }
+
+    /// <summary>
+    /// Inserción en ángulo, como la SO-DIMM o una tarjeta M.2: la pieza llega inclinada (<see cref="SocketSystem.insertTilt"/>)
+    /// a la boca del conector, se desliza dentro y gira sobre ese borde (<see cref="SocketSystem.insertHinge"/>) hasta su
+    /// sitio, donde las pestañas o el tornillo la sujetan. Dura más que un encaje normal para que se vea el gesto.
+    /// </summary>
+    private IEnumerator AngledInsertRoutine(SocketSystem socket, Vector3 seat, Quaternion rot, float duration, float approachHeight)
+    {
+        Vector3 pivot = socket.insertHinge.position;
+        Vector3 axis = socket.insertHinge.forward;
+        Quaternion tilt = Quaternion.AngleAxis(socket.insertTilt, axis);
+        Vector3 tiltedPos = pivot + tilt * (seat - pivot);
+        Quaternion tiltedRot = tilt * rot;
+
+        // Hacia dónde entra: del centro de la pieza inclinada al borde del conector, en el plano del giro.
+        Vector3 into = Vector3.ProjectOnPlane(pivot - VisualCenterAt(tiltedPos, tiltedRot), axis).normalized;
+        Vector3 mouth = tiltedPos - into * socket.insertSlide;
+        Vector3 above = mouth + Vector3.up * approachHeight * 0.5f;
+
+        float d = duration * 3f;
+        yield return Tween(above, tiltedRot, d * 0.30f);
+        yield return Tween(mouth, tiltedRot, d * 0.15f);
+        yield return Tween(tiltedPos, tiltedRot, d * 0.20f);
+
+        // Bajar girando sobre el borde del conector (el borde no se mueve).
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / Mathf.Max(d * 0.35f, 0.0001f);
+            Quaternion r = Quaternion.AngleAxis(socket.insertTilt * (1f - Mathf.SmoothStep(0f, 1f, t)), axis);
+            transform.SetPositionAndRotation(pivot + r * (seat - pivot), r * rot);
+            yield return null;
+        }
+        transform.SetPositionAndRotation(seat, rot);
+        _moveRoutine = null;
+        IsInstalled = true;
+        socket.InstallPart(this);
+    }
+
+    private IEnumerator Tween(Vector3 targetPos, Quaternion targetRot, float duration)
+    {
+        Vector3 fromPos = transform.position;
+        Quaternion fromRot = transform.rotation;
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / Mathf.Max(duration, 0.0001f);
+            float k = Mathf.SmoothStep(0f, 1f, t);
+            transform.SetPositionAndRotation(Vector3.Lerp(fromPos, targetPos, k), Quaternion.Slerp(fromRot, targetRot, k));
+            yield return null;
+        }
+        transform.SetPositionAndRotation(targetPos, targetRot);
     }
 
     private IEnumerator MoveRoutine(Vector3 targetPos, Quaternion targetRot, float duration, Action onDone)
