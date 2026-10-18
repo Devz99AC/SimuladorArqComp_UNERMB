@@ -220,7 +220,19 @@
 }
 
 /* ---------- Créditos ---------- */
+/* Caja a la medida de su contenido (nombres cortos): el 62 % de Opciones dejaba media caja vacía */
+.menu-modal--credits {
+    width: 780px;
+    min-width: 0;
+    max-width: 90%;
+}
 .credits-body { align-items: center; }
+.credits-divider {
+    align-self: stretch;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin-top: var(--space-4);
+}
 .credits-lead {
     font-size: 26px;
     color: rgb(28, 28, 28);

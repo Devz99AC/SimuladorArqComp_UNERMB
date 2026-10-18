@@ -54,7 +54,7 @@
             </ui:VisualElement>
         </ModalPanel>
         <ModalPanel name="credits-modal" close-on-backdrop="true">
-            <ui:VisualElement class="menu-modal">
+            <ui:VisualElement class="menu-modal menu-modal--credits">
                 <ui:VisualElement class="menu-modal__header">
                     <ui:Label text="CREDITOS" class="menu-modal__title"/>
                     <ui:Button name="credits-close" class="menu-modal__close"/>
@@ -65,10 +65,9 @@
                     <ui:Label text="- José Figueredo" class="credits-name"/>
                     <ui:Label text="- Carlos Mogollón" class="credits-name"/>
                     <ui:Label text="- Alejandro Mendez" class="credits-name"/>
-                    <ui:Label text="En memoria de:" class="credits-section"/>
-                    <ui:Label text="- José Aguilera (QEPD)" class="credits-name"/>
                     <ui:Label text="Tutor metodológico:" class="credits-section"/>
-                    <ui:Label text="- Jhonny Diaz" class="credits-name"/>
+                    <ui:Label text="- Amnaly Acosta" class="credits-name"/>
+                    <ui:VisualElement class="credits-divider"/>
                     <ui:Label text="Modelos 3D del laboratorio (CC BY 4.0, modificados, vía Sketchfab):" class="credits-section credits-section--small"/>
                     <ui:Label text="«Basic PC case» de Sousinho · «MotherBoard + Components» de Daniel Cardona · «RTX 3060 TI - LOW POLY» de Up1x · «CPU Cooler» de Fochdog · «Lian Li UNI FAN SL120» de DIEKO · «Laptop Dell Latitude 5400» de Yolala3D · «8 GB RAM SODIMM DDR4» de Cashierob · «Laptop cooling fan» de Guy in a Poncho · «Samsung 980 Pro NVMe» de BlenderFace" class="credits-small"/>
                 </ui:VisualElement>
